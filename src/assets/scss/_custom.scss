@@ -1,0 +1,16 @@
+// Here you can add other styles
+@import "bootstrap-variables2";
+
+.VueTables__search-field {
+  display: flex;
+  label {
+    margin-right: 5px;
+  }
+}
+
+.VueTables__limit-field {
+  display: flex;
+  label {
+    margin-right: 5px;
+  }
+}

@@ -1,0 +1,24 @@
+<template>
+    <div class="card mt-4">
+        <div class="card-header">
+            <h1>Godziny pracy</h1>
+        </div>
+        <div class="card-body mt-4">
+            <working-hours ref="workingHours"></working-hours>
+        </div>
+        <div class="card-footer">
+            <button @click="save" class="btn btn-lg btn-success">Zapisz</button>
+        </div>
+    </div>
+</template>
+<script>
+import WorkingHours from '../../components/WorkingHours'
+export default {
+  components: {WorkingHours},
+  methods: {
+    save () {
+      this.$refs.workingHours.save()
+    }
+  }
+}
+</script>
