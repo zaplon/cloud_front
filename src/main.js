@@ -5,6 +5,7 @@ import BootstrapVue from 'bootstrap-vue'
 import VueCookies from 'vue-cookies'
 import Autocomplete from 'vuejs-auto-complete'
 import FullCalendar from 'vue-full-calendar'
+import Notifications from 'vue-notification'
 import BackendForm from '@/components/BackendForm'
 import moment from 'moment'
 import {ServerTable} from 'vue-tables-2'
@@ -17,7 +18,7 @@ axios.defaults.baseURL = 'http://0.0.0.0:8080/'
 if (localStorage.token) { axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.token }
 // axios.defaults.headers.common['X-CSRFToken'] = VueCookies.get('csrftoken')
 Vue.use(BootstrapVue, axios, FullCalendar, VueCookies, BackendForm)
-
+Vue.use(Notifications)
 Vue.use(ServerTable, {
   responseAdapter (resp) { var data = this.getResponseData(resp); return { data: data.results, count: data.count } },
   requestFunction: function (data) {
@@ -46,6 +47,7 @@ Vue.use(ServerTable, {
 }, false, 'bootstrap4', 'default')
 
 Vue.prototype.$moment = moment
+Vue.prototype.$formsRoot = 'http://0.0.0.0:8080/static/forms/forms/'
 window.axios = axios
 
 Vue.component('backend-form', BackendForm)

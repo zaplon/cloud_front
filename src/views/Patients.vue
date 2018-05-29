@@ -1,17 +1,17 @@
 <template>
     <div class="card">
         <div class="card-header">
-            <h1>Pacjenci</h1>
+            Pacjenci
         </div>
         <div class="card-body">
-            <div class="btn-group mb-4" role="group" aria-label="Options">
+            <div class="mb-4">
                 <button type="button" class="btn btn-success" v-b-modal="'patientModal'">Dodaj</button>
                 <button type="button" class="btn btn-danger" disabled>Usuń</button>
             </div>
             <v-server-table url="rest/patients/" :columns="columns" :options="options"></v-server-table>
         </div>
         <b-modal size="lg" id="patientModal" title="Pacjent" @ok="modalOk" ref="modal">
-            <backend-form ref="patientForm" klass="PatientModelForm" module="user_profile.forms" :id="patientId"></backend-form>
+            <backend-form ref="patientForm" klass="PatientModelForm" module="user_profile.forms" :pk="patientId"></backend-form>
         </b-modal>
     </div>
 </template>

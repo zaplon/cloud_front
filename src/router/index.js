@@ -13,6 +13,9 @@ import Icd10 from '@/views/Icd10'
 import Medicines from '@/views/Medicines'
 import Patients from '@/views/Patients'
 import Stats from '@/views/Stats'
+import Tabs from '@/views/Tabs'
+import Archive from '@/views/Archive'
+import Templates from '@/views/Templates'
 import Visit from '@/views/visit/Visit'
 
 import Step1 from '@/views/setup/Step1'
@@ -110,14 +113,29 @@ var router = new Router({
           component: Patients
         },
         {
+          path: 'archive',
+          name: 'Archive',
+          component: Archive
+        },
+        {
           path: 'medicines',
           name: 'Medicines',
           component: Medicines
+        },
+        {
+          path: 'tabs',
+          name: 'Tabs',
+          component: Tabs
+        },
+        {
+          path: 'templates',
+          name: 'Templates',
+          component: Templates
         }
       ]
     },
     {
-      path: '/visit/:id/',
+      path: '/visit/:id',
       name: 'Visit',
       component: Visit,
       meta: { requiresAuth: true }

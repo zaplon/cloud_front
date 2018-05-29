@@ -30,10 +30,28 @@ export default {
       icon: 'fa fa-users'
     },
     {
+      id: 'archive',
+      name: 'Archiwum',
+      url: '/archive',
+      icon: 'fa fa-archive'
+    },
+    {
       id: 'medicines',
       name: 'Leki',
       url: '/medicines',
       icon: 'fa fa-medkit'
+    },
+    {
+      id: 'templates',
+      name: 'Szablony',
+      url: '/templates',
+      icon: 'fa fa-pencil-square-o'
+    },
+    {
+      id: 'tabs',
+      name: 'Zakładki',
+      url: '/tabs',
+      icon: 'fa fa-list-alt'
     }
   ]
 }

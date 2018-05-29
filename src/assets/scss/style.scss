@@ -7,19 +7,20 @@
  */
 
 // Override Boostrap variables
-@import "bootstrap-variables";
+@import "_bootstrap-variables.scss";
 
 // Import Bootstrap source files
 @import "~bootstrap/scss/bootstrap";
-
-//Bootswatch
-//@import "bootswatch";
 
 // Override core variables
 @import "core-variables";
 
 // Import core styles
 @import "core/core";
+
+//Bootswatch
+@import "bootswatch";
+
 
 // Custom styles
 @import "custom";

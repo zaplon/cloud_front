@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-header">
-            <h1>Lista kodów ICD-10</h1>
+            Lista kodów ICD-10
         </div>
         <div class="card-body">
             <v-server-table url="rest/icd/" :columns="columns" :options="options"></v-server-table>

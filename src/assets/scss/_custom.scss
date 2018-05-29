@@ -1,5 +1,5 @@
 // Here you can add other styles
-@import "bootstrap-variables2";
+@import "_bootstrap-variables.scss.back";
 
 .VueTables__search-field {
   display: flex;
@@ -13,4 +13,24 @@
   label {
     margin-right: 5px;
   }
+}
+
+.autocomplete__box {
+  padding: $input-padding-x $input-padding-y!important;
+}
+
+.fc-event.PENDING {
+  background-color: $info
+}
+
+.main {
+
+}
+
+#forms-nav {
+  border-top: 1px solid $gray-200;
+}
+
+.app-header {
+  top: 0px;
 }

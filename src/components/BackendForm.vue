@@ -22,14 +22,14 @@ export default {
       type: String,
       required: true
     },
-    id: {
+    pk: {
       type: Number,
       required: false
     }
   },
   methods: {
     loadHtml () {
-      axios.get(this.url, {params: {klass: this.klass, module: this.module, id: this.id}}).then(response => {
+      return axios.get(this.url, {params: {klass: this.klass, module: this.module, id: this.pk}}).then(response => {
         if (response.data.success) {
           this.htmlData = response.data.form_html
         }
