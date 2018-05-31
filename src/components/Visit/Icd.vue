@@ -2,17 +2,22 @@
     <div>
         <input class="form-control mb-4" type="text" v-model="inputValue" placeholder="kod lub opis rozpoznania" />
         <table class="table table-striped">
-            <tr class="table-info" v-for="selection in selections" :key="selection.desc">
-                <td>{{ selection.code }}</td><td>{{ selection.desc }}</td>
-                <td><button @click="remove(selection)" class="btn btn-danger">Usuń</button></td>
-            </tr>
-            <tr v-for="suggestion in suggestions" :key="suggestion.id">
-                <td>{{ suggestion.code }}</td><td>{{ suggestion.desc }}</td>
-                <td><button @click="add(suggestion)" class="btn btn-success">Dodaj</button></td>
-            </tr>
-            <tr v-if="suggestions.length == 0">
-                <td colspan="3" class="text-center"><span class="text-muted">Brak wyników</span></td>
-            </tr>
+            <thead>
+                <tr><th>Kod</th><th>Opis</th></tr>
+            </thead>
+            <tbody>
+                <tr class="table-info" v-for="selection in selections" :key="selection.desc">
+                    <td>{{ selection.code }}</td><td>{{ selection.desc }}</td>
+                    <td><button @click="remove(selection)" class="btn btn-danger">Usuń</button></td>
+                </tr>
+                <tr v-for="suggestion in suggestions" :key="suggestion.id">
+                    <td>{{ suggestion.code }}</td><td>{{ suggestion.desc }}</td>
+                    <td><button @click="add(suggestion)" class="btn btn-success">Dodaj</button></td>
+                </tr>
+                <tr v-if="suggestions.length == 0">
+                    <td colspan="3" class="text-center"><span class="text-muted">Brak wyników</span></td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </template>

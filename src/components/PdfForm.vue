@@ -3,7 +3,7 @@
         <iframe id="form-frame" :src="src"></iframe>
         <div slot="modal-footer" class="w-100">
             <b-btn size="sm" class="float-right" variant="default" @click="cancel">Zamknij</b-btn>
-            <b-btn size="sm" class="float-left mr-2" variant="primary" @click="print">Drukuj</b-btn>
+            <b-btn size="sm" class="float-left mr-2" variant="primary" @click="makePdf">Drukuj</b-btn>
             <b-btn size="sm" class="float-left" variant="success" @click="save">Prześlij do archiwum</b-btn>
         </div>
     </b-modal>
@@ -12,28 +12,34 @@
 import axios from 'axios'
 export default {
   name: 'pdf-form',
+  created () {
+    function receiveMessage (event) {
+      console.log(event.data)
+      window.open(axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 1) + event.data)
+    }
+    window.addEventListener('message', receiveMessage, false)
+  },
   methods: {
     show (name, title) {
       this.src = this.$formsRoot + name + '.html'
       this.title = title
+      this.name = name
       this.$refs.pdfFormModal.show()
-    },
-    print () {
-
     },
     cancel () {
       this.$refs.pdfFormModal.hide()
     },
-    getData () {
-      return ''
-    },
     save () {
-      axios.post('/forms/edit_form/', {
-        data: this.getData(),
+      axios.post('forms/edit_form/', {
+        data: this.data,
         tmp: true,
         name: this.name,
         nice_name: this.title
       }).then(response => { })
+    },
+    makePdf () {
+      let iframe = document.getElementById('form-frame')
+      iframe.contentWindow.postMessage({name: this.name}, 'http://0.0.0.0:8080')
     }
   },
   data () {

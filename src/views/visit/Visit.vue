@@ -36,12 +36,30 @@
                 </nav>
                 <div id="visit-nav-margin"></div>
                 <div class="container">
+
+                    <div class="card" v-if="visit.term">
+                        <div class="card-header">
+                            {{ visit.term.patient.first_name }} {{ visit.term.patient.last_name }}
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-2">Pesel</div>
+                                <div class="col-auto"><strong>{{ visit.term.patient.pesel }}</strong></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2">Adres</div>
+                                <div class="col-auto"><strong>{{ visit.term.patient.address }}</strong></div>
+                            </div>
+                        </div>
+                    </div>
+
                     <b-card no-body>
                         <b-tabs pills card>
                             <template v-for="tab in visit.tabs">
                                 <b-tab :key="tab.name" :title="tab.title" active>
                                     <icd v-if="tab.type=='TabTypes.ICD10'" :ref="tab.id" />
                                     <notes v-else-if="tab.type=='TabTypes.NOTES'" :ref="tab.id" />
+                                    <medicines :patient="visit.term.patient" v-else-if="tab.type=='TabTypes.MEDICINES'" :ref="tab.id" />
                                     <visit-tab :initial="tab.data" :ref="tab.id" v-else></visit-tab>
                                 </b-tab>
                             </template>
@@ -68,11 +86,12 @@ import Icd from '@/components/Visit/Icd'
 import VisitTab from '@/components/Visit/VisitTab'
 import Archive from '@/components/Visit/Archive'
 import Notes from '@/components/Visit/Notes'
+import Medicines from '@/components/Visit/Medicines'
 export default {
   name: 'visit',
   data () {
     return {
-      visit: {tabs: []},
+      visit: {tabs: [], term: {patient: {}, service: {}, doctor: {}}},
       formName: '',
       formTitle: '',
       visitPdf: '',
@@ -166,7 +185,8 @@ export default {
     AppHeader,
     VisitTab,
     Notes,
-    Archive
+    Archive,
+    Medicines
   }
 }
 </script>
