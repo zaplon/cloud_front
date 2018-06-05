@@ -1,45 +1,72 @@
 <template>
     <ul class="nav">
-        <template v-for="category in categories">
-            <li :key="category.name" class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="#" @click="openCategory(category)">{{ category.name }}</a>
-            </li>
-            <ul :key="category.name" v-show="category.open">
+        <li class="nav-item"><span class="nav-link" id="archive-header">
+           Archiwum <i @click="addDocument" id="add-document" class="fa fa-plus text-success"></i></span>
+        </li>
+        <li v-for="category in categories" :key="category.name">
+            <a class="nav-link" href="#" @click.prevent="openCategory(category)">
+                {{ category.name }} <span class="badge badge-info">{{ category.count }}</span>
+            </a>
+            <ul v-show="category.open" class="archive-category">
                 <li :key="document.id" class="nav-item" v-for="document in category.documents">
-                    <a class="nav-item" href="#" @click="showDocument(document)">{{ document.date }}</a>
+                    <a class="nav-item" href="#" @click.prevent="showDocument(document)">{{ document.uploaded | formatDate }}</a>
                 </li>
             </ul>
-        </template>
-        <b-modal ref="documentModal" id="documentModal" size="lg">
-            <embed :src="document.url" />
-            <div slot="modal-footer" class="w-100">
-                <b-btn size="sm" class="float-right" variant="default" @click="show=false">Zamknij</b-btn>
-                <b-btn size="sm" class="float-right mr-2" variant="primary" @click="printDocument">Drukuj</b-btn>
-            </div>
+        </li>
+        <b-modal body-class="text-dark" header-class="text-dark" cancel-title="Zamknij" size="md" id="newResultModal" title="Nowy dokument" @ok="modalOk" @cancel="modalCancel" ref="newResultModal">
+            <form-result ref="newResultForm"></form-result>
         </b-modal>
     </ul>
 </template>
 <script>
 import axios from 'axios'
+import FormResult from '../Forms/Result'
+import EventBus from '@/eventBus'
 export default {
   name: 'archive',
+  components: {FormResult},
+  props: {
+    pesel: String
+  },
   data () {
     return {
       categories: [{}],
-      document: {url: '', title: ''}
+      document: {file: '', title: ''}
     }
   },
   mounted () {
-    axios.get('rest/results/').then(response => { console.log(response.data) })
+    axios.get('rest/results/', {params: {pesel: this.pesel, as_categories: 1}}).then(
+      response => {
+        this.categories = response.data
+      })
   },
   methods: {
+    addDocument () {
+      this.$refs.newResultModal.show()
+    },
+    modalOk () {
+      this.$refs.newResultForm.save()
+    },
+    modalCancel () {
+      this.$refs.newResultModal.close()
+    },
     showDocument (document) {
+      this.document = document
+      EventBus.$emit('show-document', document.name, document.file)
     },
     openCategory (category) {
-      category.open = true
-    },
-    printDocument () {
-
+      if (category.open) {
+        category.open = false
+        return
+      }
+      if (!category.documents) {
+        axios.get('rest/results/', {pesel: this.pesel, category: category.name}).then((response) => {
+          this.$set(category, 'documents', response.data.results)
+          this.$set(category, 'open', true)
+        })
+      } else {
+        this.$set(category, 'open', true)
+      }
     },
     searchDocuments (query) {
       axios.get('rest/results/').then(response => { this.categories = response.data })
@@ -47,3 +74,14 @@ export default {
   }
 }
 </script>
+<style>
+    #add-document {
+        cursor: pointer
+    }
+    .archive-category {
+        list-style: none;
+    }
+    #archive-header:hover {
+        background-color: transparent!important;
+    }
+</style>

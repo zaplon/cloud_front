@@ -5,7 +5,8 @@
                     <full-calendar @event-drop="drop" ref="calendar" @event-selected="select" :event-sources="eventSources" :config="config"></full-calendar>
             </div>
             <div id="calendar-sidebar">
-                <h3>Najbliższe wizyty</h3>
+                <v-calendar :attributes='attrs' v-on:dayclick="setCalendarDate"></v-calendar>
+                <h3 class="mt-2">Najbliższe wizyty</h3>
                 <ul>
                     <li :key="visit.id" v-for="visit in nextVisits"><a :href="visit.link">{{ visit.title }}</a></li>
                     <li v-if="nextVisits.length == 0" class="text-muted">Brak zaplanowanych wizyt</li>
@@ -87,6 +88,10 @@ import axios from 'axios'
 export default {
   name: 'calendar',
   methods: {
+    setCalendarDate (payload) {
+      this.attrs[0].dates = payload.date
+      this.$refs.calendar.fireMethod('gotoDate', payload.date)
+    },
     cancelVisit () {
 
     },
@@ -232,6 +237,7 @@ export default {
         from: ''
       },
       nextVisits: [],
+      selectedDate: new Date(),
       eventSources:
           [
             {
@@ -241,7 +247,20 @@ export default {
                 })
               }
             }
-          ]
+          ],
+      attrs: [
+        {
+          key: 'today',
+          highlight: {
+            backgroundColor: '#008cba'
+            // Other properties are available too, like `height` & `borderRadius`
+          },
+          contentStyle: {
+            color: '#fafafa'
+          },
+          dates: new Date(new Date().setHours(0, 0, 0, 0))
+        }
+      ]
     }
   },
   components: {
@@ -267,7 +286,11 @@ export default {
         list-style: none;
     }
     #calendar-container {
+        vertical-align: top;
         display: inline-block;
         width: calc(100% - 300px);
+    }
+    .c-day-content {
+        cursor: pointer!important;
     }
 </style>

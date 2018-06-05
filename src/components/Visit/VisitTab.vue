@@ -1,11 +1,18 @@
 <template>
-    <textarea class="form-control visit-tab" v-model="content"></textarea>
+    <div>
+        <textarea class="form-control visit-tab" v-model="content"></textarea>
+        <tab-templates :templates="templates" @setData="setData"></tab-templates>
+    </div>
 </template>
 <script>
+import TabTemplates from '@/components/Visit/TabTemplates'
 export default {
   name: 'visit-tab',
+  components: {TabTemplates},
   props: {
-    initial: String
+    initial: String,
+    active: Boolean,
+    templates: Array
   },
   data () {
     return {
@@ -13,7 +20,10 @@ export default {
     }
   },
   methods: {
-    getData () { return this.content }
+    getData () { return this.content },
+    setData (content) {
+      this.content = content
+    }
   }
 }
 </script>

@@ -38,8 +38,14 @@ export default {
     {
       id: 'medicines',
       name: 'Leki',
-      url: '/medicines',
+      url: '/leki',
       icon: 'fa fa-medkit'
+    },
+    {
+      id: 'prescriptions',
+      name: 'Recepty',
+      url: '/recepty',
+      icon: 'fa fa-file-text'
     },
     {
       id: 'templates',

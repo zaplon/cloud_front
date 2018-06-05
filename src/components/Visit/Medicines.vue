@@ -18,16 +18,16 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Nazwa</th><th>Skład</th><th>Postać</th><th>Dawka</th><th></th>
+                    <th>Nazwa</th><th>Skład</th><th>Opakowanie</th><th>Refundacja</th><th>Postać</th><th>Dawka</th><th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="table-info" v-for="selection in selections" :key="selection.id">
                     <td>{{ selection.name }}</td><td>{{ selection.composition }}</td>
                     <td>
-                        <select v-model="selection.size" @click="getChildren(selection)">
+                        <select class="form-control" v-model="selection.size" @click="getChildren(selection)">
                             <option v-for="option in selection.children" v-bind:value="option.value" :key="option.id">
-                                {{ option.size }}
+                                {{ option.size }} <span v-if="option.refundation" class="badge badge-primary">nfz</span>
                             </option>
                         </select>
                     </td>
@@ -37,17 +37,24 @@
                 <tr v-for="suggestion in suggestions" :key="suggestion.id">
                     <td>{{ suggestion.name }}</td><td>{{ suggestion.composition }}</td>
                     <td>
-                        <select v-model="suggestion.size" @click="getChildren(suggestion)">
-                            <option v-for="option in suggestion.children" v-bind:value="option.value" :key="option.id">
-                                {{ option.size }}
+                        <select class="form-control" v-model="suggestion.size" @click="getChildren(suggestion)" @change="sizeSelected">
+                            <option v-if="!suggestion.children">Wybierz...</option>
+                            <option v-for="option in suggestion.children" v-bind:value="option.id" :key="option.id">
+                                {{ option.size }} <span v-if="option.refundation" class="badge badge-primary">nfz</span>
                             </option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-control" v-model="suggestion.refundation">
+                            <option v-if="!suggestion.refundation">0%</option>
+                            <option v-for="option in suggestion.refundations" v-bind:value="option.id" :key="option.id"></option>
                         </select>
                     </td>
                     <td>{{ suggestion.form }}</td><td>{{ suggestion.dose }}</td>
                     <td><button @click="add(suggestion)" class="btn btn-success">Dodaj</button></td>
                 </tr>
                 <tr v-if="suggestions.length == 0">
-                    <td colspan="5" class="text-center"><span class="text-muted">Brak wyników</span></td>
+                    <td colspan="7" class="text-center"><span class="text-muted">Brak wyników</span></td>
                 </tr>
             </tbody>
         </table>
@@ -66,7 +73,7 @@ export default {
   name: 'medicines',
   props: {
     patient: Object,
-    number: Number
+    number: String
   },
   data () {
     return {
@@ -95,11 +102,14 @@ export default {
       this.$refs.prescriptionModal.hide()
     },
     getChildren (suggestion) {
-      if (suggestion.children.length === 0) {
+      if (!suggestion.children) {
         axios.get('rest/medicines/', {params: {parent: suggestion.id}}).then(response => {
-          suggestion.children = response.results
+          this.$set(suggestion, 'children', response.data.results)
         })
       }
+    },
+    sizeSelected (event, data) {
+      console.log(event, data)
     },
     printRecipe () {
       axios.post('visit/recipe/', {medicines: this.suggestions,

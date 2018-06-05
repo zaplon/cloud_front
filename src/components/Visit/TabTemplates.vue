@@ -1,0 +1,46 @@
+<template>
+    <div class="mt-4">
+        <div class="btn-group mb-4">
+            <button class="btn btn-success" @click="showModal">Dodaj</button>
+        </div>
+        <div class="row">
+            <div v-for="template in templates" :key="template.name" class="col-md-6 col-sm-12">
+                <a href="#" @click="putTemplate(template)">({{ template.key }}) {{ template.text | truncate(100) }}</a>
+            </div>
+        </div>
+        <b-modal size="lg" id="templateModal" title="Nowy szablon" @ok="modalOk" @cancel="modalCancel" ref="templateModal">
+            <backend-form ref="templateForm" klass="TemplateForm" module="visit.forms" :pk="tab.id" />
+            <div slot="modal-footer" class="w-100">
+                <b-btn size="sm" class="float-right" variant="primary" @click="modalCancel">Anuluj</b-btn>
+                <b-btn size="sm" class="float-right mr-2" variant="default" @click="modalOk">{{ tab.ok }}</b-btn>
+            </div>
+        </b-modal>
+    </div>
+</template>
+<script>
+export default {
+  name: 'tab-templates',
+  methods: {
+    showModal () {
+      this.$refs.templateModal.show()
+    },
+    modalOk () {
+      this.$refs.templateForm.handleSubmit(() => this.$refs.tabModal.hide())
+    },
+    modalCancel () {
+      this.$refs.templateModal.hide()
+    },
+    putTemplate (template) {
+      this.$emit('setData', template.text)
+    }
+  },
+  data () {
+    return {
+      tab: {ok: 'Dodaj'}
+    }
+  },
+  props: {
+    templates: Array
+  }
+}
+</script>

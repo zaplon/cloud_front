@@ -13,7 +13,7 @@
         </div>
         <div class="form-group">
             <label for="desc">Opis</label>
-            <textarea v-model="form.description" rows="10" class="form-control" id="desc"></textarea>
+            <textarea v-model="form.description" rows="5" class="form-control" id="desc"></textarea>
             <div :key="error" v-for="error in errors.description" class="invalid-feedback">{{ error }}</div>
         </div>
         <div class="form-group">
@@ -27,10 +27,10 @@
             <div :key="error" v-for="error in errors.patient" class="invalid-feedback">{{ error }}</div>
         </div>
         <div class="form-group">
-            <label>Lekarz</label>
-            <autocomplete id="doctor" input-class="form-control" @selected="selectDoctor"
-                          :source="doctorsUrl"
-                          results-property="results" placeholder="Wyszukaj..." :initialDisplay="autocompletes.doctor"
+            <label>Kategoria</label>
+            <autocomplete id="specialization" input-class="form-control" @selected="selectSpecialization"
+                          :source="specializationsUrl"
+                          results-property="results" placeholder="Wyszukaj..." :initialDisplay="autocompletes.specialization"
                           results-display="name">
             </autocomplete>
         </div>
@@ -48,14 +48,14 @@ export default {
     autocompletes () {
       return {
         patient: null,
-        doctor: null
+        specialization: null
       }
     }
   },
   data () {
     return {
       patientsUrl: axios.defaults.baseURL + 'rest/patients/?term=',
-      doctorsUrl: axios.defaults.baseURL + 'rest/doctors/?term=',
+      specializationsUrl: axios.defaults.baseURL + 'rest/specializations/?term=',
       url: axios.defaults.baseURL + 'rest/results/',
       form: {name: '', file: '', doctor: '', patient: '', description: ''},
       errors: {}
@@ -95,8 +95,8 @@ export default {
     selectPatient (obj) {
       this.form.patient = obj.selectedObject.id
     },
-    selectDoctor (obj) {
-      this.form.doctor = obj.selectedObject.id
+    selectSpecialization (obj) {
+      this.form.specialization = obj.selectedObject.id
     }
   },
   components: {

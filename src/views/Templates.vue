@@ -7,10 +7,12 @@
             <div class="btn-group mb-4">
                 <button class="btn btn-success" @click="addTemplate">Dodaj</button>
             </div>
-            <v-server-table url="rest/templates/" :columns="columns" :options="options"></v-server-table>
+            <v-server-table url="rest/templates/" :columns="columns" :options="options">
+                <a href="#" slot="name" @click.prevent="editTemplate(props.row)" slot-scope="props">{{ props.row.name }}</a>
+            </v-server-table>
         </div>
         <b-modal size="sm" id="templateModal" :title="template.title" @ok="modalOk" @cancel="modalCancel" ref="templateModal">
-            <backend-form ref="templateForm" klass="TemplateForm" module="visit.forms" :pk="template.id" />
+            <backend-form ref="templateForm" klass="TemplateForm" module="visit.forms" />
             <div slot="modal-footer" class="w-100">
                 <b-btn size="sm" class="float-right" variant="primary" @click="modalCancel">Anuluj</b-btn>
                 <b-btn size="sm" class="float-right mr-2" variant="default" @click="modalOk">Zapisz</b-btn>
@@ -30,12 +32,19 @@ export default {
     },
     addTemplate () {
       this.template.title = 'Nowy szablon'
-      this.$refs.templateModal.show()
+      if (this.template.id) {
+        this.template.id = null
+        this.$refs.templateForm.loadHtml().then(response => { this.$refs.templatebModal.show() })
+      } else { this.$refs.templateModal.show() }
+    },
+    editTemplate (template) {
+      this.template.title = 'Edycja szablonu'
+      this.$refs.templateForm.loadHtml(template.id).then(response => { this.$refs.templateModal.show() })
     }
   },
   data () {
     return {
-      template: {title: ''},
+      template: {title: '', id: null},
       columns: ['name', 'text', 'tab_name'],
       options: {
         headings: {'name': 'Nazwa', 'text': 'Treść', 'tab_name': 'Zakładka'}

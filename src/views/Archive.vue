@@ -8,7 +8,9 @@
                 <button type="button" class="btn btn-success" v-b-modal="'resultModal'">Dodaj</button>
                 <button type="button" class="btn btn-danger" disabled>Usuń</button>
             </div>
-            <v-server-table url="rest/results/" :columns="columns" :options="options"></v-server-table>
+            <v-server-table url="rest/results/" :columns="columns" :options="options">
+                <button class="btn btn-link" slot="file" @click="showDocument(props.row)" slot-scope="props"><i class="fa fa-file-pdf-o"></i></button>
+            </v-server-table>
         </div>
         <b-modal size="lg" id="resultModal" title="Archiwum" @ok="modalOk" ref="modal">
             <form-result ref="resultForm"></form-result>
@@ -21,10 +23,15 @@
 </template>
 <script>
 import FormResult from '../components/Forms/Result'
+import EventBus from '@/eventBus'
+
 export default {
   name: 'archive',
   components: {FormResult},
   methods: {
+    showDocument (document) {
+      EventBus.$emit('show-document', document.file, document.name)
+    },
     modalOk () {
       this.$refs.resultForm.save().then(response => this.$refs.modal.hide())
     },
@@ -35,9 +42,9 @@ export default {
   data () {
     return {
       resultId: null,
-      columns: ['patient_name', 'pesel', 'name'],
+      columns: ['patient', 'pesel', 'name', 'file'],
       options: {
-        headings: {'patient_name': 'Pacjent', 'pesel': 'Pesel', 'nazwa': 'Nazwa'}
+        headings: {'patient': 'Pacjent', 'pesel': 'Pesel', 'nazwa': 'Nazwa', 'file': 'Plik'}
       }
     }
   }

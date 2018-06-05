@@ -21,15 +21,11 @@ export default {
     module: {
       type: String,
       required: true
-    },
-    pk: {
-      type: Number,
-      required: false
     }
   },
   methods: {
-    loadHtml () {
-      return axios.get(this.url, {params: {klass: this.klass, module: this.module, id: this.pk}}).then(response => {
+    loadHtml (id) {
+      return axios.get(this.url, {params: {klass: this.klass, module: this.module, id: id}}).then(response => {
         if (response.data.success) {
           this.htmlData = response.data.form_html
         }
@@ -37,6 +33,8 @@ export default {
     },
     handleSubmit (callback) {
       var data = {}
+      let id = parseInt(this.$el.getAttribute('pk'))
+      if (id) { data.id = id }
       var form = new FormData(this.$el)
       for (var pair of form.entries()) {
         if (pair[0] in data) { if (typeof (data[pair[0]]) !== 'object') { data[pair[0]] = [data[pair[0]]] } data[pair[0]].push(pair[1]) }

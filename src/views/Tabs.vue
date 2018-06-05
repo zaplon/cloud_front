@@ -11,7 +11,7 @@
                 </thead>
                 <tbody>
                 <tr v-for="tab in tabs" :key="tab.id">
-                    <td><a href="#" @click="editTab(tab)">{{ tab.title }}</a></td>
+                    <td><button class="btn btn-link" @click="editTab(tab)">{{ tab.title }}</button></td>
                     <td>{{ tab.type }}</td>
                     <td><button @click="deleteTab(tab)" class="btn btn-danger">Usuń</button></td>
                 </tr>
@@ -31,11 +31,6 @@
 import axios from 'axios'
 export default {
   name: 'tabs',
-  computed: {
-    tabId () {
-      return this.tab.id
-    }
-  },
   data () {
     return {
       tabs: [],
@@ -47,15 +42,13 @@ export default {
       this.tab.title = 'Edycja zakładki'
       this.tab.ok = 'Zapisz'
       this.tab.id = tab.id
-      this.$refs.tabForm.$props.pk = tab.id
-      this.$refs.tabForm.loadHtml().then(response => { this.$refs.tabModal.show() })
+      this.$refs.tabForm.loadHtml(tab.id).then(response => { this.$refs.tabModal.show() })
     },
     addTab () {
       this.tab.title = 'Nowa zakładka'
       this.tab.ok = 'Dodaj'
       if (this.tab.id) {
         this.tab.id = null
-        this.$refs.tabForm.$props.pk = null
         this.$refs.tabForm.loadHtml().then(response => { this.$refs.tabModal.show() })
       } else { this.$refs.tabModal.show() }
     },

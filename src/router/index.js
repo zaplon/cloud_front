@@ -10,13 +10,20 @@ import Setup from '@/containers/Setup'
 import Dashboard from '@/views/Dashboard'
 import Calendar from '@/views/Calendar'
 import Icd10 from '@/views/Icd10'
-import Medicines from '@/views/Medicines'
 import Patients from '@/views/Patients'
 import Stats from '@/views/Stats'
 import Tabs from '@/views/Tabs'
 import Archive from '@/views/Archive'
 import Templates from '@/views/Templates'
 import Visit from '@/views/visit/Visit'
+
+import {default as MedicinesIndex} from '@/views/medicines/Index'
+import Medicines from '@/views/medicines/Medicines'
+import Medicine from '@/views/medicines/Medicine'
+
+import {default as PrescriptionsIndex} from '@/views/prescriptions/Index'
+import Prescriptions from '@/views/prescriptions/Prescriptions'
+import Prescription from '@/views/prescriptions/Prescription'
 
 import Step1 from '@/views/setup/Step1'
 import Step2 from '@/views/setup/Step2'
@@ -118,9 +125,41 @@ var router = new Router({
           component: Archive
         },
         {
-          path: 'medicines',
-          name: 'Medicines',
-          component: Medicines
+          path: 'recepty',
+          name: 'Recepty',
+          component: PrescriptionsIndex,
+          redirect: 'recepty/lista',
+          children: [
+            {
+              path: 'lista',
+              name: 'Lista',
+              component: Prescriptions
+            },
+            {
+              path: 'nowa',
+              name: 'Nowa recepta',
+              component: Prescription,
+              props: { new: true }
+            }
+          ]
+        },
+        {
+          path: 'leki',
+          name: 'Leki',
+          component: MedicinesIndex,
+          redirect: 'leki/lista',
+          children: [
+            {
+              path: 'lista',
+              name: 'Lista',
+              component: Medicines
+            },
+            {
+              path: ':id',
+              name: 'Lek',
+              component: Medicine
+            }
+          ]
         },
         {
           path: 'tabs',
@@ -154,7 +193,7 @@ router.beforeEach((to, from, next) => {
     } else {
       console.log(store.state)
       if (!store.state.user.id) {
-        AccountApi.getUserData().then(response => { console.log('loaded'); next() })
+        AccountApi.getUserData().then(response => { next() })
       } else { next() }
     }
   } else {

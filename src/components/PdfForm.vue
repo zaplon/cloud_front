@@ -3,7 +3,7 @@
         <iframe id="form-frame" :src="src"></iframe>
         <div slot="modal-footer" class="w-100">
             <b-btn size="sm" class="float-right" variant="default" @click="cancel">Zamknij</b-btn>
-            <b-btn size="sm" class="float-left mr-2" variant="primary" @click="makePdf">Drukuj</b-btn>
+            <b-btn size="sm" class="float-left mr-2" variant="info" @click="makePdf">Drukuj</b-btn>
             <b-btn size="sm" class="float-left" variant="success" @click="save">Prześlij do archiwum</b-btn>
         </div>
     </b-modal>

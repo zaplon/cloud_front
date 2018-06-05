@@ -2,12 +2,28 @@
   <div>
     <notifications group="nots" />
     <router-view></router-view>
+    <pdf-document ref="pdfDocument"></pdf-document>
   </div>
 </template>
 
 <script>
+import PdfDocument from '@/components/PdfDocument'
+import EventBus from '@/eventBus'
+
 export default {
-  name: 'app'
+  name: 'app',
+  components: {PdfDocument},
+  methods: {
+    showDocument (file, title) {
+      this.$refs.pdfDocument.showDocument(file, title)
+    }
+  },
+  mounted () {
+    EventBus.$on('show-document', (file, title) => {
+      console.log(file, title)
+      this.$refs.pdfDocument.showDocument(file, title)
+    })
+  }
 }
 </script>
 

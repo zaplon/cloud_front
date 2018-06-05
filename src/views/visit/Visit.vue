@@ -3,10 +3,7 @@
         <AppHeader/>
             <div class="app-body" id="visit-body">
                 <div class="sidebar" id="visit-sidebar">
-                    <ul class="nav">
-                        <li class="nav-item"><a class="nav-link"><i class="nav-icon fa fa-archive"></i> Archiwum</a></li>
-                    </ul>
-                    <archive></archive>
+                    <archive :pesel="visit.term.patient.pesel"></archive>
                 </div>
                 <div class="main">
                 <nav class="navbar navbar-light bg-light justify-content-between" id="visit-nav">
@@ -14,6 +11,9 @@
                         <button class="btn btn-light mr-2" @click="printVisit" type="button">
                             <i class="fa fa-print"></i>&nbsp;Wizyta
                         </button>
+                        <button type="button" @click="showForms('karty')"
+                                :class="{btn: true, 'btn-light': true, 'mr-2': true, 'active': (forms.type=='karty')}"
+                        ><i class="fa fa-print"></i>&nbsp;Karty badań</button>
                         <button type="button" @click="showForms('orzeczenia')"
                                 :class="{btn: true, 'btn-light': true, 'mr-2': true, 'active': (forms.type=='orzeczenia')}"
                         ><i class="fa fa-print"></i>&nbsp;Orzeczenia</button>
@@ -54,13 +54,14 @@
                     </div>
 
                     <b-card no-body>
-                        <b-tabs pills card>
+                        <b-tabs pills card v-model="tabIndex">
                             <template v-for="tab in visit.tabs">
                                 <b-tab :key="tab.name" :title="tab.title" active>
                                     <icd v-if="tab.type=='TabTypes.ICD10'" :ref="tab.id" />
                                     <notes v-else-if="tab.type=='TabTypes.NOTES'" :ref="tab.id" />
                                     <medicines :patient="visit.term.patient" v-else-if="tab.type=='TabTypes.MEDICINES'" :ref="tab.id" />
-                                    <visit-tab :initial="tab.data" :ref="tab.id" v-else></visit-tab>
+                                    <visit-tab :templates="templates.filter((t) => t.tab_title == tab.title)"
+                                               :initial="tab.data" :ref="tab.id" v-else></visit-tab>
                                 </b-tab>
                             </template>
                         </b-tabs>
@@ -69,19 +70,13 @@
             </div>
         </div>
         <pdf-form ref="pdfForm"></pdf-form>
-        <b-modal size="lg" id="visitPDFModal" title="Historia choroby" ref="visitPDFModal">
-            <embed :src="visitPdf" id="form-frame">
-            <div slot="modal-footer" class="w-100">
-                <button @click="hideVisitPdf" class="pull-right btn btn-sm btn-default">Zamknij</button>
-                <button @click="print" class="pull-right mr-2 btn btn-sm btn-info">Drukuj</button>
-            </div>
-        </b-modal>
     </div>
 </template>
 <script>
 import {Header as AppHeader} from '@/components/'
 import axios from 'axios'
 import PdfForm from '@/components/PdfForm'
+import PdfDocument from '@/components/PdfDocument'
 import Icd from '@/components/Visit/Icd'
 import VisitTab from '@/components/Visit/VisitTab'
 import Archive from '@/components/Visit/Archive'
@@ -92,35 +87,39 @@ export default {
   data () {
     return {
       visit: {tabs: [], term: {patient: {}, service: {}, doctor: {}}},
+      templates: [],
       formName: '',
       formTitle: '',
-      visitPdf: '',
+      tabIndex: 0,
       forms: {
         show: false,
         items: [],
         type: null,
-        orzeczenia: [{name: 'ABA', title: 'ABA'}],
-        zaswiadczenia: []
+        orzeczenia: [{name: 'ABA', title: 'ABA'}, {name: 'orzeczenie_kierowcy', title: 'Orzeczenie kierowcy'},
+          {name: 'orzeczenie_niezdolnosc_do_pracy', title: 'Orzeczenie o niezdolności do pracy'},
+          {name: 'orzeczenie_zdolnosc_do_pracy', title: 'Orzeczenie o zdolności do pracy'}],
+        zaswiadczenia: [{name: 'zaswiadczenie', title: 'Zaświadczenie'}],
+        karty: [{name: 'karta_badania_profilaktycznego', title: 'Karta badania profilaktycznego'},
+          {name: 'kierowca', title: 'Karta badania kierowcy'}]
       }
     }
   },
   methods: {
-    hideVisitPdf () {
-      this.$refs.visitPDFModal.hide()
+    showDocument (file, title) {
+      this.$refs.pdfDocument.showDocument(title, file)
     },
+    hideVisitPdf () { this.$refs.visitPDFModal.hide() },
     showForms (type) {
       if (type === this.forms.type) { this.forms.show = false } else { this.forms.show = true }
       if (this.forms.show) { this.forms.type = type } else { this.forms.type = null }
       this.forms.items = this.forms[type]
     },
-    showForm (form) {
-      this.$refs.pdfForm.show(form.title, form.name)
-    },
+    showForm (form) { this.$refs.pdfForm.show(form.title, form.name) },
     printVisit () {
       this.saveVisit(true, true).then(
         axios.get('visit/pdf/' + this.$route.params.id + '/?as_link=1/').then(response => {
-          this.visitPdf = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data
-          this.$refs.visitPDFModal.show()
+          let visitPdf = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data
+          this.showDocument('Historia choroby', visitPdf)
         })
       )
     },
@@ -178,9 +177,11 @@ export default {
     axios.get('rest/visits/' + this.$route.params.id + '/').then(response => {
       this.visit = response.data
     })
+    axios.get('rest/templates/').then(response => { this.templates = response.data.results })
   },
   components: {
     PdfForm,
+    PdfDocument,
     Icd,
     AppHeader,
     VisitTab,
