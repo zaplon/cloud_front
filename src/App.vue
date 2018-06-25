@@ -20,7 +20,6 @@ export default {
   },
   mounted () {
     EventBus.$on('show-document', (file, title) => {
-      console.log(file, title)
       this.$refs.pdfDocument.showDocument(file, title)
     })
   }

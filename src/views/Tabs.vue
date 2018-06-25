@@ -1,7 +1,7 @@
 <template>
     <div class="card">
+        <div class="card-header">Zakładki</div>
         <div class="card-body">
-            <h4 class="card-title">Zakładki</h4>
             <div class="btn-group mb-4">
                 <button class="btn btn-success" @click="addTab">Dodaj</button>
             </div>
@@ -13,7 +13,11 @@
                 <tr v-for="tab in tabs" :key="tab.id">
                     <td><button class="btn btn-link" @click="editTab(tab)">{{ tab.title }}</button></td>
                     <td>{{ tab.type }}</td>
-                    <td><button @click="deleteTab(tab)" class="btn btn-danger">Usuń</button></td>
+                    <td>
+                        <button v-if="!tab.enabled" @click="changeTabState(tab)" class="btn btn-info">Włącz</button>
+                        <button v-if="tab.enabled" @click="changeTabState(tab)" class="btn btn-info">Wyłącz</button>
+                        <button @click="deleteTab(tab)" class="btn btn-danger">Usuń</button>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -38,6 +42,11 @@ export default {
     }
   },
   methods: {
+    changeTabState (tab) {
+      axios.patch('rest/tabs/' + tab.id + '/', {enabled: !tab.enabled}).then((response) => {
+        tab.enabled = !tab.enabled
+      })
+    },
     editTab (tab) {
       this.tab.title = 'Edycja zakładki'
       this.tab.ok = 'Zapisz'

@@ -8,6 +8,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
+    <prescription-numbers class="mr-2"></prescription-numbers>
     <settings/>
 
     <button class="navbar-toggler aside-menu-toggler d-md-down-none" type="button" @click="asideToggle">
@@ -17,9 +18,11 @@
 </template>
 <script>
 import Settings from './Settings'
+import PrescriptionNumbers from './PrescriptionNumbers'
 export default {
   name: 'c-header',
   components: {
+    PrescriptionNumbers,
     Settings
   },
   methods: {

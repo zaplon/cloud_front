@@ -1,90 +1,92 @@
 <template>
     <div>
         <form @submit.prevent="printRecipe" class="mb-2">
-            <div class="form-row">
+            <div class="form-row align-items-center">
                 <div class="col-auto">
-                    <input class="form-control" type="number" id="nfz-number" v-model="prescription.nfz" placeholder="Oddział NFZ">
+                    <input class="form-control" type="number" id="nfz-number" v-model="prescription.nfz"
+                           placeholder="Oddział NFZ">
                 </div>
                 <div class="col-auto">
-                    <input class="form-control" type="date" id="realisation-date" v-model="prescription.realisationDate"
-                    placeholder="Data realizacji">
+                    <input class="form-control" type="text" id="permissions" v-model="prescription.permissions"
+                           placeholder="Uprawnienia dodatkowe">
                 </div>
                 <div class="col-auto">
-                    <button :disabled="this.selections.length==0" class="btn btn-info">Drukuj</button>
+                    <v-date-picker mode='single' v-model='prescription.realisationDate'>
+                        <input placeholder="Data realizacji" :value='props.inputValue' type="text" class="form-control" slot-scope="props">
+                    </v-date-picker>
+                </div>
+                <div class="col-auto">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input title="Zamieść numer recepty na wydruku" class="form-check-input"
+                                   type="checkbox" v-model="prescription.number"
+                                   :disabled="this.$store.state.user.doctor.available_prescriptions == 0">
+                            Z numerem
+                        </label>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button :disabled="!this.patient.id || !this.prescription.realisationDate" class="btn btn-info">Drukuj</button>
                 </div>
             </div>
         </form>
-        <input class="form-control mb-4" type="text" v-model="inputValue" placeholder="nazwa lub substancja czynna" />
+        <input class="form-control mb-4" type="text" v-model="inputValue" placeholder="nazwa lub substancja czynna"/>
         <table class="table table-striped">
             <thead>
-                <tr>
-                    <th>Nazwa</th><th>Skład</th><th>Opakowanie</th><th>Refundacja</th><th>Postać</th><th>Dawka</th><th></th>
-                </tr>
+            <tr>
+                <th>Nazwa</th>
+                <th>Skład</th>
+                <th>Opakowanie</th>
+                <th>Refundacja</th>
+                <th>Postać</th>
+                <th>Dawka</th>
+                <th>Dawkowanie</th>
+                <th></th>
+            </tr>
             </thead>
             <tbody>
-                <tr class="table-info" v-for="selection in selections" :key="selection.id">
-                    <td>{{ selection.name }}</td><td>{{ selection.composition }}</td>
-                    <td>
-                        <select class="form-control" v-model="selection.size" @click="getChildren(selection)">
-                            <option v-for="option in selection.children" v-bind:value="option.value" :key="option.id">
-                                {{ option.size }} <span v-if="option.refundation" class="badge badge-primary">nfz</span>
-                            </option>
-                        </select>
-                    </td>
-                    <td>{{ selection.form }}</td><td>{{ selection.dose }}</td>
-                    <td><button @click="remove(selection)" class="btn btn-danger">Usuń</button></td>
-                </tr>
-                <tr v-for="suggestion in suggestions" :key="suggestion.id">
-                    <td>{{ suggestion.name }}</td><td>{{ suggestion.composition }}</td>
-                    <td>
-                        <select class="form-control" v-model="suggestion.size" @click="getChildren(suggestion)" @change="sizeSelected">
-                            <option v-if="!suggestion.children">Wybierz...</option>
-                            <option v-for="option in suggestion.children" v-bind:value="option.id" :key="option.id">
-                                {{ option.size }} <span v-if="option.refundation" class="badge badge-primary">nfz</span>
-                            </option>
-                        </select>
-                    </td>
-                    <td>
-                        <select class="form-control" v-model="suggestion.refundation">
-                            <option v-if="!suggestion.refundation">0%</option>
-                            <option v-for="option in suggestion.refundations" v-bind:value="option.id" :key="option.id"></option>
-                        </select>
-                    </td>
-                    <td>{{ suggestion.form }}</td><td>{{ suggestion.dose }}</td>
-                    <td><button @click="add(suggestion)" class="btn btn-success">Dodaj</button></td>
-                </tr>
-                <tr v-if="suggestions.length == 0">
-                    <td colspan="7" class="text-center"><span class="text-muted">Brak wyników</span></td>
-                </tr>
+            <medicine-row :ref="selection.id" v-on:remove-record="remove" :medicine="selection" klass="table-info"
+                          v-for="selection in selections" :key="selection.id"></medicine-row>
+            <medicine-row v-on:add-record="add" :medicine="suggestion" v-for="suggestion in suggestions" to-add
+                          :key="suggestion.id" v-if="!suggestion.selected"></medicine-row>
+            <tr v-if="suggestions.length == 0">
+                <td colspan="8" class="text-center"><span class="text-muted">Brak wyników</span></td>
+            </tr>
             </tbody>
         </table>
-        <b-modal size="lg" id="prescriptionModal" title="Recepta" ref="prescriptionModal">
-            <embed :src="prescription.url" id="form-frame">
-            <div slot="modal-footer" class="w-100">
-                <button @click="hidePrescription" class="pull-right btn btn-sm btn-default">Zamknij</button>
-            </div>
-        </b-modal>
     </div>
 </template>
 <script>
 import axios from 'axios'
 import _ from 'lodash'
+import EventBus from '@/eventBus'
+import MedicineRow from './MedicineRow'
+
 export default {
   name: 'medicines',
+  components: {MedicineRow},
   props: {
     patient: Object,
-    number: String
+    instance: {
+      type: Number,
+      default: 0
+    },
+    data: {
+      type: Array,
+      default: () => []
+    }
   },
   data () {
     return {
-      selections: [],
+      selections: this.data,
       suggestions: [],
       excludes: [],
       inputValue: [],
       prescription: {
         nfz: '',
         realisationDate: new Date(),
-        permissions: '',
+        number: false,
+        permissions: 'X',
         url: ''
       }
     }
@@ -98,35 +100,44 @@ export default {
     }
   },
   methods: {
-    hidePrescription () {
-      this.$refs.prescriptionModal.hide()
-    },
-    getChildren (suggestion) {
-      if (!suggestion.children) {
-        axios.get('rest/medicines/', {params: {parent: suggestion.id}}).then(response => {
-          this.$set(suggestion, 'children', response.data.results)
-        })
-      }
-    },
-    sizeSelected (event, data) {
-      console.log(event, data)
+    save () {
+      let medicines = []
+      this.selections.forEach((s) => {
+        medicines.push({medicine: s.child.id,
+          dosage: s.dosage,
+          refundation: parseInt(s.refundation) ? parseInt(s.refundation) : null})
+      })
+      axios.post('rest/prescriptions/', { patient: this.patient.id,
+        doctor: this.$store.state.user.doctor.id,
+        medicines: medicines,
+        nfz: this.prescription.nfz,
+        permissions: this.prescription.permissions,
+        date: this.prescription.realisationDate})
     },
     printRecipe () {
-      axios.post('visit/recipe/', {medicines: this.suggestions,
+      this.save()
+      let medicines = []
+      console.log(this.$refs)
+      this.selections.forEach((s) => { medicines.push(this.$refs[s.id][0].getData()) })
+      axios.post('visit/recipe/', {
+        medicines: this.selections,
         nfz: this.prescription.nfz,
         permissions: this.prescription.permissions,
         number: this.number,
-        patient: this.patient,
-        realisationDate: this.prescription.realisationDate}).then(response => {
-        this.prescription.url = axios.defaults.baseURL + response
-        this.$refs.prescriptionModal.show()
+        patient: this.patient.id,
+        realisationDate: this.$moment(this.prescription.realisationDate).format('DD.MM.YY')
+      }).then(response => {
+        let prescriptionUrl = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data.url
+        EventBus.$emit('show-document', prescriptionUrl, 'Recepta')
       })
     },
     add (record) {
       this.selections.push(record)
-      this.suggestions.splice(this.suggestions.indexOf(record), 1)
+      record.selected = true
+      // this.suggestions.splice(this.suggestions.indexOf(record), 1)
     },
     remove (record) {
+      record.selected = false
       this.selections.splice(this.selections.indexOf(record), 1)
     },
     getSuggestions () {
@@ -135,10 +146,17 @@ export default {
         console.log(this.suggestions)
       })
     },
-    getData () { return this.selections }
+    getData () {
+      return this.selections
+    }
   },
   mounted () {
     this.getSuggestions()
+    if (this.instance) {
+      axios.get('rest/prescriptions/' + this.instance + '/').then(response => {
+        this.selections = response.data.medicines
+      })
+    }
   }
 }
 </script>

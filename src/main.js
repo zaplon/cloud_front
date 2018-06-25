@@ -13,7 +13,7 @@ import axios from 'axios'
 import App from './App'
 import router from './router'
 import store from './store'
-import {setupCalendar, Calendar} from 'v-calendar'
+import {setupCalendar, Calendar, DatePicker} from 'v-calendar'
 import 'v-calendar/lib/v-calendar.min.css'
 
 axios.defaults.baseURL = 'http://0.0.0.0:8080/'
@@ -51,11 +51,20 @@ Vue.use(ServerTable, {
 
 Vue.prototype.$moment = moment
 Vue.prototype.$formsRoot = 'http://0.0.0.0:8080/static/forms/forms/'
+Vue.prototype.$urlEncode = (data) => Object.keys(data).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`).join('&')
+var hasPermissions = (permission) => (app.$store.state.user.user_permissions.filter((p) => p.name === permission).length > 0)
+Vue.prototype.$hasPermissions = hasPermissions
+Vue.directive('permission', function (el, binding, vnode) {
+  if (vnode.context.$store.state.user.user_permissions.filter((p) => p.name === binding.value).length === 0) {
+    el.style.display = 'none'
+  }
+})
 window.axios = axios
 
-Vue.filter('formatDate', function (value) {
+Vue.filter('formatDate', function (value, format) {
+  if (!format) { format = 'YYYY-MM-DD' }
   if (value) {
-    return moment(String(value)).format('YYYY-MM-DD')
+    return moment(String(value)).format(format)
   }
 })
 
@@ -72,12 +81,22 @@ Vue.filter('truncate', function (text, length, clamp) {
   return tcText + clamp
 })
 
-setupCalendar({firstDayOfWeek: 2, locale: 'pl-pl', dates: new Date()})
+setupCalendar({firstDayOfWeek: 2,
+  locale: 'pl-pl',
+  dates: new Date(),
+  formats: {
+    title: 'MMMM YYYY',
+    weekdays: 'W',
+    navMonths: 'MMM',
+    input: ['YYYY-MM-DD', 'YYYY/MM/DD', 'L'],
+    dayPopover: 'L'
+  }})
 
 Vue.component('backend-form', BackendForm)
 Vue.component('v-calendar', Calendar)
+Vue.component('v-date-picker', DatePicker)
 /* eslint-disable no-new */
-new Vue({
+var app = new Vue({
   el: '#app',
   store,
   router,

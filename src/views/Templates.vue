@@ -7,7 +7,7 @@
             <div class="btn-group mb-4">
                 <button class="btn btn-success" @click="addTemplate">Dodaj</button>
             </div>
-            <v-server-table url="rest/templates/" :columns="columns" :options="options">
+            <v-server-table ref="table" url="rest/templates/" :columns="columns" :options="options">
                 <a href="#" slot="name" @click.prevent="editTemplate(props.row)" slot-scope="props">{{ props.row.name }}</a>
             </v-server-table>
         </div>
@@ -28,7 +28,10 @@ export default {
       this.$refs.templateModal.hide()
     },
     modalOk () {
-      this.$refs.templateForm.handleSubmit(() => this.$refs.templateModal.hide())
+      this.$refs.templateForm.handleSubmit(() => {
+        this.$refs.table.refresh()
+        this.$refs.templateModal.hide()
+      })
     },
     addTemplate () {
       this.template.title = 'Nowy szablon'
@@ -40,6 +43,7 @@ export default {
     editTemplate (template) {
       this.template.title = 'Edycja szablonu'
       this.$refs.templateForm.loadHtml(template.id).then(response => { this.$refs.templateModal.show() })
+      this.$refs.templateModal.show()
     }
   },
   data () {

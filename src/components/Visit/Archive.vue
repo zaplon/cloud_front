@@ -52,7 +52,7 @@ export default {
     },
     showDocument (document) {
       this.document = document
-      EventBus.$emit('show-document', document.name, document.file)
+      EventBus.$emit('show-document', document.file, document.name)
     },
     openCategory (category) {
       if (category.open) {

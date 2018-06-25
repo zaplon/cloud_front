@@ -1,10 +1,10 @@
 <template>
     <div class="mt-4">
         <div class="btn-group mb-4">
-            <button class="btn btn-success" @click="showModal">Dodaj</button>
+            <button class="btn btn-success" @click="showModal">Zapisz jako szablon</button>
         </div>
         <div class="row">
-            <div v-for="template in templates" :key="template.name" class="col-md-6 col-sm-12">
+            <div v-for="template in templates" :key="template.id" class="col-md-6 col-sm-12">
                 <a href="#" @click="putTemplate(template)">({{ template.key }}) {{ template.text | truncate(100) }}</a>
             </div>
         </div>

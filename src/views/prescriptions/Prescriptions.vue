@@ -8,7 +8,7 @@
                 <router-link to="/recepty/nowa/" class="btn btn-success">Nowa</router-link>
             </div>
             <v-server-table url="rest/prescriptions/" :columns="columns" :options="options">
-                <a slot="date" :href="getPrescriptionUrl(props.row)" slot-scope="props">{{ props.row.date }}</a>
+                <router-link :to="/recepty/ + props.row.id + '/'" slot="date" slot-scope="props">{{ props.row.date|formatDate }}</router-link>
             </v-server-table>
         </div>
     </div>
@@ -18,7 +18,7 @@ export default {
   name: 'medicines',
   methods: {
     getPrescriptionUrl (row) {
-      return 'prescription/' + row.id + '/'
+      return '/recepty/' + row.id + '/'
     }
   },
   data () {

@@ -7,7 +7,7 @@
                         <div class="card-body">
                             <form>
                                 <h1>Login</h1>
-                                <p class="text-muted">Sign In to your account</p>
+                                <p class="text-muted">Zaloguj się na swoje konto</p>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                             <span class="input-group-text">
@@ -70,6 +70,10 @@ export default {
   },
   methods: {
     login: function () {
+      if (!this.password || !this.username) {
+        this.error = 'Wpisz login i hasło'
+        return
+      }
       axios.post('rest-auth/login/', {username: this.username, password: this.password}).then(request => {
         localStorage.token = request.data.key
         axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.token

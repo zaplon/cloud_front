@@ -1,0 +1,33 @@
+<template>
+    <form @submit.prevent="save">
+        <div class="form-group">
+            <label for="file">Plik</label>
+            <input @change="onFileChange" required :class="{ 'is-invalid form-control': errors.file, 'form-control': !errors.file }" type="file" id="file">
+            <div v-if="errors.file" class="invalid-feedback">{{ errors.file }}</div>
+        </div>
+    </form>
+</template>
+<script>
+import axios from 'axios'
+export default {
+  name: 'form-prescription-numbers',
+  data () {
+    return {
+      errors: {file: ''},
+      file: null
+    }
+  },
+  methods: {
+    onFileChange (e) {
+      var files = e.target.files || e.dataTransfer.files
+      if (!files.length) { return }
+      this.file = files[0]
+    },
+    save (callback) {
+      if (!this.file) { this.errors.file = 'To pole jest obowiązkowe' }
+      if (this.errors.file) { return }
+      return axios.post('rest/terms/', this.term).then(response => callback(response))
+    }
+  }
+}
+</script>

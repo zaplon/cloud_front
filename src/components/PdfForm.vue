@@ -14,14 +14,20 @@ export default {
   name: 'pdf-form',
   created () {
     function receiveMessage (event) {
-      console.log(event.data)
-      window.open(axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 1) + event.data)
+      if (typeof event.data === 'string' && event.data.endsWith('pdf')) {
+        window.open(axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 1) + event.data)
+      }
     }
     window.addEventListener('message', receiveMessage, false)
   },
   methods: {
-    show (name, title) {
-      this.src = this.$formsRoot + name + '.html'
+    show (name, title, data) {
+      if (!data) {
+        this.src = this.$formsRoot + name + '.html'
+      } else {
+        if (data.first_name && data.last_name) { data.name = (data.first_name + ' ' + data.last_name) }
+        this.src = this.$formsRoot + name + '.html?' + this.$urlEncode(data)
+      }
       this.title = title
       this.name = name
       this.$refs.pdfFormModal.show()

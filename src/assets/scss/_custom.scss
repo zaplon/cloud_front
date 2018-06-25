@@ -1,5 +1,5 @@
 // Here you can add other styles
-@import "_bootstrap-variables.scss.back";
+@import "_bootstrap-variables.scss";
 
 .VueTables__search-field {
   display: flex;
@@ -23,6 +23,10 @@
   background-color: $info
 }
 
+.fc-event.FINISHED {
+  background-color: $success
+}
+
 .main {
 
 }
@@ -33,4 +37,34 @@
 
 .app-header {
   top: 0px;
+}
+
+.autocomplete__box {
+  padding: $input-padding-y $input-padding-x!important;
+  border-radius: $border-radius!important;
+}
+
+.card {
+  border: none;
+}
+body {
+  background-color: $breadcrumb-bg;
+}
+.card-header, .card-body, .card-footer {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.card-header {
+  font-weight: bold;
+  border-bottom: 1px solid $gray-300;
+  background-color: white;
+}
+.breadcrumb {
+  border-bottom: none;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.visit-nav {
+  border-bottom: 1px solid $gray-300;
 }

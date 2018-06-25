@@ -15,6 +15,7 @@ import Stats from '@/views/Stats'
 import Tabs from '@/views/Tabs'
 import Archive from '@/views/Archive'
 import Templates from '@/views/Templates'
+import Forms from '@/views/Forms'
 import Visit from '@/views/visit/Visit'
 
 import {default as MedicinesIndex} from '@/views/medicines/Index'
@@ -32,6 +33,10 @@ import Login from '@/views/account/Login'
 import Register from '@/views/account/Register'
 import Reset from '@/views/account/Reset'
 
+import Booking from '@/views/Booking'
+
+import NoPermissions from '@/views/NoPermissions'
+
 import store from '@/store'
 import {Account as AccountApi} from '@/api'
 Vue.use(Router)
@@ -45,6 +50,16 @@ var router = new Router({
   linkActiveClass: 'open active',
   scrollBehavior: () => ({ y: 0 }),
   routes: [
+    {
+      path: '/rezerwacja',
+      name: 'Rezerwacja',
+      component: Booking
+    },
+    {
+      path: '/brak-uprawnien',
+      name: 'BrakUprawnien',
+      component: NoPermissions
+    },
     {
       path: '/setup',
       name: 'Setup',
@@ -64,18 +79,18 @@ var router = new Router({
       ]
     },
     {
-      path: '/account',
-      redirect: 'account/login',
+      path: '/konto',
+      redirect: 'konto/logowanie',
       name: 'Account',
       component: Account,
       children: [
         {
-          path: 'login',
+          path: 'logowanie',
           name: 'Login',
           component: Login
         },
         {
-          path: 'register',
+          path: 'rejestracja',
           name: 'Register',
           component: Register
         },
@@ -91,7 +106,7 @@ var router = new Router({
       redirect: '/dashboard',
       name: 'Home',
       component: Full,
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true, label: 'Pulpit' },
       children: [
         {
           path: 'dashboard',
@@ -99,15 +114,17 @@ var router = new Router({
           component: Dashboard
         },
         {
-          path: 'stats',
+          path: 'statystyki',
           name: 'Stats',
-          component: Stats
+          component: Stats,
+          meta: {label: 'Statystyki'}
 
         },
         {
-          path: 'calendar',
+          path: 'kalendarz',
           name: 'Calendar',
-          component: Calendar
+          component: Calendar,
+          meta: {label: 'Kalendarz'}
         },
         {
           path: 'icd10',
@@ -115,14 +132,16 @@ var router = new Router({
           component: Icd10
         },
         {
-          path: 'patients',
+          path: 'pacjenci',
           name: 'Patients',
-          component: Patients
+          component: Patients,
+          meta: {label: 'Pacjenci'}
         },
         {
-          path: 'archive',
+          path: 'archiwum',
           name: 'Archive',
-          component: Archive
+          component: Archive,
+          meta: {label: 'Archiwum'}
         },
         {
           path: 'recepty',
@@ -139,7 +158,14 @@ var router = new Router({
               path: 'nowa',
               name: 'Nowa recepta',
               component: Prescription,
-              props: { new: true }
+              props: { new: true },
+              meta: {label: 'Nowa recepta'}
+            },
+            {
+              path: ':id',
+              name: 'Edycja recepty',
+              component: Prescription,
+              meta: {label: 'Edycja recepty'}
             }
           ]
         },
@@ -152,6 +178,7 @@ var router = new Router({
             {
               path: 'lista',
               name: 'Lista',
+              meta: {label: 'Lista leków'},
               component: Medicines
             },
             {
@@ -162,14 +189,22 @@ var router = new Router({
           ]
         },
         {
-          path: 'tabs',
+          path: 'zakladki',
           name: 'Tabs',
-          component: Tabs
+          component: Tabs,
+          meta: {label: 'Zakładki'}
         },
         {
-          path: 'templates',
+          path: 'szablony',
           name: 'Templates',
-          component: Templates
+          component: Templates,
+          meta: {label: 'Szablony'}
+        },
+        {
+          path: 'formularze',
+          name: 'Forms',
+          component: Forms,
+          meta: {label: 'Formularze'}
         }
       ]
     },
@@ -187,14 +222,21 @@ router.beforeEach((to, from, next) => {
     // if not, redirect to login page.
     if (!auth.loggedIn()) {
       next({
-        path: '/account/login',
+        path: '/konto/logowanie/',
         query: { redirect: to.fullPath }
       })
     } else {
-      console.log(store.state)
       if (!store.state.user.id) {
         AccountApi.getUserData().then(response => { next() })
-      } else { next() }
+      } else {
+        if (to.meta.permission && !(to.meta.permission in store.state.user.user_permissions)) {
+          next({
+            path: '/brak-uprawnien/',
+            query: { redirect: to.fullPath }
+          })
+        }
+        next()
+      }
     }
   } else {
     next() // make sure to always call next()!

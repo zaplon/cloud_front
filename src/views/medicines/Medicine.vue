@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="card-title">{{ medicine.name }}</div>
+        <div class="card-header">{{ medicine.name }}</div>
         <div class="card-body">
             <table class="table table-striped">
                 <tbody>
@@ -18,17 +18,25 @@
                 </tr>
                 </tbody>
             </table>
-            <h4 class="mb-1 mt-1">Opakowania</h4>
+            <h4 class="mb-2 mt-4">Opakowania</h4>
             <table class="table table-striped">
                 <thead>
-                <tr>
-                    <th>Wielkość opakowania</th>
-                    <th>Kod EAN</th>
-                    <th>Kategoria dostępności</th>
-                    <th>Refundacja</th>
-                </tr>
+                    <tr>
+                        <th>Wielkość opakowania</th>
+                        <th>Kod EAN</th>
+                        <th>Kategoria dostępności</th>
+                        <th>Refundacja</th>
+                    </tr>
                 </thead>
                 <tbody>
+                    <tr :key="child.id" v-for="child in children">
+                        <td>{{ child.size }}</td><td>{{ child.ean }}</td>
+                        <td>{{ child.availability_cat}}</td>
+                        <td>
+                            <i class="fa fa-check-square text-primary" v-if="child.refundation"></i>
+                            <i class="fa fa-minus-square text-danger" v-else></i>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -38,9 +46,18 @@
 import axios from 'axios'
 export default {
   name: 'medicine',
+  data () {
+    return {
+      medicine: {},
+      children: []
+    }
+  },
   mounted () {
-    axios.get('rest/medicines/' + this.$route.params.id + '/').then(response => {
+    axios.get('rest/medicine_parents/' + this.$route.params.id + '/').then(response => {
       this.medicine = response.data
+    })
+    axios.get('rest/medicines/', {params: { parent: this.$route.params.id }}).then(response => {
+      this.children = response.data.results
     })
   }
 }

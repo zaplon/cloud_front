@@ -6,7 +6,7 @@
                     <archive :pesel="visit.term.patient.pesel"></archive>
                 </div>
                 <div class="main">
-                <nav class="navbar navbar-light bg-light justify-content-between" id="visit-nav">
+                <nav class="navbar navbar-light bg-light justify-content-between visit-nav" id="visit-nav">
                     <form class="form-inline">
                         <button class="btn btn-light mr-2" @click="printVisit" type="button">
                             <i class="fa fa-print"></i>&nbsp;Wizyta
@@ -27,15 +27,13 @@
                         <button class="btn btn-success" @click="saveVisit()" type="button">Zapisz</button>
                     </form>
                 </nav>
-                <nav class="navbar navbar-dark bg-secondary" id="forms-nav" v-show="forms.show">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item" :key="form.name" v-for="form in forms.items">
-                            <button @click="showForm(form)" class="btn btn-light btn-sm">{{ form.title }}</button>
-                        </li>
-                    </ul>
+                <nav class="navbar navbar-dark bg-secondary visit-nav" id="forms-nav" v-show="forms.show">
+                    <div>
+                        <button :key="form.name" v-for="form in forms.items" @click="showForm(form)" class="btn btn-light btn-sm">{{ form.title }}</button>
+                    </div>
                 </nav>
                 <div id="visit-nav-margin"></div>
-                <div class="container">
+                <div class="container-fluid">
 
                     <div class="card" v-if="visit.term">
                         <div class="card-header">
@@ -57,9 +55,9 @@
                         <b-tabs pills card v-model="tabIndex">
                             <template v-for="tab in visit.tabs">
                                 <b-tab :key="tab.name" :title="tab.title" active>
-                                    <icd v-if="tab.type=='TabTypes.ICD10'" :ref="tab.id" />
-                                    <notes v-else-if="tab.type=='TabTypes.NOTES'" :ref="tab.id" />
-                                    <medicines :patient="visit.term.patient" v-else-if="tab.type=='TabTypes.MEDICINES'" :ref="tab.id" />
+                                    <icd :data="visit.icd_codes" v-if="tab.type=='ICD10'" :ref="tab.id" />
+                                    <notes v-else-if="tab.type=='NOTES'" :ref="tab.id" />
+                                    <medicines :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='MEDICINES'" :ref="tab.id" />
                                     <visit-tab :templates="templates.filter((t) => t.tab_title == tab.title)"
                                                :initial="tab.data" :ref="tab.id" v-else></visit-tab>
                                 </b-tab>
@@ -76,12 +74,13 @@
 import {Header as AppHeader} from '@/components/'
 import axios from 'axios'
 import PdfForm from '@/components/PdfForm'
-import PdfDocument from '@/components/PdfDocument'
 import Icd from '@/components/Visit/Icd'
 import VisitTab from '@/components/Visit/VisitTab'
 import Archive from '@/components/Visit/Archive'
 import Notes from '@/components/Visit/Notes'
 import Medicines from '@/components/Visit/Medicines'
+import forms from '@/_forms.js'
+import EventBus from '@/eventBus'
 export default {
   name: 'visit',
   data () {
@@ -94,27 +93,21 @@ export default {
       forms: {
         show: false,
         items: [],
-        type: null,
-        orzeczenia: [{name: 'ABA', title: 'ABA'}, {name: 'orzeczenie_kierowcy', title: 'Orzeczenie kierowcy'},
-          {name: 'orzeczenie_niezdolnosc_do_pracy', title: 'Orzeczenie o niezdolności do pracy'},
-          {name: 'orzeczenie_zdolnosc_do_pracy', title: 'Orzeczenie o zdolności do pracy'}],
-        zaswiadczenia: [{name: 'zaswiadczenie', title: 'Zaświadczenie'}],
-        karty: [{name: 'karta_badania_profilaktycznego', title: 'Karta badania profilaktycznego'},
-          {name: 'kierowca', title: 'Karta badania kierowcy'}]
+        type: null
       }
     }
   },
   methods: {
     showDocument (file, title) {
-      this.$refs.pdfDocument.showDocument(title, file)
+      EventBus.$emit('show-document', title, file)
     },
     hideVisitPdf () { this.$refs.visitPDFModal.hide() },
     showForms (type) {
       if (type === this.forms.type) { this.forms.show = false } else { this.forms.show = true }
       if (this.forms.show) { this.forms.type = type } else { this.forms.type = null }
-      this.forms.items = this.forms[type]
+      this.forms.items = forms.forms[type]
     },
-    showForm (form) { this.$refs.pdfForm.show(form.title, form.name) },
+    showForm (form) { this.$refs.pdfForm.show(form.name, form.title, this.visit.term.patient) },
     printVisit () {
       this.saveVisit(true, true).then(
         axios.get('visit/pdf/' + this.$route.params.id + '/?as_link=1/').then(response => {
@@ -155,11 +148,11 @@ export default {
           }
           return
         }
-        if (!('success' in response) && !response.success) {
+        if ('errors' in response.data) {
           this.$notify({
             group: 'nots',
             title: 'Błąd zapisu',
-            text: 'error',
+            text: response.data.errors,
             type: 'danger'
           })
           return
@@ -181,7 +174,6 @@ export default {
   },
   components: {
     PdfForm,
-    PdfDocument,
     Icd,
     AppHeader,
     VisitTab,

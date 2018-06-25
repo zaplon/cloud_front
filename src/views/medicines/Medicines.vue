@@ -5,7 +5,7 @@
         </div>
         <div class="card-body">
             <v-server-table url="rest/medicine_parents/" :columns="columns" :options="options">
-                <a slot="name" :href="getMedicineUrl(props.row)" slot-scope="props">{{ props.row.name }}</a>
+                <router-link slot="name" :to="getMedicineUrl(props.row)" slot-scope="props">{{ props.row.name }}</router-link>
             </v-server-table>
         </div>
     </div>
@@ -15,7 +15,7 @@ export default {
   name: 'medicines',
   methods: {
     getMedicineUrl (row) {
-      return 'leki/' + row.id + '/'
+      return '/leki/' + row.id + '/'
     }
   },
   data () {

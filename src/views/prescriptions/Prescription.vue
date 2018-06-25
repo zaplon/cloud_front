@@ -3,20 +3,18 @@
         <div class="card-header">Nowa recepta</div>
         <div class="card-body">
             <form>
-                <div class="form-row mb-4">
-                    <div class="col-2">
-                        <label>Pacjent</label>
-                    </div>
-                    <div class="col-10">
+                <div class="form-row mb-4 align-items-center">
+                    <div class="col-12">
+                        <label class="mr-1">Pacjent</label>
                         <autocomplete id="prescriptionPatient" input-class="form-control" @selected="selectPatient"
-                                      :source="patientsUrl"
+                                      :source="patientsUrl" style="width: calc(100% - 53px); display: inline-block;"
                                       results-property="results" placeholder="Wyszukaj..." :initialDisplay="autocompletes.patient"
                                       results-display="label">
                         </autocomplete>
                     </div>
                 </div>
             </form>
-            <medicines :patient="patient" number="number"></medicines>
+            <medicines :instance="instance" :patient="patient"></medicines>
         </div>
     </div>
 </template>
@@ -43,7 +41,7 @@ export default {
     return {
       patientsUrl: axios.defaults.baseURL + 'rest/patients/?term=',
       patient: {},
-      number: '123'
+      instance: this.$route.params.id ? this.$route.params.id : 1
     }
   }
 }

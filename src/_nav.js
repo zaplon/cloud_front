@@ -8,13 +8,13 @@ export default {
     {
       id: 'stats',
       name: 'Statystyki',
-      url: '/stats',
+      url: '/statystyki',
       icon: 'fa fa-line-chart'
     },
     {
       id: 'calendar',
       name: 'Kalendarz',
-      url: '/calendar',
+      url: '/kalendarz',
       icon: 'icon-calendar'
     },
     {
@@ -26,13 +26,13 @@ export default {
     {
       id: 'patients',
       name: 'Pacjenci',
-      url: '/patients',
+      url: '/pacjenci',
       icon: 'fa fa-users'
     },
     {
       id: 'archive',
       name: 'Archiwum',
-      url: '/archive',
+      url: '/archiwum',
       icon: 'fa fa-archive'
     },
     {
@@ -50,13 +50,19 @@ export default {
     {
       id: 'templates',
       name: 'Szablony',
-      url: '/templates',
+      url: '/szablony',
       icon: 'fa fa-pencil-square-o'
+    },
+    {
+      id: 'forms',
+      name: 'Formularze',
+      url: '/formularze',
+      icon: 'fa fa-wpforms'
     },
     {
       id: 'tabs',
       name: 'Zakładki',
-      url: '/tabs',
+      url: '/zakladki',
       icon: 'fa fa-list-alt'
     }
   ]
