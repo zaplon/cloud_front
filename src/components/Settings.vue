@@ -10,8 +10,8 @@
     <b-modal id="settingsModal" title="Ustawienia" @ok="handleOk" ref="settingsModal" cancel-title="Zamknij">
         <backend-form ref="form" :klass="formClass" module="user_profile.forms"></backend-form>
     </b-modal>
-    <b-modal id="hoursModal" title="Godziny pracy" @ok="saveHours" ref="hoursModal" cancel-title="Zamknij">
-        <working-hours ref="workingHours"></working-hours>
+    <b-modal @shown="adjustSliders" id="hoursModal" title="Godziny pracy" @ok="saveHours" ref="hoursModal" cancel-title="Zamknij">
+        <working-hours style="width:100%; height:100%;" ref="workingHours"></working-hours>
     </b-modal>
 
 </div>
@@ -34,6 +34,10 @@ export default {
     },
     saveHours () {
       this.$refs.workingHours.save()
+    },
+    adjustSliders () {
+      let wh = this.$refs.workingHours
+      wh.days.forEach((day) => wh.$refs[day.name][0].refresh())
     },
     handleOk (evt) {
       // Prevent modal from closing

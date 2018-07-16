@@ -5,8 +5,8 @@
         </div>
         <div class="card-body">
             <div>
-                <button type="button" v-permission="can_add_patient" class="mb-4 btn btn-success" v-b-modal="'patientModal'">Dodaj</button>
-                <button type="button" v-permission="can_delete_patient" class="mb-4 btn btn-danger" disabled>Usuń</button>
+                <button type="button" v-permission="'can_add_patient'" class="mb-4 btn btn-success" v-b-modal="'patientModal'">Dodaj</button>
+                <button type="button" v-permission="'can_delete_patient'" class="mb-4 btn btn-danger" disabled>Usuń</button>
             </div>
             <v-server-table url="rest/patients/" :columns="columns" :options="options" ref="table">
                 <input type="checkbox" class="form-control" slot="select" slot-scope="props" v-permission="'can_edit_patients'">
