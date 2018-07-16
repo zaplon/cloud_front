@@ -66,7 +66,7 @@ Vue.use(ServerTable, {
 }, false, 'bootstrap4', 'default')
 
 Vue.prototype.$moment = moment
-Vue.prototype.$formsRoot = backendUrl + 'static/forms/forms/'
+Vue.prototype.$formsRoot = backendUrl + 'assets/forms/forms/'
 Vue.prototype.$urlEncode = (data) => Object.keys(data).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`).join('&')
 var hasPermissions = (permission) => (app.$store.state.user.user_permissions.filter((p) => p.name === permission).length > 0)
 Vue.prototype.$hasPermissions = hasPermissions

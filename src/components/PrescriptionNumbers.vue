@@ -34,9 +34,11 @@ export default {
   },
   components: { FormPrescriptionNumbers },
   mounted () {
-    this.available = this.$store.state.user.doctor.available_prescriptions
-    this.total = this.$store.state.user.doctor.total_prescriptions
     this.show = this.$store.state.user.type === 'doctor'
+    if (this.show) {
+      this.available = this.$store.state.user.doctor.available_prescriptions
+      this.total = this.$store.state.user.doctor.total_prescriptions
+    }
   }
 }
 
