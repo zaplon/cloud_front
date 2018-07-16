@@ -17,7 +17,7 @@ import {setupCalendar, Calendar, DatePicker} from 'v-calendar'
 import 'v-calendar/lib/v-calendar.min.css'
 
 var backendUrl = 'http://0.0.0.0:8080/'
-if (process.env.NODE_ENV === 'production') { backendUrl = 'http://doktor.misal.pl:10080/backend' }
+if (process.env.NODE_ENV === 'production') { backendUrl = 'http://doktor.misal.pl:10080/backend/' }
 
 axios.defaults.baseURL = backendUrl
 
