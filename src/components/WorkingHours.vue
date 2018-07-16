@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     save () {
-      axios.patch('rest/doctors/' + this.id + '/', {days: this.days, only_hours: true}).then(response => {
+      return axios.patch('rest/doctors/' + this.id + '/', {days: this.days, only_hours: true}).then(response => {
       })
     },
     makeSliderData () {

@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="col-auto">
-                    <button :disabled="!this.patient.id || !this.prescription.realisationDate" class="btn btn-info">Drukuj</button>
+                    <button :disabled="!this.patient.id || !this.prescription.realisationDate || !this.prescription.permissions || !this.prescription.nfz" class="btn btn-info">Drukuj</button>
                 </div>
             </div>
         </form>
@@ -78,7 +78,7 @@ export default {
   },
   data () {
     return {
-      selections: this.data,
+      selections: this.data || [],
       suggestions: [],
       excludes: [],
       inputValue: [],
@@ -148,14 +148,33 @@ export default {
     },
     getData () {
       return this.selections
+    },
+    loadData (data) {
+      this.buildSelections(data.medicines)
+      this.prescription.nfz = data.nfz
+      this.prescription.permissions = data.permissions
+      this.prescription.number = data.number
+    },
+    buildSelections (medicines) {
+      medicines.forEach((s) => {
+        let row = s.medicine.parent
+        row.size = s.medicine.id
+        row.dosage = s.dosage
+        row.children = [{id: s.medicine.id, size: s.medicine.size}]
+        row.child = {id: s.medicine.id}
+        row.loadChildren = true
+        this.add(row)
+      })
     }
   },
   mounted () {
-    this.getSuggestions()
     if (this.instance) {
       axios.get('rest/prescriptions/' + this.instance + '/').then(response => {
-        this.selections = response.data.medicines
+        this.loadData(response.data)
+        this.getSuggestions()
       })
+    } else {
+      this.getSuggestions()
     }
   }
 }

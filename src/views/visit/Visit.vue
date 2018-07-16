@@ -53,12 +53,12 @@
 
                     <b-card no-body>
                         <b-tabs pills card v-model="tabIndex">
-                            <template v-for="tab in visit.tabs">
-                                <b-tab :key="tab.name" :title="tab.title" active>
+                            <template v-for="(tab, index) in visit.tabs">
+                                <b-tab :key="tab.name" :title="tab.title" :active="index == 0">
                                     <icd :data="visit.icd_codes" v-if="tab.type=='ICD10'" :ref="tab.id" />
                                     <notes v-else-if="tab.type=='NOTES'" :ref="tab.id" />
                                     <medicines :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='MEDICINES'" :ref="tab.id" />
-                                    <visit-tab :templates="templates.filter((t) => t.tab_title == tab.title)"
+                                    <visit-tab :name="tab.name" :templates="templates.filter((t) => t.tab_title == tab.title)"
                                                :initial="tab.data" :ref="tab.id" v-else></visit-tab>
                                 </b-tab>
                             </template>

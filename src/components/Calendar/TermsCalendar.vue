@@ -55,19 +55,20 @@
                 <backend-form v-show="term.patientEdition" ref="patientForm" klass="PatientForm" module="user_profile.forms" :pk="term.patientId"></backend-form>
             </template>
             <div slot="modal-footer" class="w-100">
-                <button v-show="!(term.edition || term.patientEdition)" @click="goToEdition" class="pull-left btn btn-sm btn-primary">Edytuj termin</button>
-                <button v-show="term.status == 'PENDING'" @click="cancelVisit" class="pull-left btn btn-sm btn-danger">Anuluj wizytę</button>
+                <button v-show="!(term.edition || term.patientEdition)" @click="goToEdition" class="pull-left btn btn-sm btn-primary mr-2">Edytuj termin</button>
+                <button v-show="term.status == 'PENDING'" @click="cancelVisit(term)" class="pull-left btn btn-sm btn-danger">Anuluj wizytę</button>
                 <template v-if="!(term.edition || term.patientEdition) && config.editable">
                     <b-btn size="sm" class="float-right" variant="default" @click="modalCancel">Nie</b-btn>
-                    <b-btn size="sm" class="float-right" variant="primary" @click="modalOk">Tak</b-btn>
+                    <b-btn size="sm" class="float-right mr-2" variant="primary" @click="modalOk">Tak</b-btn>
                 </template>
                 <template v-if="term.edition || term.patientEdition">
                     <b-btn size="sm" class="float-right" variant="default" @click="modalCancel">Anuluj</b-btn>
-                    <b-btn size="sm" class="float-right" variant="primary" @click="modalOk">Zapisz</b-btn>
+                    <b-btn size="sm" class="float-right mr-2" variant="primary" @click="modalOk">Zapisz</b-btn>
                 </template>
             </div>
         </b-modal>
-        <b-modal size="sm" id="moveEventModal" title="Przesunięcie terminu" @ok="confirmMove" @cancel="revertMove" ref="moveModal">
+        <b-modal size="sm" id="moveEventModal" title="Przesunięcie terminu" @ok="confirmMove" @cancel="revertMove" ref="moveModal"
+        cancelTitle="Anuluj">
             Czy przenieść termin {{move.event.title}} z {{move.from}}  na {{move.to}} ?
         </b-modal>
     </div>

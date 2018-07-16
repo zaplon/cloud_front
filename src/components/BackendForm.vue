@@ -24,8 +24,8 @@ export default {
     }
   },
   methods: {
-    loadHtml (id) {
-      return axios.get(this.url, {params: {klass: this.klass, module: this.module, id: id}}).then(response => {
+    loadHtml (id, data) {
+      return axios.get(this.url, {params: {klass: this.klass, module: this.module, id: id, data: data}}).then(response => {
         if (response.data.success) {
           this.htmlData = response.data.form_html
         }

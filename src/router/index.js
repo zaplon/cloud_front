@@ -103,7 +103,7 @@ var router = new Router({
     },
     {
       path: '/',
-      redirect: '/dashboard',
+      redirect: '/kalendarz',
       name: 'Home',
       component: Full,
       meta: { requiresAuth: true, label: 'Pulpit' },

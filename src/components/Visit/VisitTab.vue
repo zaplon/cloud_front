@@ -1,7 +1,7 @@
 <template>
     <div>
         <textarea class="form-control visit-tab" v-model="content"></textarea>
-        <tab-templates :templates="templates" @setData="setData"></tab-templates>
+        <tab-templates :name="name" :content="content" :templates="templates" @setData="setData"></tab-templates>
     </div>
 </template>
 <script>
@@ -12,7 +12,8 @@ export default {
   props: {
     initial: String,
     active: Boolean,
-    templates: Array
+    templates: Array,
+    name: String
   },
   data () {
     return {

@@ -7,14 +7,14 @@
                     <div class="col-12">
                         <label class="mr-1">Pacjent</label>
                         <autocomplete id="prescriptionPatient" input-class="form-control" @selected="selectPatient"
-                                      :source="patientsUrl" style="width: calc(100% - 53px); display: inline-block;"
+                                      :source="patientsUrl" style="width: calc(100% - 53px); display: inline-block;" ref="patientAutocomplete"
                                       results-property="results" placeholder="Wyszukaj..." :initialDisplay="autocompletes.patient"
                                       results-display="label">
                         </autocomplete>
                     </div>
                 </div>
             </form>
-            <medicines :instance="instance" :patient="patient"></medicines>
+            <medicines ref="medicines" :patient="patient"></medicines>
         </div>
     </div>
 </template>
@@ -41,8 +41,17 @@ export default {
     return {
       patientsUrl: axios.defaults.baseURL + 'rest/patients/?term=',
       patient: {},
-      instance: this.$route.params.id ? this.$route.params.id : 1
+      instance: this.$route.params.id ? parseInt(this.$route.params.id) : 0
     }
+  },
+  mounted () {
+    if (!this.$route.params.id) { return }
+    axios.get('rest/prescriptions/' + this.instance + '/').then(response => {
+      console.log(response.data)
+      this.patient = response.data.patient
+      this.$refs.patientAutocomplete.display = this.patient.name_with_pesel
+      this.$refs.medicines.loadData(response.data)
+    })
   }
 }
 </script>

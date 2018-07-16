@@ -9,6 +9,8 @@
             </div>
             <v-server-table url="rest/prescriptions/" :columns="columns" :options="options">
                 <router-link :to="/recepty/ + props.row.id + '/'" slot="date" slot-scope="props">{{ props.row.date|formatDate }}</router-link>
+                <div slot="number" slot-scope="props"><span v-if="!props.row.number">Bez numeru</span><span v-else>{{ props.row.number }}</span></div>
+                <div slot="medicines" slot-scope="props">0</div>
             </v-server-table>
         </div>
     </div>

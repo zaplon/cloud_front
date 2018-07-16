@@ -24,9 +24,15 @@ export default {
       this.file = files[0]
     },
     save (callback) {
-      if (!this.file) { this.errors.file = 'To pole jest obowiązkowe' }
+      if (!this.file) { this.errors.file = 'To pole jest obowiązkowe' } else { this.errors.file = null }
       if (this.errors.file) { return }
-      return axios.post('rest/terms/', this.term).then(response => callback(response))
+      let formData = new FormData()
+      formData.append('file', this.file)
+      return axios.post('medicines/prescription-numbers/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(response => callback(response)).catch(error => { this.errors.file = error.response.data })
     }
   }
 }

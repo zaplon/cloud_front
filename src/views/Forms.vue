@@ -12,7 +12,7 @@
                     <div class="col-auto" style="width: calc(100% - 74px); display: flex;">
                         <autocomplete id="patient" input-class="form-control" @selected="selectPatient"
                                       :source="patientsUrl" results-property="results" placeholder="Wyszukaj..."
-                                      results-display="label">
+                                      results-display="label" @clear="clearPatient">
                         </autocomplete>
                     </div>
                 </div>
@@ -42,6 +42,9 @@ export default {
   methods: {
     selectPatient (obj) {
       this.patient = obj.selectedObject
+    },
+    clearPatient () {
+      this.patient = ''
     },
     showForm (form) {
       if (this.patient) {

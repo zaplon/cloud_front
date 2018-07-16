@@ -9,7 +9,7 @@
             </div>
         </div>
         <b-modal size="lg" id="templateModal" title="Nowy szablon" @ok="modalOk" @cancel="modalCancel" ref="templateModal">
-            <backend-form ref="templateForm" klass="TemplateForm" module="visit.forms" :pk="tab.id" />
+            <backend-form ref="templateForm" klass="TemplateForm" module="visit.forms" />
             <div slot="modal-footer" class="w-100">
                 <b-btn size="sm" class="float-right" variant="primary" @click="modalCancel">Anuluj</b-btn>
                 <b-btn size="sm" class="float-right mr-2" variant="default" @click="modalOk">{{ tab.ok }}</b-btn>
@@ -22,7 +22,7 @@ export default {
   name: 'tab-templates',
   methods: {
     showModal () {
-      this.$refs.templateModal.show()
+      this.$refs.templateForm.loadHtml(null, {text: this.content, tab: this.name}).then(() => this.$refs.templateModal.show())
     },
     modalOk () {
       this.$refs.templateForm.handleSubmit(() => this.$refs.tabModal.hide())
@@ -40,7 +40,9 @@ export default {
     }
   },
   props: {
-    templates: Array
+    templates: Array,
+    content: String,
+    name: String
   }
 }
 </script>

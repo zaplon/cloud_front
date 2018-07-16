@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="card mx-4">
                 <div class="card-header">
-                    <h1>Podstawowe informacje</h1>
+                    Podstawowe informacje
                 </div>
                 <div class="card-body p-4">
                     <template v-if="userType == 'doctor'">

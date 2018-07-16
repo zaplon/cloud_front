@@ -1,7 +1,7 @@
 <template>
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card mx-6">
+        <div class="col-md-10">
+            <div class="card mx-8">
                 <div class="card-body p-4">
                     <h1>Resetowanie hasła</h1>
                     <p class="text-muted">Podaj adres email, żeby otrzymać link umożliwiający zresetowanie hasła</p>

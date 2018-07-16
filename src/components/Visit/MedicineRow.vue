@@ -55,9 +55,10 @@ export default {
       this.$emit('remove-record', medicine)
     },
     getChildren (medicine) {
-      if (!medicine.children) {
+      if (!medicine.children || medicine.loadChildren) {
         axios.get('rest/medicines/', {params: {parent: medicine.id}}).then(response => {
           this.$set(medicine, 'children', response.data.results)
+          medicine.loadChildren = false
         })
       }
     },

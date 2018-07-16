@@ -16,7 +16,23 @@ import store from './store'
 import {setupCalendar, Calendar, DatePicker} from 'v-calendar'
 import 'v-calendar/lib/v-calendar.min.css'
 
-axios.defaults.baseURL = 'http://0.0.0.0:8080/'
+var backendUrl = 'http://0.0.0.0:8080/'
+if (process.env.NODE_ENV === 'production') { backendUrl = 'http://gabinet/backend/' }
+
+axios.defaults.baseURL = backendUrl
+
+axios.interceptors.response.use(null, function (err) {
+  if (err.status === 500) {
+    this.$notify({
+      group: 'nots',
+      title: 'Wystąpił bład',
+      text: '',
+      type: 'danger'
+    })
+  }
+  return Promise.reject(err)
+})
+
 if (localStorage.token) { axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.token }
 // axios.defaults.headers.common['X-CSRFToken'] = VueCookies.get('csrftoken')
 Vue.use(BootstrapVue, axios, FullCalendar, VueCookies, BackendForm)
@@ -50,7 +66,7 @@ Vue.use(ServerTable, {
 }, false, 'bootstrap4', 'default')
 
 Vue.prototype.$moment = moment
-Vue.prototype.$formsRoot = 'http://0.0.0.0:8080/static/forms/forms/'
+Vue.prototype.$formsRoot = backendUrl + 'static/forms/forms/'
 Vue.prototype.$urlEncode = (data) => Object.keys(data).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`).join('&')
 var hasPermissions = (permission) => (app.$store.state.user.user_permissions.filter((p) => p.name === permission).length > 0)
 Vue.prototype.$hasPermissions = hasPermissions

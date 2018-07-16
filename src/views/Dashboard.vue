@@ -1,6 +1,13 @@
 <template>
   <div class="animated fadeIn">
-    <p class="text-info">Hello World</p>
+    <row>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+          </div>
+        </div>
+      </div>
+    </row>
   </div>
 </template>
 

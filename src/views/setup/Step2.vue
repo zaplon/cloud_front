@@ -1,7 +1,7 @@
 <template>
     <div class="card mt-4">
         <div class="card-header">
-            <h1>Godziny pracy</h1>
+            Godziny pracy
         </div>
         <div class="card-body mt-4">
             <working-hours ref="workingHours"></working-hours>
@@ -17,7 +17,7 @@ export default {
   components: {WorkingHours},
   methods: {
     save () {
-      this.$refs.workingHours.save()
+      this.$refs.workingHours.save().then(this.$router.push('/'))
     }
   }
 }
