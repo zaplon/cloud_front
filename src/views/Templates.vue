@@ -12,7 +12,7 @@
             </v-server-table>
         </div>
         <b-modal size="sm" id="templateModal" :title="template.title" @ok="modalOk" @cancel="modalCancel" ref="templateModal">
-            <backend-form ref="templateForm" klass="TemplateForm" module="visit.forms" />
+            <backend-form ref="templateForm" klass="TemplateForm" module="visit.forms" :pk="template.id" />
             <div slot="modal-footer" class="w-100">
                 <b-btn size="sm" class="float-right" variant="primary" @click="modalCancel">Anuluj</b-btn>
                 <b-btn size="sm" class="float-right mr-2" variant="default" @click="modalOk">Zapisz</b-btn>
@@ -42,6 +42,7 @@ export default {
     },
     editTemplate (template) {
       this.template.title = 'Edycja szablonu'
+      this.template.id = template.id
       this.$refs.templateForm.loadHtml(template.id).then(response => { this.$refs.templateModal.show() })
       this.$refs.templateModal.show()
     }
