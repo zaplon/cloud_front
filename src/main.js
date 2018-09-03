@@ -50,7 +50,7 @@ Vue.use(ServerTable, {
     }.bind(this))
   },
   texts: {
-    count: 'Pokazuje {from} do {to} z {count} rekordów|{count} recordów|Jeden rekord',
+    count: 'Pokazuje {from} do {to} z {count} rekordów|{count} rekordów|Jeden rekord',
     first: 'Pierwszy',
     last: 'Ostatni',
     filter: 'Filtr:',
