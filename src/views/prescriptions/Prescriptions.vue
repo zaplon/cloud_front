@@ -10,7 +10,7 @@
             <v-server-table url="rest/prescriptions/" :columns="columns" :options="options">
                 <router-link :to="/recepty/ + props.row.id + '/'" slot="date" slot-scope="props">{{ props.row.date|formatDate }}</router-link>
                 <div slot="number" slot-scope="props"><span v-if="!props.row.number">Bez numeru</span><span v-else>{{ props.row.number }}</span></div>
-                <div slot="medicines" slot-scope="props">0</div>
+                <div slot="medicines" slot-scope="props">{{ props.row.number_of_medicines }}</div>
             </v-server-table>
         </div>
     </div>
@@ -25,9 +25,9 @@ export default {
   },
   data () {
     return {
-      columns: ['date', 'patient', 'number', 'medicines'],
+      columns: ['date', 'patient', 'number', 'number_of_medicines'],
       options: {
-        headings: {'date': 'Data', 'patient': 'Pacjent', 'number': 'Numer', 'medicines': 'Leki'}
+        headings: {'date': 'Data', 'patient': 'Pacjent', 'number': 'Numer', 'number_of_medicines': 'Leki'}
       }
     }
   }
