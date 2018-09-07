@@ -18,6 +18,8 @@ import 'v-calendar/lib/v-calendar.min.css'
 
 var backendUrl = 'http://0.0.0.0:8080/'
 if (process.env.NODE_ENV === 'production') { backendUrl = 'http://doktor.misal.pl:10080/backend/' }
+var formsUrl = backendUrl + 'assets/forms/forms/'
+if (process.env.NODE_ENV === 'production') { formsUrl = 'http://doktor.misal.pl:10080/assets/forms/forms/' }
 
 axios.defaults.baseURL = backendUrl
 
@@ -66,7 +68,7 @@ Vue.use(ServerTable, {
 }, false, 'bootstrap4', 'default')
 
 Vue.prototype.$moment = moment
-Vue.prototype.$formsRoot = backendUrl + 'assets/forms/forms/'
+Vue.prototype.$formsRoot = formsUrl
 Vue.prototype.$urlEncode = (data) => Object.keys(data).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`).join('&')
 var hasPermissions = (permission) => (app.$store.state.user.user_permissions.filter((p) => p.name === permission).length > 0)
 Vue.prototype.$hasPermissions = hasPermissions
