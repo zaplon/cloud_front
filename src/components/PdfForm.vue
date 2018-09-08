@@ -45,7 +45,7 @@ export default {
     },
     makePdf () {
       let iframe = document.getElementById('form-frame')
-      iframe.contentWindow.postMessage({name: this.name}, 'http://0.0.0.0:8080')
+      iframe.contentWindow.postMessage({name: this.name}, this.$backendUrl)
     }
   },
   data () {
