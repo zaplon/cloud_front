@@ -149,11 +149,16 @@ export default {
           return
         }
         if ('errors' in response.data) {
+          var errors = response.data.errors
+          var errorsTxt = ''
+          for (var error in errors) {
+            errorsTxt += errors[error] + '\n'
+          }
           this.$notify({
             group: 'nots',
             title: 'Błąd zapisu',
-            text: response.data.errors,
-            type: 'danger'
+            text: errorsTxt,
+            type: 'error'
           })
           return
         }
