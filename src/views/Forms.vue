@@ -49,10 +49,10 @@ export default {
     showForm (form) {
       if (this.patient) {
         axios.get('/rest/patients/' + this.patient.id + '/').then(response => {
-          this.$refs.pdfForm.show(form.name, form.title, response.data)
+          this.$refs.pdfForm.show(form.name, form.title, response.data, form.modalClass)
         })
       } else {
-        this.$refs.pdfForm.show(form.name, form.title, {})
+        this.$refs.pdfForm.show(form.name, form.title, {}, form.modalClass)
       }
     }
   },

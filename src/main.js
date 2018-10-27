@@ -69,6 +69,7 @@ Vue.use(ServerTable, {
 
 Vue.prototype.$moment = moment
 Vue.prototype.$formsRoot = formsUrl
+Vue.prototype.$backendUrl = backendUrl
 Vue.prototype.$urlEncode = (data) => Object.keys(data).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`).join('&')
 var hasPermissions = (permission) => (app.$store.state.user.user_permissions.filter((p) => p.name === permission).length > 0)
 Vue.prototype.$hasPermissions = hasPermissions

@@ -1,6 +1,6 @@
 <template>
 <div>
-    <b-dropdown id="ddown-divider" variant="light" class="m-2">
+    <b-dropdown id="ddown-divider" variant="link" class="m-2">
         <template slot="button-content"><i class="fa fa-user"></i></template>
         <b-dropdown-item-button><div v-b-modal.settingsModal>Ustawienia</div></b-dropdown-item-button>
         <b-dropdown-item-button><div v-b-modal.hoursModal>Godziny pracy</div></b-dropdown-item-button>
