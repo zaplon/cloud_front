@@ -5,6 +5,7 @@
             <div v-show="!(term.edition || term.patientEdition)">
                 <span v-if="term.status=='PENDING'">Czy rozpocząć wizytę {{term.title}} ?</span>
                 <span v-if="term.status=='FINISHED'">Przejść do edycji wizyty {{term.title}} ?</span>
+                <span v-if="term.status=='FREE'">Termin {{term.start}} jest wolny</span>
             </div>
             <template v-if="config.editable">
                 <div v-if="term.edition">
@@ -57,7 +58,7 @@
             <div slot="modal-footer" class="w-100">
                 <button v-show="!(term.edition || term.patientEdition)" @click="goToEdition" class="pull-left btn btn-sm btn-primary mr-2">Edytuj termin</button>
                 <button v-show="term.status == 'PENDING'" @click="cancelVisit(term)" class="pull-left btn btn-sm btn-danger">Anuluj wizytę</button>
-                <template v-if="!(term.edition || term.patientEdition) && config.editable">
+                <template v-if="!(term.edition || term.patientEdition) && config.editable && term.status != 'FREE'">
                     <b-btn size="sm" class="float-right" variant="default" @click="modalCancel">Nie</b-btn>
                     <b-btn size="sm" class="float-right mr-2" variant="primary" @click="modalOk">Tak</b-btn>
                 </template>
@@ -190,6 +191,7 @@ export default {
       this.term.id = event.id
       this.term.title = event.title
       this.term.status = event.status
+      this.term.start = event.start.format('DD-MM HH:mm')
       this.$refs.modal.show()
     },
     saveTerm () {
@@ -235,6 +237,7 @@ export default {
         title: '',
         status: '',
         id: null,
+        start: null,
         patientId: null,
         edition: false,
         patientEdition: false
