@@ -106,7 +106,7 @@ var router = new Router({
       redirect: '/kalendarz',
       name: 'Home',
       component: Full,
-      meta: { requiresAuth: true, label: 'Pulpit' },
+      meta: { requiresAuth: true, label: '' },
       children: [
         {
           path: 'dashboard',
