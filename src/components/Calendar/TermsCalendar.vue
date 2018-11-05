@@ -49,9 +49,12 @@
                         </div>
                         <div class="form-group">
                             <label for="termDuration">Czas trwania</label>
-                            <input v-model="termForm.duration" type="number" min="0" class="form-control" id="termDuration">
+                            <input v-model="termForm.duration" type="number" min="1" class="form-control" id="termDuration">
                         </div>
                     </form>
+                    <div v-if="termForm.errors">
+                        <p class="text-danger" :key="error" v-for="error in termForm.errors">{{ error }}</p>
+                    </div>
                 </div>
                 <backend-form v-show="term.patientEdition" ref="patientForm" klass="PatientForm" module="user_profile.forms" :pk="term.patientId"></backend-form>
             </template>
@@ -110,6 +113,7 @@ export default {
         this.termForm.datetime = new Date(data.datetime)
         this.termForm.id = data.id
         this.termForm.duration = data.duration
+        this.termForm.errors = []
         if (data.doctor) {
           this.termForm.doctor = {id: data.doctor.id, name: data.doctor.name}
           this.autocompletes.doctor = data.doctor.name
@@ -149,10 +153,20 @@ export default {
     },
     modalOk () {
       if (this.term.edition) {
+        this.termForm.errors = []
+        if (!this.termForm.patient && this.termForm.service) {
+          this.termForm.errors.push('Proszę wybrać pacjenta')
+        }
+        if (!this.termForm.duration) {
+          this.termForm.errors.push('Proszę określić czas trwania wizyty')
+        }
+        if (this.termForm.errors.length > 0) {
+          return
+        }
         axios.patch('rest/terms/' + this.termForm.id + '/',
-          {doctor: this.termForm.doctor.id,
-            service: this.termForm.service.id,
-            patient: this.termForm.patient.id,
+          {doctor: this.termForm.doctor ? this.termForm.doctor.id : null,
+            service: this.termForm.service ? this.termForm.service.id : null,
+            patient: this.termForm.service ? this.termForm.patient.id : null,
             duration: this.termForm.duration,
             datetime: this.termForm.datetime}).then(response => {
           this.$refs.calendar.$emit('refetch-events')
@@ -231,7 +245,9 @@ export default {
         service: null,
         datetime: null,
         doctor: null,
-        duration: null
+        duration: null,
+        patient: null,
+        errors: []
       },
       term: {
         title: '',
