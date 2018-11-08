@@ -10,12 +10,9 @@
             </div>
             <v-server-table url="rest/patients/" :columns="columns" :options="options" ref="table">
                 <input type="checkbox" class="form-control" slot="select" slot-scope="props" v-permission="'can_edit_patients'">
-                <a href="#" slot="first_name" @click.prevent="editPatient(props.row)" slot-scope="props">{{ props.row.first_name }}</a>
+                <router-link :to="/pacjenci/ + props.row.id + '/'" slot="first_name" slot-scope="props">{{ props.row.first_name }}</router-link>
             </v-server-table>
         </div>
-        <b-modal size="lg" id="patientModal" title="Pacjent" @ok="modalOk" ref="modal" cancelTitle="Zamknij" okTitle="Zapisz">
-            <backend-form ref="patientForm" klass="PatientModelForm" module="user_profile.forms"></backend-form>
-        </b-modal>
     </div>
 </template>
 <script>

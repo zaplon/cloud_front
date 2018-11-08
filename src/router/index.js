@@ -10,7 +10,11 @@ import Setup from '@/containers/Setup'
 import Dashboard from '@/views/Dashboard'
 import Calendar from '@/views/Calendar'
 import Icd10 from '@/views/Icd10'
-import Patients from '@/views/Patients'
+
+import {default as PatientsIndex} from '@/views/patients/Index'
+import Patients from '@/views/patients/Patients'
+import Patient from '@/views/patients/Patient'
+
 import Stats from '@/views/Stats'
 import Tabs from '@/views/Tabs'
 import Archive from '@/views/Archive'
@@ -133,9 +137,21 @@ var router = new Router({
         },
         {
           path: 'pacjenci',
-          name: 'Patients',
-          component: Patients,
-          meta: {label: 'Pacjenci'}
+          name: 'Pacjenci',
+          component: PatientsIndex,
+          redirect: 'pacjenci/lista',
+          children: [
+            {
+              path: 'lista',
+              name: 'Lista',
+              component: Patients
+            },
+            {
+              path: ':id',
+              name: 'Pacjent',
+              component: Patient,
+              meta: {label: 'Pacjent'}
+            }]
         },
         {
           path: 'archiwum',

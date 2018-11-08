@@ -5,7 +5,7 @@
             <form-prescription-numbers ref="formPrescriptionNumbers"></form-prescription-numbers>
             <div slot="modal-footer" class="w-100">
                 <b-btn size="sm" class="float-right" variant="default" @click="cancel">Zamknij</b-btn>
-                <b-btn size="sm" class="float-right mr-2" variant="info" @click="save">Prześlij</b-btn>
+                <b-btn size="sm" class="float-right mr-2" variant="primary" @click="save">Prześlij</b-btn>
             </div>
         </b-modal>
     </div>

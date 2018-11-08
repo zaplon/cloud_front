@@ -1,25 +1,28 @@
 <template>
-    <div class="card">
-        <div class="card-body" v-if="this.$store.state.user.type == 'doctor'">
-            <div id="calendar-container">
-                    <terms-calendar ref="terms"></terms-calendar>
-            </div>
-            <div id="calendar-sidebar">
-                <v-calendar :attributes='attrs' v-on:dayclick="setCalendarDate"></v-calendar>
-                <next-visits></next-visits>
-            </div>
-        </div>
-        <div class="card-body" v-else>
-            <filters @search-doctors="searchDoctors"></filters>
-            <div class="mt-4" id="calendar-with-table">
-                <div style="width: 250px; margin-right: 10px; margin-bottom: 6px;">
-                    <doctors-list ref="doctorsList" @load-calendar="loadDoctorCalendar"></doctors-list>
+    <div>
+        <div class="card">
+            <div class="card-body" v-if="this.$store.state.user.type == 'doctor'">
+                <div id="calendar-container">
+                        <terms-calendar ref="terms"></terms-calendar>
                 </div>
-                <div style="width: calc(100% - 260px);">
-                    <terms-calendar ref="terms"></terms-calendar>
+                <div id="calendar-sidebar">
+                    <v-calendar :attributes='attrs' v-on:dayclick="setCalendarDate"></v-calendar>
+                    <next-visits></next-visits>
                 </div>
             </div>
+            <div class="card-body" v-else>
+                <filters @search-doctors="searchDoctors"></filters>
+                <div class="mt-4" id="calendar-with-table">
+                    <div style="width: 250px; margin-right: 10px; margin-bottom: 6px;">
+                        <doctors-list ref="doctorsList" @load-calendar="loadDoctorCalendar"></doctors-list>
+                    </div>
+                    <div style="width: calc(100% - 260px);">
+                        <terms-calendar ref="terms"></terms-calendar>
+                    </div>
+                </div>
+            </div>
         </div>
+        <button class="btn bottom-right button-add font-lg" @click="addNewVisit"><i class="fa fa-plus"></i></button>
     </div>
 </template>
 <script>
@@ -40,6 +43,9 @@ export default {
     setCalendarDate (payload) {
       this.attrs[0].dates = payload.date
       this.$refs.terms.$refs.calendar.fireMethod('gotoDate', payload.date)
+    },
+    addNewVisit () {
+      this.$refs.terms.addNewVisit()
     }
   },
   data: () => {

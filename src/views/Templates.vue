@@ -4,9 +4,6 @@
             Szablony
         </div>
         <div class="card-body">
-            <div class="btn-group mb-4">
-                <button class="btn btn-success" @click="addTemplate">Dodaj</button>
-            </div>
             <v-server-table ref="table" url="rest/templates/" :columns="columns" :options="options">
                 <a href="#" slot="name" @click.prevent="editTemplate(props.row)" slot-scope="props">{{ props.row.name }}</a>
             </v-server-table>
@@ -18,6 +15,7 @@
                 <b-btn size="sm" class="float-right mr-2" variant="default" @click="modalOk">Zapisz</b-btn>
             </div>
         </b-modal>
+        <button class="btn bottom-right button-add font-lg" @click="addTemplate"><i class="fa fa-plus"></i></button>
     </div>
 </template>
 <script>

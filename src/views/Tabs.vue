@@ -2,10 +2,7 @@
     <div class="card">
         <div class="card-header">Zakładki</div>
         <div class="card-body">
-            <div class="btn-group mb-4">
-                <button class="btn btn-success" @click="addTab">Dodaj</button>
-            </div>
-            <table class="table table-striped">
+            <table class="table table-striped table-bordered">
                 <thead>
                 <tr><th>Nazwa</th><th>Typ</th><th></th></tr>
                 </thead>
@@ -29,6 +26,7 @@
                 <b-btn size="sm" class="float-right mr-2" variant="default" @click="modalOk">{{ tab.ok }}</b-btn>
             </div>
         </b-modal>
+        <button class="btn bottom-right button-add font-lg" @click="addTab"><i class="fa fa-plus"></i></button>
     </div>
 </template>
 <script>

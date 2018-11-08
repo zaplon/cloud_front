@@ -1,7 +1,7 @@
 <template>
     <div>
         <full-calendar @event-drop="drop" ref="calendar" @event-selected="select" :event-sources="eventSources" :config="config"></full-calendar>
-        <b-modal size="md" id="eventModal" title="Edycja terminu" @ok="modalOk" @cancel="modalCancel" ref="modal">
+        <b-modal size="md" id="eventModal" :title="modalTitle" @ok="modalOk" @cancel="modalCancel" ref="modal">
             <div v-show="!(term.edition || term.patientEdition)">
                 <span v-if="term.status=='PENDING'">Czy rozpocząć wizytę {{term.title}} ?</span>
                 <span v-if="term.status=='FINISHED'">Przejść do edycji wizyty {{term.title}} ?</span>
@@ -10,11 +10,11 @@
             <template v-if="config.editable">
                 <div v-if="term.edition">
                     <form>
-                        <div class="form-group">
-                            <label for="termPatient">Pacjent</label>
-                            <div class="input-group mb-3">
+                        <div class="form-group row mb-3">
+                            <label for="termPatient" class="col-md-2">Pacjent</label>
+                            <div class="input-group col-md-10">
                                 <autocomplete id="termPatient" input-class="form-control" @selected="selectPatient"
-                                              :source="patientsUrl" style="display: flex; width: calc(100% - 37px)"
+                                              :source="patientsUrl" style="display: flex; width: calc(100% - 30px)"
                                               results-property="results" placeholder="Wyszukaj..." :initialDisplay="autocompletes.patient"
                                               results-display="label">
                                 </autocomplete>
@@ -23,33 +23,45 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="termDate">Data</label>
-                            <v-date-picker mode='single' v-model='termForm.datetime'>
+                        <div class="form-group row">
+                            <label class="col-md-2" for="termDate">Data</label>
+                            <v-date-picker mode='single' v-model='termForm.date' class="col-md-10">
                                 <input placeholder="Data" type="text" class="form-control" id="termDate"
                                        slot-scope="props" v-model="props.inputValue">
                             </v-date-picker>
                         </div>
-                        <div class="form-group">
-                            <label for="termDoctor">Lekarz</label>
-                            <input class="form-control" type="text" id="termDoctor" readonly v-model="termForm.doctor.name"/>
+                        <div class="form-group row">
+                            <label class="col-md-2" for="termTime">Godzina</label>
+                            <div class="col-md-10">
+                                <input v-model="termForm.time" type="time" class="form-control" id="termTime">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2" for="termDoctor">Lekarz</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" id="termDoctor" readonly v-model="termForm.doctor.name"/>
+                            </div>
                             <!--<autocomplete id="termDoctor" input-class="form-control" @selected="selectDoctor"-->
                                           <!--:source="doctorsUrl" placeholder="Wyszukaj..." :initialDisplay="autocompletes.doctor"-->
                                           <!--results-property="results"-->
                                           <!--results-display="name">-->
                             <!--</autocomplete>-->
                         </div>
-                        <div class="form-group">
-                            <label for="termService">Usługa</label>
-                            <autocomplete id="termService" input-class="form-control" @selected="selectService"
-                                          :source="servicesUrl" placeholder="Wyszukaj..."
-                                          results-property="results" :initialDisplay="autocompletes.service"
-                                          results-display="name">
-                            </autocomplete>
+                        <div class="form-group row">
+                            <label class="col-md-2" for="termService">Usługa</label>
+                            <div class="col-md-10">
+                                <autocomplete id="termService" input-class="form-control" @selected="selectService"
+                                              :source="servicesUrl" placeholder="Wyszukaj..."
+                                              results-property="results" :initialDisplay="autocompletes.service"
+                                              results-display="name">
+                                </autocomplete>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="termDuration">Czas trwania</label>
-                            <input v-model="termForm.duration" type="number" min="1" class="form-control" id="termDuration">
+                        <div class="form-group row">
+                            <label class="col-md-2" for="termDuration">Czas trwania</label>
+                            <div class="col-md-10">
+                                <input v-model="termForm.duration" type="number" min="1" class="form-control" id="termDuration">
+                            </div>
                         </div>
                     </form>
                     <div v-if="termForm.errors">
@@ -107,10 +119,27 @@ export default {
     selectDoctor (obj) {
       this.termForm.doctor = obj.selectedObject
     },
+    addNewVisit () {
+      this.termForm.patient = null
+      this.modalTitle = 'Nowa wizyta'
+      if (this.$store.state.user.doctor) {
+        let doctor = this.$store.state.user.doctor
+        this.termForm.doctor = {id: doctor.id, name: doctor.name}
+        this.autocompletes.doctor = doctor.name
+      } else {
+        this.termForm.doctor = null
+      }
+      this.termForm.service = null
+      this.term.edition = true
+      this.$refs.modal.show()
+    },
     goToEdition () {
-      axios.get('rest/terms/' + this.term.id + '/').then(response => {
+      this.modalTitle = 'Edycja terminu'
+      return axios.get('rest/terms/' + this.term.id + '/').then(response => {
         var data = response.data
-        this.termForm.datetime = new Date(data.datetime)
+        let datetime = this.$moment(data.datetime)
+        this.termForm.date = new Date(data.datetime)
+        this.termForm.time = datetime.format('hh:mm')
         this.termForm.id = data.id
         this.termForm.duration = data.duration
         this.termForm.errors = []
@@ -160,22 +189,28 @@ export default {
         if (!this.termForm.duration) {
           this.termForm.errors.push('Proszę określić czas trwania wizyty')
         }
+        if (!this.termForm.service && this.termForm.patient) {
+          this.termForm.errors.push('Proszę wybrać usługę')
+        }
         if (this.termForm.errors.length > 0) {
           return
         }
+        let datetime = this.$moment(this.termForm.date).format('YYYY-MM-DD') + 'T' + this.termForm.time
         axios.patch('rest/terms/' + this.termForm.id + '/',
           {doctor: this.termForm.doctor ? this.termForm.doctor.id : null,
             service: this.termForm.service ? this.termForm.service.id : null,
             patient: this.termForm.service ? this.termForm.patient.id : null,
             duration: this.termForm.duration,
-            datetime: this.termForm.datetime}).then(response => {
+            datetime: datetime}).then(response => {
           this.$refs.calendar.$emit('refetch-events')
           this.term.edition = false
           this.$refs.modal.hide()
         })
       } else
       if (this.term.patientEdition) {
-        this.$refs.patientForm.handleSubmit(() => {
+        this.$refs.patientForm.handleSubmit(res => {
+          this.termForm.patient = {id: res.id, label: res.label}
+          this.autocompletes.patient = res.label
           this.term.patientEdition = false
           this.$refs.patientForm.loadHtml()
           this.term.edition = true
@@ -206,7 +241,10 @@ export default {
       this.term.title = event.title
       this.term.status = event.status
       this.term.start = event.start.format('DD-MM HH:mm')
-      this.$refs.modal.show()
+      this.term.edition = false
+      if (this.term.status === 'FREE') { this.goToEdition().then(res => this.$refs.modal.show()) } else {
+        this.$refs.modal.show()
+      }
     },
     saveTerm () {
       this.$refs.form.handleSubmit(() => { this.$refs.modal.hide(); this.$refs.calendar.$emit('refetch-events') })
@@ -230,12 +268,18 @@ export default {
         locale: 'pl',
         editable: user.can_edit_terms,
         slotDuration: '00:15:00',
-        displayEventTime: false
+        displayEventTime: false,
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'agendaWeek,listWeek,agendaDay'
+        }
       }
     }
   },
   data: () => {
     return {
+      modalTitle: 'Edycja terminu',
       doctor: null,
       patientsUrl: axios.defaults.baseURL + 'rest/patients/?term=',
       doctorsUrl: axios.defaults.baseURL + 'rest/doctors/?term=',
@@ -243,7 +287,8 @@ export default {
       termForm: {
         id: null,
         service: null,
-        datetime: null,
+        date: null,
+        time: null,
         doctor: null,
         duration: null,
         patient: null,
