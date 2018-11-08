@@ -108,9 +108,12 @@ a.button-add i {
   color: $primary;
   cursor: pointer;
 }
-.card-toolbar i {
+.card-toolbar i, .card-toolbar a {
   margin-right: 0.5rem;
 }
-.card-toolbar i:last-of-type {
+.card-toolbar i:last-child, .card-toolbar a:last-child {
   margin-right: 0;
+}
+.header-fixed .app-header {
+  z-index: 1000;
 }

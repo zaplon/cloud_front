@@ -48,7 +48,7 @@ export default {
       this.$refs.newResultForm.save()
     },
     modalCancel () {
-      this.$refs.newResultModal.close()
+      this.$refs.newResultModal.hide()
     },
     showDocument (document) {
       this.document = document

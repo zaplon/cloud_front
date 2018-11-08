@@ -21,11 +21,21 @@ export default {
     module: {
       type: String,
       required: true
+    },
+    readonly: {
+      type: Boolean,
+      required: false,
+      default: null
+    },
+    autoload: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   methods: {
     loadHtml (id, data) {
-      return axios.get(this.url, {params: {klass: this.klass, module: this.module, id: id, data: data}}).then(response => {
+      return axios.get(this.url, {params: {klass: this.klass, module: this.module, read_only: this.readonly, id: id, data: data}}).then(response => {
         if (response.data.success) {
           this.htmlData = response.data.form_html
         }
@@ -47,7 +57,7 @@ export default {
     }
   },
   mounted () {
-    this.loadHtml()
+    if (this.autoload) { this.loadHtml() }
   }
 }
 </script>

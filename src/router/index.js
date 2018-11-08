@@ -14,6 +14,7 @@ import Icd10 from '@/views/Icd10'
 import {default as PatientsIndex} from '@/views/patients/Index'
 import Patients from '@/views/patients/Patients'
 import Patient from '@/views/patients/Patient'
+import PatientEdit from '@/views/patients/Edit'
 
 import Stats from '@/views/Stats'
 import Tabs from '@/views/Tabs'
@@ -151,6 +152,12 @@ var router = new Router({
               name: 'Pacjent',
               component: Patient,
               meta: {label: 'Pacjent'}
+            },
+            {
+              path: ':id/edycja',
+              name: 'Edycja pacjenta',
+              component: PatientEdit,
+              meta: {label: 'Edycja'}
             }]
         },
         {

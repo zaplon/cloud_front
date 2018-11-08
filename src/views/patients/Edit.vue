@@ -2,19 +2,18 @@
     <div class="card">
         <div class="card-header">{{ label }}
             <div class="card-toolbar">
-                <router-link to="edycja"><i class="fa fa-pencil" title="edytuj" aria-hidden="true"></i></router-link>
                 <i class="fa fa-times" title="usuń" aria-hidden="true"></i>
             </div>
         </div>
         <div class="card-body">
-            <backend-form :autoload="false" :readonly="false" ref="patientForm" klass="PatientModelForm" module="user_profile.forms"></backend-form>
+            <backend-form :autoload="false" ref="patientForm" klass="PatientModelForm" module="user_profile.forms"></backend-form>
         </div>
     </div>
 </template>
 <script>
 import axios from 'axios'
 export default {
-  name: 'patient',
+  name: 'patientEdit',
   data () {
     return {
       patientId: this.$route.params.id ? parseInt(this.$route.params.id) : 0,
