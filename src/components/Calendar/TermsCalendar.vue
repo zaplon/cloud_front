@@ -33,7 +33,7 @@
                         <div class="form-group row">
                             <label class="col-md-2" for="termTime">Godzina</label>
                             <div class="col-md-10">
-                                <input v-model="termForm.time" type="time" class="form-control" id="termTime">
+                                <input name="term-time" v-model="termForm.time" type="time" class="form-control" id="termTime">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -60,7 +60,7 @@
                         <div class="form-group row">
                             <label class="col-md-2" for="termDuration">Czas trwania</label>
                             <div class="col-md-10">
-                                <input v-model="termForm.duration" type="number" min="1" class="form-control" id="termDuration">
+                                <input name="term-duration" v-model="termForm.duration" type="number" min="1" class="form-control" id="termDuration">
                             </div>
                         </div>
                     </form>
@@ -122,14 +122,12 @@ export default {
     addNewVisit () {
       this.termForm.patient = null
       this.modalTitle = 'Nowa wizyta'
+      this.termForm = this.resetTermForm()
       if (this.$store.state.user.doctor) {
         let doctor = this.$store.state.user.doctor
         this.termForm.doctor = {id: doctor.id, name: doctor.name}
         this.autocompletes.doctor = doctor.name
-      } else {
-        this.termForm.doctor = null
       }
-      this.termForm.service = null
       this.term.edition = true
       this.$refs.modal.show()
     },
@@ -196,16 +194,27 @@ export default {
           return
         }
         let datetime = this.$moment(this.termForm.date).format('YYYY-MM-DD') + 'T' + this.termForm.time
-        axios.patch('rest/terms/' + this.termForm.id + '/',
-          {doctor: this.termForm.doctor ? this.termForm.doctor.id : null,
-            service: this.termForm.service ? this.termForm.service.id : null,
-            patient: this.termForm.service ? this.termForm.patient.id : null,
-            duration: this.termForm.duration,
-            datetime: datetime}).then(response => {
+        let payload = {
+          doctor: this.termForm.doctor ? this.termForm.doctor.id : null,
+          service: this.termForm.service ? this.termForm.service.id : null,
+          patient: this.termForm.service ? this.termForm.patient.id : null,
+          duration: this.termForm.duration,
+          datetime: datetime
+        }
+        let callback = () => {
           this.$refs.calendar.$emit('refetch-events')
           this.term.edition = false
           this.$refs.modal.hide()
-        })
+        }
+        if (this.termForm.id) {
+          axios.patch('rest/terms/' + this.termForm.id + '/', payload).then(response => {
+            callback()
+          })
+        } else {
+          axios.post('rest/terms/', payload).then(response => {
+            callback()
+          })
+        }
       } else
       if (this.term.patientEdition) {
         this.$refs.patientForm.handleSubmit(res => {
@@ -248,6 +257,9 @@ export default {
     },
     saveTerm () {
       this.$refs.form.handleSubmit(() => { this.$refs.modal.hide(); this.$refs.calendar.$emit('refetch-events') })
+    },
+    resetTermForm () {
+      return {id: null, service: null, date: null, time: null, doctor: null, duration: null, patient: null, errors: []}
     }
   },
   computed: {
@@ -284,16 +296,7 @@ export default {
       patientsUrl: axios.defaults.baseURL + 'rest/patients/?term=',
       doctorsUrl: axios.defaults.baseURL + 'rest/doctors/?term=',
       servicesUrl: axios.defaults.baseURL + 'rest/services/?term=',
-      termForm: {
-        id: null,
-        service: null,
-        date: null,
-        time: null,
-        doctor: null,
-        duration: null,
-        patient: null,
-        errors: []
-      },
+      termForm: {id: null, service: null, date: null, time: null, doctor: null, duration: null, patient: null, errors: []},
       term: {
         title: '',
         status: '',

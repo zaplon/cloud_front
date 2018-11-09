@@ -3,7 +3,7 @@
         <div class="card-header">{{ label }}
             <div class="card-toolbar">
                 <router-link to="edycja"><i class="fa fa-pencil" title="edytuj" aria-hidden="true"></i></router-link>
-                <i class="fa fa-times" title="usuń" aria-hidden="true"></i>
+                <router-link to="/archiwum"><i class="fa fa-archive" title="archiwum" aria-hidden="true"></i></router-link>
             </div>
         </div>
         <div class="card-body">
