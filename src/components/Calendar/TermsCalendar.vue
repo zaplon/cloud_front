@@ -33,7 +33,7 @@
                         <div class="form-group row">
                             <label class="col-md-2" for="termTime">Godzina</label>
                             <div class="col-md-10">
-                                <input name="term-time" v-model="termForm.time" type="time" class="form-control" id="termTime">
+                                <vue-timepicker style="width:100%;" v-model="termForm.time" :minute-interval="5" id="termTime"></vue-timepicker>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -94,9 +94,10 @@ import { FullCalendar } from 'vue-full-calendar'
 import Autocomplete from 'vuejs-auto-complete'
 import 'fullcalendar/dist/locale/pl'
 import axios from 'axios'
+import VueTimepicker from 'vuejs-timepicker'
 export default {
   name: 'terms-calendar',
-  components: {FullCalendar, Autocomplete},
+  components: {FullCalendar, Autocomplete, VueTimepicker},
   methods: {
     cancelVisit (term) {
       axios.post('timetable/cancel/', {id: term.id}).then(response => {
@@ -137,7 +138,7 @@ export default {
         var data = response.data
         let datetime = this.$moment(data.datetime)
         this.termForm.date = new Date(data.datetime)
-        this.termForm.time = datetime.format('hh:mm')
+        this.termForm.time = {HH: datetime.format('HH'), mm: datetime.format('mm')}
         this.termForm.id = data.id
         this.termForm.duration = data.duration
         this.termForm.errors = []
@@ -193,7 +194,8 @@ export default {
         if (this.termForm.errors.length > 0) {
           return
         }
-        let datetime = this.$moment(this.termForm.date).format('YYYY-MM-DD') + 'T' + this.termForm.time
+        let datetime = this.$moment(this.termForm.date).format('YYYY-MM-DD') + 'T' +
+            this.termForm.time['HH'] + ':' + this.termForm.time['mm']
         let payload = {
           doctor: this.termForm.doctor ? this.termForm.doctor.id : null,
           service: this.termForm.service ? this.termForm.service.id : null,
@@ -259,7 +261,7 @@ export default {
       this.$refs.form.handleSubmit(() => { this.$refs.modal.hide(); this.$refs.calendar.$emit('refetch-events') })
     },
     resetTermForm () {
-      return {id: null, service: null, date: null, time: null, doctor: null, duration: null, patient: null, errors: []}
+      return {id: null, service: null, date: null, time: {}, doctor: null, duration: null, patient: null, errors: []}
     }
   },
   computed: {
