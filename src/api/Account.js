@@ -11,7 +11,11 @@ var account = {
   getUserData () {
     return axios.get('rest/user/').then(response => {
       store.commit('setUserData', response.data)
+    }).catch(error => {
+        delete localStorage.token
+        vue.$router.push('/')
     })
+    }
   }
 }
 
