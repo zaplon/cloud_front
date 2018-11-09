@@ -12,10 +12,9 @@ var account = {
     return axios.get('rest/user/').then(response => {
       store.commit('setUserData', response.data)
     }).catch(error => {
-        delete localStorage.token
-        vue.$router.push('/')
+      console.log(error)
+      delete localStorage.token
     })
-    }
   }
 }
 

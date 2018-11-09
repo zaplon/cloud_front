@@ -6,6 +6,9 @@
         <div class="card-body">
             <v-server-table ref="table" url="rest/templates/" :columns="columns" :options="options">
                 <a href="#" slot="name" @click.prevent="editTemplate(props.row)" slot-scope="props">{{ props.row.name }}</a>
+                <div slot="actions" slot-scope="props">
+                    <button @click="deleteTemplate(props.row)" class="btn btn-danger">Usuń</button>
+                </div>
             </v-server-table>
         </div>
         <b-modal size="md" id="templateModal" :title="template.title" @ok="modalOk" @cancel="modalCancel" ref="templateModal">
@@ -19,6 +22,7 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   name: 'templates',
   methods: {
@@ -43,14 +47,17 @@ export default {
       this.template.id = template.id
       this.$refs.templateForm.loadHtml(template.id).then(response => { this.$refs.templateModal.show() })
       this.$refs.templateModal.show()
+    },
+    deleteTemplate (template) {
+      axios.delete('rest/templates/' + template.id + '/').then(response => { this.$refs.table.refresh() })
     }
   },
   data () {
     return {
       template: {title: '', id: null},
-      columns: ['name', 'text', 'tab_name'],
+      columns: ['name', 'text', 'tab_name', 'actions'],
       options: {
-        headings: {'name': 'Nazwa', 'text': 'Treść', 'tab_name': 'Zakładka'}
+        headings: {'name': 'Nazwa', 'text': 'Treść', 'tab_name': 'Zakładka', 'actions': ''}
       }
     }
   }
