@@ -5,7 +5,8 @@ var account = {
   logOut (vue) {
     axios.post('rest-auth/logout/').then(request => {
       delete localStorage.token
-      vue.$router.push('/')
+      delete axios.defaults.headers.common['Authorization']
+      vue.$router.push({name: 'Login'})
     })
   },
   getUserData () {

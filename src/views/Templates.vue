@@ -7,7 +7,7 @@
             <v-server-table ref="table" url="rest/templates/" :columns="columns" :options="options">
                 <a href="#" slot="name" @click.prevent="editTemplate(props.row)" slot-scope="props">{{ props.row.name }}</a>
                 <div slot="actions" slot-scope="props">
-                    <button @click="deleteTemplate(props.row)" class="btn btn-danger">Usuń</button>
+                    <button @click="deleteTemplate(props.row)" class="btn btn-danger btn-sm">Usuń</button>
                 </div>
             </v-server-table>
         </div>

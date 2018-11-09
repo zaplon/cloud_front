@@ -36,7 +36,7 @@ export default {
       this.$router.push('/pacjenci/' + this.patientId)
     },
     savePatient () {
-      this.$refs.patientForm.save()
+      this.$refs.patientForm.handleSubmit()
     },
     showConfirmDeleteModal () {
       this.$refs.confirmModal.show()

@@ -11,9 +11,9 @@
                     <td><button class="btn btn-link" @click="editTab(tab)">{{ tab.title }}</button></td>
                     <td>{{ tab.type }}</td>
                     <td>
-                        <button v-if="!tab.enabled" @click="changeTabState(tab)" class="btn btn-info">Włącz</button>
-                        <button v-if="tab.enabled" @click="changeTabState(tab)" class="btn btn-info">Wyłącz</button>
-                        <button @click="deleteTab(tab)" class="btn btn-danger">Usuń</button>
+                        <button v-if="!tab.enabled" @click="changeTabState(tab)" class="btn btn-default btn-sm">Włącz</button>
+                        <button v-if="tab.enabled" @click="changeTabState(tab)" class="btn btn-default btn-sm">Wyłącz</button>
+                        <button @click="deleteTab(tab)" class="btn btn-danger btn-sm">Usuń</button>
                     </td>
                 </tr>
                 </tbody>
