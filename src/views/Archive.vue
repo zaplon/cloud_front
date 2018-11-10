@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <button v-permission="'can_edit_result'" class="btn bottom-right button-add font-lg" v-b-modal="'resultModal'"><i class="fa fa-plus"></i></button>
+        <button v-permission="'can_change_result'" class="btn bottom-right button-add font-lg" v-b-modal="'resultModal'"><i class="fa fa-plus"></i></button>
         <div class="card-header">
             Archiwum
         </div>
