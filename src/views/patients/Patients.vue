@@ -1,15 +1,17 @@
 <template>
     <div class="card">
+        <button v-b-modal="'patientModal'" v-permission="'add_patient'" class="btn bottom-right button-add font-lg" @click="addNewVisit">
+            <i class="fa fa-plus"></i>
+        </button>
         <div class="card-header">
             Pacjenci
         </div>
         <div class="card-body">
             <div>
-                <button type="button" v-permission="'can_add_patient'" class="mb-4 btn btn-success" v-b-modal="'patientModal'">Dodaj</button>
-                <button type="button" v-permission="'can_delete_patient'" class="mb-4 btn btn-danger" disabled>Usuń</button>
+                <button type="button" v-permission="'delete_patient'" class="mb-4 btn btn-danger" disabled>Usuń</button>
             </div>
             <v-server-table url="rest/patients/" :columns="columns" :options="options" ref="table">
-                <input type="checkbox" class="form-control" slot="select" slot-scope="props" v-permission="'can_edit_patients'">
+                <input type="checkbox" class="form-control" slot="select" slot-scope="props" v-permission="'edit_patients'">
                 <router-link :to="/pacjenci/ + props.row.id + '/'" slot="first_name" slot-scope="props">{{ props.row.first_name }}</router-link>
             </v-server-table>
         </div>
@@ -32,7 +34,7 @@ export default {
   data () {
     return {
       patientId: null,
-      columns: this.$hasPermissions('can_edit_patients') ? ['select', 'first_name', 'last_name', 'pesel']
+      columns: this.$hasPermissions('delete_patient') ? ['select', 'first_name', 'last_name', 'pesel']
         : ['first_name', 'last_name', 'pesel'],
       options: {
         headings: {'first_name': 'Imię', 'last_name': 'Nazwisko', 'pesel': 'Pesel', 'select': ''}

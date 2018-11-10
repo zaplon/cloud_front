@@ -58,6 +58,7 @@
                                     <icd :data="visit.icd_codes" v-if="tab.type=='ICD10'" :ref="tab.id" />
                                     <notes v-else-if="tab.type=='NOTES'" :ref="tab.id" />
                                     <medicines :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='MEDICINES'" :ref="tab.id" />
+                                    <oculist :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='OCULIST'" :ref="tab.id"></oculist>
                                     <visit-tab :name="tab.name" :templates="templates.filter((t) => t.tab_title == tab.title)"
                                                :initial="tab.data" :ref="tab.id" v-else></visit-tab>
                                 </b-tab>
@@ -79,6 +80,7 @@ import VisitTab from '@/components/Visit/VisitTab'
 import Archive from '@/components/Visit/Archive'
 import Notes from '@/components/Visit/Notes'
 import Medicines from '@/components/Visit/Medicines'
+import Oculist from '@/components/Visit/Oculist'
 import forms from '@/_forms.js'
 import EventBus from '@/eventBus'
 export default {
@@ -184,7 +186,8 @@ export default {
     VisitTab,
     Notes,
     Archive,
-    Medicines
+    Medicines,
+    Oculist
   }
 }
 </script>

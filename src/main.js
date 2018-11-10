@@ -71,10 +71,12 @@ Vue.prototype.$moment = moment
 Vue.prototype.$formsRoot = formsUrl
 Vue.prototype.$backendUrl = backendUrl
 Vue.prototype.$urlEncode = (data) => Object.keys(data).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`).join('&')
-var hasPermissions = (permission) => (app.$store.state.user.user_permissions.filter((p) => p.name === permission).length > 0)
+var hasPermissions = (permission) => {
+  return app.$store.state.user.user_permissions.filter((p) => p.codename === permission).length > 0
+}
 Vue.prototype.$hasPermissions = hasPermissions
 Vue.directive('permission', function (el, binding, vnode) {
-  if (vnode.context.$store.state.user.user_permissions.filter((p) => p.name === binding.value).length === 0) {
+  if (vnode.context.$store.state.user.user_permissions.filter((p) => p.codename === binding.value).length === 0) {
     el.style.display = 'none'
   }
 })

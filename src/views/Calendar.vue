@@ -22,7 +22,7 @@
                 </div>
             </div>
         </div>
-        <button class="btn bottom-right button-add font-lg" @click="addNewVisit"><i class="fa fa-plus"></i></button>
+        <button v-permission="'add_visit'" class="btn bottom-right button-add font-lg" @click="addNewVisit"><i class="fa fa-plus"></i></button>
     </div>
 </template>
 <script>

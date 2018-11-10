@@ -1,13 +1,13 @@
 <template>
     <div class="card">
-        <button v-permission="'can_change_result'" class="btn bottom-right button-add font-lg" v-b-modal="'resultModal'"><i class="fa fa-plus"></i></button>
+        <button v-permission="'change_result'" class="btn bottom-right button-add font-lg" v-b-modal="'resultModal'"><i class="fa fa-plus"></i></button>
         <div class="card-header">
             Archiwum
         </div>
         <div class="card-body">
             <div>
-                <button v-permission="'can_edit_result'" type="button" class="mb-4 btn btn-success" v-b-modal="'resultModal'">Dodaj</button>
-                <button :disabled="!deleteEnabled" type="button" v-permission="'can_delete_result'"
+                <button v-permission="'edit_result'" type="button" class="mb-4 btn btn-success" v-b-modal="'resultModal'">Dodaj</button>
+                <button :disabled="!deleteEnabled" type="button" v-permission="'delete_result'"
                         class="btn btn-danger mb-4" v-b-modal="'modal'">Usuń</button>
             </div>
             <v-server-table ref="table" url="rest/results/" :columns="columns" :options="options">
@@ -64,7 +64,7 @@ export default {
     return {
       resultId: null,
       deleteEnabled: false,
-      columns: this.$hasPermissions('can_edit_result') ? ['select', 'patient', 'pesel', 'name', 'file']
+      columns: this.$hasPermissions('delete_result') ? ['select', 'patient', 'pesel', 'name', 'file']
         : ['patient', 'pesel', 'name', 'file'],
       options: {
         headings: {'select': '', 'patient': 'Pacjent', 'pesel': 'Pesel', 'nazwa': 'Nazwa', 'file': 'Plik'}
