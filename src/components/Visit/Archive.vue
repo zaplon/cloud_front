@@ -35,17 +35,22 @@ export default {
     }
   },
   mounted () {
-    axios.get('rest/results/', {params: {pesel: this.pesel, as_categories: 1}}).then(
-      response => {
-        this.categories = response.data
-      })
+    this.loadCategories()
   },
   methods: {
+    loadCategories () {
+      axios.get('rest/results/', {params: {pesel: this.pesel, as_categories: 1}}).then(
+        response => {
+          this.categories = response.data
+        })
+    },
     addDocument () {
       this.$refs.newResultModal.show()
     },
     modalOk () {
-      this.$refs.newResultForm.save()
+      this.$refs.newResultForm.save().then((response) => {
+        this.loadCategories()
+      })
     },
     modalCancel () {
       this.$refs.newResultModal.hide()

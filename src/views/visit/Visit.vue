@@ -22,9 +22,9 @@
                                 type="button" @click="showForms('zaswiadczenia')"><i class="fa fa-print"></i>&nbsp;Zaświadczenia</button>
                     </form>
                     <form class="form-inline">
-                        <button class="btn btn-danger mr-2" type="button" @click="cancelVisit">Cofnij</button>
-                        <button class="btn btn-default mr-2" type="button" @click="saveVisit(true)">Zapisz tymczasowo</button>
-                        <button class="btn btn-success" @click="saveVisit()" type="button">Zapisz</button>
+                        <button class="btn btn-secondary text-danger mr-2" type="button" @click="cancelVisit">Cofnij</button>
+                        <button class="btn btn-secondary mr-2" type="button" @click="saveVisit(true)">Zapisz tymczasowo</button>
+                        <button class="btn btn-secondary text-success" @click="saveVisit()" type="button">Zapisz</button>
                     </form>
                 </nav>
                 <nav class="navbar navbar-dark bg-secondary visit-nav" id="forms-nav" v-show="forms.show">
@@ -162,7 +162,7 @@ export default {
           })
           return
         }
-        this.$router.back()
+        this.$router.push('/')
         this.$notify({
           group: 'nots',
           title: 'Wizyta została zapisana',
