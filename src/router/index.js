@@ -7,6 +7,8 @@ import Account from '@/containers/Account'
 import Setup from '@/containers/Setup'
 
 // Views
+import AddEdit from '@/views/AddEdit'
+
 import Dashboard from '@/views/Dashboard'
 import Calendar from '@/views/Calendar'
 import Icd10 from '@/views/Icd10'
@@ -146,6 +148,18 @@ var router = new Router({
               path: 'lista',
               name: 'Lista',
               component: Patients
+            },
+            {
+              path: 'nowy',
+              name: 'NewPatient',
+              component: AddEdit,
+              meta: {label: 'Nowy pacjent'},
+              props: {
+                backUrl: '/pacjenci',
+                resource: 'patients',
+                klass: 'PatientModelForm',
+                module: 'user_profile.forms'
+              }
             },
             {
               path: ':id',

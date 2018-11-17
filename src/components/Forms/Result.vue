@@ -87,13 +87,13 @@ export default {
       var promise = {}
       if (this.pk) {
         promise = axios.patch(this.url + this.pk + '/', formData, config).then(response => {
-          if (!response.data.success) {
+          if (!response.data.id) {
             this.displayErrors(response.data)
           }
         })
       } else {
         promise = axios.post(this.url, formData, config).then(response => {
-          if (!response.data.success) {
+          if (!response.data.id) {
             this.displayErrors(response.data)
           }
         })

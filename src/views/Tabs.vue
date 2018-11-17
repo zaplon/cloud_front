@@ -1,5 +1,8 @@
 <template>
     <div class="card">
+        <b-modal ok-title="Tak" cancel-title="Anuluj" size="md" id="confirmModal" title="Potwierdzenie operacji" @ok="deleteTab" ref="confirmModal">
+            Czy na pewno chcesz usunąć ten rekord?
+        </b-modal>
         <div class="card-header">Zakładki</div>
         <div class="card-body">
             <table class="table table-striped table-bordered">
@@ -65,12 +68,16 @@ export default {
         this.loadTabs()
       })
     },
+    showConfirmModal (tab) {
+      this.selectedTab = tab
+      this.$refs.confirmModal.show()
+    },
     modalCancel () {
       this.$refs.tabModal.hide()
     },
-    deleteTab (tab) {
-      axios.delete('rest/tabs/' + tab.id + '/').then(response => {
-        this.tabs.splice(this.tabs.indexOf(tab), 1)
+    deleteTab () {
+      axios.delete('rest/tabs/' + this.selectedTab.id + '/').then(response => {
+        this.tabs.splice(this.tabs.indexOf(this.selectedTab), 1)
       })
     },
     reorder (tab, place) {

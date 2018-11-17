@@ -69,6 +69,6 @@ export default {
         height: 70vh;
     }
     .landscape-form .modal-dialog{
-        min-width: 29.7cm;
+        min-width: 29.7cm!important;
     }
 </style>

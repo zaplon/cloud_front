@@ -18,10 +18,10 @@
             </select>
         </td>
         <td>{{ medicine.form }}</td><td>{{ medicine.dose }}</td>
-        <td><input type="text" class="form-control" v-model="medicine.dosage"></td>
+        <td><input type="text" :class="[errors.dosage ? 'is-invalid' : '', 'form-control']" v-model="medicine.dosage"></td>
         <td>
-            <button v-if="toAdd" @click="add(medicine)" class="btn btn-success">Dodaj</button>
-            <button v-else @click="remove(medicine)" class="btn btn-danger">Usuń</button>
+            <button v-if="toAdd" @click="add(medicine)" class="btn btn-sm btn-success">Dodaj</button>
+            <button v-else @click="remove(medicine)" class="btn btn-sm btn-danger">Usuń</button>
         </td>
     </tr>
 </template>
@@ -29,6 +29,11 @@
 import axios from 'axios'
 export default {
   name: 'medicine-row',
+  data () {
+    return {
+      errors: {}
+    }
+  },
   props: {
     medicine: Object,
     toAdd: {

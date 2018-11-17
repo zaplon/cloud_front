@@ -8,11 +8,11 @@
             <tbody>
                 <tr class="table-info" v-for="selection in selections" :key="selection.desc">
                     <td>{{ selection.code }}</td><td>{{ selection.desc }}</td>
-                    <td><button @click="remove(selection)" class="btn btn-danger">Usuń</button></td>
+                    <td><button @click="remove(selection)" class="btn btn-sm btn-danger">Usuń</button></td>
                 </tr>
                 <tr v-for="suggestion in suggestions" :key="suggestion.id" v-if="!suggestion.selected">
                     <td>{{ suggestion.code }}</td><td>{{ suggestion.desc }}</td>
-                    <td><button @click="add(suggestion)" class="btn btn-success">Dodaj</button></td>
+                    <td><button @click="add(suggestion)" class="btn btn-sm btn-success">Dodaj</button></td>
                 </tr>
                 <tr v-if="suggestions.length == 0">
                     <td colspan="3" class="text-center"><span class="text-muted">Brak wyników</span></td>

@@ -5,6 +5,6 @@ export default {
       {name: 'orzeczenie_zdolnosc_do_pracy', title: 'Orzeczenie o zdolności do pracy'}],
     zaswiadczenia: [{name: 'zaswiadczenie', title: 'Zaświadczenie'}],
     karty: [{name: 'karta_badania_profilaktycznego', title: 'Karta badania profilaktycznego'},
-      {name: 'karta_badania_lekarskiego', title: 'Karta badania kierowcy', modalClass: 'landscape-form'}]
+      {name: 'karta_badania_lekarskiego', title: 'Karta badania lekarskiego', modalClass: 'landscape-form'}]
   }
 }

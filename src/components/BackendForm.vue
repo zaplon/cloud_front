@@ -51,7 +51,9 @@ export default {
       }
       return axios.post(this.url, {klass: this.klass, module: this.module, data: data}).then(response => {
         if (response.data.success) {
-          callback(response.data.result)
+          if (callback) {
+            callback(response.data.result)
+          }
         } else { this.htmlData = response.data.form_html }
       })
     }

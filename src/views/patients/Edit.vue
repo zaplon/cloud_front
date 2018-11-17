@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="card-body">
-            <backend-form :autoload="false" ref="patientForm" klass="PatientModelForm" module="user_profile.forms"></backend-form>
+            <backend-form :pk="patientId" :autoload="false" ref="patientForm" klass="PatientModelForm" module="user_profile.forms"></backend-form>
         </div>
         <div class="card-footer">
             <button class="btn btn-danger pull-left" @click="showConfirmDeleteModal">Usuń</button>
@@ -36,7 +36,7 @@ export default {
       this.$router.push('/pacjenci/' + this.patientId)
     },
     savePatient () {
-      this.$refs.patientForm.handleSubmit()
+      this.$refs.patientForm.handleSubmit().then(response => this.$router.push('/pacjenci/'))
     },
     showConfirmDeleteModal () {
       this.$refs.confirmModal.show()

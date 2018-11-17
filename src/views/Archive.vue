@@ -1,16 +1,18 @@
 <template>
     <div class="card">
-        <button v-permission="'change_result'" class="btn bottom-right button-add font-lg" v-b-modal="'resultModal'"><i class="fa fa-plus"></i></button>
+        <button v-permission="'add_result'" class="btn bottom-right button-add font-lg"><i class="fa fa-plus"></i></button>
         <div class="card-header">
             Archiwum
         </div>
         <div class="card-body">
             <div>
-                <button v-permission="'edit_result'" type="button" class="mb-4 btn btn-success" v-b-modal="'resultModal'">Dodaj</button>
                 <button :disabled="!deleteEnabled" type="button" v-permission="'delete_result'"
                         class="btn btn-danger mb-4" v-b-modal="'modal'">Usuń</button>
             </div>
             <v-server-table ref="table" url="rest/results/" :columns="columns" :options="options">
+                <div>
+                    <button v-b-modal="'confirmDeleteModal'" class="btn btn-danger btn-sm">usuń</button>
+                </div>
                 <input type="checkbox" slot-scope="props" slot="select" @change="rowSelected(props.row)" v-model="props.row.selected" />
                 <button class="btn btn-link" slot="file" @click="showDocument(props.row)" slot-scope="props"><i class="fa fa-file-pdf-o"></i></button>
             </v-server-table>

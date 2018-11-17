@@ -114,10 +114,17 @@ export default {
         permissions: this.prescription.permissions,
         date: this.prescription.realisationDate})
     },
+    validatePrescription () {
+      this.selections.forEach((s, index) => {
+        console.log(s)
+        if (!s.dosage) { this.$refs[s.id][0].errors['dosage'] = 1 } else { delete this.$refs[s.id][0].errors['dosage'] }
+      })
+    },
     printRecipe () {
       this.save()
       let medicines = []
       console.log(this.$refs)
+      this.validatePrescription()
       this.selections.forEach((s) => { medicines.push(this.$refs[s.id][0].getData()) })
       axios.post('visit/recipe/', {
         medicines: this.selections,

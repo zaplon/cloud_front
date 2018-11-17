@@ -3,15 +3,15 @@
         <b-modal ok-title="Tak" cancel-title="Anuluj" size="md" id="confirmModal" title="Potwierdzenie operacji" @ok="deletePatient" ref="confirmModal">
             Czy na pewno chcesz usunąć ten rekord?
         </b-modal>
-        <button v-permission="'add_patient'" class="btn bottom-right button-add font-lg" @click="addNewPatient">
+        <button :v-permission="add_permission" class="btn bottom-right button-add font-lg" @click="addNewRecord">
             <i class="fa fa-plus"></i>
         </button>
         <div class="card-header">
-            Pacjenci
+            {{ label }}
         </div>
         <div class="card-body">
             <div style="display: none;">
-                <button type="button" v-permission="'delete_patient'" class="mb-4 btn btn-danger" disabled>Usuń</button>
+                <button type="button" :v-permission="'delete_permission'" class="mb-4 btn btn-danger" disabled>Usuń</button>
             </div>
             <v-server-table url="rest/patients/" :columns="columns" :options="options" ref="table">
                 <input type="checkbox" class="form-control" slot="select" slot-scope="props" v-permission="'edit_patient'">

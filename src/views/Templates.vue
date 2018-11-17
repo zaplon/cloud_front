@@ -1,5 +1,8 @@
 <template>
     <div class="card">
+        <b-modal ok-title="Tak" cancel-title="Anuluj" size="md" id="confirmModal" title="Potwierdzenie operacji" @ok="deleteTemplate" ref="confirmModal">
+            Czy na pewno chcesz usunąć ten rekord?
+        </b-modal>
         <div class="card-header">
             Szablony
         </div>
@@ -26,6 +29,10 @@ import axios from 'axios'
 export default {
   name: 'templates',
   methods: {
+    showConfirmModal (template) {
+      this.selectedTemplate = template
+      this.$refs.confirmModal.show()
+    },
     modalCancel () {
       this.$refs.templateModal.hide()
     },
@@ -48,8 +55,8 @@ export default {
       this.$refs.templateForm.loadHtml(template.id).then(response => { this.$refs.templateModal.show() })
       this.$refs.templateModal.show()
     },
-    deleteTemplate (template) {
-      axios.delete('rest/templates/' + template.id + '/').then(response => { this.$refs.table.refresh() })
+    deleteTemplate () {
+      axios.delete('rest/templates/' + this.selectedTemplate.id + '/').then(response => { this.$refs.table.refresh() })
     }
   },
   data () {
