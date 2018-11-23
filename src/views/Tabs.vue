@@ -13,6 +13,7 @@
                 <tr v-for="tab in tabs" :key="tab.id">
                     <td><button class="btn btn-link" @click="editTab(tab)">{{ tab.title }}</button></td>
                     <td>{{ tab.type }}</td>
+                    <td>{{ tab.order }}</td>
                     <td>
                         <button v-if="!tab.enabled" @click="changeTabState(tab)" class="btn btn-default btn-sm">Włącz</button>
                         <button v-if="tab.enabled" @click="changeTabState(tab)" class="btn btn-default btn-sm">Wyłącz</button>

@@ -6,7 +6,7 @@
         </div>
         <div class="card-body">
             <div>
-                <button :disabled="!deleteEnabled" type="button" v-permission="'delete_result'"
+                <button style="display: none;" :disabled="!deleteEnabled" type="button" v-permission="'delete_result'"
                         class="btn btn-danger mb-4" v-b-modal="'modal'">Usuń</button>
             </div>
             <v-server-table ref="table" url="rest/results/" :columns="columns" :options="options">
@@ -14,6 +14,7 @@
                     <button v-b-modal="'confirmDeleteModal'" class="btn btn-danger btn-sm">usuń</button>
                 </div>
                 <input type="checkbox" slot-scope="props" slot="select" @change="rowSelected(props.row)" v-model="props.row.selected" />
+                <button class="btn btn-sm btn-danger" slot-scope="props" slot="actions" @click="showDeleteModal(props.row)">usuń</button>
                 <button class="btn btn-link" slot="file" @click="showDocument(props.row)" slot-scope="props"><i class="fa fa-file-pdf-o"></i></button>
             </v-server-table>
         </div>
@@ -26,6 +27,9 @@
         </b-modal>
         <b-modal @ok="deleteResults" cancel-title="Zamknij" ref="modal" id="modal" size="md" title="Usuwanie dokumentów">
             <span>Czy jesteś pewien, że chcesz usunąć zaznaczone rekordy?</span>
+        </b-modal>
+        <b-modal @ok="deleteResult" cancel-title="Zamknij" ref="deleteModal" id="delete-modal" size="md" title="Usuwanie dokumentu">
+            <span>Czy jesteś pewien, że chcesz usunąć ten rekord?</span>
         </b-modal>
     </div>
 </template>
@@ -57,6 +61,15 @@ export default {
         })
       })
     },
+    showDeleteModal (r) {
+      this.selectedResult = r
+      this.$refs.deleteModal.show()
+    },
+    deleteResult (r) {
+      axios.delete('rest/results/' + this.selectedResult.id + '/').then((response) => {
+        this.$refs.table.refresh()
+      })
+    },
     selectedResults () {
       return this.$refs.table.data.filter((r) => r.selected)
     },
@@ -69,10 +82,11 @@ export default {
     return {
       resultId: null,
       deleteEnabled: false,
-      columns: this.$hasPermissions('delete_result') ? ['select', 'patient', 'pesel', 'name', 'file']
+      columns: this.$hasPermissions('delete_result') ? ['patient', 'pesel', 'name', 'file', 'actions']
         : ['patient', 'pesel', 'name', 'file'],
       options: {
-        headings: {'select': '', 'patient': 'Pacjent', 'pesel': 'Pesel', 'nazwa': 'Nazwa', 'file': 'Plik'}
+        // headings: {'select': '', 'patient': 'Pacjent', 'pesel': 'Pesel', 'nazwa': 'Nazwa', 'file': 'Plik'}
+        headings: {'patient': 'Pacjent', 'pesel': 'Pesel', 'nazwa': 'Nazwa', 'file': 'Plik', 'actions': ''}
       }
     }
   }
