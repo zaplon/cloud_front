@@ -150,13 +150,29 @@ import EventBus from '@/eventBus'
 export default {
   name: 'oculist',
   props: {
-    patient: Object
+    patient: Object,
+    data: {
+      type: Object,
+      default: () => {}
+    }
+
   },
   methods: {
     getData () {
-      return this.data
+      return {
+        OL: this.OL,
+        OP: this.OP,
+        table: this.table,
+        futeral: this.futeral,
+        leweSzklo: this.leweSzklo,
+        praweSzklo: this.praweSzklo,
+        cenaOprawy: this.cenaOprawy,
+        oprawa: this.oprawa,
+        usluga: this.usluga
+      }
     },
     loadData (data) {
+      console.log('load')
       for (let d in data) {
         this[d] = data[d]
       }
@@ -330,7 +346,7 @@ export default {
       r: 54,
       OL: -1,
       OP: -1,
-      table: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+      table: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
       futeral: null,
       leweSzklo: null,
       praweSzklo: null,
@@ -350,6 +366,7 @@ export default {
     }
   },
   mounted () {
+    this.loadData(this.data)
     this.initialize()
   }
 }

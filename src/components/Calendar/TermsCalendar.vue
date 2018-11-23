@@ -15,6 +15,7 @@
                             <div class="input-group col-md-10">
                                 <autocomplete id="termPatient" input-class="form-control" @selected="selectPatient"
                                               :source="patientsUrl" style="display: flex; width: calc(100% - 30px)"
+                                              :request-headers="authHeaders"
                                               results-property="results" placeholder="Wyszukaj..." :initialDisplay="autocompletes.patient"
                                               results-display="label">
                                 </autocomplete>
@@ -52,6 +53,7 @@
                             <div class="col-md-10">
                                 <autocomplete id="termService" input-class="form-control" @selected="selectService"
                                               :source="servicesUrl" placeholder="Wyszukaj..."
+                                              :request-headers="authHeaders"
                                               results-property="results" :initialDisplay="autocompletes.service"
                                               results-display="name">
                                 </autocomplete>
@@ -265,6 +267,11 @@ export default {
     }
   },
   computed: {
+    authHeaders () {
+      return {
+        'Authorization': 'Token ' + localStorage.token
+      }
+    },
     autocompletes () {
       return {
         doctor: null,

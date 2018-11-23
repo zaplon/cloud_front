@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <button v-permission="'add_result'" class="btn bottom-right button-add font-lg"><i class="fa fa-plus"></i></button>
+        <button v-b-modal.resultModal v-permission="'add_result'" class="btn bottom-right button-add font-lg"><i class="fa fa-plus"></i></button>
         <div class="card-header">
             Archiwum
         </div>
@@ -42,7 +42,10 @@ export default {
       EventBus.$emit('show-document', document.file, document.name)
     },
     modalOk () {
-      this.$refs.resultForm.save().then(response => this.$refs.modal.hide())
+      this.$refs.resultForm.save().then(response => {
+        this.$refs.resultModal.hide()
+        this.$refs.table.refresh()
+      })
     },
     modalClose () {
       this.$refs.resultModal.hide()

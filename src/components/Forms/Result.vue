@@ -28,6 +28,7 @@
                 <autocomplete id="patient" required
                               :input-class="{ 'is-invalid form-control': errors.patient, 'form-control': !errors.patient }"
                               @selected="selectPatient" :source="patientsUrl"
+                              :request-headers="authHeaders"
                               results-property="results" placeholder="Wyszukaj..." :initialDisplay="autocompletes.patient"
                               results-display="label">
                 </autocomplete>
@@ -39,6 +40,7 @@
             <div class="col-md-10">
                 <autocomplete id="specialization" input-class="form-control" @selected="selectSpecialization"
                               :source="specializationsUrl"
+                              :request-headers="authHeaders"
                               results-property="results" placeholder="Wyszukaj..." :initialDisplay="autocompletes.specialization"
                               results-display="name">
                 </autocomplete>
@@ -59,6 +61,11 @@ export default {
       return {
         patient: null,
         specialization: null
+      }
+    },
+    authHeaders () {
+      return {
+        'Authorization': 'Token ' + localStorage.token
       }
     }
   },
