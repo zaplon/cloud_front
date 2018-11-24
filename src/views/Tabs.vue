@@ -7,7 +7,7 @@
         <div class="card-body">
             <table class="table table-striped table-bordered">
                 <thead>
-                <tr><th>Nazwa</th><th>Typ</th><th></th></tr>
+                <tr><th>Nazwa</th><th>Typ</th><th>Kolejność</th><th></th></tr>
                 </thead>
                 <tbody>
                 <tr v-for="tab in tabs" :key="tab.id">

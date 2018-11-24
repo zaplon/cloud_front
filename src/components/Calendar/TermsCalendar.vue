@@ -128,6 +128,7 @@ export default {
       this.termForm = this.resetTermForm()
       if (this.$store.state.user.doctor) {
         let doctor = this.$store.state.user.doctor
+        this.termForm.duration = this.$store.state.user.doctor.visit_duration
         this.termForm.doctor = {id: doctor.id, name: doctor.name}
         this.autocompletes.doctor = doctor.name
       }

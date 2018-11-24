@@ -59,8 +59,8 @@ export default {
   computed: {
     autocompletes () {
       return {
-        patient: null,
-        specialization: null
+        patient: this.patient,
+        specialization: this.specialization
       }
     },
     authHeaders () {
@@ -75,7 +75,9 @@ export default {
       specializationsUrl: axios.defaults.baseURL + 'rest/specializations/?term=',
       url: axios.defaults.baseURL + 'rest/results/',
       form: {name: '', file: '', doctor: '', patient: '', description: ''},
-      errors: {}
+      errors: {},
+      patient: '',
+      specialization: ''
     }
   },
   methods: {

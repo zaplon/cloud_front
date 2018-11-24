@@ -10,6 +10,7 @@
                         class="btn btn-danger mb-4" v-b-modal="'modal'">Usuń</button>
             </div>
             <v-server-table ref="table" url="rest/results/" :columns="columns" :options="options">
+                <a href="#" slot="patient" @click.prevent="editResult(props.row)" slot-scope="props">{{ props.row.patient }}</a>
                 <div>
                     <button v-b-modal="'confirmDeleteModal'" class="btn btn-danger btn-sm">usuń</button>
                 </div>
@@ -65,6 +66,15 @@ export default {
       this.selectedResult = r
       this.$refs.deleteModal.show()
     },
+    editResult (result) {
+      console.log(result)
+      this.$refs.resultForm.form.name = result.name
+      this.$refs.resultForm.form.description = result.description
+      this.$refs.resultForm.form.file = result.file
+      this.$refs.resultForm.patient = result.patient
+      this.$refs.resultForm.specialization = result.specialization
+      this.$refs.resultModal.show()
+    },
     deleteResult (r) {
       axios.delete('rest/results/' + this.selectedResult.id + '/').then((response) => {
         this.$refs.table.refresh()
@@ -74,7 +84,6 @@ export default {
       return this.$refs.table.data.filter((r) => r.selected)
     },
     rowSelected (row) {
-      console.log(row.selected)
       if (this.selectedResults().length > 0) { this.deleteEnabled = true } else { this.deleteEnabled = false }
     }
   },
