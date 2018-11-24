@@ -7,6 +7,7 @@
                     <div class="col-12">
                         <label class="mr-1">Pacjent</label>
                         <autocomplete id="prescriptionPatient" input-class="form-control" @selected="selectPatient"
+                                      :request-headers="authHeaders"
                                       :source="patientsUrl" style="width: calc(100% - 53px); display: inline-block;" ref="patientAutocomplete"
                                       results-property="results" placeholder="Wyszukaj..." :initialDisplay="autocompletes.patient"
                                       results-display="label">
@@ -34,6 +35,11 @@ export default {
     autocompletes () {
       return {
         patient: null
+      }
+    },
+    authHeaders () {
+      return {
+        'Authorization': 'Token ' + localStorage.token
       }
     }
   },

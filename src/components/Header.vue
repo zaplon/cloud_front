@@ -11,7 +11,7 @@
     <prescription-numbers class="mr-2"></prescription-numbers>
     <settings/>
 
-    <button class="navbar-toggler aside-menu-toggler d-md-down-none" type="button" @click="asideToggle">
+    <button style="display: none;" class="navbar-toggler aside-menu-toggler d-md-down-none" type="button" @click="asideToggle">
       <span class="navbar-toggler-icon"></span>
     </button>
   </header>
