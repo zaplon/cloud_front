@@ -25,7 +25,7 @@
         <div class="form-group row">
             <label class="col-md-2">Pacjent</label>
             <div class="col-md-10">
-                <autocomplete id="patient" required
+                <autocomplete id="patient" required ref="patientAutocomplete"
                               :input-class="{ 'is-invalid form-control': errors.patient, 'form-control': !errors.patient }"
                               @selected="selectPatient" :source="patientsUrl"
                               :request-headers="authHeaders"
@@ -39,7 +39,7 @@
             <label class="col-md-2">Kategoria</label>
             <div class="col-md-10">
                 <autocomplete id="specialization" input-class="form-control" @selected="selectSpecialization"
-                              :source="specializationsUrl"
+                              :source="specializationsUrl" ref="specializationAutocomplete"
                               :request-headers="authHeaders"
                               results-property="results" placeholder="Wyszukaj..." :initialDisplay="autocompletes.specialization"
                               results-display="name">
@@ -59,8 +59,8 @@ export default {
   computed: {
     autocompletes () {
       return {
-        patient: this.patient,
-        specialization: this.specialization
+        patient: null,
+        specialization: null
       }
     },
     authHeaders () {
@@ -75,12 +75,16 @@ export default {
       specializationsUrl: axios.defaults.baseURL + 'rest/specializations/?term=',
       url: axios.defaults.baseURL + 'rest/results/',
       form: {name: '', file: '', doctor: '', patient: '', description: ''},
-      errors: {},
-      patient: '',
-      specialization: ''
+      errors: {}
     }
   },
   methods: {
+    setPatientLabel (label) {
+      this.$refs.patientAutocomplete.display = label
+    },
+    setSpecializationLabel (label) {
+      this.$refs.specializationAutocomplete.display = label
+    },
     processFile (event) {
       this.form.file = event.target.files[0]
     },

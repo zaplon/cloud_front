@@ -68,11 +68,9 @@ export default {
     },
     editResult (result) {
       console.log(result)
-      this.$refs.resultForm.form.name = result.name
-      this.$refs.resultForm.form.description = result.description
-      this.$refs.resultForm.form.file = result.file
-      this.$refs.resultForm.patient = result.patient
-      this.$refs.resultForm.specialization = result.specialization
+      this.$refs.resultForm.form = result
+      this.$refs.resultForm.setPatientLabel(result.patient)
+      this.$refs.resultForm.setSpecializationLabel(result.specialization)
       this.$refs.resultModal.show()
     },
     deleteResult (r) {
@@ -89,6 +87,8 @@ export default {
   },
   data () {
     return {
+      patientLabel: '',
+      specializationLabel: '',
       resultId: null,
       deleteEnabled: false,
       columns: this.$hasPermissions('delete_result') ? ['patient', 'pesel', 'name', 'file', 'actions']
