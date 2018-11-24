@@ -26,7 +26,7 @@ export default {
   name: 'archive',
   components: {FormResult},
   props: {
-    pesel: String
+    patient: Object
   },
   data () {
     return {
@@ -39,12 +39,14 @@ export default {
   },
   methods: {
     loadCategories () {
-      axios.get('rest/results/', {params: {pesel: this.pesel, as_categories: 1}}).then(
+      axios.get('rest/results/', {params: {pesel: this.patient.pesel, as_categories: 1}}).then(
         response => {
           this.categories = response.data
         })
     },
     addDocument () {
+      this.$refs.newResultForm.setPatientLabel(this.patient.name_with_pesel)
+      this.$refs.newResultForm.form.patient = this.patient.id
       this.$refs.newResultModal.show()
     },
     modalOk () {
@@ -65,7 +67,7 @@ export default {
         return
       }
       if (!category.documents) {
-        axios.get('rest/results/', {pesel: this.pesel, category: category.name}).then((response) => {
+        axios.get('rest/results/', {pesel: this.patient.pesel, category: category.name}).then((response) => {
           this.$set(category, 'documents', response.data.results)
           this.$set(category, 'open', true)
         })

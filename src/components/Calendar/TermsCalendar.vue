@@ -264,7 +264,8 @@ export default {
       this.$refs.form.handleSubmit(() => { this.$refs.modal.hide(); this.$refs.calendar.$emit('refetch-events') })
     },
     resetTermForm () {
-      return {id: null, service: null, date: null, time: {}, doctor: null, duration: null, patient: null, errors: []}
+      let now = new Date()
+      return {id: null, service: null, date: now, time: now.getTime(), doctor: null, duration: null, patient: null, errors: []}
     }
   },
   computed: {

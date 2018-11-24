@@ -91,11 +91,11 @@ export default {
       specializationLabel: '',
       resultId: null,
       deleteEnabled: false,
-      columns: this.$hasPermissions('delete_result') ? ['patient', 'pesel', 'name', 'file', 'actions']
-        : ['patient', 'pesel', 'name', 'file'],
+      columns: this.$hasPermissions('delete_result') ? ['patient', 'pesel', 'name', 'file', 'uploaded', 'actions']
+        : ['patient', 'pesel', 'name', 'file', 'uploaded'],
       options: {
         // headings: {'select': '', 'patient': 'Pacjent', 'pesel': 'Pesel', 'nazwa': 'Nazwa', 'file': 'Plik'}
-        headings: {'patient': 'Pacjent', 'pesel': 'Pesel', 'nazwa': 'Nazwa', 'file': 'Plik', 'actions': ''}
+        headings: {'patient': 'Pacjent', 'pesel': 'Pesel', 'nazwa': 'Nazwa', 'file': 'Plik', 'uploaded': 'Data utworzenia', 'actions': ''}
       }
     }
   }

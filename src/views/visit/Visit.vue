@@ -3,7 +3,7 @@
         <AppHeader/>
             <div class="app-body" id="visit-body">
                 <div class="sidebar" id="visit-sidebar">
-                    <archive :pesel="visit.term.patient.pesel"></archive>
+                    <archive :patient="visit.term.patient"></archive>
                 </div>
                 <div class="main">
                 <nav class="navbar navbar-light bg-light justify-content-between visit-nav" id="visit-nav">
