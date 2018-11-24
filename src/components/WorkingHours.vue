@@ -10,6 +10,7 @@
 <script>
 import axios from 'axios'
 import vueSlider from 'vue-slider-component'
+import store from '@/store'
 export default {
   name: 'working-hours',
   data () {
@@ -28,8 +29,9 @@ export default {
   },
   methods: {
     save () {
-      return axios.patch('rest/doctors/' + this.id + '/', {days: this.days, only_hours: true}).then(response => {
-      })
+      return axios.patch('rest/doctors/' + this.id + '/', {days: this.days, only_hours: true}).then((response) =>
+        store.commit('setDoctorTerms', response.data.terms_start, response.data.terms_end)
+      )
     },
     makeSliderData () {
       var data = []

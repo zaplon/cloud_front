@@ -1,6 +1,6 @@
 <template>
     <div>
-        <full-calendar @event-drop="drop" ref="calendar" @event-selected="select" :event-sources="eventSources" :config="config"></full-calendar>
+        <full-calendar @event-drop="drop" ref="calendar" @event-selected="eventClicked" @day-click="slotClicked" :event-sources="eventSources" :config="config"></full-calendar>
         <b-modal size="md" id="eventModal" :title="modalTitle" @ok="modalOk" @cancel="modalCancel" ref="modal">
             <div v-show="!(term.edition || term.patientEdition)">
                 <span v-if="term.status=='PENDING'">Czy rozpocząć wizytę {{term.title}} ?</span>
@@ -250,7 +250,7 @@ export default {
       this.move.from = this.$moment(new Date(event.start - delta.asMilliseconds() - 3600 * 2000)).format(dateFormat)
       this.$refs.moveModal.show()
     },
-    select (event, jsEvent, view) {
+    eventClicked (event, jsEvent, view) {
       this.term.id = event.id
       this.term.title = event.title
       this.term.status = event.status
@@ -260,12 +260,16 @@ export default {
         this.$refs.modal.show()
       }
     },
+    slotClicked (jsEvent, view) {
+      console.log(jsEvent)
+    },
     saveTerm () {
       this.$refs.form.handleSubmit(() => { this.$refs.modal.hide(); this.$refs.calendar.$emit('refetch-events') })
     },
     resetTermForm () {
-      let now = new Date()
-      return {id: null, service: null, date: now, time: now.getTime(), doctor: null, duration: null, patient: null, errors: []}
+      let date = this.$moment()
+      let time = {HH: date.format('HH'), mm: date.format('mm')}
+      return {id: null, service: null, date: new Date(), time: time, doctor: null, duration: null, patient: null, errors: []}
     }
   },
   computed: {
