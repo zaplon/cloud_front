@@ -21,7 +21,7 @@ var formsUrl = backendUrl + 'assets/forms/forms/'
 if (process.env.NODE_ENV === 'production') {
   let href = window.location.origin
   backendUrl = href + '/backend/'
-  formsUrl = href + 'assets/forms/forms/'
+  formsUrl = href + '/assets/forms/forms/'
 }
 
 axios.defaults.baseURL = backendUrl
