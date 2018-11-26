@@ -16,8 +16,8 @@ export default {
   name: 'prescription-numbers',
   data: function () {
     return {
-      available: 0,
-      total: 0,
+      available: this.$store.state.user.doctor.available_prescriptions,
+      total: this.$store.state.user.doctor.total_prescriptions,
       show: false
     }
   },
@@ -26,7 +26,11 @@ export default {
       this.$refs.modal.show()
     },
     save () {
-      this.$refs.formPrescriptionNumbers.save(() => { this.$refs.mdal.hide() })
+      this.$refs.formPrescriptionNumbers.save((response) => {
+        this.$refs.modal.hide()
+        this.available = response.data.available
+        this.total = response.data.total
+      })
     },
     cancel () {
       this.$refs.modal.hide()

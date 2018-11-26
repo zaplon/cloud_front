@@ -59,7 +59,7 @@ export default {
       this.suggestions[this.suggestions.indexOf(record)].selected = false
     },
     getSuggestions () {
-      axios.get('rest/icd/', {params: {limit: 10, search: this.inputValue, exclude: JSON.stringify(this.excludes)}}).then(response => {
+      axios.get('rest/icd/', {params: {limit: 10, search: this.inputValue, exclude: this.excludes.join(',')}}).then(response => {
         this.suggestions = response.data.results
         console.log(this.suggestions)
       })

@@ -28,7 +28,7 @@ export default {
       if (this.errors.file) { return }
       let formData = new FormData()
       formData.append('file', this.file)
-      return axios.post('medicines/prescription-numbers/', formData, {
+      return axios.post('profile/prescription-numbers/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

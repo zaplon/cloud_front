@@ -47,7 +47,18 @@ export default {
       if (id) { data.id = id }
       var form = new FormData(this.$el)
       for (var pair of form.entries()) {
-        if (pair[0] in data) { if (typeof (data[pair[0]]) !== 'object') { data[pair[0]] = [data[pair[0]]] } data[pair[0]].push(pair[1]) } else { data[pair[0]] = pair[1] }
+        if (pair[0].startsWith('factory_')) {
+          data[pair[0]] = [pair[1]]
+        } else {
+          if (pair[0] in data) {
+            if (typeof (data[pair[0]]) !== 'object') {
+              data[pair[0]] = [data[pair[0]]]
+            }
+            data[pair[0]].push(pair[1])
+          } else {
+            data[pair[0]] = pair[1]
+          }
+        }
       }
       return axios.post(this.url, {klass: this.klass, module: this.module, data: data}).then(response => {
         if (response.data.success) {

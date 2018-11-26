@@ -3,7 +3,6 @@
         <embed style="width:100%; height:70vh;" :src="src"/>
         <div slot="modal-footer" class="w-100">
             <b-btn size="sm" class="float-right" variant="default" @click="cancel">Zamknij</b-btn>
-            <b-btn size="sm" class="float-right mr-2" variant="info" @click="print">Drukuj</b-btn>
         </div>
     </b-modal>
 </template>

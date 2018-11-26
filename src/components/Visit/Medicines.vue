@@ -130,7 +130,7 @@ export default {
         medicines: this.selections,
         nfz: this.prescription.nfz,
         permissions: this.prescription.permissions,
-        number: this.number,
+        number: this.prescription.number,
         patient: this.patient.id,
         realisationDate: this.$moment(this.prescription.realisationDate).format('DD.MM.YY')
       }).then(response => {

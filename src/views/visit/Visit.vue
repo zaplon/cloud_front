@@ -59,6 +59,7 @@
                                     <notes v-else-if="tab.type=='NOTES'" :ref="tab.id" />
                                     <medicines :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='MEDICINES'" :ref="tab.id" />
                                     <oculist :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='OCULIST'" :ref="tab.id"></oculist>
+                                    <referrals :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='REFERRALS'" :ref="tab.id"></referrals>
                                     <visit-tab :name="tab.name" :templates="templates.filter((t) => t.tab_title == tab.title)"
                                                :initial="tab.data" :ref="tab.id" v-else></visit-tab>
                                 </b-tab>
@@ -68,11 +69,12 @@
                 </div>
             </div>
         </div>
+        <AppFooter style="padding: 14.5px;"/>
         <pdf-form ref="pdfForm"></pdf-form>
     </div>
 </template>
 <script>
-import {Header as AppHeader} from '@/components/'
+import {Header as AppHeader, Footer as AppFooter} from '@/components/'
 import axios from 'axios'
 import PdfForm from '@/components/PdfForm'
 import Icd from '@/components/Visit/Icd'
@@ -81,6 +83,7 @@ import Archive from '@/components/Visit/Archive'
 import Notes from '@/components/Visit/Notes'
 import Medicines from '@/components/Visit/Medicines'
 import Oculist from '@/components/Visit/Oculist'
+import Referrals from '@/components/Visit/Referrals'
 import forms from '@/_forms.js'
 import EventBus from '@/eventBus'
 export default {
@@ -117,9 +120,6 @@ export default {
           this.showDocument('Historia choroby', visitPdf)
         })
       )
-    },
-    print () {
-
     },
     cancelVisit () {
       this.$router.back()
@@ -164,6 +164,7 @@ export default {
           })
           return
         }
+        axios.get('visit/pdf/' + this.$route.params.id + '/?to_archive=1&visit_id=' + response.data.id)
         this.$router.push('/')
         this.$notify({
           group: 'nots',
@@ -183,11 +184,13 @@ export default {
     PdfForm,
     Icd,
     AppHeader,
+    AppFooter,
     VisitTab,
     Notes,
     Archive,
     Medicines,
-    Oculist
+    Oculist,
+    Referrals
   }
 }
 </script>

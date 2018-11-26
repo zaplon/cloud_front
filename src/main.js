@@ -17,9 +17,12 @@ import {setupCalendar, Calendar, DatePicker} from 'v-calendar'
 import 'v-calendar/lib/v-calendar.min.css'
 
 var backendUrl = 'http://0.0.0.0:8080/'
-if (process.env.NODE_ENV === 'production') { backendUrl = 'http://doktor.misal.pl:10080/backend/' }
 var formsUrl = backendUrl + 'assets/forms/forms/'
-if (process.env.NODE_ENV === 'production') { formsUrl = 'http://doktor.misal.pl:10080/assets/forms/forms/' }
+if (process.env.NODE_ENV === 'production') {
+  let href = window.location.origin
+  backendUrl = href + '/backend/'
+  formsUrl = backendUrl + 'assets/forms/forms/'
+}
 
 axios.defaults.baseURL = backendUrl
 
