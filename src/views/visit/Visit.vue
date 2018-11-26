@@ -59,7 +59,7 @@
                                     <notes v-else-if="tab.type=='NOTES'" :ref="tab.id" />
                                     <medicines :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='MEDICINES'" :ref="tab.id" />
                                     <oculist :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='OCULIST'" :ref="tab.id"></oculist>
-                                    <referrals :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='REFERRALS'" :ref="tab.id"></referrals>
+                                    <referrals :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='EXAMINATIONS'" :ref="tab.id"></referrals>
                                     <visit-tab :name="tab.name" :templates="templates.filter((t) => t.tab_title == tab.title)"
                                                :initial="tab.data" :ref="tab.id" v-else></visit-tab>
                                 </b-tab>
