@@ -76,9 +76,9 @@ export default {
     modalCancel () {
       this.$refs.tabModal.hide()
     },
-    deleteTab () {
-      axios.delete('rest/tabs/' + this.selectedTab.id + '/').then(response => {
-        this.tabs.splice(this.tabs.indexOf(this.selectedTab), 1)
+    deleteTab (tab) {
+      axios.delete('rest/tabs/' + tab.id + '/').then(response => {
+        this.tabs.splice(this.tabs.indexOf(tab), 1)
       })
     },
     reorder (tab, place) {
