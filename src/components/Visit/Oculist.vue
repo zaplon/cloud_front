@@ -183,6 +183,7 @@ export default {
       tabela1: this.table,
       op: this.OP,
       ol: this.OL,
+      patientId: this.patient.id,
       name: this.patient.first_name + ' ' + this.patient.last_name}
       axios.post('visit/oculist_recipe/', data).then((response) => {
         let url = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data

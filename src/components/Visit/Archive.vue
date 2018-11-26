@@ -5,7 +5,7 @@
         </li>
         <li v-for="category in categories" :key="category.name">
             <a class="nav-link" href="#" @click.prevent="openCategory(category)">
-                {{ category.name }} <span title="liczba dokumentów" class="badge badge-primary archive-badge">{{ category.count }}</span>
+                {{ category.name }} <span style="display: none;" title="liczba dokumentów" class="badge badge-primary archive-badge">{{ category.count }}</span>
             </a>
             <ul v-show="category.open" class="archive-category">
                 <li :key="document.id" class="nav-item" v-for="document in category.documents">

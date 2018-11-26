@@ -16,7 +16,7 @@
                 </div>
                 <input type="checkbox" slot-scope="props" slot="select" @change="rowSelected(props.row)" v-model="props.row.selected" />
                 <button class="btn btn-sm btn-danger" slot-scope="props" slot="actions" @click="showDeleteModal(props.row)">usuń</button>
-                <span slot="uploaded" slot-scope="props">{{props.row.uploaded | formatDate('Y-MM-D HH:mm')}}</span>
+                <span slot="uploaded" slot-scope="props">{{props.row.uploaded | formatDate('Y-MM-DD HH:mm')}}</span>
                 <button class="btn btn-link" slot="file" @click="showDocument(props.row)" slot-scope="props"><i class="fa fa-file-pdf-o"></i></button>
             </v-server-table>
         </div>
