@@ -25,7 +25,9 @@ export default {
       this.$refs.templateForm.loadHtml(null, {text: this.content, tab: this.name}).then(() => this.$refs.templateModal.show())
     },
     modalOk () {
-      this.$refs.templateForm.handleSubmit(() => this.$refs.tabModal.hide())
+      this.$refs.templateForm.handleSubmit((response) => {
+        this.$refs.templateModal.hide()
+      })
     },
     modalCancel () {
       this.$refs.templateModal.hide()

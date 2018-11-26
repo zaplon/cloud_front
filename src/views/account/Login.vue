@@ -37,7 +37,7 @@
                     </div>
                     <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
                         <div class="card-body text-center">
-                            <div>
+                            <div style="opacity: 0">
                                 <h2>Rejestracja</h2>
                                 <p>Utworzenie konta w systemie zajmie ci jedynie kilka minut i wymaga podania jedynie podstawowych danych. 60 dni za darmo.</p>
                                 <router-link :to="'Register'" class="btn btn-primary active mt-3">Zarejestruj się teraz!</router-link>
