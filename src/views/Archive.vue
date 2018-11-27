@@ -9,6 +9,9 @@
                 <button style="display: none;" :disabled="!deleteEnabled" type="button" v-permission="'delete_result'"
                         class="btn btn-danger mb-4" v-b-modal="'modal'">Usuń</button>
             </div>
+            <div v-if="patientId" class="mb-4">
+                {{ patient.name_with_pesel }}
+            </div>
             <v-server-table ref="table" url="rest/results/" :columns="columns" :options="options">
                 <a href="#" slot="patient" @click.prevent="editResult(props.row)" slot-scope="props">{{ props.row.patient }}</a>
                 <div>
@@ -68,7 +71,6 @@ export default {
       this.$refs.deleteModal.show()
     },
     editResult (result) {
-      console.log(result)
       this.$refs.resultForm.form = result
       this.$refs.resultForm.setPatientLabel(result.patient)
       this.$refs.resultForm.setSpecializationLabel(result.specialization)
@@ -84,21 +86,33 @@ export default {
     },
     rowSelected (row) {
       if (this.selectedResults().length > 0) { this.deleteEnabled = true } else { this.deleteEnabled = false }
+    },
+    fetchData () {
+      if (this.patientId) {
+        axios.get('rest/patients/' + this.patientId + '/').then(response => { this.patient = response.data })
+      }
     }
   },
   data () {
     return {
       patientLabel: '',
+      patient: {},
       specializationLabel: '',
+      patientId: this.$route.params.id ? parseInt(this.$route.params.id) : 0,
       resultId: null,
       deleteEnabled: false,
       columns: this.$hasPermissions('delete_result') ? ['patient', 'pesel', 'name', 'file', 'uploaded', 'actions']
         : ['patient', 'pesel', 'name', 'file', 'uploaded'],
       options: {
         // headings: {'select': '', 'patient': 'Pacjent', 'pesel': 'Pesel', 'nazwa': 'Nazwa', 'file': 'Plik'}
-        headings: {'patient': 'Pacjent', 'pesel': 'Pesel', 'nazwa': 'Nazwa', 'file': 'Plik', 'uploaded': 'Data utworzenia', 'actions': ''}
+        headings: {'patient': 'Pacjent', 'pesel': 'Pesel', 'nazwa': 'Nazwa', 'file': 'Plik', 'uploaded': 'Data utworzenia', 'actions': ''},
+        params: {patient: this.$route.params.id}
       }
     }
+  },
+  watch: {
+    // call again the method if the route changes
+    '$route': 'fetchData'
   }
 }
 </script>

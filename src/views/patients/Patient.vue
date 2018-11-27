@@ -3,7 +3,7 @@
         <div class="card-header">{{ label }}
             <div class="card-toolbar">
                 <router-link to="edycja"><i class="fa fa-pencil" title="edytuj" aria-hidden="true"></i></router-link>
-                <router-link to="/archiwum"><i class="fa fa-archive" title="archiwum" aria-hidden="true"></i></router-link>
+                <router-link :to="archiveLink"><i class="fa fa-archive" title="archiwum" aria-hidden="true"></i></router-link>
             </div>
         </div>
         <div class="card-body">
@@ -19,13 +19,15 @@ export default {
     return {
       patientId: this.$route.params.id ? parseInt(this.$route.params.id) : 0,
       patient: {},
-      label: this.patientId
+      label: this.patientId,
+      archiveLink: ''
     }
   },
   mounted () {
     if (!this.$route.params.id) {
       return
     }
+    this.archiveLink = '/archiwum/' + this.patientId
     axios.get('rest/patients/' + this.patientId + '/').then(response => {
       this.patient = response.data
       this.label = response.data.name_with_pesel

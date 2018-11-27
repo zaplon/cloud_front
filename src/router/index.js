@@ -178,7 +178,15 @@ var router = new Router({
           path: 'archiwum',
           name: 'Archive',
           component: Archive,
-          meta: {label: 'Archiwum'}
+          meta: {label: 'Archiwum'},
+          children: [
+            {
+              path: ':id',
+              name: 'PatientArchive',
+              component: Archive,
+              meta: {label: 'Pacjent'}
+            }
+          ]
         },
         {
           path: 'recepty',
