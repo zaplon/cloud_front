@@ -17,7 +17,7 @@
                     <td>
                         <button v-if="!tab.enabled" @click="changeTabState(tab)" class="btn btn-default btn-sm">Włącz</button>
                         <button v-if="tab.enabled" @click="changeTabState(tab)" class="btn btn-default btn-sm">Wyłącz</button>
-                        <button @click="deleteTab(tab)" class="btn btn-danger btn-sm">Usuń</button>
+                        <button @click="showConfirmModal(tab)" class="btn btn-danger btn-sm">Usuń</button>
                     </td>
                 </tr>
                 </tbody>
@@ -76,9 +76,9 @@ export default {
     modalCancel () {
       this.$refs.tabModal.hide()
     },
-    deleteTab (tab) {
-      axios.delete('rest/tabs/' + tab.id + '/').then(response => {
-        this.tabs.splice(this.tabs.indexOf(tab), 1)
+    deleteTab () {
+      axios.delete('rest/tabs/' + this.selectedTab.id + '/').then(response => {
+        this.tabs.splice(this.tabs.indexOf(this.selectedTab), 1)
       })
     },
     reorder (tab, place) {

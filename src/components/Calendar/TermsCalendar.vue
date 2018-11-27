@@ -82,6 +82,9 @@
                 <template v-if="term.edition || term.patientEdition">
                     <b-btn size="sm" class="float-right" variant="default" @click="modalCancel">Anuluj</b-btn>
                     <b-btn size="sm" class="float-right mr-2" variant="primary" @click="modalOk">Zapisz</b-btn>
+                    <b-btn v-if="!term.id" size="sm" class="float-right mr-2" variant="primary" @click="modalOk(true)">
+                        Zapisz i rozpocznij
+                    </b-btn>
                 </template>
             </div>
         </b-modal>
@@ -182,7 +185,7 @@ export default {
       this.term.patientEdition = false
       this.$refs.modal.hide()
     },
-    modalOk () {
+    modalOk (startVisit) {
       if (this.term.edition) {
         this.termForm.errors = []
         if (!this.termForm.patient && this.termForm.service) {
@@ -217,7 +220,11 @@ export default {
           })
         } else {
           axios.post('rest/terms/', payload).then(response => {
-            callback()
+            if (startVisit) {
+              this.$router.push({name: 'Visit', params: {id: response.data.id}})
+            } else {
+              callback()
+            }
           })
         }
       } else
@@ -268,8 +275,18 @@ export default {
     },
     resetTermForm () {
       let date = this.$moment()
-      let time = {HH: date.format('HH'), mm: date.format('mm')}
-      return {id: null, service: null, date: new Date(), time: time, doctor: null, duration: null, patient: null, errors: []}
+      let minutes = parseInt(date.format('mm'))
+      if (minutes > 0 < 15) {
+        minutes = 0
+      } else if (minutes > 15 < 30) { minutes = 15 } else if (minutes > 30 < 45) { minutes = 30 } else { minutes = 45 }
+      minutes = minutes < 10 ? '0' + minutes : '' + minutes
+      let time = {HH: date.format('HH'), mm: minutes}
+      let data = {id: null, service: null, date: new Date(), time: time, doctor: null, duration: null, patient: null, errors: []}
+      if (this.$store.state.user.doctor && this.$store.state.user.doctor.default_service) {
+        data.service = this.$store.state.user.doctor.default_service
+        this.autocompletes.service = data.service.name
+      }
+      return data
     }
   },
   computed: {

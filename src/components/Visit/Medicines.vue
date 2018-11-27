@@ -72,13 +72,13 @@ export default {
       default: 0
     },
     data: {
-      type: Array,
-      default: () => []
+      type: Object,
+      default: () => {}
     }
   },
   data () {
     return {
-      selections: this.data || [],
+      selections: [],
       suggestions: [],
       excludes: [],
       inputValue: [],
@@ -100,7 +100,7 @@ export default {
     }
   },
   methods: {
-    save () {
+    save2 () {
       let medicines = []
       this.selections.forEach((s) => {
         medicines.push({medicine: s.child.id,
@@ -121,7 +121,7 @@ export default {
       })
     },
     printRecipe () {
-      this.save()
+      // this.save()
       let medicines = []
       console.log(this.$refs)
       this.validatePrescription()
@@ -154,9 +154,13 @@ export default {
       })
     },
     getData () {
-      return this.selections
+      return { prescription: this.prescription, selections: this.selections }
     },
     loadData (data) {
+      this.prescription = data.prescription
+      this.selections = data.selections
+    },
+    loadData2 (data) {
       this.buildSelections(data.medicines)
       this.prescription.nfz = data.nfz
       this.prescription.permissions = data.permissions
@@ -175,14 +179,16 @@ export default {
     }
   },
   mounted () {
-    if (this.instance) {
-      axios.get('rest/prescriptions/' + this.instance + '/').then(response => {
-        this.loadData(response.data)
-        this.getSuggestions()
-      })
-    } else {
-      this.getSuggestions()
-    }
+    if (this.data) { this.loadData(this.data) }
+    this.getSuggestions()
+    // if (this.instance) {
+    //   axios.get('rest/prescriptions/' + this.instance + '/').then(response => {
+    //     this.loadData(response.data)
+    //     this.getSuggestions()
+    //   })
+    // } else {
+    //   this.getSuggestions()
+    // }
   }
 }
 </script>
