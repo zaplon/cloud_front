@@ -14,6 +14,9 @@
                         <button type="button" @click="showForms('karty')"
                                 :class="{btn: true, 'btn-light': true, 'mr-2': true, 'active': (forms.type=='karty')}"
                         ><i class="fa fa-print"></i>&nbsp;Karty badań</button>
+                        <button type="button" @click="showForms('skierowania')"
+                                :class="{btn: true, 'btn-light': true, 'mr-2': true, 'active': (forms.type=='skierowania')}"
+                        ><i class="fa fa-print"></i>&nbsp;Skierowania</button>
                         <button type="button" @click="showForms('orzeczenia')"
                                 :class="{btn: true, 'btn-light': true, 'mr-2': true, 'active': (forms.type=='orzeczenia')}"
                         ><i class="fa fa-print"></i>&nbsp;Orzeczenia</button>
@@ -122,7 +125,7 @@ export default {
       )
     },
     cancelVisit () {
-      this.$router.back()
+      this.$router.push('/')
     },
     saveVisit (tmp, hideNotification) {
       var data = []

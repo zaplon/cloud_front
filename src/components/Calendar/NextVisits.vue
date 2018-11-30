@@ -2,7 +2,7 @@
     <div>
         <h3 class="mt-2">Najbliższe wizyty</h3>
         <ul>
-            <li :key="visit.id" v-for="visit in nextVisits"><a :href="visit.link">{{ visit.patient }} {{visit.start|formatDate('MM-DD HH:mm')}}</a></li>
+            <li :key="visit.id" v-for="visit in nextVisits"><a :href="visit.link">{{ visit.patient }} {{visit.start|formatDate('llll')}}</a></li>
             <li v-if="nextVisits.length == 0" class="text-muted">Brak zaplanowanych wizyt</li>
         </ul>
     </div>

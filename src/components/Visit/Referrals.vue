@@ -66,7 +66,7 @@ export default {
       return this.selectedExaminations
     },
     print () {
-      axios.post('pdf/', {patient: this.patient, examinations: this.selectedExaminations, template_name: 'examinations'}).then(response => {
+      axios.post('pdf/', {patient: this.patient, name: 'Skierowanie', examinations: this.selectedExaminations, template_name: 'examinations'}).then(response => {
         let url = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data
         EventBus.$emit('show-document', url, 'Skierowanie')
       })

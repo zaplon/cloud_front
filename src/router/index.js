@@ -29,9 +29,9 @@ import {default as MedicinesIndex} from '@/views/medicines/Index'
 import Medicines from '@/views/medicines/Medicines'
 import Medicine from '@/views/medicines/Medicine'
 
-import {default as PrescriptionsIndex} from '@/views/prescriptions/Index'
-import Prescriptions from '@/views/prescriptions/Prescriptions'
-import Prescription from '@/views/prescriptions/Prescription'
+// import {default as PrescriptionsIndex} from '@/views/prescriptions/Index'
+// import Prescriptions from '@/views/prescriptions/Prescriptions'
+// import Prescription from '@/views/prescriptions/Prescription'
 
 import Step1 from '@/views/setup/Step1'
 import Step2 from '@/views/setup/Step2'
@@ -188,32 +188,32 @@ var router = new Router({
             }
           ]
         },
-        {
-          path: 'recepty',
-          name: 'Recepty',
-          component: PrescriptionsIndex,
-          redirect: 'recepty/lista',
-          children: [
-            {
-              path: 'lista',
-              name: 'Lista',
-              component: Prescriptions
-            },
-            {
-              path: 'nowa',
-              name: 'Nowa recepta',
-              component: Prescription,
-              props: { new: true },
-              meta: {label: 'Nowa recepta'}
-            },
-            {
-              path: ':id',
-              name: 'Edycja recepty',
-              component: Prescription,
-              meta: {label: 'Edycja recepty'}
-            }
-          ]
-        },
+        // {
+        //   path: 'recepty',
+        //   name: 'Recepty',
+        //   component: PrescriptionsIndex,
+        //   redirect: 'recepty/lista',
+        //   children: [
+        //     {
+        //       path: 'lista',
+        //       name: 'Lista',
+        //       component: Prescriptions
+        //     },
+        //     {
+        //       path: 'nowa',
+        //       name: 'Nowa recepta',
+        //       component: Prescription,
+        //       props: { new: true },
+        //       meta: {label: 'Nowa recepta'}
+        //     },
+        //     {
+        //       path: ':id',
+        //       name: 'Edycja recepty',
+        //       component: Prescription,
+        //       meta: {label: 'Edycja recepty'}
+        //     }
+        //   ]
+        // },
         {
           path: 'leki',
           name: 'Leki',
