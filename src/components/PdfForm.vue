@@ -14,11 +14,14 @@ export default {
   name: 'pdf-form',
   created () {
     function receiveMessage (event) {
+      window.openFormHandled = true
       if (typeof event.data === 'string' && event.data.endsWith('pdf')) {
         window.open(axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 1) + event.data)
       }
     }
-    window.addEventListener('message', receiveMessage, false)
+    if (!window.openFormHandled) {
+      window.addEventListener('message', receiveMessage, false)
+    }
   },
   methods: {
     show (name, title, data, modalClass) {
