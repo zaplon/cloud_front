@@ -126,7 +126,7 @@ export default {
       this.termForm.doctor = obj.selectedObject
     },
     addNewVisit () {
-      this.termForm.patient = null
+      this.term.id = null
       this.modalTitle = 'Nowa wizyta'
       this.termForm = this.resetTermForm()
       if (this.$store.state.user.doctor) {
