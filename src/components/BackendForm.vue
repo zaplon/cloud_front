@@ -35,9 +35,14 @@ export default {
   },
   methods: {
     loadHtml (id, data) {
+      if (!id && this.klass in this.$forms) {
+        this.htmlData = this.$forms[this.klass]
+        return {then: callback => callback()}
+      }
       return axios.get(this.url, {params: {klass: this.klass, module: this.module, read_only: this.readonly, id: id, data: data}}).then(response => {
         if (response.data.success) {
           this.htmlData = response.data.form_html
+          if (!id) { this.$forms[this.klass] = this.htmlData }
         }
       })
     },

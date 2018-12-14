@@ -5,7 +5,7 @@
         </div>
         <div class="row">
             <div v-for="template in templates" :key="template.id" class="col-md-6 col-sm-12">
-                <button type="button" class="btn btn-link" @click="putTemplate(template)">({{ template.key }}) {{ template.text | truncate(100) }}</button>
+                <button @shortkey="putTemplate(template)" v-shortkey="['ALT']" type="button" class="btn btn-link" @click="putTemplate(template)">({{ template.key }}) {{ template.text | truncate(100) }}</button>
             </div>
         </div>
         <b-modal size="lg" id="templateModal" title="Nowy szablon" @ok="modalOk" @cancel="modalCancel" ref="templateModal">

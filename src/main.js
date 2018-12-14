@@ -42,6 +42,7 @@ if (localStorage.token) { axios.defaults.headers.common['Authorization'] = 'Toke
 // axios.defaults.headers.common['X-CSRFToken'] = VueCookies.get('csrftoken')
 Vue.use(BootstrapVue, axios, FullCalendar, VueCookies, BackendForm)
 Vue.use(Notifications)
+Vue.use(require('vue-shortkey'))
 Vue.use(ServerTable, {
   responseAdapter (resp) { var data = this.getResponseData(resp); return { data: data.results, count: data.count } },
   requestFunction: function (data) {
@@ -73,6 +74,8 @@ Vue.use(ServerTable, {
 Vue.prototype.$moment = moment
 Vue.prototype.$formsRoot = formsUrl
 Vue.prototype.$backendUrl = backendUrl
+Vue.prototype.$forms = {}
+
 Vue.prototype.$urlEncode = (data) => Object.keys(data).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`).join('&')
 var hasPermissions = (permission) => {
   return app.$store.state.user.user_permissions.filter((p) => p.codename === permission).length > 0
