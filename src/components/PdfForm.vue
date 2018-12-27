@@ -30,6 +30,7 @@ export default {
         this.src = this.$formsRoot + name + '.html'
       } else {
         if (data.first_name && data.last_name) { data.name = (data.first_name + ' ' + data.last_name) }
+        data.header = this.$store.state.user.system_settings.documents_header
         this.src = this.$formsRoot + name + '.html?' + this.$urlEncode(data)
       }
       this.title = title
