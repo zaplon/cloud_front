@@ -27,7 +27,7 @@
                     <form class="form-inline">
                         <button class="btn btn-secondary text-danger mr-2" type="button" @click="cancelVisit">Cofnij</button>
                         <button class="btn btn-secondary mr-2" type="button" @click="saveVisit(true)">Zapisz tymczasowo</button>
-                        <button class="btn btn-secondary text-success" @click="saveVisit()" type="button">Zapisz</button>
+                        <button class="btn btn-secondary text-success" @click="showSaveVisitModal" type="button">Zapisz</button>
                     </form>
                 </nav>
                 <nav class="navbar navbar-dark bg-secondary visit-nav" id="forms-nav" v-show="forms.show">
@@ -71,6 +71,13 @@
                     </b-card>
                 </div>
             </div>
+            <b-modal size="lg" id="saveVisitModal" title="Zapis wizyty" @ok="saveVisit" ref="saveVisitModal">
+                <embed style="width:100%; height:70vh;" :src="visitPdfSrc"/>
+                <div slot="modal-footer" class="w-100">
+                    <b-btn size="sm" class="float-right" variant="default" @click="$refs.saveVisitModal.hide()">Zamknij</b-btn>
+                    <b-btn size="sm" class="float-right mr-2" variant="success" @click="saveVisit(false)">Zapisz</b-btn>
+                </div>
+            </b-modal>
         </div>
         <AppFooter style="padding: 14.5px;"/>
         <pdf-form ref="pdfForm"></pdf-form>
@@ -94,6 +101,7 @@ export default {
   data () {
     return {
       visit: {tabs: [], term: {patient: {}, service: {}, doctor: {}}},
+      visitPdfSrc: '',
       templates: [],
       formName: '',
       formTitle: '',
@@ -116,16 +124,24 @@ export default {
       this.forms.items = forms.forms[type]
     },
     showForm (form) { this.$refs.pdfForm.show(form.name, form.title, this.visit.term.patient) },
-    printVisit () {
+    printVisit (saveVisit) {
       this.saveVisit(true, true).then(
         axios.get('visit/pdf/' + this.$route.params.id + '/?as_link=1/').then(response => {
           let visitPdf = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data
-          this.showDocument('Historia choroby', visitPdf)
+          if (saveVisit) {
+            this.visitPdfSrc = visitPdf
+            this.$refs.saveVisitModal.show()
+          } else {
+            this.showDocument('Historia choroby', visitPdf)
+          }
         })
       )
     },
     cancelVisit () {
       this.$router.push('/')
+    },
+    showSaveVisitModal () {
+      this.printVisit(true)
     },
     saveVisit (tmp, hideNotification) {
       var data = []
