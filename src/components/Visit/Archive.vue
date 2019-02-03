@@ -70,8 +70,12 @@ export default {
       this.$refs.newResultForm.form.patient = this.patient.id
       this.$refs.newResultModal.show()
     },
-    modalOk () {
+    modalOk (evt) {
+      evt.preventDefault()
       this.$refs.newResultForm.save().then((response) => {
+        if (response.data.id) {
+          this.$refs.newResultModal.hide()
+        }
         this.loadCategories()
       })
     },

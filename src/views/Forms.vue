@@ -23,7 +23,7 @@
                 <button @click="showForm(item)" class="btn btn-info mr-2 mt-2" v-for="item in category" :key="item.name">{{ item.title }}</button>
             </div>
         </div>
-        <pdf-form ref="pdfForm"></pdf-form>
+        <pdf-form ref="pdfForm" :patientId="patientId"></pdf-form>
     </div>
 </template>
 <script>
@@ -36,6 +36,7 @@ export default {
   data () {
     return {
       patient: '',
+      patientId: 0,
       patientsUrl: axios.defaults.baseURL + 'rest/patients/?term=',
       forms: forms.forms
     }
@@ -50,9 +51,11 @@ export default {
   methods: {
     selectPatient (obj) {
       this.patient = obj.selectedObject
+      this.patientId = this.patient.id
     },
     clearPatient () {
       this.patient = ''
+      this.patientId = 0
     },
     showForm (form) {
       if (this.patient) {

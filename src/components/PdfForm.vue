@@ -3,8 +3,15 @@
         <iframe id="form-frame" :src="src"></iframe>
         <div slot="modal-footer" class="w-100">
             <b-btn size="sm" class="float-right" variant="default" @click="cancel">Zamknij</b-btn>
-            <b-btn size="sm" class="float-left mr-2" variant="info" @click="makePdf">Drukuj</b-btn>
-            <b-btn size="sm" class="float-left" variant="success" @click="save">Prześlij do archiwum</b-btn>
+            <form class="form-inline">
+                <div class="form-group mr-2">
+                    <label class="ml-2">Strony</label>
+                    <input v-model="pages" placeholder="np. 1-3 5 7 9" type="text" class="ml-2 form-control"
+                           name="pages-to-print" style="width: 150px;">
+                </div>
+                <b-btn size="sm" class="mr-2" variant="info" @click="makePdf">Drukuj</b-btn>
+                <b-btn size="sm" :disabled="!this.patientId" variant="success" @click="save">Prześlij do archiwum</b-btn>
+            </form>
         </div>
     </b-modal>
 </template>
@@ -12,11 +19,21 @@
 import axios from 'axios'
 export default {
   name: 'pdf-form',
+  props: {
+    patientId: Number
+  },
   created () {
     function receiveMessage (event) {
       window.openFormHandled = true
       if (typeof event.data === 'string' && event.data.endsWith('pdf')) {
         window.open(axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 1) + event.data)
+      }
+      if (typeof event.data === 'string' && event.data === 'save') {
+        this.$notify({
+          group: 'nots',
+          title: 'Dokument został przesłany do archiwum',
+          text: ''
+        })
       }
     }
     if (!window.openFormHandled) {
@@ -42,16 +59,20 @@ export default {
       this.$refs.pdfFormModal.hide()
     },
     save () {
-      axios.post('forms/edit_form/', {
-        data: this.data,
-        tmp: true,
-        name: this.name,
-        nice_name: this.title
-      }).then(response => { })
+      let iframe = document.getElementById('form-frame')
+      iframe.contentWindow.postMessage(
+        { name: this.name,
+          pages: this.pages,
+          save: 1,
+          user_id: this.$store.state.user.id,
+          nice_name: this.title,
+          patient_id: this.patientId}, this.$backendUrl
+      )
     },
     makePdf () {
       let iframe = document.getElementById('form-frame')
-      iframe.contentWindow.postMessage({name: this.name}, this.$backendUrl)
+      iframe.contentWindow.postMessage(
+        {name: this.name, pages: this.pages}, this.$backendUrl)
     }
   },
   data () {
@@ -59,7 +80,8 @@ export default {
       name: null,
       title: null,
       src: null,
-      klass: ''
+      klass: '',
+      pages: ''
     }
   }
 

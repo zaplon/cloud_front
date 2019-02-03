@@ -80,7 +80,7 @@
             </b-modal>
         </div>
         <AppFooter style="padding: 14.5px;"/>
-        <pdf-form ref="pdfForm"></pdf-form>
+        <pdf-form ref="pdfForm" :patientId="visit.term.patient.id" ></pdf-form>
     </div>
 </template>
 <script>
