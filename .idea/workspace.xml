@@ -77,7 +77,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PdfForm.vue" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PdfForm.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/PdfForm.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1015">
@@ -165,8 +165,8 @@
       <dir>$PROJECT_DIR$/src/components/Visit</dir>
       <dir>$PROJECT_DIR$/src/views</dir>
       <dir>$PROJECT_DIR$/src/components</dir>
-      <dir>$PROJECT_DIR$/src</dir>
       <dir>$PROJECT_DIR$</dir>
+      <dir>$PROJECT_DIR$/src</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -224,8 +224,6 @@
         <option value="$PROJECT_DIR$/src/components/Visit/VisitTab.vue" />
         <option value="$PROJECT_DIR$/src/views/Forms.vue" />
         <option value="$PROJECT_DIR$/src/components/PdfForm.vue" />
-        <option value="$PROJECT_DIR$/src/views/visit/Visit.vue" />
-        <option value="$PROJECT_DIR$/src/views/Archive.vue" />
       </list>
     </option>
   </component>
