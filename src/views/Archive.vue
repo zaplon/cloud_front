@@ -27,7 +27,7 @@
             <form-result ref="resultForm"></form-result>
             <div slot="modal-footer" class="w-100">
                 <b-btn size="sm" class="float-right" variant="default" @click="modalClose">Zamknij</b-btn>
-                <b-btn size="sm" class="float-right mr-2" variant="success" @click="modalOk">Zapisz</b-btn>
+                <b-btn size="sm" class="float-right mr-2" variant="primary" @click="modalOk">Zapisz</b-btn>
             </div>
         </b-modal>
         <b-modal @ok="deleteResults" cancel-title="Zamknij" ref="modal" id="modal" size="md" title="Usuwanie dokumentów">
@@ -88,6 +88,7 @@ export default {
       if (this.selectedResults().length > 0) { this.deleteEnabled = true } else { this.deleteEnabled = false }
     },
     fetchData () {
+      console.log('fetching')
       if (this.patientId) {
         axios.get('rest/patients/' + this.patientId + '/').then(response => { this.patient = response.data })
       }
@@ -113,6 +114,9 @@ export default {
   watch: {
     // call again the method if the route changes
     '$route': 'fetchData'
+  },
+  created () {
+    this.fetchData()
   }
 }
 </script>

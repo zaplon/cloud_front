@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1e358543-dfc6-4151-aa34-953a37b7aa1b" name="Default" comment="dev">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PdfForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PdfForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Archive.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Archive.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -17,15 +17,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1682">
-              <caret line="73" column="21" selection-start-line="73" selection-start-column="15" selection-end-line="73" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="VisitTab.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Visit/VisitTab.vue">
           <provider selected="true" editor-type-id="text-editor">
@@ -38,43 +29,58 @@
       <file leaf-file-name="Icd.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Visit/Icd.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="5" column="59" selection-start-line="5" selection-start-column="59" selection-end-line="5" selection-end-column="59" />
+            <state relative-caret-position="1682">
+              <caret line="58" column="73" selection-start-line="58" selection-start-column="73" selection-end-line="58" selection-end-column="73" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TabTemplates.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Visit/TabTemplates.vue">
+      <file leaf-file-name="Visit.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/visit/Visit.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1305">
-              <caret line="45" column="19" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="19" />
+            <state relative-caret-position="348">
+              <caret line="155" column="26" lean-forward="true" selection-start-line="155" selection-start-column="26" selection-end-line="155" selection-end-column="26" />
+              <folding>
+                <element signature="n#style#0;n#embed#0;n#b-modal#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BackendForm.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/BackendForm.vue">
+      <file leaf-file-name="PdfDocument.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/PdfDocument.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1131">
-              <caret line="39" column="45" lean-forward="true" selection-start-line="39" selection-start-column="45" selection-end-line="39" selection-end-column="45" />
+            <state relative-caret-position="58">
+              <caret line="2" column="8" lean-forward="true" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="60" />
+              <folding>
+                <element signature="n#style#0;n#embed#0;n#b-modal#0;n#template#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.d.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/axios/index.d.ts">
+      <file leaf-file-name="Archive.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/views/Archive.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3451">
-              <caret line="119" column="52" selection-start-line="119" selection-start-column="52" selection-end-line="119" selection-end-column="52" />
+            <state relative-caret-position="271">
+              <caret line="118" column="3" lean-forward="true" selection-start-line="118" selection-start-column="3" selection-end-line="118" selection-end-column="3" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PdfForm.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Medicines.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Visit/Medicines.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2233">
+              <caret line="80" column="19" selection-start-line="80" selection-start-column="19" selection-end-line="80" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PdfForm.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/PdfForm.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-78">
+            <state relative-caret-position="1015">
               <caret line="35" column="7" lean-forward="true" selection-start-line="35" selection-start-column="7" selection-end-line="35" selection-end-column="7" />
             </state>
           </provider>
@@ -114,22 +120,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>showDocument</find>
-      <find>formatDate</find>
-      <find>me</find>
-      <find>medicines</find>
-      <find>Template</find>
-      <find>deleteTemplate</find>
-      <find>modalTitle</find>
-      <find>resetTermForm</find>
-      <find>resetTerm</find>
-      <find>show_form</find>
-      <find>props</find>
-      <find>url</find>
-      <find>params</find>
-      <find>watch</find>
-      <find>orzeczenia</find>
-      <find>rece</find>
       <find>navigate</find>
       <find>późnie</find>
       <find>cancelVisit</find>
@@ -144,6 +134,22 @@
       <find>name_with_pesel</find>
       <find>$store</find>
       <find>documents_header</find>
+      <find>modal</find>
+      <find>show</find>
+      <find>showVisit</find>
+      <find>saveVisit</find>
+      <find>refs</find>
+      <find>@click</find>
+      <find>watch:</find>
+      <find>saveVisitModa</find>
+      <find>visitPdfSrc</find>
+      <find>saveVisitModal</find>
+      <find>this.saveVisitModal</find>
+      <find>printVisit</find>
+      <find>patient</find>
+      <find>patientId</find>
+      <find>fetchData</find>
+      <find>created</find>
     </findStrings>
     <replaceStrings>
       <replace>['9:00', '17:00']</replace>
@@ -159,8 +165,8 @@
       <dir>$PROJECT_DIR$/src/components/Visit</dir>
       <dir>$PROJECT_DIR$/src/views</dir>
       <dir>$PROJECT_DIR$/src/components</dir>
-      <dir>$PROJECT_DIR$</dir>
       <dir>$PROJECT_DIR$/src</dir>
+      <dir>$PROJECT_DIR$</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -202,7 +208,6 @@
         <option value="$PROJECT_DIR$/src/views/Templates.vue" />
         <option value="$PROJECT_DIR$/src/views/Tabs.vue" />
         <option value="$PROJECT_DIR$/src/views/patients/Patient.vue" />
-        <option value="$PROJECT_DIR$/src/views/Archive.vue" />
         <option value="$PROJECT_DIR$/src/components/Visit/Referrals.vue" />
         <option value="$PROJECT_DIR$/src/_forms.js" />
         <option value="$PROJECT_DIR$/src/components/Calendar/NextVisits.vue" />
@@ -213,13 +218,14 @@
         <option value="$PROJECT_DIR$/src/components/Calendar/TermsCalendar.vue" />
         <option value="$PROJECT_DIR$/src/components/Settings.vue" />
         <option value="$PROJECT_DIR$/src/components/ChangePassword.vue" />
-        <option value="$PROJECT_DIR$/src/views/visit/Visit.vue" />
         <option value="$PROJECT_DIR$/src/main.js" />
         <option value="$PROJECT_DIR$/src/components/Visit/TabTemplates.vue" />
         <option value="$PROJECT_DIR$/src/components/BackendForm.vue" />
         <option value="$PROJECT_DIR$/src/components/Visit/VisitTab.vue" />
         <option value="$PROJECT_DIR$/src/views/Forms.vue" />
         <option value="$PROJECT_DIR$/src/components/PdfForm.vue" />
+        <option value="$PROJECT_DIR$/src/views/visit/Visit.vue" />
+        <option value="$PROJECT_DIR$/src/views/Archive.vue" />
       </list>
     </option>
   </component>
@@ -506,13 +512,14 @@
       <workItem from="1545920517996" duration="3004000" />
       <workItem from="1548452049660" duration="3040000" />
       <workItem from="1548508534878" duration="736000" />
-    </task>
-    <task id="LOCAL-00007" summary="dev">
-      <created>1531753793788</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1531753793788</updated>
+      <workItem from="1548624734536" duration="1292000" />
+      <workItem from="1548674366864" duration="1013000" />
+      <workItem from="1548695239929" duration="1208000" />
+      <workItem from="1548698371423" duration="690000" />
+      <workItem from="1548705302754" duration="2321000" />
+      <workItem from="1548880483494" duration="2177000" />
+      <workItem from="1549047920807" duration="4792000" />
+      <workItem from="1549210414130" duration="725000" />
     </task>
     <task id="LOCAL-00008" summary="dev">
       <created>1531754402849</created>
@@ -850,21 +857,29 @@
       <option name="project" value="LOCAL" />
       <updated>1545924075896</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="dev">
+      <created>1549052112723</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1549052112724</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="751131000" />
+    <option name="totallyTimeSpent" value="765349000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="110" y="35" width="2450" height="1405" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4978261" visible="true" weight="0.16979592" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4978261" visible="true" weight="0.16938776" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.40711805" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3237847" />
       <window_info id="npm" order="2" sideWeight="0.5021739" side_tool="true" weight="0.2054054" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
@@ -1016,13 +1031,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/PdfDocument.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="98" selection-start-line="4" selection-start-column="98" selection-end-line="4" selection-end-column="98" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/views/account/Login.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1073">
@@ -1048,13 +1056,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="754">
           <caret line="26" column="11" selection-start-line="26" selection-start-column="11" selection-end-line="26" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Visit/Medicines.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2320">
-          <caret line="80" column="19" selection-start-line="80" selection-start-column="19" selection-end-line="80" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -1164,13 +1165,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/Archive.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3335">
-          <caret line="115" column="3" selection-start-line="115" selection-start-column="3" selection-end-line="115" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Calendar/TermsCalendar.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3944">
@@ -1199,13 +1193,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/visit/Visit.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3451">
-          <caret line="130" column="19" selection-start-line="130" selection-start-column="19" selection-end-line="130" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1682">
@@ -1217,13 +1204,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3451">
           <caret line="119" column="52" selection-start-line="119" selection-start-column="52" selection-end-line="119" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Visit/Icd.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="5" column="59" selection-start-line="5" selection-start-column="59" selection-end-line="5" selection-end-column="59" />
         </state>
       </provider>
     </entry>
@@ -1274,8 +1254,49 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/PdfForm.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-78">
+        <state relative-caret-position="1015">
           <caret line="35" column="7" lean-forward="true" selection-start-line="35" selection-start-column="7" selection-end-line="35" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Visit/Medicines.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2233">
+          <caret line="80" column="19" selection-start-line="80" selection-start-column="19" selection-end-line="80" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Visit/Icd.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1682">
+          <caret line="58" column="73" selection-start-line="58" selection-start-column="73" selection-end-line="58" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/PdfDocument.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="58">
+          <caret line="2" column="8" lean-forward="true" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="60" />
+          <folding>
+            <element signature="n#style#0;n#embed#0;n#b-modal#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/visit/Visit.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="155" column="26" lean-forward="true" selection-start-line="155" selection-start-column="26" selection-end-line="155" selection-end-column="26" />
+          <folding>
+            <element signature="n#style#0;n#embed#0;n#b-modal#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/Archive.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="118" column="3" lean-forward="true" selection-start-line="118" selection-start-column="3" selection-end-line="118" selection-end-column="3" />
         </state>
       </provider>
     </entry>
