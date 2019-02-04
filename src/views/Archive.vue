@@ -6,7 +6,7 @@
         </div>
         <div class="card-body">
             <div>
-                <button style="display: none;" :disabled="!deleteEnabled" type="button" v-permission="'delete_result'"
+                <button style="display: none;" type="button" v-permission="'delete_result'"
                         class="btn btn-danger mb-4" v-b-modal="'modal'">Usuń</button>
             </div>
             <div v-if="patientId" class="mb-4">
@@ -88,7 +88,7 @@ export default {
       if (this.selectedResults().length > 0) { this.deleteEnabled = true } else { this.deleteEnabled = false }
     },
     fetchData () {
-      console.log('fetching')
+      this.patient = null
       if (this.patientId) {
         axios.get('rest/patients/' + this.patientId + '/').then(response => { this.patient = response.data })
       }
@@ -101,7 +101,6 @@ export default {
       specializationLabel: '',
       patientId: this.$route.params.id ? parseInt(this.$route.params.id) : 0,
       resultId: null,
-      deleteEnabled: false,
       columns: this.$hasPermissions('delete_result') ? ['patient', 'pesel', 'name', 'file', 'uploaded', 'actions']
         : ['patient', 'pesel', 'name', 'file', 'uploaded'],
       options: {

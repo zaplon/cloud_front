@@ -64,6 +64,12 @@ export default {
       name: 'Zakładki',
       url: '/zakladki',
       icon: 'fa fa-list-alt'
+    },
+    {
+      id: 'admin',
+      name: 'Administracja',
+      url: '/admin/',
+      icon: 'fa fa-external-link'
     }
   ]
 }
