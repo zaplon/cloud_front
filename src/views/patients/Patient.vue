@@ -17,22 +17,33 @@ export default {
   name: 'patient',
   data () {
     return {
-      patientId: this.$route.params.id ? parseInt(this.$route.params.id) : 0,
+      patientId: 0,
       patient: {},
       label: this.patientId,
       archiveLink: ''
     }
   },
-  mounted () {
-    if (!this.$route.params.id) {
-      return
+  watch: {
+    '$route.params.id' () {
+      this.loadData()
     }
-    this.archiveLink = '/archiwum/' + this.patientId
-    axios.get('rest/patients/' + this.patientId + '/').then(response => {
-      this.patient = response.data
-      this.label = response.data.name_with_pesel
-    })
-    this.$refs.patientForm.loadHtml(this.patientId)
+  },
+  methods: {
+    loadData () {
+      if (!this.$route.params.id) {
+        return
+      }
+      this.patientId = parseInt(this.$route.params.id)
+      this.archiveLink = '/archiwum/' + this.patientId
+      axios.get('rest/patients/' + this.patientId + '/').then(response => {
+        this.patient = response.data
+        this.label = response.data.name_with_pesel
+      })
+      this.$refs.patientForm.loadHtml(this.patientId)
+    }
+  },
+  mounted () {
+    this.loadData()
   }
 }
 </script>

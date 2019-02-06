@@ -58,7 +58,7 @@
                         <b-tabs pills card v-model="tabIndex">
                             <template v-for="(tab, index) in visit.tabs">
                                 <b-tab :key="tab.name" :title="tab.title" :active="index == 0">
-                                    <icd :data="visit.icd_codes" v-if="tab.type=='ICD10'" :ref="tab.id" />
+                                    <icd v-on:icd-changed="getICD" :data="visit.icd_codes" v-if="tab.type=='ICD10'" :ref="tab.id" />
                                     <notes v-else-if="tab.type=='NOTES'" :ref="tab.id" />
                                     <medicines :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='MEDICINES'" :ref="tab.id" />
                                     <oculist :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='OCULIST'" :ref="tab.id"></oculist>
@@ -106,6 +106,7 @@ export default {
       formName: '',
       formTitle: '',
       tabIndex: 0,
+      icds: [],
       forms: {
         show: false,
         items: [],
@@ -114,6 +115,9 @@ export default {
     }
   },
   methods: {
+    getICD (icds) {
+      this.icds = icds
+    },
     showDocument (file, title) {
       EventBus.$emit('show-document', title, file)
     },
@@ -123,7 +127,18 @@ export default {
       if (this.forms.show) { this.forms.type = type } else { this.forms.type = null }
       this.forms.items = forms.forms[type]
     },
-    showForm (form) { this.$refs.pdfForm.show(form.name, form.title, this.visit.term.patient) },
+    showForm (form) {
+      let data = this.visit.term.patient
+      data['icd_text'] = []
+      data['icd'] = []
+      this.icds.forEach((icd) => {
+        data['icd_text'].push(icd.desc)
+        data['icd'].push(icd.code)
+      })
+      data['icd_text'] = data['icd_text'].join(', ')
+      data['icd'] = data['icd'].join(', ')
+      this.$refs.pdfForm.show(form.name, form.title, data)
+    },
     printVisit (saveVisit) {
       this.saveVisit(true, true).then(
         axios.get('visit/pdf/' + this.$route.params.id + '/?as_link=1/').then(response => {
@@ -196,6 +211,9 @@ export default {
   mounted () {
     axios.get('rest/visits/' + this.$route.params.id + '/').then(response => {
       this.visit = response.data
+      if (this.visit.icd_codes) {
+        this.icds = this.visit.icd_codes
+      }
     })
     axios.get('rest/templates/').then(response => { this.templates = response.data.results })
   },

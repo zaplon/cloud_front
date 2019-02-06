@@ -7,7 +7,10 @@ import Account from '@/containers/Account'
 import Setup from '@/containers/Setup'
 
 // Views
-import AddEdit from '@/views/AddEdit'
+import AddEdit from '@/views/generic/AddEdit'
+import List from '@/views/generic/List'
+import Index from '@/views/generic/Index'
+import Detail from '@/views/generic/Detail'
 
 import Dashboard from '@/views/Dashboard'
 import Calendar from '@/views/Calendar'
@@ -139,6 +142,123 @@ var router = new Router({
           component: Icd10
         },
         {
+          path: 'uslugi',
+          name: 'Usługi',
+          component: Index,
+          redirect: 'uslugi/lista',
+          children: [
+            {
+              path: 'lista',
+              name: 'Lista',
+              component: List,
+              meta: {label: 'Lista usług'},
+              props: {
+                columns: ['select', 'name', 'actions'],
+                headings: {'name': 'Nazwa', 'select': '', 'actions': ''},
+                resource: 'service'
+              }
+            },
+            {
+              path: 'dodaj',
+              name: 'NewService',
+              component: AddEdit,
+              meta: {label: 'Nowa usługa'},
+              props: { backUrl: '/uslugi', resource: 'service', klass: 'ServiceForm', module: 'timetable.forms' }
+            },
+            {
+              path: ':id',
+              name: 'Service',
+              component: Detail,
+              meta: {label: 'Usługa'},
+              props: { resource: 'service', klass: 'ServiceForm', module: 'timetable.forms' }
+            },
+            {
+              path: ':id/edycja',
+              name: 'Edycja usługi',
+              component: AddEdit,
+              meta: {label: 'Edycja'},
+              props: {backUrl: '/uslugi', resource: 'service', klass: 'ServiceForm', module: 'timetable.forms'}
+            }]
+        },
+        {
+          path: 'lokalizacje',
+          name: 'Lokalizacje',
+          component: Index,
+          redirect: 'lokalizacje/lista',
+          children: [
+            {
+              path: 'lista',
+              name: 'Lista',
+              component: List,
+              meta: {label: 'Lista lokalizacji'},
+              props: {
+                columns: ['select', 'name', 'code', 'actions'],
+                headings: {'name': 'Nazwa', 'code': 'Kod', 'select': '', 'actions': ''},
+                resource: 'localization'
+              }
+            },
+            {
+              path: 'dodaj',
+              name: 'NewLocation',
+              component: AddEdit,
+              meta: {label: 'Nowa lokalizacja'},
+              props: {backUrl: '/lokalizacje', resource: 'localization', klass: 'LocalizationForm', module: 'timetable.forms'}
+            },
+            {
+              path: ':id',
+              name: 'Location',
+              component: Detail,
+              meta: {label: 'Lokalizacja'},
+              props: {resource: 'localization', klass: 'LocalizationForm', module: 'timetable.forms', backUrl: '/lokalizacje'}
+            },
+            {
+              path: ':id/edycja',
+              name: 'Edycja lokalizacji',
+              component: AddEdit,
+              meta: {label: 'Edycja'},
+              props: {backUrl: '/lokalizacje', resource: 'localization', klass: 'LocalizationForm', module: 'timetable.forms'}
+            }]
+        },
+        {
+          path: 'uzytkownicy',
+          name: 'Użytkownicy',
+          component: Index,
+          redirect: 'uzytkownicy/lista',
+          children: [
+            {
+              path: 'lista',
+              name: 'Lista',
+              component: List,
+              meta: {label: 'Lista użytkowników'},
+              props: {
+                columns: ['select', 'last_name', 'first_name', 'type', 'actions'],
+                headings: {'last_name': 'Nazwisko', 'first_name': 'Imię', 'type': 'Rola', 'select': '', 'actions': ''},
+                resource: 'user'
+              }
+            },
+            {
+              path: 'dodaj',
+              name: 'NewUser',
+              component: AddEdit,
+              meta: {label: 'Nowy użytkownik'},
+              props: {backUrl: '/uzytkownicy', resource: 'user', klass: 'UserForm', module: 'user_profile.forms'}
+            },
+            {
+              path: ':id',
+              name: 'User',
+              component: Detail,
+              meta: {label: 'Użytkownik'},
+              props: {backUrl: '/uzytkownicy', resource: 'user', klass: 'UserForm', module: 'user_profile.forms'}
+            },
+            {
+              path: ':id/edycja',
+              name: 'Edycja użytkownika',
+              component: AddEdit,
+              meta: {label: 'Edycja'},
+              props: {backUrl: '/uzytkownicy', resource: 'user', klass: 'UserForm', module: 'user_profile.forms'}
+            }]
+        },
+        {
           path: 'pacjenci',
           name: 'Pacjenci',
           component: PatientsIndex,
@@ -156,7 +276,7 @@ var router = new Router({
               meta: {label: 'Nowy pacjent'},
               props: {
                 backUrl: '/pacjenci',
-                resource: 'patients',
+                resource: 'patient',
                 klass: 'PatientModelForm',
                 module: 'user_profile.forms'
               }

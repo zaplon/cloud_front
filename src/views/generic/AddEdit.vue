@@ -11,7 +11,7 @@
             <backend-form :pk="instanceId" :autoload="false" ref="form" :klass="klass" :module="module"></backend-form>
         </div>
         <div class="card-footer">
-            <button v-if="instanceId" class="btn btn-danger pull-left" @click="showConfirmDeleteModal">Usuń</button>
+            <button :v-permission="deletePermission" v-if="instanceId" class="btn btn-danger pull-left" @click="showConfirmDeleteModal">Usuń</button>
             <div class="pull-right">
                 <button @click="save" class="btn btn-primary mr-1">Zapisz</button>
                 <button class="btn btn-default" @click="cancel">Anuluj</button>
@@ -43,9 +43,25 @@ export default {
   },
   data () {
     return {
-      instanceId: this.$route.params.id ? parseInt(this.$route.params.id) : 0,
+      instanceId: 0,
       label: this.$route.meta.label
     }
+  },
+  computed: {
+    apiUrl () {
+      return 'rest/' + this.resource + 's/'
+    },
+    deletePermission () {
+      return 'can_delete_' + this.resource
+    }
+  },
+  watch: {
+    '$route.params.id' () {
+      this.loadData()
+    }
+    // resource () {
+    //   this.loadData()
+    // }
   },
   methods: {
     cancel () {
@@ -58,21 +74,25 @@ export default {
       this.$refs.confirmModal.show()
     },
     deleteRecord () {
-      axios.delete('rest/' + this.resource + '/' + this.instanceId + '/').then(response => {
+      axios.delete(this.apiUrl + this.instanceId + '/').then(response => {
         this.$router.push(this.backUrl)
       })
+    },
+    loadData () {
+      this.instanceId = this.$route.params.id ? parseInt(this.$route.params.id) : 0
+      if (this.instanceId) {
+        axios.get(this.apiUrl + this.instanceId + '/').then(response => {
+          this.instance = response.data
+          this.label = response.data.id
+        })
+        this.$refs.form.loadHtml(this.instanceId)
+      } else {
+        this.$refs.form.loadHtml()
+      }
     }
   },
   mounted () {
-    if (this.instanceId) {
-      axios.get('rest/' + this.resource + '/' + this.instanceId + '/').then(response => {
-        this.instance = response.data
-        this.label = response.data.id
-      })
-      this.$refs.form.loadHtml(this.instanceId)
-    } else {
-      this.$refs.form.loadHtml()
-    }
+    this.loadData()
   }
 }
 </script>

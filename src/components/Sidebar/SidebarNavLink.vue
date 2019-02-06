@@ -57,7 +57,7 @@ export default {
       return this.classes ? this.classes.split(' ') : []
     },
     isExternalLink () {
-      if (this.url.substring(0, 4) === 'http') {
+      if ((this.url.substring(0, 4) === 'http') || this.isExternal) {
         return true
       } else {
         return false

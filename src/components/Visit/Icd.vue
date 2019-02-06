@@ -52,16 +52,17 @@ export default {
     add (record) {
       this.selections.push(record)
       record.selected = true
+      this.$emit('icd-changed', this.selections)
       // this.suggestions.splice(this.suggestions.indexOf(record), 1)
     },
     remove (record) {
       this.selections.splice(this.selections.indexOf(record), 1)
+      this.$emit('icd-changed', this.selections)
       this.suggestions[this.suggestions.indexOf(record)].selected = false
     },
     getSuggestions () {
       axios.get('rest/icd/', {params: {limit: 10, search: this.inputValue, exclude: this.excludes.join(',')}}).then(response => {
         this.suggestions = response.data.results
-        console.log(this.suggestions)
       })
     },
     getData () { return this.selections }

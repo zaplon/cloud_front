@@ -66,10 +66,22 @@ export default {
       icon: 'fa fa-list-alt'
     },
     {
-      id: 'admin',
-      name: 'Administracja',
-      url: '/admin/',
-      icon: 'fa fa-external-link'
+      id: 'services',
+      name: 'Usługi',
+      url: '/uslugi',
+      icon: 'fa fa-list-alt'
+    },
+    {
+      id: 'localizations',
+      name: 'Lokalizacje',
+      url: '/lokalizacje',
+      icon: 'fa fa-building-o'
+    },
+    {
+      id: 'users',
+      name: 'Użytkownicy',
+      url: '/uzytkownicy',
+      icon: 'fa fa-building-o'
     }
   ]
 }
