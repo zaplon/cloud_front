@@ -2,11 +2,17 @@ import axios from 'axios'
 import store from '@/store'
 
 var account = {
+  goToStart (vue) {
+    delete localStorage.token
+    delete axios.defaults.headers.common['Authorization']
+    vue.$router.push({name: 'Login'})
+  },
   logOut (vue) {
     axios.post('rest-auth/logout/').then(request => {
-      delete localStorage.token
-      delete axios.defaults.headers.common['Authorization']
-      vue.$router.push({name: 'Login'})
+      this.goToStart(vue)
+    }).catch(error => {
+      console.log(error)
+      this.goToStart(vue)
     })
   },
   getUserData () {

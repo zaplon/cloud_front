@@ -7,6 +7,7 @@ import Account from '@/containers/Account'
 import Setup from '@/containers/Setup'
 
 // Views
+import {default as UsersList} from '@/views/users/List'
 import AddEdit from '@/views/generic/AddEdit'
 import List from '@/views/generic/List'
 import Index from '@/views/generic/Index'
@@ -228,11 +229,17 @@ var router = new Router({
             {
               path: 'lista',
               name: 'Lista',
-              component: List,
+              component: UsersList,
               meta: {label: 'Lista użytkowników'},
               props: {
                 columns: ['select', 'last_name', 'first_name', 'type', 'actions'],
-                headings: {'last_name': 'Nazwisko', 'first_name': 'Imię', 'type': 'Rola', 'select': '', 'actions': ''},
+                headings: {
+                  'last_name': 'nazwisko',
+                  'first_name': 'imię',
+                  'type': 'rola',
+                  'select': '',
+                  'actions': ''
+                },
                 resource: 'user'
               }
             },
@@ -241,21 +248,21 @@ var router = new Router({
               name: 'NewUser',
               component: AddEdit,
               meta: {label: 'Nowy użytkownik'},
-              props: {backUrl: '/uzytkownicy', resource: 'user', klass: 'UserForm', module: 'user_profile.forms'}
+              props: {backUrl: '/uzytkownicy', resource: 'user', klass: 'UserModelForm', module: 'user_profile.forms'}
             },
             {
               path: ':id',
               name: 'User',
               component: Detail,
               meta: {label: 'Użytkownik'},
-              props: {backUrl: '/uzytkownicy', resource: 'user', klass: 'UserForm', module: 'user_profile.forms'}
+              props: {backUrl: '/uzytkownicy', resource: 'user', klass: 'UserModelForm', module: 'user_profile.forms'}
             },
             {
               path: ':id/edycja',
               name: 'Edycja użytkownika',
               component: AddEdit,
               meta: {label: 'Edycja'},
-              props: {backUrl: '/uzytkownicy', resource: 'user', klass: 'UserForm', module: 'user_profile.forms'}
+              props: {backUrl: '/uzytkownicy', resource: 'user', klass: 'UserModelForm', module: 'user_profile.forms'}
             }]
         },
         {

@@ -13,7 +13,7 @@
         <div class="card-footer">
             <button :v-permission="deletePermission" v-if="instanceId" class="btn btn-danger pull-left" @click="showConfirmDeleteModal">Usuń</button>
             <div class="pull-right">
-                <button @click="save" class="btn btn-primary mr-1">Zapisz</button>
+                <button @click="save" class="btn btn-primary mr-2">Zapisz</button>
                 <button class="btn btn-default" @click="cancel">Anuluj</button>
             </div>
         </div>

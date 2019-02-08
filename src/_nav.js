@@ -81,7 +81,7 @@ export default {
       id: 'users',
       name: 'Użytkownicy',
       url: '/uzytkownicy',
-      icon: 'fa fa-building-o'
+      icon: 'fa fa-user-md'
     }
   ]
 }

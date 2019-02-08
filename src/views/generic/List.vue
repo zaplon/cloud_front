@@ -10,6 +10,7 @@
             {{ label }}
         </div>
         <div class="card-body">
+            <slot name="filters"></slot>
             <v-server-table :url="apiUrl" :columns="columns" :options="options" ref="table" @loaded="onTableLoaded">
                 <input type="checkbox" :value="props.row.id" v-model="selectedRows" slot="select" slot-scope="props" :v-permission="deletePermission">
                 <div slot="actions" slot-scope="props">
