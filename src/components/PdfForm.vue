@@ -24,6 +24,7 @@ export default {
   },
   created () {
     function receiveMessage (event) {
+      console.log('received')
       window.openFormHandled = true
       if (typeof event.data === 'string' && event.data.endsWith('pdf')) {
         window.open(axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 1) + event.data)

@@ -83,7 +83,7 @@ export default {
       if (this.instanceId) {
         axios.get(this.apiUrl + this.instanceId + '/').then(response => {
           this.instance = response.data
-          this.label = response.data.id
+          this.label = response.data.name
         })
         this.$refs.form.loadHtml(this.instanceId)
       } else {

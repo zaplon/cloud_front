@@ -22,7 +22,7 @@
                               <i class="icon-lock"></i>
                             </span>
                                     </div>
-                                    <input v-model="password" autocomplete="current-password" required name="password" type="password" class="form-control" placeholder="Hasło">
+                                    <input v-on:keyup.enter="login" v-model="password" autocomplete="current-password" required name="password" type="password" class="form-control" placeholder="Hasło">
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
@@ -77,10 +77,11 @@ export default {
       axios.post('rest-auth/login/', {username: this.username, password: this.password}).then(response => {
         localStorage.token = response.data.key
         axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.token
-        Account.getUserData().then(() => {
-          if (response.data.setup_needed === 1) {
+        Account.getUserData().then(response => {
+          let user = this.$store.state.user
+          if (user.setup_needed === 1) {
             this.$router.push('/setup/1')
-          } else if (response.data.setup_needed === 2) {
+          } else if (user.setup_needed === 2) {
             this.$router.push('/setup/2')
           } else { this.$router.push('/') }
         })

@@ -7,7 +7,7 @@
             </div>
         </div>
         <div class="card-body">
-            <backend-form :autoload="false" :readonly="false" ref="patientForm" klass="PatientModelForm" module="user_profile.forms"></backend-form>
+            <backend-form :autoload="false" :readonly="true" ref="patientForm" klass="PatientModelForm" module="user_profile.forms"></backend-form>
         </div>
     </div>
 </template>

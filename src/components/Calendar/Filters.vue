@@ -6,6 +6,7 @@
                 <autocomplete id="termService" input-class="form-control" @selected="selectService"
                               :source="servicesUrl" placeholder="Wyszukaj..." @clear="clearService"
                               results-property="results" :initialDisplay="autocompletes.service"
+                              :request-headers="authHeaders"
                               results-display="name">
                 </autocomplete>
             </div>
@@ -35,7 +36,7 @@ export default {
   components: {Autocomplete},
   data () {
     return {
-      servicesUrl: axios.defaults.baseURL + 'rest/services/?term=',
+      servicesUrl: axios.defaults.baseURL + 'rest/services/?no_pagination=1&term=',
       doctor: '',
       service: '',
       dateFrom: new Date(),
@@ -52,10 +53,15 @@ export default {
         doctor: null,
         service: null
       }
+    },
+    authHeaders () {
+      return {
+        'Authorization': 'Token ' + localStorage.token
+      }
     }
   },
   mounted () {
-    axios.get('rest/localizations/').then(response => { this.localizations = response.data })
+    axios.get('rest/localizations/?no_pagination=1').then(response => { this.localizations = response.data })
   },
   methods: {
     selectService (obj) {

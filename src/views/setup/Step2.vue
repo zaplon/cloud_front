@@ -7,7 +7,7 @@
             <working-hours ref="workingHours"></working-hours>
         </div>
         <div class="card-footer">
-            <button @click="save" class="btn btn-lg btn-success pull-right">Zapisz</button>
+            <button @click="save" class="btn btn-success pull-right">Zapisz</button>
         </div>
     </div>
 </template>

@@ -45,11 +45,19 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-2">Pesel</div>
-                                <div class="col-auto"><strong>{{ visit.term.patient.pesel }}</strong></div>
+                                <div class="col-auto">
+                                    <strong>{{ visit.term.patient.pesel }}</strong>
+                                    <i v-show="!editingPesel" @click="editPesel" class="fa fa-pencil-square-o"></i>
+                                    <i v-show="editingPesel" @click="savePesel" class="fa fa-save"></i>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-2">Adres</div>
-                                <div class="col-auto"><strong>{{ visit.term.patient.address }}</strong></div>
+                                <div class="col-auto">
+                                    <strong>{{ visit.term.patient.address }}</strong>
+                                    <i v-show="!editingAddress" @click="editAddress" class="fa fa-pencil-square-o"></i>
+                                    <i v-show="editingAddress" @click="saveAddress" class="fa fa-save"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -102,6 +110,8 @@ export default {
     return {
       visit: {tabs: [], term: {patient: {}, service: {}, doctor: {}}},
       visitPdfSrc: '',
+      editingPesel: false,
+      editingLastName: false,
       templates: [],
       formName: '',
       formTitle: '',

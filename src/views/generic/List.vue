@@ -3,6 +3,9 @@
         <b-modal ok-title="Tak" cancel-title="Anuluj" size="md" id="confirmModal" title="Potwierdzenie operacji" @ok="deleteInstance" ref="confirmModal">
             Czy na pewno chcesz usunąć ten rekord?
         </b-modal>
+        <b-modal ok-title="Tak" cancel-title="Anuluj" size="md" id="confirmManyModal" title="Potwierdzenie operacji" @ok="deleteSelected" ref="confirmManyModal">
+            Czy na pewno chcesz usunąć te rekordy?
+        </b-modal>
         <router-link to="dodaj" :v-permission="addPermission" class="btn bottom-right button-add font-lg">
             <i class="fa fa-plus"></i>
         </router-link>
@@ -37,7 +40,6 @@ export default {
       this.selectedRows = []
     },
     deleteSelected () {
-      console.log(this.selectedRows)
       this.selectedRows.forEach((id) => {
         axios.delete(this.apiUrl + id + '/')
       })

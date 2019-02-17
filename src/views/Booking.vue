@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="card m-4">
         <div class="card-header">Zarezerwuj wizytę</div>
         <div class="card-body">
             <filters @search-doctors="search"></filters>
@@ -9,7 +9,7 @@
                         {{ term.datetime| formatDate('DD-MM HH:mm') }} {{ term.doctor }} {{ term.localization }}
                     </button>
                 </div>
-                <div class="row mt-4" v-if="this.terms.length > 0">
+                <div class="row mt-4 ml-2" v-if="this.terms.length > 0">
                     <button class="btn btn-info" @click="loadMore">Załaduj więcej</button>
                 </div>
             </div>
@@ -27,7 +27,8 @@ export default {
   name: 'booking',
   components: {FormBooking, Filters},
   methods: {
-    save () {
+    save (evt) {
+      evt.preventDefault()
       this.$refs.bookingForm.save(() => { this.$refs.bookingModal.hide() })
     },
     cancel () {

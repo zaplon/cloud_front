@@ -14,6 +14,11 @@ export default {
     }
   },
   props: {
+    blank: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     klass: {
       type: String,
       required: true
@@ -39,14 +44,17 @@ export default {
         this.htmlData = this.$forms[this.klass]
         return {then: callback => callback()}
       }
-      return axios.get(this.url, {params: {klass: this.klass, module: this.module, read_only: this.readonly, id: id, data: data}}).then(response => {
+      let params = {klass: this.klass, module: this.module, id: id, data: data}
+      if (this.blank) { params.blank = 1 }
+      if (this.readonly) { params.read_only = 1 }
+      return axios.get(this.url, {params: params}).then(response => {
         if (response.data.success) {
           this.htmlData = response.data.form_html
           if (!id) { this.$forms[this.klass] = this.htmlData }
         }
       })
     },
-    handleSubmit (callback) {
+    getData () {
       var data = {}
       let id = parseInt(this.$el.getAttribute('pk'))
       if (id) { data.id = id }
@@ -65,6 +73,10 @@ export default {
           }
         }
       }
+      return data
+    },
+    handleSubmit (callback) {
+      let data = this.getData()
       return axios.post(this.url, {klass: this.klass, module: this.module, data: data}).then(response => {
         if (response.data.success) {
           if (callback) {

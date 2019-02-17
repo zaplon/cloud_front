@@ -13,6 +13,8 @@ import List from '@/views/generic/List'
 import Index from '@/views/generic/Index'
 import Detail from '@/views/generic/Detail'
 
+import User from '@/views/users/User'
+
 import Dashboard from '@/views/Dashboard'
 import Calendar from '@/views/Calendar'
 import Icd10 from '@/views/Icd10'
@@ -246,23 +248,23 @@ var router = new Router({
             {
               path: 'dodaj',
               name: 'NewUser',
-              component: AddEdit,
+              component: User,
               meta: {label: 'Nowy użytkownik'},
               props: {backUrl: '/uzytkownicy', resource: 'user', klass: 'UserModelForm', module: 'user_profile.forms'}
             },
             {
               path: ':id',
               name: 'User',
-              component: Detail,
+              component: User,
               meta: {label: 'Użytkownik'},
-              props: {backUrl: '/uzytkownicy', resource: 'user', klass: 'UserModelForm', module: 'user_profile.forms'}
+              props: {readonly: true}
             },
             {
               path: ':id/edycja',
               name: 'Edycja użytkownika',
-              component: AddEdit,
+              component: User,
               meta: {label: 'Edycja'},
-              props: {backUrl: '/uzytkownicy', resource: 'user', klass: 'UserModelForm', module: 'user_profile.forms'}
+              props: {readonly: false}
             }]
         },
         {
