@@ -152,7 +152,7 @@ var router = new Router({
           children: [
             {
               path: 'lista',
-              name: 'Lista',
+              name: 'ListaUslug',
               component: List,
               meta: {label: 'Lista usług'},
               props: {
@@ -191,7 +191,7 @@ var router = new Router({
           children: [
             {
               path: 'lista',
-              name: 'Lista',
+              name: 'ListaLokalizacji',
               component: List,
               meta: {label: 'Lista lokalizacji'},
               props: {
@@ -275,7 +275,7 @@ var router = new Router({
           children: [
             {
               path: 'lista',
-              name: 'Lista',
+              name: 'ListaPacjentow',
               component: Patients
             },
             {
@@ -351,7 +351,7 @@ var router = new Router({
           children: [
             {
               path: 'lista',
-              name: 'Lista',
+              name: 'ListaLekow',
               meta: {label: 'Lista leków'},
               component: Medicines
             },
