@@ -37,6 +37,7 @@ export default {
       options: {
         filterByColumn: true,
         filterable: ['type', 'first_name', 'last_name'],
+        sortable: ['type', 'first_name', 'last_name'],
         listColumns: {
           type: [
             { id: 'doctor', text: 'Lekarz' },

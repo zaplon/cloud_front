@@ -30,6 +30,12 @@ export default {
       icon: 'fa fa-users'
     },
     {
+      id: 'visits',
+      name: 'Wizyty',
+      url: '/wizyty',
+      icon: 'fa fa-thermometer-half'
+    },
+    {
       id: 'archive',
       name: 'Archiwum',
       url: '/archiwum',
@@ -69,7 +75,7 @@ export default {
       id: 'services',
       name: 'Usługi',
       url: '/uslugi',
-      icon: 'fa fa-list-alt'
+      icon: 'fa fa-rocket'
     },
     {
       id: 'localizations',
@@ -82,6 +88,12 @@ export default {
       name: 'Użytkownicy',
       url: '/uzytkownicy',
       icon: 'fa fa-user-md'
+    },
+    {
+      id: 'settings',
+      name: 'Ustawienia',
+      url: '/ustawienia_systemowe',
+      icon: 'fa fa-gear'
     }
   ]
 }

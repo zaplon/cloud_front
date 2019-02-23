@@ -64,7 +64,8 @@ export default {
       template: {title: '', id: null},
       columns: ['name', 'text', 'tab_name', 'actions'],
       options: {
-        headings: {'name': 'Nazwa', 'text': 'Treść', 'tab_name': 'Zakładka', 'actions': ''}
+        headings: {'name': 'Nazwa', 'text': 'Treść', 'tab_name': 'Zakładka', 'actions': ''},
+        sortable: ['name', 'text', 'tab_name']
       }
     }
   }

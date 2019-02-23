@@ -128,6 +128,7 @@ export default {
       this.selections.forEach((s) => { medicines.push(this.$refs[s.id][0].getData()) })
       axios.post('visit/recipe/', {
         medicines: this.selections,
+        system_settings: this.$store.state.user.system_settings,
         nfz: this.prescription.nfz,
         permissions: this.prescription.permissions,
         number: this.prescription.number,

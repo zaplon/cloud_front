@@ -221,7 +221,7 @@ export default {
         } else {
           axios.post('rest/terms/', payload).then(response => {
             if (startVisit) {
-              this.$router.push({name: 'Visit', params: {id: response.data.id}})
+              this.$router.push({name: 'visit', params: {id: response.data.id}})
             } else {
               callback()
             }
@@ -236,7 +236,7 @@ export default {
           this.$refs.patientForm.loadHtml()
           this.term.edition = true
         })
-      } else { this.$router.push({name: 'Visit', params: {id: this.term.id}}) }
+      } else { this.$router.push({name: 'visit', params: {id: this.term.id}}) }
     },
     confirmMove () {
       axios.post('timetable/move/', {id: this.move.event.id, datetime: this.move.event.start.format('YYYY-MM-DD HH:mm')}).then(response => {

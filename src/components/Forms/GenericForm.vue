@@ -6,21 +6,31 @@
             </div>
             <div class="col-sm-9">
                 <template v-if="field.type=='multiselect'">
-                    <select class="form-control" v-model="values[field.name]" multiple>
+                    <ul class="list-unstyled" v-if="readonly">
+                        <li v-for="value in values[field.name]" :key="value">{{ getChoiceFromId(value, field.choices) }}</li>
+                    </ul>
+                    <select v-else class="form-control" v-model="values[field.name]" multiple>
                         <option :value="choice.id" v-for="choice in field.choices" :key="choice.id">
                             {{ choice.name }}
                         </option>
                     </select>
                 </template>
                 <template v-else-if="field.type=='select'">
-                    <ul v-if="readonly">
-                        <li v-for="value in values[field.name]" :key="value">{{ value }}</li>
+                    <ul class="list-unstyled" v-if="readonly">
+                        <li v-for="value in values[field.name]" :key="value">{{ getChoiceFromId(value, field.choices) }}</li>
                     </ul>
                     <select class="form-control" v-model="values[field.name]" v-else>
                         <option :value="choice.id" v-for="choice in field.choices" :key="choice.id">
                             {{ choice.name }}
                         </option>
                     </select>
+                </template>
+                <template v-else-if="field.type=='textarea'">
+                    <textarea v-model="values[field.name]" :name="field.name" :readonly="readonly"
+                              v-bind="fieldAttributes(field)" rows="5"
+                              :class="{ 'is-invalid form-control': errors[field.name],
+                            'form-control': !errors[field.name] && !readonly,
+                            'form-control-plaintext': readonly }"></textarea>
                 </template>
                 <template v-else>
                     <input :type="field.type ? field.type : 'text'" v-model="values[field.name]" :name="field.name"
@@ -76,6 +86,9 @@ export default {
     fieldAttributes (field) {
       if (!('attributes' in field)) { field.attributes = {} }
       return field.attributes
+    },
+    getChoiceFromId (value, choices) {
+      return choices.find(x => x.id === value).name
     },
     getData () {
       return this.values

@@ -106,7 +106,8 @@ export default {
       options: {
         // headings: {'select': '', 'patient': 'Pacjent', 'pesel': 'Pesel', 'nazwa': 'Nazwa', 'file': 'Plik'}
         headings: {'patient': 'Pacjent', 'pesel': 'Pesel', 'nazwa': 'Nazwa', 'file': 'Plik', 'uploaded': 'Data utworzenia', 'actions': ''},
-        params: {patient: this.$route.params.id}
+        params: {patient: this.$route.params.id},
+        sortable: ['patient', 'pesel', 'name', 'uploaded']
       }
     }
   },

@@ -46,7 +46,7 @@
                 <button class="btn btn-default" @click="cancel">Cofnij</button>
             </div>
             <button v-permission="'can_delete_user'" v-if="instanceId" class="btn btn-danger pull-left" @click="showConfirmDeleteModal">Usuń</button>
-            <div class="pull-right" v-else>
+            <div class="pull-right" v-if="!readonly">
                 <button @click="save" class="btn btn-primary mr-2">Zapisz</button>
                 <button class="btn btn-default" @click="cancel">Anuluj</button>
             </div>

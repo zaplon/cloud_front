@@ -13,8 +13,10 @@ import axios from 'axios'
 import App from './App'
 import router from './router'
 import store from './store'
+import EventBus from '@/eventBus'
 import {setupCalendar, Calendar, DatePicker} from 'v-calendar'
 import 'v-calendar/lib/v-calendar.min.css'
+import IdleVue from 'idle-vue'
 
 var backendUrl = 'http://0.0.0.0:8080/'
 var formsUrl = backendUrl + 'assets/forms/forms/'
@@ -55,6 +57,7 @@ Vue.use(ServerTable, {
       this.dispatch('error', e)
     }.bind(this))
   },
+  sortIcon: { base: 'fa', up: 'fa-caret-up', down: 'fa-caret-down', is: 'fa-sort' },
   texts: {
     count: 'Pokazuje {from} do {to} z {count} rekordów|{count} rekordów|Jeden rekord',
     first: 'Pierwszy',
@@ -122,6 +125,11 @@ setupCalendar({firstDayOfWeek: 2,
 Vue.component('backend-form', BackendForm)
 Vue.component('v-calendar', Calendar)
 Vue.component('v-date-picker', DatePicker)
+Vue.use(IdleVue, {
+  eventEmitter: EventBus,
+  idleTime: 3600000,
+  store
+})
 /* eslint-disable no-new */
 var app = new Vue({
   el: '#app',

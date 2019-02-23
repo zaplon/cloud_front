@@ -63,7 +63,7 @@
                     </div>
 
                     <b-card no-body>
-                        <b-tabs pills card v-model="tabIndex">
+                        <b-tabs pills justified card v-model="tabIndex">
                             <template v-for="(tab, index) in visit.tabs">
                                 <b-tab :key="tab.name" :title="tab.title" :active="index == 0">
                                     <icd v-on:icd-changed="getICD" :data="visit.icd_codes" v-if="tab.type=='ICD10'" :ref="tab.id" />

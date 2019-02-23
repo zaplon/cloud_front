@@ -9,6 +9,7 @@
 <script>
 import PdfDocument from '@/components/PdfDocument'
 import EventBus from '@/eventBus'
+import {Account} from '@/api'
 
 export default {
   name: 'app',
@@ -22,6 +23,19 @@ export default {
     EventBus.$on('show-document', (file, title) => {
       this.$refs.pdfDocument.showDocument(file, title)
     })
+  },
+  watch: {
+    isAppIdle (value) {
+      if (this.$store.state.user && value) {
+        Account.logOut(this)
+        this.$notify({
+          group: 'nots',
+          title: 'Uzytkownik został wylogowany ze względu na nieaktywność',
+          text: '',
+          type: 'info'
+        })
+      }
+    }
   }
 }
 </script>

@@ -29,7 +29,9 @@ import Tabs from '@/views/Tabs'
 import Archive from '@/views/Archive'
 import Templates from '@/views/Templates'
 import Forms from '@/views/Forms'
+import Visits from '@/views/visit/Visits'
 import Visit from '@/views/visit/Visit'
+import SystemSettings from '@/views/SystemSettings'
 
 import {default as MedicinesIndex} from '@/views/medicines/Index'
 import Medicines from '@/views/medicines/Medicines'
@@ -143,6 +145,19 @@ var router = new Router({
           path: 'icd10',
           name: 'Icd10',
           component: Icd10
+        },
+        {
+          path: 'ustawienia_systemowe',
+          name: 'systemSettings',
+          component: SystemSettings,
+          meta: {label: 'Ustawienia systemowe'},
+          props: {readonly: true}
+        },
+        {
+          path: 'edycja_ustawien_systemowych',
+          name: 'systemSettingsEdit',
+          component: SystemSettings,
+          meta: {label: 'Edycja ustawień systemowych'}
         },
         {
           path: 'uslugi',
@@ -304,6 +319,12 @@ var router = new Router({
             }]
         },
         {
+          path: 'wizyty',
+          name: 'visits',
+          component: Visits,
+          meta: {label: 'Wizyty'}
+        },
+        {
           path: 'archiwum',
           name: 'Archive',
           component: Archive,
@@ -384,7 +405,7 @@ var router = new Router({
     },
     {
       path: '/visit/:id',
-      name: 'Visit',
+      name: 'visit',
       component: Visit,
       meta: { requiresAuth: true }
     }

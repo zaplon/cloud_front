@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <b-modal ok-title="Tak" cancel-title="Anuluj" size="md" id="confirmModal" title="Potwierdzenie operacji" @ok="deleteRecord" ref="confirmModal">
-            Czy na pewno chcesz usunąć tegn rekord?
+            Czy na pewno chcesz usunąć ten rekord?
         </b-modal>
         <div class="card-header">{{ label }}
             <div class="card-toolbar">

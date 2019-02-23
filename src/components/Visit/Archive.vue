@@ -46,8 +46,10 @@ export default {
       document: {file: '', title: ''}
     }
   },
-  mounted () {
-    this.loadCategories()
+  watch: {
+    patient () {
+      this.loadCategories()
+    }
   },
   methods: {
     loadCategories () {
@@ -57,7 +59,6 @@ export default {
         })
     },
     navigate (link, category) {
-      console.log(link)
       axios.get(link).then(
         response => {
           this.$set(category, 'documents', response.data.results)
