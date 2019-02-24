@@ -76,16 +76,15 @@ export default {
   data () {
     return {
       selectedRows: [],
-      sortable: [],
       label: this.$route.meta.label,
       options: {
         headings: this.headings,
-        sortable: this.sortable
+        sortable: ['name']
       }
     }
   },
-  mounted () {
-    this.sortable = this.columns.filter(value => value !== 'actions' && value !== 'select')
+  beforeMount () {
+    this.options.sortable = this.columns.filter(value => value !== 'actions' && value !== 'select')
   },
   computed: {
     addPermission () {

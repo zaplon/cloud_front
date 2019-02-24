@@ -8,6 +8,9 @@
         <div class="card-body">
             <backend-form :autoload="false" :readonly="1" ref="form" :klass="klass" :module="module"></backend-form>
         </div>
+        <div class="card-footer">
+            <router-link to="edycja" class="btn btn-primary pull-right">Edytuj</router-link>
+        </div>
     </div>
 </template>
 <script>

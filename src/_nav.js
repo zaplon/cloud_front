@@ -94,6 +94,23 @@ export default {
       name: 'Ustawienia',
       url: '/ustawienia_systemowe',
       icon: 'fa fa-gear'
+    },
+    {
+      id: 'links',
+      name: 'Linki',
+      icon: 'fa fa-link',
+      children: [
+        {
+          id: 'ewus',
+          name: 'ewus',
+          url: 'https://ewus.nfz.gov.pl/ap-ewus/'
+        },
+        {
+          id: 'zwolenienia',
+          name: 'e-zwolnienia',
+          url: 'https://www.zus.pl/portal/logowanie.npi'
+        }
+      ]
     }
   ]
 }

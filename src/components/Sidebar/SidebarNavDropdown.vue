@@ -1,10 +1,10 @@
 <template>
-  <router-link tag="li" class="nav-item nav-dropdown" :to="url" disabled>
+  <li class="nav-item nav-dropdown">
     <div class="nav-link nav-dropdown-toggle" @click="handleClick"><i :class="icon"></i> {{name}}</div>
     <ul class="nav-dropdown-items">
       <slot></slot>
     </ul>
-  </router-link>
+  </li>
 </template>
 
 <script>
@@ -25,6 +25,7 @@ export default {
   },
   methods: {
     handleClick (e) {
+      console.log('dsdsads')
       e.preventDefault()
       e.target.parentElement.classList.toggle('open')
     }

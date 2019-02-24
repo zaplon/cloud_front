@@ -1,6 +1,13 @@
 <template>
     <div class="card">
-        <div class="card-header">Ustawienia systemowe</div>
+        <div class="card-header">
+            <span>Ustawienia systemowe</span>
+            <div class="card-toolbar">
+                <router-link :to="{ name: 'systemSettingsEdit'}">
+                    <i class="fa fa-pencil" title="edytuj" aria-hidden="true"></i>
+                </router-link>
+            </div>
+        </div>
         <div class="card-body">
             <generic-form :readonly="readonly" :fields="formFields" ref="form"></generic-form>
         </div>
