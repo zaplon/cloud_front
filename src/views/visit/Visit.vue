@@ -59,6 +59,9 @@
                                     <!--<i v-show="editingAddress" @click="saveAddress" class="fa fa-save"></i>-->
                                 </div>
                             </div>
+                            <div class="row mt-2" v-show="visit.term.patient.info">
+                                <div class="col-auto"><span class="text-muted">{{ visit.term.patient.info }}</span></div>
+                            </div>
                         </div>
                     </div>
 
