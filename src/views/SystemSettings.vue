@@ -3,7 +3,7 @@
         <div class="card-header">
             <span>Ustawienia systemowe</span>
             <div class="card-toolbar">
-                <router-link :to="{ name: 'systemSettingsEdit'}">
+                <router-link :to="{ name: 'systemSettingsEdit'}" v-if="readonly">
                     <i class="fa fa-pencil" title="edytuj" aria-hidden="true"></i>
                 </router-link>
             </div>

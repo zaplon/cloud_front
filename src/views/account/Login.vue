@@ -47,6 +47,13 @@
                 </div>
             </div>
         </div>
+        <div class="row justify-content-center mt-4" v-show="message">
+            <div class="col-8">
+                <div class="alert alert-info" role="alert">
+                    {{ message }}
+                </div>
+            </div>
+        </div>
         <div class="row justify-content-center mt-4" v-show="error">
             <div class="col-8">
                 <div class="alert alert-danger" role="alert">
@@ -61,6 +68,13 @@ import axios from 'axios'
 import {Account} from '@/api'
 export default {
   name: 'login',
+  props: {
+    message: {
+      type: String,
+      default: '',
+      required: false
+    }
+  },
   data: function () {
     return {
       username: '',

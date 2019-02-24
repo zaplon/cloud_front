@@ -43,6 +43,7 @@ export default {
       this.selectedRows.forEach((id) => {
         axios.delete(this.apiUrl + id + '/')
       })
+      this.$refs.table.reload()
     },
     showConfirmModal (instance) {
       this.selectedInstance = instance

@@ -127,7 +127,7 @@ Vue.component('v-calendar', Calendar)
 Vue.component('v-date-picker', DatePicker)
 Vue.use(IdleVue, {
   eventEmitter: EventBus,
-  idleTime: 3600000 * 100,
+  idleTime: 3600000,
   store
 })
 /* eslint-disable no-new */

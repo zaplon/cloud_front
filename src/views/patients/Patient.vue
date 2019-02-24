@@ -9,6 +9,9 @@
         <div class="card-body">
             <backend-form :autoload="false" :readonly="true" ref="patientForm" klass="PatientModelForm" module="user_profile.forms"></backend-form>
         </div>
+        <div class="card-footer">
+            <router-link to="edycja" class="btn btn-primary pull-right">Edytuj</router-link>
+        </div>
     </div>
 </template>
 <script>

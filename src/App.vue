@@ -27,13 +27,7 @@ export default {
   watch: {
     isAppIdle (value) {
       if (this.$store.state.user && value) {
-        Account.logOut(this)
-        this.$notify({
-          group: 'nots',
-          title: 'Uzytkownik został wylogowany ze względu na nieaktywność',
-          text: '',
-          type: 'info'
-        })
+        Account.logOut(this, 'Nastąpiło wylogowanie ze względu na nieaktywność')
       }
     }
   }

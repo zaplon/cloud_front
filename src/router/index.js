@@ -102,6 +102,7 @@ var router = new Router({
         {
           path: 'logowanie',
           name: 'Login',
+          props: true,
           component: Login
         },
         {
