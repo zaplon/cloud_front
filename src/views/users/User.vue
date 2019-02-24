@@ -68,6 +68,15 @@ export default {
     }
   },
   methods: {
+    transformPermissions (data) {
+      data.forEach(d => {
+        d.name = d.name.replace('Can', 'Może')
+        d.name = d.name.replace('add', 'dodać')
+        d.name = d.name.replace('delete', 'usunąć')
+        d.name = d.name.replace('change', 'zmienić')
+      })
+      return data
+    },
     save () {
       if (!this.instanceId) {
         let data = this.$refs.userInitialForm.values
@@ -156,7 +165,11 @@ export default {
       ],
       permissionsFields: [
         {name: 'groups', label: 'Grupy', type: 'multiselect', choicesUrl: 'rest/groups/'},
-        {name: 'user_permissions', label: 'Uprawnienia', type: 'multiselect', choicesUrl: 'rest/permissions/'}
+        {name: 'user_permissions',
+          label: 'Uprawnienia',
+          type: 'multiselect',
+          choicesUrl: 'rest/permissions/',
+          transformChoicesFunction: this.transformPermissions}
       ]
     }
   },

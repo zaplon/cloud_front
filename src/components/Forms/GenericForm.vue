@@ -76,7 +76,9 @@ export default {
       }
       if ('choicesUrl' in field) {
         axios.get(field.choicesUrl, {params: {no_pagination: 1}}).then((response) => {
-          field.choices = response.data
+          if (field.transformChoicesFunction) { field.choices = field.transformChoicesFunction(response.data) } else {
+            field.choices = response.data
+          }
         })
       }
     })
