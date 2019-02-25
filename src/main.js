@@ -67,9 +67,9 @@ Vue.use(ServerTable, {
     limit: 'Rekordy: ',
     page: 'Strony:',
     noResults: 'Brak pasujących rekordów',
-    filterBy: 'Filtruj {column}',
+    filterBy: '{column}',
     loading: 'Wczytywanie...',
-    defaultOption: 'Wybierz {column}',
+    defaultOption: '{column}',
     columns: 'Kolumny'
   }
 }, false, 'bootstrap4', 'default')

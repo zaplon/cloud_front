@@ -20,7 +20,9 @@ $box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
 .VueTables__sortable {
   cursor: pointer;
 }
-
+.VueTables__filters-row {
+ font-size: $font-size-sm!important;
+}
 .autocomplete__box {
   padding: $input-padding-x $input-padding-y!important;
 }

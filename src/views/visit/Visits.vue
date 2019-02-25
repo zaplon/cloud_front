@@ -3,16 +3,21 @@
         <div class="card-header">Wizyty</div>
         <div class="card-body">
             <v-server-table :url="apiUrl" :columns="columns" :options="options" ref="table">
-                <div slot="date" slot-scope="props">{{props.row.date|formatDate('Y-MM-DD HH:mm')}}</div>
+                <div slot="datetime" slot-scope="props">{{props.row.datetime|formatDate('Y-MM-DD HH:mm')}}</div>
                 <div slot="updated" slot-scope="props">{{props.row.updated|formatDate('Y-MM-DD HH:mm')}}</div>
+                <div slot="status" slot-scope="props">
+                    <span v-if="props.row.status == 'FINISHED'">Zrealizowana</span>
+                    <span v-else>Zaplanowana</span>
+                </div>
                 <div slot="pdf" slot-scope="props">
-                    <button v-if="props.row.results.length > 0" class="btn btn-link">
-                        <i @click="showDocument(props.row.results[0])" class="fa fa-file-pdf-o">{{props.row.result}}</i>
+                    <button v-if="props.row.result" class="btn btn-link">
+                        <i @click="showDocument(props.row.result)" class="fa fa-file-pdf-o"></i>
                     </button>
                     <span v-else>-</span>
                 </div>
                 <div slot="actions" slot-scope="props">
-                    <button @click="edit(props.row)" class="btn btn-info">Edytuj</button>
+                    <button v-if="props.row.visit" @click="edit(props.row)" class="btn btn-sm btn-info">Edytuj</button>
+                    <button v-else @click="edit(props.row)" class="btn btn-sm btn-info">Rozpocznij</button>
                 </div>
             </v-server-table>
         </div>
@@ -24,21 +29,34 @@ export default {
   name: 'visits',
   data () {
     return {
-      apiUrl: 'rest/visits/',
-      columns: ['patient', 'date', 'updated', 'pdf', 'actions'],
+      apiUrl: 'rest/terms_list/',
+      columns: ['patient_name', 'patient_last_name', 'datetime', 'updated', 'pdf', 'status', 'actions'],
       options: {
-        headings: {'patient': 'Pacjent', 'date': 'Data wizyty', 'updated': 'Data zapisu', 'actions': '', 'pdf': ''},
-        sortable: ['patient', 'date', 'updated']
+        headings: {'patient_name': 'Imię',
+          'patient_last_name': 'Nazwisko',
+          'datetime': 'Data wizyty',
+          'updated': 'Data zapisu',
+          'actions': '',
+          'pdf': ''},
+        sortable: ['patient_name', 'patient_last_name', 'datetime', 'updated', 'status'],
+        filterable: ['status', 'patient_name', 'patient_last_name'],
+        filterByColumn: true,
+        listColumns: {
+          status: [
+            { id: 'finished', text: 'Zrealizowana' },
+            { id: 'pending', text: 'Zaplanowana' }
+          ]
+        }
       }
     }
   },
   methods: {
     showDocument (document) {
-      EventBus.$emit('show-document', document.file, document.name)
+      EventBus.$emit('show-document', this.$backendUrl + 'media/' + document.file, document.name)
     },
     edit (row) {
       console.log(row)
-      this.$router.push({name: 'visit', params: {id: row.term_id}})
+      this.$router.push({name: 'visit', params: {id: row.id}})
     }
   }
 }

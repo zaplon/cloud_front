@@ -68,7 +68,7 @@ export default {
       if (this.instanceId) { this.$router.push(this.backUrl + '/' + this.instanceId) } else { this.$router.push(this.backUrl + '/') }
     },
     save () {
-      this.$refs.form.handleSubmit().then(response => this.$router.push(this.backUrl))
+      this.$refs.form.handleSubmit(response => this.$router.push(this.backUrl))
     },
     showConfirmDeleteModal () {
       this.$refs.confirmModal.show()
