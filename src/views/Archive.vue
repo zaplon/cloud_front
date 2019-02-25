@@ -48,6 +48,7 @@ export default {
   components: {FormResult},
   methods: {
     showDocument (document) {
+      if (location.protocol === 'https:') { document.file = document.file.replace('http://', 'https://') }
       EventBus.$emit('show-document', document.file, document.name)
     },
     modalOk () {
