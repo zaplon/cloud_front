@@ -37,7 +37,7 @@
                     </td>
                 </tr>
                 <tr v-if="examinations.length == 0">
-                    <td colspan="3" class="text-center"><span class="text-muted">Brak wyników</span></td>
+                    <td colspan="4" class="text-center"><span class="text-muted">Brak wyników</span></td>
                 </tr>
             </tbody>
         </table>

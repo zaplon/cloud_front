@@ -17,6 +17,7 @@ export default {
   },
   methods: {
     showDocument (src, title) {
+      if (location.protocol === 'https:') { src = src.replace('http://', 'https://') }
       this.src = src
       this.title = title
       this.show()
