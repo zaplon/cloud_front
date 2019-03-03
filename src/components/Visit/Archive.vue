@@ -26,7 +26,7 @@
             </ul>
         </li>
         <b-modal body-class="text-dark" header-class="text-dark" cancel-title="Zamknij" size="md" id="newResultModal" title="Nowy dokument" @ok="modalOk" @cancel="modalCancel" ref="newResultModal">
-            <form-result ref="newResultForm"></form-result>
+            <form-result fixed-patient ref="newResultForm"></form-result>
         </b-modal>
     </ul>
 </template>
@@ -74,10 +74,8 @@ export default {
     },
     modalOk (evt) {
       evt.preventDefault()
-      this.$refs.newResultForm.save().then((response) => {
-        if (response.data.id) {
-          this.$refs.newResultModal.hide()
-        }
+      this.$refs.newResultForm.save().then(response => {
+        this.$refs.newResultModal.hide()
         this.loadCategories()
       })
     },

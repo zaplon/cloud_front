@@ -25,7 +25,8 @@
         <div class="form-group row">
             <label class="col-md-2">Pacjent</label>
             <div class="col-md-10">
-                <autocomplete id="patient" required ref="patientAutocomplete"
+                <input type="text" class="form-control" readonly="readonly" v-model="patientLabel" v-if="fixedPatient">
+                <autocomplete v-else id="patient" required ref="patientAutocomplete"
                               :input-class="{ 'is-invalid form-control': errors.patient, 'form-control': !errors.patient }"
                               @selected="selectPatient" :source="patientsUrl"
                               :request-headers="authHeaders"
@@ -54,7 +55,12 @@ import Autocomplete from 'vuejs-auto-complete'
 export default {
   name: 'form-result',
   props: {
-    pk: Number
+    pk: Number,
+    fixedPatient: {
+      type: Boolean,
+      default: false,
+      required: false
+    }
   },
   computed: {
     autocompletes () {
@@ -74,13 +80,14 @@ export default {
       patientsUrl: axios.defaults.baseURL + 'rest/patients/?term=',
       specializationsUrl: axios.defaults.baseURL + 'rest/specializations/?term=',
       url: axios.defaults.baseURL + 'rest/results/',
+      patientLabel: '',
       form: {name: '', file: '', doctor: '', patient: '', description: ''},
       errors: {}
     }
   },
   methods: {
     setPatientLabel (label) {
-      this.$refs.patientAutocomplete.display = label
+      if (this.fixedPatient) { this.patientLabel = label } else { this.$refs.patientAutocomplete.display = label }
     },
     setSpecializationLabel (label) {
       this.$refs.specializationAutocomplete.display = label
