@@ -40,7 +40,7 @@
                 <th>Refundacja</th>
                 <th>Postać</th>
                 <th>Dawka</th>
-                <th>Dawkowanie</th>
+                <th>Ilość i dawkowanie</th>
                 <th></th>
             </tr>
             </thead>

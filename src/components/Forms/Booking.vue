@@ -1,7 +1,7 @@
 <template>
     <form @submit.prevent="save" v-if="term">
         <div class="form-group">
-            <label for="service">Usługa</label><input class="form-control" type="text" readonly v-model="term.service"  id="service">
+            <label for="service">Usługa</label><input class="form-control" type="text" readonly v-model="term.service.name"  id="service">
         </div>
         <div class="form-group">
             <label for="datetime">Data</label><span class="form-control" readonly id="datetime">{{term.datetime | formatDate('YYYY-MM-DD HH:mm') }}</span>
@@ -44,11 +44,14 @@ export default {
   },
   methods: {
     save (callback) {
+      this.errors = {firstName: '', lastName: '', phone: ''}
       if (!this.firstName) { this.errors.firstName = 'To pole jest obowiązkowe' }
       if (!this.lastName) { this.errors.lastName = 'To pole jest obowiązkowe' }
       if (!this.phone) { this.errors.phone = 'To pole jest obowiązkowe' }
       if (this.errors.firstName || this.errors.lastName || this.errors.phone) { return }
-      return axios.post('rest/terms/', this.term).then(response => callback(response))
+      let data = {service_id: this.term.service.id,
+        patient: {first_name: this.firstName, last_name: this.lastName, phone: this.phone}}
+      return axios.patch('rest/booking/' + this.term.id + '/', data).then(response => callback(response))
     }
   }
 }

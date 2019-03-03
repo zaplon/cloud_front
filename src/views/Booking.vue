@@ -1,22 +1,45 @@
 <template>
-    <div class="card m-4">
-        <div class="card-header">Zarezerwuj wizytę</div>
-        <div class="card-body">
-            <filters @search-doctors="search"></filters>
-            <div class="mt-4">
-                <div class="row">
-                    <button v-for="term in terms" :key="term.id" class="btn btn-primary ml-2 mt-2" @click="showForm(term)">
-                        {{ term.datetime| formatDate('DD-MM HH:mm') }} {{ term.doctor }} {{ term.localization }}
-                    </button>
-                </div>
-                <div class="row mt-4 ml-2" v-if="this.terms.length > 0">
-                    <button class="btn btn-info" @click="loadMore">Załaduj więcej</button>
-                </div>
+    <div>
+        <div class="card m-4">
+            <div class="card-body">
+
             </div>
         </div>
-        <b-modal ok-title="Zapisz" cancel-title="Anuluj" size="md" id="booking-form" title="Nowa rezerwacja" @ok="save" @cancel="cancel" ref="bookingModal">
-            <form-booking ref="bookingForm" :term="term"></form-booking>
-        </b-modal>
+        <div>
+            <div class="card m-4">
+                <div class="card-header">Zarezerwuj wizytę</div>
+                <div class="card-body">
+                    <filters @search-doctors="search"></filters>
+                    <div class="mt-4">
+                        <div class="row">
+                            <div v-for="term in terms" :key="term.id" class="col-auto mt-2">
+                                <button style="white-space: normal" class="btn btn-primary" @click="showForm(term)">
+                                    {{ term.datetime| formatDate('DD-MM HH:mm') }} {{ term.doctor }} {{ term.localization }}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row mt-4" v-if="this.terms.length > 0">
+                            <div class="col-12">
+                                <button class="btn btn-info" @click="loadMore">Załaduj więcej</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <b-modal v-if="service" ok-title="Zapisz" cancel-title="Anuluj" size="md" id="booking-form" title="Nowa rezerwacja" ref="bookingModal">
+                    <form-booking v-if="!reservationMade" ref="bookingForm" :term="term"></form-booking>
+                    <div v-else>
+                        <h4>Dziękujemy,</h4>
+                        <p>rezerwacja została zapisana</p>
+                    </div>
+                    <div slot="modal-footer" class="w-100">
+                        <b-button size="sm" v-if="!reservationMade" class="float-right"
+                                  variant="secondary" @click="cancel">Zamknij</b-button>
+                        <b-button size="sm" v-if="reservationMade" class="float-right" variant="primary" @click="cancel">Wróc do listy terminów</b-button>
+                        <b-button size="sm" v-else class="float-right mr-2" variant="primary" @click="save">Zapisz</b-button>
+                    </div>
+                </b-modal>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -29,7 +52,9 @@ export default {
   methods: {
     save (evt) {
       evt.preventDefault()
-      this.$refs.bookingForm.save(() => { this.$refs.bookingModal.hide() })
+      this.$refs.bookingForm.save(() => {
+        this.reservationMade = true
+      })
     },
     cancel () {
       this.$refs.bookingModal.hide()
@@ -45,7 +70,8 @@ export default {
     },
     search (data, append) {
       if (data) {
-        this.service = data.serviceName
+        console.log(data)
+        this.service = {id: data.service, name: data.serviceName}
         this.params = {start: data.dateFrom, booking: 1, offset: 0, service: data.service}
       }
       axios.get('rest/booking/', {params: this.params}).then(response => {
@@ -57,9 +83,10 @@ export default {
   },
   data () {
     return {
+      reservationMade: false,
       term: {},
       terms: [],
-      service: '',
+      service: {},
       params: {offset: 0}
     }
   }
