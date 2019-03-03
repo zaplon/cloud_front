@@ -53,6 +53,7 @@ export default {
       this.selections.push(record)
       record.selected = true
       this.$emit('icd-changed', this.selections)
+      this.inputValue = ''
       // this.suggestions.splice(this.suggestions.indexOf(record), 1)
     },
     remove (record) {

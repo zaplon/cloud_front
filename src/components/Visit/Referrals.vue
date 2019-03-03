@@ -74,6 +74,7 @@ export default {
     addExamination (examination) {
       this.selectedExaminations.push(examination)
       this.excludes.push(examination.id)
+      this.inputValue = ''
       examination.selected = true
     },
     removeExamination (record) {

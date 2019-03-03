@@ -142,6 +142,7 @@ export default {
     add (record) {
       this.selections.push(record)
       record.selected = true
+      this.inputValue = []
       // this.suggestions.splice(this.suggestions.indexOf(record), 1)
     },
     remove (record) {

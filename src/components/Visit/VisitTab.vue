@@ -23,7 +23,7 @@ export default {
   methods: {
     getData () { return this.content },
     setData (content) {
-      this.content = content
+      this.content = this.content + ' ' + content
     }
   }
 }

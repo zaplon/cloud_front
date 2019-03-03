@@ -23,13 +23,14 @@ export default {
     patientId: Number
   },
   created () {
+    var vue = this
     function receiveMessage (event) {
       if (typeof event.data === 'string' && event.data.endsWith('pdf')) {
         window.openFormHandled = true
         window.open(axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 1) + event.data)
       }
       if (typeof event.data === 'string' && event.data === 'save') {
-        this.$notify({
+        vue.$notify({
           group: 'nots',
           title: 'Dokument został przesłany do archiwum',
           text: ''
