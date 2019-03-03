@@ -59,6 +59,7 @@ export default {
         })
     },
     navigate (link, category) {
+      if (location.protocol === 'https:') { link = link.replace('http://', 'https://') }
       axios.get(link).then(
         response => {
           this.$set(category, 'documents', response.data.results)
