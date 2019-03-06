@@ -51,12 +51,13 @@
                         <div class="form-group row">
                             <label class="col-md-2" for="termService">Usługa</label>
                             <div class="col-md-10">
-                                <autocomplete id="termService" input-class="form-control" @selected="selectService"
+                                <autocomplete v-if="hasManyServices" id="termService" input-class="form-control" @selected="selectService"
                                               :source="servicesUrl" placeholder="Wyszukaj..."
                                               :request-headers="authHeaders"
                                               results-property="results" :initialDisplay="autocompletes.service"
                                               results-display="name">
                                 </autocomplete>
+                                <input v-else class="form-control" type="text" readonly v-model="autocompletes.service">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -159,8 +160,13 @@ export default {
           this.termForm.service = {id: data.service.id, name: data.service.name}
           this.autocompletes.service = data.service.name
         } else {
-          this.termForm.service = null
-          this.autocompletes.service = null
+          if (!this.singleService) {
+            this.termForm.service = null
+            this.autocompletes.service = null
+          } else {
+            this.termForm.service = this.singleService
+            this.autocompletes.service = this.singleService.name
+          }
         }
         if (data.patient) {
           this.termForm.patient = {id: data.patient.id, label: data.patient.name_with_pesel}
@@ -321,10 +327,19 @@ export default {
       }
     }
   },
+  mounted () {
+    axios.get('rest/services/').then(response => {
+      if (response.data.count > 1) {
+        let service = response.data.results[0]
+        this.singleService = {id: service.id, name: service.name}
+      }
+    })
+  },
   data: () => {
     return {
       modalTitle: 'Edycja terminu',
       doctor: null,
+      singleService: false,
       patientsUrl: axios.defaults.baseURL + 'rest/patients/?term=',
       doctorsUrl: axios.defaults.baseURL + 'rest/doctors/?term=',
       servicesUrl: axios.defaults.baseURL + 'rest/services/?term=',

@@ -1,12 +1,20 @@
 <template>
     <div>
+        <b-modal ok-title="Zapisz" cancel-title="Anuluj" size="md" id="newExaminationModal" title="Dodaj badanie" @ok="createExamination" ref="newExaminationModal">
+            <generic-form :fields="formFields" ref="form"></generic-form>
+        </b-modal>
         <form>
             <div class="row">
                 <div class="col">
                     <input class="form-control mb-4" type="text" v-model="inputValue" placeholder="kod lub nazwa badania" />
                 </div>
-                <div class="col">
+                <div class="col-auto">
                     <button @click="print" type="button" class="btn btn-primary">Drukuj skierowanie</button>
+                </div>
+                <div class="col">
+                    <button @click="showModal" class="btn btn-success">
+                        <i class="fa fa-plus"></i>
+                    </button>
                 </div>
             </div>
         </form>
@@ -23,7 +31,7 @@
                 <tr class="table-info" :key="examination.id" v-for="examination in selectedExaminations">
                     <td>{{ examination.code }}</td>
                     <td>{{ examination.name }}</td>
-                    <td>{{ examination.category }}</td>
+                    <td>{{ examination.category_name }}</td>
                     <td>
                         <button class="btn btn-sm btn-danger" @click="removeExamination(examination)">Usuń</button>
                     </td>
@@ -31,7 +39,7 @@
                 <tr :key="examination.id" v-for="examination in examinations" v-if="!examination.selected">
                     <td>{{ examination.code }}</td>
                     <td>{{ examination.name }}</td>
-                    <td>{{ examination.category }}</td>
+                    <td>{{ examination.category_name }}</td>
                     <td>
                         <button class="btn btn-sm btn-success" @click="addExamination(examination)">Dodaj</button>
                     </td>
@@ -47,8 +55,10 @@
 import axios from 'axios'
 import _ from 'lodash'
 import EventBus from '@/eventBus'
+import GenericForm from '@/components/Forms/GenericForm'
 export default {
   name: 'examinations',
+  components: {GenericForm},
   props: {
     data: {type: Array, default: () => []},
     patient: {type: Object, default: () => {}}
@@ -58,10 +68,28 @@ export default {
       excludes: [],
       examinations: [],
       selectedExaminations: [],
-      inputValue: ''
+      inputValue: '',
+      formFields: [
+        {name: 'name', label: 'Nazwa'},
+        {name: 'category', label: 'Kategoria', type: 'select', choicesUrl: 'rest/examinations_categories/'}
+      ]
     }
   },
   methods: {
+    showModal () {
+      this.$refs.newExaminationModal.show()
+    },
+    createExamination (evt) {
+      var data = this.$refs.form.getData()
+      evt.preventDefault()
+      axios.post('rest/examinations/', data).then(response => {
+        this.$refs.form.reset()
+        this.addExamination(response.data)
+        this.$refs.newExaminationModal.hide()
+      }).catch(error => {
+        this.$refs.form.errors = error.response.data
+      })
+    },
     getData () {
       return this.selectedExaminations
     },

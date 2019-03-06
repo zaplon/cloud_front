@@ -90,6 +90,12 @@ export default {
       icon: 'fa fa-user-md'
     },
     {
+      id: 'examinations',
+      name: 'Badania dodatkowe',
+      url: '/badania-dodatkowe',
+      icon: 'fa fa-stethoscope'
+    },
+    {
       id: 'settings',
       name: 'Ustawienia',
       url: '/ustawienia_systemowe',

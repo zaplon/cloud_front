@@ -1,5 +1,14 @@
 <template>
     <div>
+        <div class="row mb-2" v-if="popular">
+            <div class="col-12">
+                <label class="text-muted mr-1">Najczęstsze</label>
+                <button :disabled="p.selected" @click="add(p)" :key="p.id" v-for="p in popular"
+                        class="btn mr-1 btn-sm btn-info" :title="p.desc">
+                    {{p.code}} ({{p.use_count}})
+                </button>
+            </div>
+        </div>
         <input class="form-control mb-4" type="text" v-model="inputValue" placeholder="kod lub opis rozpoznania" />
         <table class="table table-striped">
             <thead>
@@ -37,6 +46,7 @@ export default {
       selections: this.data,
       suggestions: [],
       excludes: [],
+      popular: [],
       inputValue: []
     }
   },
@@ -46,6 +56,9 @@ export default {
   watch: {
     inputValue (value) {
       this.debouncedGetSuggestions()
+    },
+    selections (value) {
+      this.disablePopular()
     }
   },
   methods: {
@@ -62,15 +75,30 @@ export default {
       let selectedSuggestion = this.suggestions.find(x => x.id === record.id)
       if (selectedSuggestion) { selectedSuggestion.selected = false }
     },
+    disablePopular () {
+      console.log('disable')
+      this.popular.forEach(record => {
+        console.log(record)
+        let selectedPopular = this.selections.find(x => x.id === record.id)
+        if (selectedPopular) { record.selected = true } else { record.selected = false }
+      })
+    },
     getSuggestions () {
       axios.get('rest/icd/', {params: {limit: 10, search: this.inputValue, exclude: this.excludes.join(',')}}).then(response => {
         this.suggestions = response.data.results
+      })
+    },
+    getPopular () {
+      axios.get('rest/icd/popular/', {params: {limit: 5}}).then(response => {
+        this.popular = response.data.results
+        this.disablePopular()
       })
     },
     getData () { return this.selections }
   },
   mounted () {
     this.getSuggestions()
+    this.getPopular()
   }
 }
 </script>

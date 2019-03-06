@@ -87,6 +87,9 @@ export default {
   beforeMount () {
     this.options.sortable = this.columns.filter(value => value !== 'actions' && value !== 'select')
   },
+  beforeUpdate () {
+    this.label = this.$route.meta.label
+  },
   computed: {
     addPermission () {
       return 'can_add_' + this.resource

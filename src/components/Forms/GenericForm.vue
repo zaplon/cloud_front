@@ -6,24 +6,28 @@
             </div>
             <div class="col-sm-9">
                 <template v-if="field.type=='multiselect'">
-                    <ul class="list-unstyled" v-if="readonly">
-                        <li v-for="value in values[field.name]" :key="value">{{ getChoiceFromId(value, field.choices) }}</li>
-                    </ul>
-                    <select v-else class="form-control" v-model="values[field.name]" multiple>
-                        <option :value="choice.id" v-for="choice in field.choices" :key="choice.id">
-                            {{ choice.name }}
-                        </option>
-                    </select>
+                    <template v-if="field.choices.length > 0">
+                        <ul class="list-unstyled" v-if="readonly">
+                            <li v-for="value in values[field.name]" :key="value">{{ getChoiceFromId(value, field.choices) }}</li>
+                        </ul>
+                        <select v-else class="form-control" v-model="values[field.name]" multiple>
+                            <option :value="choice.id" v-for="choice in field.choices" :key="choice.id">
+                                {{ choice.name }}
+                            </option>
+                        </select>
+                    </template>
                 </template>
                 <template v-else-if="field.type=='select'">
-                    <ul class="list-unstyled" v-if="readonly">
-                        <li v-for="value in values[field.name]" :key="value">{{ getChoiceFromId(value, field.choices) }}</li>
-                    </ul>
-                    <select class="form-control" v-model="values[field.name]" v-else>
-                        <option :value="choice.id" v-for="choice in field.choices" :key="choice.id">
-                            {{ choice.name }}
-                        </option>
-                    </select>
+                    <template v-if="field.choices.length > 0">
+                        <ul class="list-unstyled" v-if="readonly">
+                            <li v-for="value in values[field.name]" :key="value">{{ getChoiceFromId(value, field.choices) }}</li>
+                        </ul>
+                        <select class="form-control" v-model="values[field.name]" v-else>
+                            <option :value="choice.id" v-for="choice in field.choices" :key="choice.id">
+                                {{ choice.name }}
+                            </option>
+                        </select>
+                    </template>
                 </template>
                 <template v-else-if="field.type=='textarea'">
                     <textarea v-model="values[field.name]" :name="field.name" :readonly="readonly"
@@ -94,6 +98,9 @@ export default {
     },
     getData () {
       return this.values
+    },
+    reset () {
+      this.values = {}
     },
     setData (data) {
       this.fields.forEach((field) => {
