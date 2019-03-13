@@ -1,5 +1,8 @@
 <template>
     <div class="card">
+        <button v-permission="'add_medicine'" class="btn bottom-right button-add font-lg" @click="addNewMedicine">
+            <i class="fa fa-plus"></i>
+        </button>
         <div class="card-header">
             Lista leków
         </div>
@@ -16,6 +19,9 @@ export default {
   methods: {
     getMedicineUrl (row) {
       return '/leki/' + row.id + '/'
+    },
+    addNewMedicine () {
+      this.$router.push({name: 'addMedicine'})
     }
   },
   data () {

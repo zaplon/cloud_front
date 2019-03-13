@@ -71,7 +71,7 @@ export default {
       inputValue: '',
       formFields: [
         {name: 'name', label: 'Nazwa'},
-        {name: 'category', label: 'Kategoria', type: 'select', choicesUrl: 'rest/examinations_categories/'}
+        {name: 'category', label: 'Kategoria', type: 'multiselect', choicesUrl: 'rest/examinations_categories/'}
       ]
     }
   },

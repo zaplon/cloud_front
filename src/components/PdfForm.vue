@@ -9,8 +9,11 @@
                     <input v-model="pages" placeholder="np. 1-3 5 7 9" type="text" class="ml-2 form-control"
                            name="pages-to-print" style="width: 150px;">
                 </div>
-                <b-btn size="sm" class="mr-2" variant="info" @click="makePdf">Drukuj</b-btn>
-                <b-btn size="sm" :disabled="!this.patientId" variant="success" @click="save">Prześlij do archiwum</b-btn>
+                <b-btn size="sm" :disabled="!this.patientId" class="mr-2" variant="success" @click="makePdfAndSave">
+                    Drukuj i prześlij do archiwum
+                </b-btn>
+                <b-btn size="sm" class="mr-2" variant="primary" @click="makePdf">Drukuj</b-btn>
+                <b-btn size="sm" :disabled="!this.patientId" variant="primary" @click="save">Prześlij do archiwum</b-btn>
             </form>
         </div>
     </b-modal>
@@ -74,6 +77,10 @@ export default {
       let iframe = document.getElementById('form-frame')
       iframe.contentWindow.postMessage(
         {name: this.name, pages: this.pages}, this.$backendUrl)
+    },
+    makePdfAndSave () {
+      this.makePdf()
+      this.save()
     }
   },
   data () {

@@ -3,12 +3,13 @@
         <div class="form-row align-items-center">
             <div class="col-auto"><label>Usługa</label></div>
             <div class="col-auto">
-                <autocomplete id="termService" input-class="form-control" @selected="selectService"
-                              :source="servicesUrl" placeholder="Wyszukaj..." @clear="clearService"
-                              results-property="results" :initialDisplay="autocompletes.service"
-                              :request-headers="authHeaders"
+                <autocomplete v-if="services.length > 1" id="termService" input-class="form-control" @selected="selectService"
+                              placeholder="Wyszukaj..." @clear="clearService"
+                              :initialDisplay="autocompletes.service"
+                              :source="services"
                               results-display="name">
                 </autocomplete>
+                <input v-else type="text" readonly v-model="service.name">
             </div>
             <div class="col-auto"><label>Data od</label></div>
             <div class="col-auto">
@@ -16,8 +17,8 @@
                     <input placeholder="Data od" type="text" class="form-control" slot-scope="props" v-model="props.inputValue">
                 </v-date-picker>
             </div>
-            <div v-show="localizations.length > 0" class="col-auto"><label>Lokalizacja</label></div>
-            <div v-show="localizations.length > 0" class="col-auto">
+            <div v-if="localizations.length > 0" class="col-auto"><label>Lokalizacja</label></div>
+            <div v-if="localizations.length > 0" class="col-auto">
                 <select class="form-control" v-model="localization">
                     <option :key="localization.id" v-for="localization in localizations" v-bind:value="localization.id">
                         {{ localization.name }}
@@ -36,7 +37,8 @@ export default {
   components: {Autocomplete},
   data () {
     return {
-      servicesUrl: axios.defaults.baseURL + 'rest/services/?no_pagination=1&term=',
+      servicesUrl: axios.defaults.baseURL + 'rest/services/?no_pagination=1',
+      services: [],
       doctor: '',
       service: '',
       dateFrom: new Date(),
@@ -62,6 +64,10 @@ export default {
   },
   mounted () {
     axios.get('rest/localizations/?no_pagination=1').then(response => { this.localizations = response.data })
+    axios.get(this.servicesUrl).then(response => {
+      this.services = response.data
+      if (this.services.length === 1) { this.service = this.services[0] }
+    })
   },
   methods: {
     selectService (obj) {

@@ -1,5 +1,9 @@
 <template>
     <div>
+        <b-modal ok-title="Zapisz" cancel-title="Anuluj" size="md" id="addMedicineModal" title="Nowy lek"
+                 @ok="addMedicine" ref="addMedicineModal">
+            <medicine ref="medicineForm"></medicine>
+        </b-modal>
         <form @submit.prevent="printRecipe" class="mb-2">
             <div class="form-row align-items-center">
                 <div class="col-auto">
@@ -30,7 +34,15 @@
                 </div>
             </div>
         </form>
-        <input class="form-control mb-4" type="text" v-model="inputValue" placeholder="nazwa lub substancja czynna"/>
+        <div class="row mb-4">
+            <div class="col-6">
+                <input class="form-control" type="text" v-model="inputValue" placeholder="nazwa lub substancja czynna"/>
+            </div>
+            <div class="col-auto" v-permission="'add_medicine'">
+                <button class="btn btn-success" @click="showAddMedicineModal"><i class="fa fa-plus"></i></button>
+            </div>
+        </div>
+
         <table class="table table-striped">
             <thead>
             <tr>
@@ -61,10 +73,11 @@ import axios from 'axios'
 import _ from 'lodash'
 import EventBus from '@/eventBus'
 import MedicineRow from './MedicineRow'
+import Medicine from '@/components/Forms/Medicine'
 
 export default {
   name: 'medicines',
-  components: {MedicineRow},
+  components: {Medicine, MedicineRow},
   props: {
     patient: Object,
     instance: {
@@ -100,6 +113,13 @@ export default {
     }
   },
   methods: {
+    showAddMedicineModal () {
+      this.$refs.addMedicineModal.show()
+    },
+    addMedicine (evt) {
+      evt.preventDefault()
+      this.$refs.medicineForm.save(() => { this.$refs.addMedicineModal.hide() })
+    },
     save2 () {
       let medicines = []
       this.selections.forEach((s) => {

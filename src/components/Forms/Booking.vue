@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="save" v-if="term">
+    <form @submit.prevent="save" v-if="term && term.service">
         <div class="form-group">
             <label for="service">Usługa</label><input class="form-control" type="text" readonly v-model="term.service.name"  id="service">
         </div>

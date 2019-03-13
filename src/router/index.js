@@ -36,6 +36,7 @@ import SystemSettings from '@/views/SystemSettings'
 import {default as MedicinesIndex} from '@/views/medicines/Index'
 import Medicines from '@/views/medicines/Medicines'
 import Medicine from '@/views/medicines/Medicine'
+import MedicineEdit from '@/views/medicines/MedicineEdit'
 
 import Ezla from '@/views/ezla/Ezla'
 
@@ -314,9 +315,21 @@ var dashboardRoutes = [
     children: [
       {
         path: 'lista',
-        name: 'ListaLekow',
+        name: 'medicinesList',
         meta: {label: 'Lista leków'},
         component: Medicines
+      },
+      {
+        path: ':id/edycja',
+        name: 'editMedicine',
+        meta: {label: 'Edycja leku'},
+        component: MedicineEdit
+      },
+      {
+        path: 'dodaj',
+        name: 'addMedicine',
+        meta: {label: 'Nowy lek'},
+        component: MedicineEdit
       },
       {
         path: ':id',

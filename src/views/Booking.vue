@@ -1,8 +1,11 @@
 <template>
-    <div>
+    <div class="container">
         <div class="card m-4">
             <div class="card-body">
-
+                <div class="row" style="white-space: pre">
+                    <div class="col-md-6 text-left">{{ info.documents_header_left }}</div>
+                    <div class="col-md-6 text-right">{{ info.documents_header_right }}</div>
+                </div>
             </div>
         </div>
         <div>
@@ -22,6 +25,9 @@
                             <div class="col-12">
                                 <button class="btn btn-info" @click="loadMore">Załaduj więcej</button>
                             </div>
+                        </div>
+                        <div v-if="this.terms.length == 0">
+                            <p class="text-center mt-2" v-if="searchMade">Brak wyników</p>
                         </div>
                     </div>
                 </div>
@@ -49,6 +55,9 @@ import FormBooking from '../components/Forms/Booking'
 export default {
   name: 'booking',
   components: {FormBooking, Filters},
+  mounted () {
+    axios.get('rest/info/1/').then(response => { this.info = response.data })
+  },
   methods: {
     save (evt) {
       evt.preventDefault()
@@ -69,6 +78,7 @@ export default {
       this.search(false, true)
     },
     search (data, append) {
+      this.searchMade = true
       if (data) {
         console.log(data)
         this.service = {id: data.service, name: data.serviceName}
@@ -83,11 +93,13 @@ export default {
   },
   data () {
     return {
+      searchMade: false,
       reservationMade: false,
       term: {},
       terms: [],
       service: {},
-      params: {offset: 0}
+      params: {offset: 0},
+      info: {}
     }
   }
 }

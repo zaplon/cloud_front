@@ -1,6 +1,11 @@
 <template>
     <div class="card">
-        <div class="card-header">{{ medicine.name }}</div>
+        <div class="card-header">
+            {{ medicine.name }}
+            <div class="card-toolbar" v-if="userDrug">
+                <i class="fa fa-pencil text-primary pointer" @click="edit" title="edytuj" aria-hidden="true"></i>
+            </div>
+        </div>
         <div class="card-body">
             <table class="table table-striped">
                 <tbody>
@@ -40,6 +45,15 @@
                 </tbody>
             </table>
         </div>
+        <div class="card-footer">
+            <div v-if="userDrug" class="pull-right">
+                <button class="btn btn-primary mr-1" @click="edit">Edytuj</button>
+                <button class="btn btn-default" @click="cancel">Powrót</button>
+            </div>
+            <div v-else class="pull-right">
+                <button class="btn btn-default" @click="cancel">Powrót</button>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -50,6 +64,19 @@ export default {
     return {
       medicine: {},
       children: []
+    }
+  },
+  methods: {
+    cancel () {
+      this.$router.push({name: 'medicinesList'})
+    },
+    edit () {
+      this.$router.push({name: 'editMedicine', params: {id: this.medicine.id}})
+    }
+  },
+  computed: {
+    userDrug () {
+      return this.medicine.user_id === this.$store.state.user.id
     }
   },
   mounted () {
