@@ -27,7 +27,7 @@
                     <form class="form-inline">
                         <button class="btn btn-secondary text-danger mr-2" type="button" @click="cancelVisit">Cofnij</button>
                         <button class="btn btn-secondary mr-2" type="button" @click="saveVisit(true)">Zapisz tymczasowo</button>
-                        <button class="btn btn-secondary text-success" @click="showSaveVisitModal" type="button">Zapisz</button>
+                        <button class="btn btn-success" @click="showSaveVisitModal" type="button">Zapisz</button>
                     </form>
                 </nav>
                 <nav class="navbar navbar-dark bg-secondary visit-nav" id="forms-nav" v-show="forms.show">

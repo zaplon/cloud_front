@@ -1,8 +1,8 @@
 <template>
     <form @submit.prevent="search">
         <div class="form-row align-items-center">
-            <div class="col-auto"><label>Usługa</label></div>
-            <div class="col-auto">
+            <div class="col-md-auto col-sm-12"><label>Usługa</label></div>
+            <div class="col-md-auto col-sm-12">
                 <autocomplete v-if="services.length > 1" id="termService" input-class="form-control" @selected="selectService"
                               placeholder="Wyszukaj..." @clear="clearService"
                               :initialDisplay="autocompletes.service"
@@ -11,21 +11,23 @@
                 </autocomplete>
                 <input v-else type="text" readonly v-model="service.name">
             </div>
-            <div class="col-auto"><label>Data od</label></div>
-            <div class="col-auto">
+            <div class="col-md-auto col-sm-12"><label>Data od</label></div>
+            <div class="col-md-auto col-sm-12">
                 <v-date-picker mode='single' v-model='dateFrom'>
                     <input placeholder="Data od" type="text" class="form-control" slot-scope="props" v-model="props.inputValue">
                 </v-date-picker>
             </div>
-            <div v-if="localizations.length > 0" class="col-auto"><label>Lokalizacja</label></div>
-            <div v-if="localizations.length > 0" class="col-auto">
+            <div v-if="localizations.length > 0" class="col-md-auto col-sm-12"><label>Lokalizacja</label></div>
+            <div v-if="localizations.length > 0" class="col-md-auto col-sm-12">
                 <select class="form-control" v-model="localization">
                     <option :key="localization.id" v-for="localization in localizations" v-bind:value="localization.id">
                         {{ localization.name }}
                     </option>
                 </select>
             </div>
-            <div class="col-auto"><button :disabled="searchDisabled" class="btn btn-primary">Wyszukaj terminy</button></div>
+            <div class="col-md-auto mt-4 mt-md-0">
+                <button :disabled="searchDisabled" class="btn btn-info col-sm-12">Wyszukaj terminy</button>
+            </div>
         </div>
     </form>
 </template>

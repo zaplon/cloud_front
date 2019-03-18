@@ -25,10 +25,10 @@
                                     <input v-on:keyup.enter="login" v-model="password" autocomplete="current-password" required name="password" type="password" class="form-control" placeholder="Hasło">
                                 </div>
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-auto">
                                         <button @click="login" type="button" class="btn btn-primary px-4">Zaloguj się</button>
                                     </div>
-                                    <div class="col-6 text-right">
+                                    <div class="col-auto text-right">
                                         <router-link :to="'/konto/reset'" class="btn btn-link px-0">Zapomniałeś hasła?</router-link>
                                     </div>
                                 </div>

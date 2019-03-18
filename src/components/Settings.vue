@@ -25,6 +25,7 @@ import {Account} from '../api'
 import BackendForm from './BackendForm'
 import WorkingHours from './WorkingHours'
 import ChangePassword from './ChangePassword'
+import EventBus from '@/eventBus'
 export default {
   name: 'settings',
   components: {ChangePassword, WorkingHours, BackendForm},
@@ -47,7 +48,10 @@ export default {
     handleOk (evt) {
       // Prevent modal from closing
       evt.preventDefault()
-      this.$refs.form.handleSubmit(() => this.$refs.profileModal.hide())
+      this.$refs.form.handleSubmit(() => {
+        this.$refs.profileModal.hide()
+        EventBus.$emit('settings-changed')
+      })
     },
     changePassword (evt) {
       this.$refs.changePasswordForm.changePassword(evt, response => this.$refs.changePasswordModal.hide())

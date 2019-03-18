@@ -8,7 +8,6 @@
                 <th>Wielkość opakowania</th>
                 <th>Kod EAN</th>
                 <th>Kategoria dostępności</th>
-                <th>Refundacja</th>
                 <th></th>
             </tr>
             </thead>
@@ -23,12 +22,6 @@
                         </option>
                     </select>
                 </td>
-                <td>
-                    <select v-model="child.refundations" class="form-control">
-                        <option :value="r" v-for="r in refundations" :key="r">
-                            {{r}}
-                        </option>
-                    </select>
                 <td>
                     <button @click="addChild" v-if="index == children.length - 1" class="btn-success btn">
                         <i class="fa fa-plus"></i>

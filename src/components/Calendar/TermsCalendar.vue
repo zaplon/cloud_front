@@ -1,6 +1,7 @@
 <template>
     <div>
-        <full-calendar @event-drop="drop" ref="calendar" @event-selected="eventClicked" @day-click="slotClicked" :event-sources="eventSources" :config="config"></full-calendar>
+        <full-calendar @event-drop="drop" ref="calendar" @event-selected="eventClicked"
+                       @day-click="slotClicked" :event-sources="eventSources" :config="config"></full-calendar>
         <b-modal size="md" id="eventModal" :title="modalTitle" @ok="modalOk" @cancel="modalCancel" ref="modal">
             <div v-show="!(term.edition || term.patientEdition)">
                 <span v-if="term.status=='PENDING'">Czy rozpocząć wizytę {{term.title}} ?</span>
@@ -101,6 +102,7 @@ import Autocomplete from 'vuejs-auto-complete'
 import 'fullcalendar/dist/locale/pl'
 import axios from 'axios'
 import VueTimepicker from 'vuejs-timepicker'
+import EventBus from '@/eventBus'
 export default {
   name: 'terms-calendar',
   components: {FullCalendar, Autocomplete, VueTimepicker},
@@ -279,6 +281,9 @@ export default {
     saveTerm () {
       this.$refs.form.handleSubmit(() => { this.$refs.modal.hide(); this.$refs.calendar.$emit('refetch-events') })
     },
+    reloadCalendar () {
+      this.$refs.calendar.$emit('refresh')
+    },
     resetTermForm () {
       let date = this.$moment()
       let minutes = parseInt(date.format('mm'))
@@ -319,15 +324,20 @@ export default {
         editable: user.can_edit_terms,
         slotDuration: '00:15:00',
         displayEventTime: false,
+        defaultView: 'agendaWeek',
+        weekends: doctor ? doctor.show_weekends : false,
         header: {
           left: 'prev,next today',
           center: 'title',
-          right: 'agendaWeek,listWeek,agendaDay'
+          right: 'agendaFiveDays,agendaWeek,agendaDay'
         }
       }
     }
   },
   mounted () {
+    EventBus.$on('settings-changed', () => {
+      this.reloadCalendar()
+    })
     axios.get('rest/services/').then(response => {
       if (response.data.count > 1) {
         let service = response.data.results[0]

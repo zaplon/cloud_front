@@ -21,7 +21,6 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Kod</th>
                     <th>Nazwa</th>
                     <th>Kategoria</th>
                     <th></th>
@@ -29,7 +28,6 @@
             </thead>
             <tbody>
                 <tr class="table-info" :key="examination.id" v-for="examination in selectedExaminations">
-                    <td>{{ examination.code }}</td>
                     <td>{{ examination.name }}</td>
                     <td>{{ examination.category_name }}</td>
                     <td>
@@ -37,7 +35,6 @@
                     </td>
                 </tr>
                 <tr :key="examination.id" v-for="examination in examinations" v-if="!examination.selected">
-                    <td>{{ examination.code }}</td>
                     <td>{{ examination.name }}</td>
                     <td>{{ examination.category_name }}</td>
                     <td>
@@ -71,7 +68,7 @@ export default {
       inputValue: '',
       formFields: [
         {name: 'name', label: 'Nazwa'},
-        {name: 'category', label: 'Kategoria', type: 'multiselect', choicesUrl: 'rest/examinations_categories/'}
+        {name: 'category', label: 'Kategoria', type: 'select', choicesUrl: 'rest/examinations_categories/'}
       ]
     }
   },

@@ -18,9 +18,9 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "bootstrap": "4.0.0",
+    "bootstrap": "4.3.0",
     "bootstrap-vue": "2.0.0-rc.1",
-    "chart.js": "^2.7.3",
+    "chart.js": "^2.8.0",
     "flag-icon-css": "^3.3.0",
     "font-awesome": "^4.7.0",
     "idle-vue": "^2.0.5",

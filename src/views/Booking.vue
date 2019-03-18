@@ -3,8 +3,8 @@
         <div class="card m-4">
             <div class="card-body">
                 <div class="row" style="white-space: pre">
-                    <div class="col-md-6 text-left">{{ info.documents_header_left }}</div>
-                    <div class="col-md-6 text-right">{{ info.documents_header_right }}</div>
+                    <div class="col-md-6 col-sm-12 text-left">{{ info.documents_header_left }}</div>
+                    <div class="d-sm-down-none col-md-6 col-sm-12 text-right">{{ info.documents_header_right }}</div>
                 </div>
             </div>
         </div>
@@ -15,15 +15,15 @@
                     <filters @search-doctors="search"></filters>
                     <div class="mt-4">
                         <div class="row">
-                            <div v-for="term in terms" :key="term.id" class="col-auto mt-2">
-                                <button style="white-space: normal" class="btn btn-primary" @click="showForm(term)">
+                            <div v-for="term in terms" :key="term.id" class="col-md-auto mt-2 col-sm-12">
+                                <button style="white-space: normal" class="btn btn-primary col-sm-12" @click="showForm(term)">
                                     {{ term.datetime| formatDate('DD-MM HH:mm') }} {{ term.doctor }} {{ term.localization }}
                                 </button>
                             </div>
                         </div>
                         <div class="row mt-4" v-if="this.terms.length > 0">
-                            <div class="col-12">
-                                <button class="btn btn-info" @click="loadMore">Załaduj więcej</button>
+                            <div class="col-sm-12 col-md-auto">
+                                <button class="btn btn-info col-sm-12" @click="loadMore">Załaduj więcej</button>
                             </div>
                         </div>
                         <div v-if="this.terms.length == 0">
@@ -63,10 +63,12 @@ export default {
       evt.preventDefault()
       this.$refs.bookingForm.save(() => {
         this.reservationMade = true
+        this.search()
       })
     },
     cancel () {
       this.$refs.bookingModal.hide()
+      this.reservationMade = false
     },
     showForm (term) {
       this.term = term

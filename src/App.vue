@@ -23,6 +23,9 @@ export default {
     EventBus.$on('show-document', (file, title) => {
       this.$refs.pdfDocument.showDocument(file, title)
     })
+    EventBus.$on('settings-changed', () => {
+      Account.getUserData()
+    })
   },
   watch: {
     isAppIdle (value) {
