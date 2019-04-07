@@ -1,6 +1,10 @@
 <template>
   <div>
     <notifications group="nots" />
+    <agreement :consents="agreements"></agreement>
+    <div id="overlay" v-if="$store.state.loading">
+      <atom-spinner :animation-duration="1000" :size="120"/>
+    </div>
     <router-view></router-view>
     <pdf-document ref="pdfDocument"></pdf-document>
   </div>
@@ -10,10 +14,17 @@
 import PdfDocument from '@/components/PdfDocument'
 import EventBus from '@/eventBus'
 import {Account} from '@/api'
+import {AtomSpinner} from 'epic-spinners'
+import Agreement from './components/Agreement'
 
 export default {
   name: 'app',
-  components: {PdfDocument},
+  components: {Agreement, PdfDocument, AtomSpinner},
+  data () {
+    return {
+      agreements: null
+    }
+  },
   methods: {
     showDocument (file, title) {
       this.$refs.pdfDocument.showDocument(file, title)
@@ -25,6 +36,9 @@ export default {
     })
     EventBus.$on('settings-changed', () => {
       Account.getUserData()
+    })
+    EventBus.$on('agreements-to-show', (agreements) => {
+      this.agreements = agreements
     })
   },
   watch: {

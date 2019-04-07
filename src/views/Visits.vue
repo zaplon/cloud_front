@@ -64,7 +64,8 @@ export default {
       visit: {title: '', id: null},
       columns: ['patient', 'datetime', 'status', 'actions'],
       options: {
-        headings: {'name': 'Nazwa', 'text': 'Treść', 'tab_name': 'Zakładka', 'actions': ''}
+        orderBy: {column: 'datetime'},
+        headings: {'name': 'Nazwa', 'datetime': 'Data', 'text': 'Treść', 'tab_name': 'Zakładka', 'actions': ''}
       }
     }
   }

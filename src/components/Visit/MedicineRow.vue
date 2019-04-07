@@ -10,7 +10,11 @@
             </select>
         </td>
         <td>
-            <select class="form-control" v-model="medicine.refundation">
+            <select v-if="medicine.user_id" class="form-control" v-model="medicine.refundation">
+                <option value="0">-</option>
+                <option value="30%">30%</option>
+            </select>
+            <select v-else class="form-control" v-model="medicine.refundation">
                 <option v-if="!medicine.refundation" value="0">-</option>
                 <option v-for="option in medicine.refundations" v-bind:value="option.id" :key="option.id">
                     {{ option.to_pay }}

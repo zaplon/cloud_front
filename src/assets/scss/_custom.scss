@@ -146,3 +146,33 @@ a.button-add i {
 .brand-minimized .app-header.navbar .navbar-brand {
   background-image: none;
 }
+.atom-spinner {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 50%;
+  height: 30%;
+  margin: auto;
+}
+.spinner-line {
+  border-color: $primary!important;
+}
+.spinner-circle {
+  color: $info!important;
+}
+#overlay {
+  width: 100vw;
+  height: 100vh;
+  background-color: $gray-400;
+  opacity: 0.4;
+  z-index: 2;
+  position: absolute;
+  display: table;
+}
+div.app {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+}

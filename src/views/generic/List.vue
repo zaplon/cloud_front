@@ -18,10 +18,17 @@
                 <input type="checkbox" :value="props.row.id" v-model="selectedRows" slot="select" slot-scope="props" :v-permission="deletePermission">
                 <div slot="actions" slot-scope="props">
                     <button @click="showConfirmModal(props.row)" class="btn btn-danger btn-sm" :v-permission="deletePermission">usuń</button>
+                    <router-link v-for="extraAction in extraActions" :key="extraAction.url"
+                                 :to=extraAction.url(props.row) :class="extraAction.cls">
+                        {{ extraAction.text }}
+                    </router-link>
                 </div>
-                <router-link :to="props.row.id + '/'" slot="name" slot-scope="props">{{ props.row.name }}</router-link>
+                <div :slot="linkColumn" slot-scope="props">
+                    <router-link v-if="showEditLink" :to="props.row.id + '/'">{{ props.row[linkColumn] }}</router-link>
+                    <span v-else>{{ props.row[linkColumn] }}</span>
+                </div>
             </v-server-table>
-            <div>
+            <div v-if="editable">
                 <form class="form-inline">
                     <label class="mr-2">Zaznaczone rekordy</label>
                     <button type="button" :v-permission="deletePermission" @click="deleteSelected"
@@ -69,9 +76,28 @@ export default {
       type: Array,
       required: true
     },
+    extraActions: {
+      type: Array,
+      required: false
+    },
+    showEditLink: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
     headings: {
       type: Object,
       required: true
+    },
+    endpoint: {
+      required: false
+    },
+    responseFormatter: {
+      required: false
+    },
+    editable: {
+      required: false,
+      default: true
     }
   },
   data () {
@@ -80,7 +106,12 @@ export default {
       label: this.$route.meta.label,
       options: {
         headings: this.headings,
-        sortable: ['name']
+        sortable: ['name'],
+        responseAdapter: (resp) => {
+          var data = this.$refs.table.getResponseData(resp)
+          if (this.responseFormatter) { data = this.responseFormatter(data) }
+          return { data: data.results, count: data.count }
+        }
       }
     }
   },
@@ -91,6 +122,9 @@ export default {
     this.label = this.$route.meta.label
   },
   computed: {
+    linkColumn () {
+      return this.columns[1]
+    },
     addPermission () {
       return 'can_add_' + this.resource
     },
@@ -98,7 +132,11 @@ export default {
       return 'can_delete_' + this.resource
     },
     apiUrl () {
-      return 'rest/' + this.resource + 's/'
+      if (this.endpoint) {
+        if (typeof (this.endpoint) === 'function') { return this.endpoint(this) } else { return this.endpoint }
+      } else {
+        return 'rest/' + this.resource + 's/'
+      }
     }
   }
 }

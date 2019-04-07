@@ -1,5 +1,6 @@
 import axios from 'axios'
 import store from '@/store'
+import EventBus from '@/eventBus'
 
 var account = {
   goToStart (vue, message) {
@@ -15,9 +16,15 @@ var account = {
       this.goToStart(vue)
     })
   },
+  getAgreementsToAccept () {
+    axios.get('rest/agreements/pending/').then(response => {
+      EventBus.$emit('agreements-to-show', response.data)
+    })
+  },
   getUserData () {
     return axios.get('rest/user/').then(response => {
       store.commit('setUserData', response.data)
+      this.getAgreementsToAccept()
       if (response.data.css_theme !== 'yeti') {
         import('@/assets/scss/themes/' + response.data.css_theme + '/style.css')
       }

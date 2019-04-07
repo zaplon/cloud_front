@@ -81,7 +81,9 @@ export default {
     loadData () {
       this.instanceId = this.$route.params.id ? parseInt(this.$route.params.id) : 0
       if (this.instanceId) {
+        this.$store.state.loading = true
         axios.get(this.apiUrl + this.instanceId + '/').then(response => {
+          this.$store.state.loading = false
           this.instance = response.data
           this.label = response.data.name
         })

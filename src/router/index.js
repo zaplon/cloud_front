@@ -41,6 +41,7 @@ import MedicineEdit from '@/views/medicines/MedicineEdit'
 import Ezla from '@/views/ezla/Ezla'
 
 import examinationRoutes from '@/router/examinations'
+import agreementsRoutes from '@/router/agreements'
 
 // import {default as PrescriptionsIndex} from '@/views/prescriptions/Index'
 // import Prescriptions from '@/views/prescriptions/Prescriptions'
@@ -365,6 +366,7 @@ var dashboardRoutes = [
 ]
 
 dashboardRoutes.push(examinationRoutes)
+dashboardRoutes.push(agreementsRoutes)
 
 var routes = [
   {

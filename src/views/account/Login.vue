@@ -88,18 +88,23 @@ export default {
         this.error = 'Wpisz login i hasło'
         return
       }
+      this.$store.state.loading = true
       axios.post('rest-auth/login/', {username: this.username, password: this.password}).then(response => {
         localStorage.token = response.data.key
         axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.token
         Account.getUserData().then(response => {
+          this.$store.state.loading = false
           let user = this.$store.state.user
           if (user.setup_needed === 1) {
             this.$router.push('/setup/1')
           } else if (user.setup_needed === 2) {
             this.$router.push('/setup/2')
-          } else { this.$router.push('/') }
+          } else {
+            this.$router.push('/')
+          }
         })
       }).catch(error => {
+        this.$store.state.loading = false
         this.error = error.response.data.non_field_errors[0]
       })
     }

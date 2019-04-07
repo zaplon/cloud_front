@@ -49,6 +49,9 @@ export default {
     resource: {
       type: String,
       required: true
+    },
+    responseFormatter: {
+      required: false
     }
   },
   computed: {
@@ -85,8 +88,12 @@ export default {
     loadData () {
       this.instanceId = this.$route.params.id ? parseInt(this.$route.params.id) : 0
       if (this.instanceId) {
+        this.$store.state.loading = true
         axios.get(this.apiUrl + this.instanceId + '/').then(response => {
-          this.$refs.form.setData(response.data)
+          var data = response.data
+          if (this.responseFormatter) { data = this.responseFormatter(data) }
+          this.$refs.form.setData(data)
+          this.$store.state.loading = false
         })
       }
     },
@@ -94,6 +101,10 @@ export default {
       let data = this.$refs.form.getData()
       if (this.instanceId) {
         axios.patch(this.apiUrl + this.instanceId + '/', data).then(response => {
+          this.$router.push(this.backUrl)
+        })
+      } else {
+        axios.post(this.apiUrl, data).then(response => {
           this.$router.push(this.backUrl)
         })
       }

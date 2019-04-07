@@ -91,9 +91,15 @@ export default {
     },
     {
       id: 'examinations',
-      name: 'Badania dodatkowe',
+      name: 'Badania',
       url: '/badania-dodatkowe',
       icon: 'fa fa-stethoscope'
+    },
+    {
+      id: 'agreements',
+      name: 'Komunikaty',
+      url: '/komunikaty',
+      icon: 'fa fa-volume-down'
     },
     {
       id: 'settings',
