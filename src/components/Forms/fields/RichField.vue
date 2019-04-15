@@ -150,7 +150,7 @@ export default {
 </script>
 <style>
     .content-editor {
-        min-height: 100px;
+        min-height: 300px;
         overflow-y: auto;
     }
     .editor .menubar button {

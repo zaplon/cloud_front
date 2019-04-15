@@ -86,7 +86,7 @@ var agreementRoutes = {
       props: {
         columns: ['user', 'datetime'],
         editable: false,
-        headings: {'user': 'Użytkownik', 'datetime': 'Data akceptacji'},
+        headings: {user: 'Użytkownik', datetime: 'Data akceptacji'},
         resource: 'agreement_to_user',
         showEditLink: false,
         responseFormatter: (data) => {
