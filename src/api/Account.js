@@ -25,9 +25,9 @@ var account = {
     return axios.get('rest/user/').then(response => {
       store.commit('setUserData', response.data)
       this.getAgreementsToAccept()
-      if (response.data.css_theme !== 'yeti') {
-        import('@/assets/scss/themes/' + response.data.css_theme + '/style.css')
-      }
+      // if (response.data.css_theme !== 'yeti') {
+      //   import('@/assets/scss/themes/' + response.data.css_theme + '/style.css')
+      // }
     }).catch(error => {
       console.log(error)
       delete localStorage.token
