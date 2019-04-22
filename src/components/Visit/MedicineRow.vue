@@ -1,6 +1,6 @@
 <template>
     <tr :class="this.klass">
-        <td>{{ medicine.name }}</td><td>{{ medicine.composition }}</td>
+        <td>{{ medicine.name }}</td>
         <td>
             <select class="form-control" v-model="medicine.size" @mousedown="getChildren(medicine)" @change="sizeSelected(medicine)">
                 <option v-if="!medicine.children">Wybierz...</option>
@@ -22,7 +22,10 @@
             </select>
         </td>
         <td>{{ medicine.form }}</td><td>{{ medicine.dose }}</td>
+        <td><input type="text" :class="[errors.size ? 'is-invalid' : '', 'form-control']" v-model="medicine.size"></td>
         <td><input type="text" :class="[errors.dosage ? 'is-invalid' : '', 'form-control']" v-model="medicine.dosage"></td>
+        <td><input type="text" class="form-control" v-model="medicine.notes"></td>
+        <td class="text-center"><input type="checkbox" v-model="medicine.separate" class="form-check-input"></td>
         <td>
             <button v-if="toAdd" @click="add(medicine)" class="btn btn-sm btn-success">Dodaj</button>
             <button v-else @click="remove(medicine)" class="btn btn-sm btn-danger">Usuń</button>
@@ -55,6 +58,9 @@ export default {
         child: this.medicine.child,
         dose: this.medicine.dose,
         dosage: this.medicine.dosage,
+        size: this.medicine.size,
+        separate: this.medicine.separate,
+        notes: this.medicine.notes,
         refundation: this.medicine.refundation}
     },
     add (medicine) {

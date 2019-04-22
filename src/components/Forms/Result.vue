@@ -46,6 +46,7 @@
                               results-display="name">
                 </autocomplete>
             </div>
+            <div :key="error" v-for="error in errors.specialization" class="col-md-10 offset-md-2 invalid-feedback">{{ error }}</div>
         </div>
     </form>
 </template>
@@ -98,7 +99,18 @@ export default {
     displayErrors (data) {
       this.errors = data
     },
+    verify () {
+      var errorsFound = false
+      if (!this.form.specialization) {
+        errorsFound = true
+        this.errors['specialization'] = ['Proszę wybrać kategorię']
+      }
+      return !errorsFound
+    },
     save () {
+      if (!this.verify()) {
+        return
+      }
       let formData = new FormData()
       var config = { headers: {
         'Content-Type': 'multipart/form-data'

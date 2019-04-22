@@ -43,16 +43,18 @@
             </div>
         </div>
 
-        <table class="table table-striped">
+        <table class="table table-striped table-sm">
             <thead>
             <tr>
                 <th>Nazwa</th>
-                <th>Skład</th>
                 <th>Opakowanie</th>
                 <th>Refundacja</th>
                 <th>Postać</th>
                 <th>Dawka</th>
-                <th>Ilość i dawkowanie</th>
+                <th>Ilość</th>
+                <th>Dawkowanie</th>
+                <th>Uwagi</th>
+                <th>Osobna recepta</th>
                 <th></th>
             </tr>
             </thead>
@@ -141,7 +143,6 @@ export default {
       })
     },
     printRecipe () {
-      // this.save()
       let medicines = []
       console.log(this.$refs)
       this.validatePrescription()
