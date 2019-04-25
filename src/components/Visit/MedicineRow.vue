@@ -22,7 +22,7 @@
             </select>
         </td>
         <td>{{ medicine.form }}</td><td>{{ medicine.dose }}</td>
-        <td><input type="text" :class="[errors.size ? 'is-invalid' : '', 'form-control']" v-model="medicine.size"></td>
+        <td><input type="text" :class="[errors.amount ? 'is-invalid' : '', 'form-control']" v-model="medicine.amount"></td>
         <td><input type="text" :class="[errors.dosage ? 'is-invalid' : '', 'form-control']" v-model="medicine.dosage"></td>
         <td><input type="text" class="form-control" v-model="medicine.notes"></td>
         <td class="text-center"><input type="checkbox" v-model="medicine.separate" class="form-check-input"></td>
