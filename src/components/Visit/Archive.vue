@@ -25,7 +25,9 @@
                 </li>
             </ul>
         </li>
-        <b-modal body-class="text-dark" header-class="text-dark" cancel-title="Zamknij" size="md" id="newResultModal" title="Nowy dokument" @ok="modalOk" @cancel="modalCancel" ref="newResultModal">
+        <b-modal body-class="text-dark" header-class="text-dark" cancel-title="Zamknij" size="md"
+                 @hidden="$refs.newResultForm.reset()" id="newResultModal" title="Nowy dokument" @ok="modalOk"
+                 @cancel="modalCancel" ref="newResultModal">
             <form-result fixed-patient ref="newResultForm"></form-result>
         </b-modal>
     </ul>

@@ -23,7 +23,7 @@
                 <button class="btn btn-link" slot="file" @click="showDocument(props.row)" slot-scope="props"><i class="fa fa-file-pdf-o"></i></button>
             </v-server-table>
         </div>
-        <b-modal size="lg" id="resultModal" title="Archiwum" @ok="modalOk" ref="resultModal">
+        <b-modal size="lg" id="resultModal" title="Archiwum" @ok="modalOk" ref="resultModal" @hidden="$refs.resultForm.reset()">
             <form-result ref="resultForm"></form-result>
             <div slot="modal-footer" class="w-100">
                 <b-btn size="sm" class="float-right" variant="default" @click="modalClose">Zamknij</b-btn>
@@ -105,7 +105,7 @@ export default {
         : ['patient', 'pesel', 'name', 'file', 'uploaded'],
       options: {
         // headings: {'select': '', 'patient': 'Pacjent', 'pesel': 'Pesel', 'nazwa': 'Nazwa', 'file': 'Plik'}
-        headings: {'patient': 'Pacjent', 'pesel': 'Pesel', 'nazwa': 'Nazwa', 'file': 'Plik', 'uploaded': 'Data utworzenia', 'actions': ''},
+        headings: {'patient': 'Pacjent', 'pesel': 'Pesel', 'name': 'Nazwa', 'file': 'Plik', 'uploaded': 'Data utworzenia', 'actions': ''},
         params: {patient: this.$route.params.id},
         sortable: ['patient', 'pesel', 'name', 'uploaded']
       }

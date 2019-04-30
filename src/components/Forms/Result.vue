@@ -90,6 +90,10 @@ export default {
     }
   },
   methods: {
+    reset () {
+      this.form = {name: '', file: '', doctor: '', patient: '', description: ''}
+      this.errors = {name: [], file: [], doctor: [], patient: [], specialization: []}
+    },
     setPatientLabel (label) {
       if (this.fixedPatient) { this.patientLabel = label } else { this.$refs.patientAutocomplete.display = label }
     },
@@ -108,6 +112,10 @@ export default {
         errorsFound = true
         this.errors['specialization'] = ['Proszę wybrać kategorię']
       }
+      if (!this.form.patient) {
+        errorsFound = true
+        this.errors['patient'] = ['Proszę wybrać pacjenta']
+      }
       if (!this.form.name) {
         errorsFound = true
         this.errors['name'] = ['Proszę podać nazwę pliku']
@@ -115,6 +123,11 @@ export default {
       if (!this.form.file) {
         errorsFound = true
         this.errors['file'] = ['Proszę wybrać plik']
+      } else {
+        var fileSize = this.form.file.size / 1024 / 1024
+        if (fileSize > 10) {
+          this.errors['file'] = ['Proszę wybrać plik o rozmiarze mniejszym niż 10MB']
+        }
       }
       console.log(this.errors)
       return !errorsFound
