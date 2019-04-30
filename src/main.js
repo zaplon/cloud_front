@@ -18,12 +18,16 @@ import {setupCalendar, Calendar, DatePicker} from 'v-calendar'
 import 'v-calendar/lib/v-calendar.min.css'
 import IdleVue from 'idle-vue'
 
+import Raven from 'raven-js'
+import RavenVue from 'raven-js/plugins/vue'
+
 var backendUrl = 'http://0.0.0.0:8080/'
 var formsUrl = backendUrl + 'assets/forms/forms/'
 if (process.env.NODE_ENV === 'production') {
   let href = window.location.origin
   backendUrl = href + '/backend/'
   formsUrl = href + '/assets/forms/forms/'
+  Raven.config('https://7c43d06356cf469a9c5a2151ec61ec92@bugtracker.gabinet.online:19355/2').addPlugin(RavenVue, Vue).install()
 }
 
 axios.defaults.baseURL = backendUrl

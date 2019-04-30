@@ -306,6 +306,9 @@ export default {
         'Authorization': 'Token ' + localStorage.token
       }
     },
+    hasManyServices () {
+      return !this.$store.state.user.doctor.defaultService
+    },
     autocompletes () {
       return {
         doctor: null,

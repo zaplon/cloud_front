@@ -74,10 +74,12 @@ export default {
     },
     modalOk (evt) {
       evt.preventDefault()
-      this.$refs.newResultForm.save().then(response => {
-        this.$refs.newResultModal.hide()
-        this.loadCategories()
-      })
+      if (this.$refs.newResultForm.verify()) {
+        this.$refs.newResultForm.save().then(response => {
+          this.$refs.newResultModal.hide()
+          this.loadCategories()
+        })
+      }
     },
     modalCancel () {
       this.$refs.newResultModal.hide()

@@ -3,50 +3,53 @@
         <div class="form-group row">
             <label class="col-md-2" for="name">Nazwa</label>
             <div class="col-md-10">
-                <input type="text" required v-model="form.name" :class="[{ 'is-invalid ': errors.name }, 'form-control']" id="name">
+                <input type="text" required v-model="form.name" :class="[{ 'is-invalid ': errors.name.length > 0 }, 'form-control']" id="name">
+                <div :key="error" v-for="error in errors.name" class="invalid-feedback">{{ error }}</div>
             </div>
-            <div :key="error" v-for="error in errors.name" class="col-md-10 offset-md-2 invalid-feedback">{{ error }}</div>
         </div>
         <div class="form-group row">
             <label class="col-md-2" for="file">Plik</label>
             <div class="col-md-10">
                 <input type="file" required @change="processFile($event)"
-                       :class="[{ 'is-invalid ': errors.file }, 'form-control']" id="file">
+                       :class="[{ 'is-invalid ': errors.file.length > 0 }, 'form-control']" id="file">
+                <div :key="error" v-for="error in errors.file" class="invalid-feedback">{{ error}}</div>
             </div>
-            <div :key="error" v-for="error in errors.file" class="col-md-10 offset-md-2 invalid-feedback">{{ error}}</div>
         </div>
         <div class="form-group row">
             <label class="col-md-2" for="desc">Opis</label>
             <div class="col-md-10">
                 <textarea v-model="form.description" rows="5" class="form-control" id="desc"></textarea>
             </div>
-            <div :key="error" v-for="error in errors.description" class="col-md-10 offset-md-2 invalid-feedback">{{ error }}</div>
+            <div :key="error" v-for="error in errors.description" class="invalid-feedback">{{ error }}</div>
         </div>
         <div class="form-group row">
             <label class="col-md-2">Pacjent</label>
             <div class="col-md-10">
                 <input type="text" class="form-control" readonly="readonly" v-model="patientLabel" v-if="fixedPatient">
                 <autocomplete v-else id="patient" required ref="patientAutocomplete"
-                              :input-class="{ 'is-invalid form-control': errors.patient, 'form-control': !errors.patient }"
+                              :input-class="{ 'is-invalid form-control': errors.patient.length > 0,
+                              'form-control': !errors.patient.length == 0 }"
                               @selected="selectPatient" :source="patientsUrl"
                               :request-headers="authHeaders"
                               results-property="results" placeholder="Wyszukaj..." :initialDisplay="autocompletes.patient"
                               results-display="label">
                 </autocomplete>
+                <div :key="error" v-for="error in errors.patient" class="invalid-feedback">{{ error }}</div>
             </div>
-            <div :key="error" v-for="error in errors.patient" class="col-md-10 offset-md-2 invalid-feedback">{{ error }}</div>
         </div>
         <div class="form-group row">
             <label class="col-md-2">Kategoria</label>
             <div class="col-md-10">
-                <autocomplete id="specialization" input-class="form-control" @selected="selectSpecialization"
+                <autocomplete id="specialization" @selected="selectSpecialization"
                               :source="specializationsUrl" ref="specializationAutocomplete"
                               :request-headers="authHeaders"
+                              :input-class="{ 'is-invalid form-control': errors.specialization.length > 0,
+                              'form-control': !errors.specialization.length == 0 }"
                               results-property="results" placeholder="Wyszukaj..." :initialDisplay="autocompletes.specialization"
                               results-display="name">
                 </autocomplete>
+                <div :key="error" v-for="error in errors.specialization" class="invalid-feedback">{{ error }}</div>
             </div>
-            <div :key="error" v-for="error in errors.specialization" class="col-md-10 offset-md-2 invalid-feedback">{{ error }}</div>
         </div>
     </form>
 </template>
@@ -83,7 +86,7 @@ export default {
       url: axios.defaults.baseURL + 'rest/results/',
       patientLabel: '',
       form: {name: '', file: '', doctor: '', patient: '', description: ''},
-      errors: {}
+      errors: {name: [], file: [], doctor: [], patient: [], specialization: []}
     }
   },
   methods: {
@@ -105,6 +108,15 @@ export default {
         errorsFound = true
         this.errors['specialization'] = ['Proszę wybrać kategorię']
       }
+      if (!this.form.name) {
+        errorsFound = true
+        this.errors['name'] = ['Proszę podać nazwę pliku']
+      }
+      if (!this.form.file) {
+        errorsFound = true
+        this.errors['file'] = ['Proszę wybrać plik']
+      }
+      console.log(this.errors)
       return !errorsFound
     },
     save () {

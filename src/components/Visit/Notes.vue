@@ -4,7 +4,7 @@
             <div class="form-group row">
                 <label for="new-note" class="col-md-2 col-form-label tab-focus">Treść notatki</label>
                 <div class="col-md-10">
-                    <textarea max-length="1024" class="form-control" id="new-note" v-model="newNote"></textarea>
+                    <textarea style="height:100px;" max-length="1024" class="form-control" id="new-note" v-model="newNote"></textarea>
                 </div>
             </div>
             <div class="form-group row">

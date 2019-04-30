@@ -17,6 +17,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@sentry/node": "^5.1.0",
     "axios": "^0.18.0",
     "bootstrap": "4.3.0",
     "bootstrap-vue": "2.0.0-rc.1",
@@ -28,6 +29,7 @@
     "jquery": "^3.3.1",
     "lodash": "^4.17.10",
     "moment": "^2.24.0",
+    "raven-js": "^3.27.0",
     "simple-line-icons": "^2.4.1",
     "tiptap": "^1.14.0",
     "tiptap-extensions": "^1.14.0",
