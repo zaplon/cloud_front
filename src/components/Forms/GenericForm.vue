@@ -6,16 +6,19 @@
             </div>
             <div class="col-sm-9">
                 <template v-if="field.type=='multiselect'">
-                    <template v-if="field.name in choices">
-                        <ul class="list-unstyled" v-if="readonly">
-                            <li v-for="value in values[field.name]" :key="value">{{ getChoiceFromId(value, choices[field.name], field.choiceDisplay) }}</li>
-                        </ul>
-                        <select v-else class="form-control" v-model="values[field.name]" multiple>
-                            <option :value="choice.id" v-for="choice in choices[field.name]" :key="choice.id">
-                                <template v-if="field.choiceDisplay">{{ field.choiceDisplay(choice) }}</template>
-                                <template v-else>{{ choice.name }}</template>
-                            </option>
-                        </select>
+                    <span v-if="values[field.name].length == 0 && readonly">-</span>
+                    <template v-else>
+                        <template v-if="field.name in choices">
+                            <ul class="list-unstyled" v-if="readonly">
+                                <li v-for="value in values[field.name]" :key="value">{{ getChoiceFromId(value, choices[field.name], field.choiceDisplay) }}</li>
+                            </ul>
+                            <select v-else class="form-control" v-model="values[field.name]" multiple>
+                                <option :value="choice.id" v-for="choice in choices[field.name]" :key="choice.id">
+                                    <template v-if="field.choiceDisplay">{{ field.choiceDisplay(choice) }}</template>
+                                    <template v-else>{{ choice.name }}</template>
+                                </option>
+                            </select>
+                        </template>
                     </template>
                 </template>
                 <template v-else-if="field.type=='select'">

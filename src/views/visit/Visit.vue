@@ -188,6 +188,9 @@ export default {
       }
     }
   },
+  timers: {
+    saveVisitTmp: { time: 60000, autostart: true, repeat: true }
+  },
   methods: {
     saveAddress (address) {
       axios.patch('rest/patients/' + this.visit.term.patient.id + '/',
@@ -293,6 +296,9 @@ export default {
           text: ''
         })
       })
+    },
+    saveVisitTmp () {
+      this.saveVisit(true)
     }
   },
   mounted () {

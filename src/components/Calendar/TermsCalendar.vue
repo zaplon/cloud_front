@@ -307,7 +307,7 @@ export default {
       }
     },
     hasManyServices () {
-      return !this.$store.state.user.doctor.default_service
+      return this.$store.state.user.doctor.has_many_services
     },
     autocompletes () {
       return {

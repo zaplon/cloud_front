@@ -42,6 +42,7 @@ import Ezla from '@/views/ezla/Ezla'
 
 import examinationRoutes from '@/router/examinations'
 import agreementsRoutes from '@/router/agreements'
+import servicesRoutes from '@/router/services'
 
 // import {default as PrescriptionsIndex} from '@/views/prescriptions/Index'
 // import Prescriptions from '@/views/prescriptions/Prescriptions'
@@ -102,45 +103,6 @@ var dashboardRoutes = [
     name: 'systemSettingsEdit',
     component: SystemSettings,
     meta: {label: 'Edycja ustawień systemowych'}
-  },
-  {
-    path: 'uslugi',
-    name: 'Usługi',
-    component: Index,
-    redirect: 'uslugi/lista',
-    children: [
-      {
-        path: 'lista',
-        name: 'ListaUslug',
-        component: List,
-        meta: {label: 'Lista usług'},
-        props: {
-          columns: ['select', 'name', 'actions'],
-          headings: {'name': 'Nazwa', 'select': '', 'actions': ''},
-          resource: 'service'
-        }
-      },
-      {
-        path: 'dodaj',
-        name: 'NewService',
-        component: AddEdit,
-        meta: {label: 'Nowa usługa'},
-        props: { backUrl: '/uslugi', resource: 'service', klass: 'ServiceForm', module: 'timetable.forms' }
-      },
-      {
-        path: ':id',
-        name: 'Service',
-        component: Detail,
-        meta: {label: 'Usługa'},
-        props: { resource: 'service', klass: 'ServiceForm', module: 'timetable.forms' }
-      },
-      {
-        path: ':id/edycja',
-        name: 'Edycja usługi',
-        component: AddEdit,
-        meta: {label: 'Edycja'},
-        props: {backUrl: '/uslugi', resource: 'service', klass: 'ServiceForm', module: 'timetable.forms'}
-      }]
   },
   {
     path: 'lokalizacje',
@@ -367,6 +329,7 @@ var dashboardRoutes = [
 
 dashboardRoutes.push(examinationRoutes)
 dashboardRoutes.push(agreementsRoutes)
+dashboardRoutes.push(servicesRoutes)
 
 var routes = [
   {

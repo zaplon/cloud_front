@@ -17,6 +17,7 @@ import EventBus from '@/eventBus'
 import {setupCalendar, Calendar, DatePicker} from 'v-calendar'
 import 'v-calendar/lib/v-calendar.min.css'
 import IdleVue from 'idle-vue'
+import VueTimers from 'vue-timers'
 
 import Raven from 'raven-js'
 import RavenVue from 'raven-js/plugins/vue'
@@ -48,6 +49,7 @@ if (localStorage.token) { axios.defaults.headers.common['Authorization'] = 'Toke
 // axios.defaults.headers.common['X-CSRFToken'] = VueCookies.get('csrftoken')
 Vue.use(BootstrapVue, axios, FullCalendar, VueCookies, BackendForm)
 Vue.use(Notifications)
+Vue.use(VueTimers)
 Vue.use(require('vue-shortkey'))
 Vue.use(ServerTable, {
   responseAdapter (resp) { var data = this.getResponseData(resp); return { data: data.results, count: data.count } },
