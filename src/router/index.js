@@ -417,7 +417,14 @@ router.beforeEach((to, from, next) => {
       })
     } else {
       if (!store.state.user.id) {
-        AccountApi.getUserData().then(response => { next() })
+        AccountApi.getUserData().then(response => { next() }).catch((err) => {
+          if (err.response && err.response.status === 401) {
+            next({
+              path: '/konto/logowanie/',
+              query: {redirect: to.fullPath}
+            })
+          }
+        })
       } else {
         if (to.meta.permission && !(to.meta.permission in store.state.user.user_permissions)) {
           next({
