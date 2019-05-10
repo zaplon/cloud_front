@@ -163,7 +163,7 @@ export default {
           this.autocompletes.service = data.service.name
         } else {
           if (this.$store.state.user.doctor && this.$store.state.user.doctor.default_service) {
-            data.service = this.$store.state.user.doctor.default_service
+            this.termForm.service = this.$store.state.user.doctor.default_service
             this.autocompletes.service = data.service.name
           }
         }
