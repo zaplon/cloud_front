@@ -72,6 +72,7 @@ export default {
     addDocument () {
       this.$refs.newResultForm.setPatientLabel(this.patient.name_with_pesel)
       this.$refs.newResultForm.form.patient = this.patient.id
+      this.$refs.newResultModal.reset()
       this.$refs.newResultModal.show()
     },
     modalOk (evt) {

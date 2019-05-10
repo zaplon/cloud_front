@@ -84,7 +84,7 @@
                 <template v-if="term.edition || term.patientEdition">
                     <b-btn size="sm" class="float-right" variant="default" @click="modalCancel">Anuluj</b-btn>
                     <b-btn size="sm" class="float-right mr-2" variant="primary" @click="modalOk">Zapisz</b-btn>
-                    <b-btn v-if="!term.id && !term.patientEdition" size="sm" class="float-right mr-2" variant="primary" @click="modalOk(true)">
+                    <b-btn v-if="!term.patientEdition" size="sm" class="float-right mr-2" variant="primary" @click="modalOk(true)">
                         Zapisz i rozpocznij
                     </b-btn>
                 </template>
@@ -161,14 +161,6 @@ export default {
         if (data.service) {
           this.termForm.service = {id: data.service.id, name: data.service.name}
           this.autocompletes.service = data.service.name
-        } else {
-          if (!this.singleService) {
-            this.termForm.service = null
-            this.autocompletes.service = null
-          } else {
-            this.termForm.service = this.singleService
-            this.autocompletes.service = this.singleService.name
-          }
         }
         if (data.patient) {
           this.termForm.patient = {id: data.patient.id, label: data.patient.name_with_pesel}
