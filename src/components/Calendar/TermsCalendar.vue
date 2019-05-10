@@ -161,6 +161,11 @@ export default {
         if (data.service) {
           this.termForm.service = {id: data.service.id, name: data.service.name}
           this.autocompletes.service = data.service.name
+        } else {
+          if (this.$store.state.user.doctor && this.$store.state.user.doctor.default_service) {
+            data.service = this.$store.state.user.doctor.default_service
+            this.autocompletes.service = data.service.name
+          }
         }
         if (data.patient) {
           this.termForm.patient = {id: data.patient.id, label: data.patient.name_with_pesel}
