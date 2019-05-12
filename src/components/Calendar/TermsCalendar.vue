@@ -83,7 +83,7 @@
                 </template>
                 <template v-if="term.edition || term.patientEdition">
                     <b-btn size="sm" class="float-right" variant="default" @click="modalCancel">Anuluj</b-btn>
-                    <b-btn size="sm" class="float-right mr-2" variant="primary" @click="modalOk">Zapisz</b-btn>
+                    <b-btn size="sm" class="float-right mr-2" variant="primary" @click="modalOk(false)">Zapisz</b-btn>
                     <b-btn v-if="!term.patientEdition" size="sm" class="float-right mr-2" variant="primary" @click="modalOk(true)">
                         Zapisz i rozpocznij
                     </b-btn>
