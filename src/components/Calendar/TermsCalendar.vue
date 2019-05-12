@@ -164,7 +164,7 @@ export default {
         } else {
           if (this.$store.state.user.doctor && this.$store.state.user.doctor.default_service) {
             this.termForm.service = this.$store.state.user.doctor.default_service
-            this.autocompletes.service = data.service.name
+            this.autocompletes.service = this.termForm.service.name
           }
         }
         if (data.patient) {
