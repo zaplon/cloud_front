@@ -221,7 +221,9 @@ export default {
         }
         if (this.termForm.id) {
           axios.patch('rest/terms/' + this.termForm.id + '/', payload).then(response => {
-            callback()
+            if (startVisit) {
+              this.$router.push({name: 'visit', params: {id: response.data.id}})
+            } else { callback() }
           })
         } else {
           axios.post('rest/terms/', payload).then(response => {
