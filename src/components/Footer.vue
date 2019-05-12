@@ -2,7 +2,7 @@
   <footer class="app-footer text-left text-muted font-sm">
     <span></span>
     <span class="ml-auto">Projekt i wykonanie GeekMan/Misal System</span>&nbsp;
-    <span>v.10.05.2019</span>
+    <span>v.12.05.2019</span>
   </footer>
 </template>
 <script>
