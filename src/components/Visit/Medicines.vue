@@ -154,7 +154,7 @@ export default {
         permissions: this.prescription.permissions,
         number: this.prescription.number,
         patient: this.patient.id,
-        realisationDate: this.$moment(this.prescription.realisationDate).format('DD.MM.YY')
+        realisationDate: this.$moment(this.prescription.realisationDate).format('DD.MM.YYYY')
       }).then(response => {
         let prescriptionUrl = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data.url
         EventBus.$emit('show-document', prescriptionUrl, 'Recepta')
