@@ -89,7 +89,13 @@ export default {
     },
     showDocument (document) {
       this.document = document
-      EventBus.$emit('show-document', document.file, document.name)
+      let parts = document.file.split('.')
+      let ext = parts[parts.length - 1]
+      if (['doc', 'jpg', 'png', 'pdf', 'svg', 'bmp', 'docx', 'jpeg', 'txt', 'gif', 'webp'].indexOf(ext) > -1) {
+        EventBus.$emit('show-document', document.file, document.name)
+      } else {
+        window.open(document.file)
+      }
     },
     openCategory (category) {
       if (category.open) {

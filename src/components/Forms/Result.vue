@@ -91,8 +91,15 @@ export default {
   },
   methods: {
     reset () {
-      this.form = {name: '', file: '', doctor: '', patient: '', description: ''}
+      let patient = ''
+      if (this.fixedPatient) {
+        patient = this.form.patient
+      } else {
+        this.setPatientLabel(patient)
+      }
+      this.form = {name: '', file: '', doctor: '', patient: patient, description: ''}
       this.errors = {name: [], file: [], doctor: [], patient: [], specialization: []}
+      this.setSpecializationLabel()
     },
     setPatientLabel (label) {
       if (this.fixedPatient) { this.patientLabel = label } else { this.$refs.patientAutocomplete.display = label }
