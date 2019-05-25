@@ -129,7 +129,7 @@
                         <b-tabs pills justified card v-model="tabIndex">
                             <template v-for="(tab, index) in visit.tabs">
                                 <b-tab :key="tab.name" :title="tab.title" :active="index == 0">
-                                    <icd v-on:icd-changed="getICD" :data="visit.icd_codes" v-if="tab.type=='ICD10'" :ref="tab.id" />
+                                    <icd v-on:icd-changed="getICD" :data="visit.icdtovisit_set" v-if="tab.type=='ICD10'" :ref="tab.id" />
                                     <notes v-else-if="tab.type=='NOTES'" :ref="tab.id" />
                                     <medicines :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='MEDICINES'" :ref="tab.id" />
                                     <oculist :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='OCULIST'" :ref="tab.id"></oculist>
@@ -304,8 +304,8 @@ export default {
   mounted () {
     axios.get('rest/visits/' + this.$route.params.id + '/').then(response => {
       this.visit = response.data
-      if (this.visit.icd_codes) {
-        this.icds = this.visit.icd_codes
+      if (this.visit.icdtovisit_set) {
+        this.icds = this.visit.icdtovisit_set
       }
     })
     axios.get('rest/templates/').then(response => { this.templates = response.data.results })

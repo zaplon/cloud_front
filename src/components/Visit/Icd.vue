@@ -15,8 +15,13 @@
                 <tr><th>Kod</th><th>Opis</th><th></th></tr>
             </thead>
             <tbody>
-                <tr class="table-info" v-for="selection in selections" :key="selection.desc">
-                    <td>{{ selection.code }}</td><td>{{ selection.desc }}</td>
+                <tr class="table-info" v-for="selection in selections" :key="selection.code">
+                    <td>{{ selection.code }}</td>
+                    <td>
+                        <input v-if="selection.custom_text" class="form-control" type="text" v-model="selection.custom_text">
+                        <input v-else v-on:change="selection.custom_text=selection.desc" class="form-control"
+                               type="text" v-model="selection.desc">
+                    </td>
                     <td><button @click="remove(selection)" class="btn btn-sm btn-danger">Usuń</button></td>
                 </tr>
                 <tr v-for="suggestion in suggestions" :key="suggestion.id" v-if="!suggestion.selected">
@@ -66,6 +71,8 @@ export default {
       this.selections.push(record)
       record.selected = true
       this.$emit('icd-changed', this.selections)
+      this.excludes.push(record.id)
+      console.log(this.excludes)
       this.inputValue = ''
       // this.suggestions.splice(this.suggestions.indexOf(record), 1)
     },
@@ -76,7 +83,6 @@ export default {
       if (selectedSuggestion) { selectedSuggestion.selected = false }
     },
     disablePopular () {
-      console.log('disable')
       this.popular.forEach(record => {
         console.log(record)
         let selectedPopular = this.selections.find(x => x.id === record.id)
