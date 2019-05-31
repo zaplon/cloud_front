@@ -94,7 +94,11 @@ export default {
       if (['doc', 'jpg', 'png', 'pdf', 'svg', 'bmp', 'docx', 'jpeg', 'txt', 'gif', 'webp'].indexOf(ext) > -1) {
         EventBus.$emit('show-document', document.file, document.name)
       } else {
-        window.open(document.file)
+        if (process.env.NODE_ENV === 'production') {
+          window.open(document.file.replace('http', 'https'))
+        } else {
+          window.open(document.file)
+        }
       }
     },
     openCategory (category) {
