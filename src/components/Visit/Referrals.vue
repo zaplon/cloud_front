@@ -102,6 +102,7 @@ export default {
       this.excludes.push(examination.id)
       this.$refs.form.fields.name = this.inputValue
       examination.selected = true
+      this.inputValue = ''
     },
     removeExamination (record) {
       this.selectedExaminations.splice(this.selectedExaminations.indexOf(record), 1)

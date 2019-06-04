@@ -100,7 +100,7 @@ export default {
       prescription: {
         nfz: '',
         realisationDate: new Date(),
-        number: false,
+        number: '7',
         permissions: 'X',
         url: ''
       }
