@@ -107,6 +107,7 @@ export default {
             text: '',
             type: 'info'
           })
+          return
         }
         this.showDocument({file: axios.defaults.baseURL + response.data,
           name: 'Archiwum pacjenta ' + this.patient.first_name + ' ' + this.patient.last_name})
