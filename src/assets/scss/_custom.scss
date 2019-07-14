@@ -176,3 +176,14 @@ div.app {
   z-index: 1;
   width: 100%;
 }
+#visit-sidebar .nav {
+  overflow-x: hidden;
+  overflow-y: auto;
+  flex-direction: row;
+}
+#visit-sidebar .nav .nav-item {
+  max-width: 200px;
+}
+.sidebar-fixed .sidebar {
+  min-height: calc(100vh - 55px);
+}

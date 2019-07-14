@@ -3,6 +3,27 @@
         <li class="nav-item"><span class="nav-link" id="archive-header">
            Archiwum <button @click="addDocument" id="add-document" class="ml-4 btn btn-success btn-sm">Dodaj</button></span>
         </li>
+        <li>
+            <form class="form">
+                <div class="form-row ml-1">
+                    <div class="col-auto">
+                        <select class="form-control form-control-sm" v-model="downloadPeriod">
+                            <option value="all">wszystko</option>
+                            <option value="1 month">ostatni miesiąc</option>
+                            <option value="3 months">ostatnie 3 miesiące</option>
+                        </select>
+                        <input type="date" style="display: none; width:150px;" v-model="downloadFrom"
+                               class="form-control form-control-sm ml-1">
+                    </div>
+                </div>
+                <div class="form-row mt-1 ml-1">
+                    <button :disabled="!downloadFrom" v-if="!generatingPdf" class="btn ml-1 btn-primary btn-sm" type="button" @click="generatePdf">
+                        Generuj PDF
+                    </button>
+                    <button class="btn ml-1 btn-primary btn-sm" type="button" disabled="disabled" v-else>Pracuję...</button>
+                </div>
+            </form>
+        </li>
         <li v-for="category in categories" :key="category.name" class="font-sm nav-item">
             <a class="nav-link" href="#" @click.prevent="openCategory(category)">
                 {{ category.name }} <span>
@@ -44,7 +65,10 @@ export default {
   },
   data () {
     return {
+      generatingPdf: false,
       categories: [{}],
+      downloadFrom: new Date().toISOString().slice(0, 10),
+      downloadPeriod: 'all',
       document: {file: '', title: ''}
     }
   },
@@ -54,6 +78,42 @@ export default {
     }
   },
   methods: {
+    generatePdf () {
+      // let startDate = this.$moment(this.downloadFrom).format('YYYY-mm-dd')
+      axios.get('rest/results/generate_pdf/', {params: {period: this.downloadPeriod, patient_id: this.patient.id}}).then(
+        response => {
+          this.generatingPdf = true
+          var interval = window.setInterval(() => { this.getGeneratedPdf(interval, this.downloadPeriod) }, 2000)
+          var me = this
+          window.setTimeout(function () {
+            window.clearInterval(interval)
+            me.generatingPdf = false
+            me.$notify({
+              group: 'nots',
+              title: 'Wystąpił bład podczas generowania pliku PDF',
+              text: '',
+              type: 'danger'
+            })
+          }, 1000 * 30)
+        }
+      )
+    },
+    getGeneratedPdf (interval, period) {
+      axios.get('rest/results/get_results_pdf/', {params: {period: period, patient_id: this.patient.id}}).then(response => {
+        if (response.data === '-') {
+          this.$notify({
+            group: 'nots',
+            title: 'Brak dokumentów pdf za podany okres',
+            text: '',
+            type: 'info'
+          })
+        }
+        this.showDocument({file: axios.defaults.baseURL + response.data,
+          name: 'Archiwum pacjenta ' + this.patient.first_name + ' ' + this.patient.last_name})
+        window.clearInterval(interval)
+        this.generatingPdf = false
+      })
+    },
     loadCategories () {
       axios.get('rest/results/', {params: {pesel: this.patient.pesel, as_categories: 1}}).then(
         response => {
@@ -125,8 +185,12 @@ export default {
 }
 </script>
 <style>
+    ul.nav {
+        flex-direction: row;
+        overflow-y: auto;
+    }
     #add-document {
-        cursor: pointer
+        cursor: pointer;
     }
     .archive-category {
         list-style: none;
