@@ -95,6 +95,12 @@ export default {
         Account.getUserData().then(response => {
           this.$store.state.loading = false
           let user = this.$store.state.user
+
+          // mobile devices
+          if (this.$isMobileDevice()) {
+            this.$router.push('/m/zdjecia/')
+          }
+
           if (user.setup_needed === 1) {
             this.$router.push('/setup/1')
           } else if (user.setup_needed === 2) {

@@ -2,7 +2,7 @@ import Images from '@/views/mobile/Images'
 
 var mobileRoutes = [
   {
-    path: 'dodaj',
+    path: 'zdjecia',
     name: 'addImages',
     component: Images,
     meta: {label: 'Dodaj zdjęcia'}

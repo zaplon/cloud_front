@@ -84,12 +84,15 @@ Vue.prototype.$moment = moment
 Vue.prototype.$formsRoot = formsUrl
 Vue.prototype.$backendUrl = backendUrl
 Vue.prototype.$forms = {}
-
 Vue.prototype.$urlEncode = (data) => Object.keys(data).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`).join('&')
 var hasPermissions = (permission) => {
   return app.$store.state.user.user_permissions.filter((p) => p.codename === permission).length > 0
 }
 Vue.prototype.$hasPermissions = hasPermissions
+var isMobileDevice = () => {
+  return (typeof window.orientation !== 'undefined') || (navigator.userAgent.indexOf('IEMobile') !== -1)
+}
+Vue.prototype.$isMobileDevice = isMobileDevice
 Vue.directive('permission', function (el, binding, vnode) {
   if (vnode.context.$store.state.user.user_permissions.filter((p) => p.codename === binding.value).length === 0) {
     el.style.display = 'none'
