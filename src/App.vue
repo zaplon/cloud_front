@@ -1,6 +1,7 @@
 <template>
   <div>
     <notifications group="nots" />
+    <notifications width="100%"  group="full-width" />
     <agreement :consents="agreements"></agreement>
     <div id="overlay" v-if="$store.state.loading">
       <atom-spinner :animation-duration="1000" :size="120"/>

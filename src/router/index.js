@@ -5,6 +5,7 @@ import Router from 'vue-router'
 import Full from '@/containers/Full'
 import Account from '@/containers/Account'
 import Setup from '@/containers/Setup'
+import Mobile from '@/containers/Mobile'
 
 // Views
 import {default as UsersList} from '@/views/users/List'
@@ -43,6 +44,7 @@ import Ezla from '@/views/ezla/Ezla'
 import examinationRoutes from '@/router/examinations'
 import agreementsRoutes from '@/router/agreements'
 import servicesRoutes from '@/router/services'
+import mobileRoutes from '@/router/mobile'
 
 // import {default as PrescriptionsIndex} from '@/views/prescriptions/Index'
 // import Prescriptions from '@/views/prescriptions/Prescriptions'
@@ -391,6 +393,13 @@ var routes = [
     component: Full,
     meta: { requiresAuth: true, label: '' },
     children: dashboardRoutes
+  },
+  {
+    path: '/m/',
+    name: 'Mobile',
+    component: Mobile,
+    meta: { requiresAuth: true, label: '' },
+    children: mobileRoutes
   },
   {
     path: '/visit/:id',
