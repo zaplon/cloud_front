@@ -154,7 +154,7 @@ export default {
       ],
       doctorFields: [
         {name: 'pwz', label: 'Numer PWZ'},
-        {name: 'mobile', label: 'Numer telefonu'},
+        {name: 'mobile', label: 'Numer telefonu', required: true},
         {name: 'title', label: 'Tytuł'},
         { name: 'visit_duration',
           label: 'Czas trwania wizyty (min)',

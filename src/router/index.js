@@ -56,6 +56,8 @@ import Step2 from '@/views/setup/Step2'
 import Login from '@/views/account/Login'
 import Register from '@/views/account/Register'
 import Reset from '@/views/account/Reset'
+import Validate from '@/views/account/Validate'
+import MobileSet from '@/views/account/MobileSet'
 
 import Booking from '@/views/Booking'
 
@@ -383,6 +385,16 @@ var routes = [
         path: 'reset',
         name: 'Reset',
         component: Reset
+      },
+      {
+        path: 'weryfikacja',
+        name: 'Verify',
+        component: Validate
+      },
+      {
+        path: 'ustaw_telefon',
+        name: 'MobileSet',
+        component: MobileSet
       }
     ]
   },
@@ -419,7 +431,12 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    if (!auth.loggedIn()) {
+    if (window.$cookies.get('secret')) {
+      next({
+        path: '/konto/weryfikacja/',
+        query: { redirect: to.fullPath }
+      })
+    } else if (!auth.loggedIn()) {
       next({
         path: '/konto/logowanie/',
         query: { redirect: to.fullPath }

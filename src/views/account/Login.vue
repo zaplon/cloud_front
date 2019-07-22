@@ -90,6 +90,17 @@ export default {
       }
       this.$store.state.loading = true
       axios.post('rest-auth/login/', {username: this.username, password: this.password}).then(response => {
+        // if two-factor authentication is in place
+        if (!response.data.key) {
+          this.$store.state.loading = false
+          window.$cookies.set('secret', response.data.secret, 60 * 15)
+          if (response.data.set_mobile) {
+            this.$router.push('/konto/ustaw_telefon/')
+            return
+          }
+          this.$router.push('/konto/weryfikacja/')
+          return
+        }
         localStorage.token = response.data.key
         axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.token
         Account.getUserData().then(response => {
