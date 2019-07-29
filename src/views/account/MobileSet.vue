@@ -6,8 +6,8 @@
                     <div class="card p-4">
                         <div class="card-body">
                             <form>
-                                <h1>Podaj telefon do weryfikacji SMS</h1>
-                                <p class="text-muted">Będzie on wykorzystywany jedynie do weryfikacji</p>
+                                <h1>Podaj numer telefonu</h1>
+                                <p class="text-muted">Będzie on wykorzystywany jedynie na potrzeby weryfikacji logowania</p>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="input-group mb-3">
