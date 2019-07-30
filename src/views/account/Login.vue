@@ -110,6 +110,7 @@ export default {
           // mobile devices
           if (this.$isMobileDevice()) {
             this.$router.push('/m/zdjecia/')
+            return
           }
 
           if (user.setup_needed === 1) {
