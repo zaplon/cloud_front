@@ -12,8 +12,13 @@
     </div>
 </template>
 <script>
-
+import {Account} from '@/api'
 export default {
-  name: 'mobile'
+  name: 'mobile',
+  methods: {
+    logOut () {
+      Account.logOut(this)
+    }
+  }
 }
 </script>
