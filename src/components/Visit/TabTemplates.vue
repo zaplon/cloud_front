@@ -2,6 +2,7 @@
     <div class="mt-4">
         <div class="btn-group mb-4">
             <button class="btn btn-success" @click="showModal">Zapisz jako szablon</button>
+            <button class="ml-2 btn btn-default" @click="printTab">Drukuj</button>
         </div>
         <div class="row">
             <div v-for="template in templates" :key="template.id" class="col-md-6 col-sm-12">
@@ -18,9 +19,18 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
+import EventBus from '@/eventBus'
 export default {
   name: 'tab-templates',
   methods: {
+    printTab () {
+      console.log(this.name)
+      axios.post('pdf/', {text: this.content, patient: this.patient, name: this.name, template_name: 'visit_notes'}).then(response => {
+        let url = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data
+        EventBus.$emit('show-document', url, 'Notatka dla pacjenta')
+      })
+    },
     getShortcut (key) {
       return key.toLowerCase().split('+')
     },
@@ -47,7 +57,8 @@ export default {
   props: {
     templates: Array,
     content: String,
-    name: String
+    name: String,
+    patient: Object
   }
 }
 </script>

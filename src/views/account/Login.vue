@@ -48,14 +48,14 @@
             </div>
         </div>
         <div class="row justify-content-center mt-4" v-show="message">
-            <div class="col-8">
+            <div class="col-md-8">
                 <div class="alert alert-info" role="alert">
                     {{ message }}
                 </div>
             </div>
         </div>
         <div class="row justify-content-center mt-4" v-show="error">
-            <div class="col-8">
+            <div class="col-md-8">
                 <div class="alert alert-danger" role="alert">
                     {{ error }}
                 </div>

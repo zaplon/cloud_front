@@ -27,12 +27,12 @@
                 </div>
             </div>
             <div class="row mt-2">
-                <div class="col-md-3">
+                <div class="col-md-12 col-sm-12">
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" v-model="mergeImages">
+                        <label>Połącz zdjęcia w jeden dokument</label>
                     </div>
                 </div>
-                <div class="col-md-9">Połącz zdjęcia w jeden dokument</div>
             </div>
         </b-modal>
         <form enctype="multipart/form-data">

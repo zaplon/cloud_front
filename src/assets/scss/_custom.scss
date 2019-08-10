@@ -187,3 +187,9 @@ div.app {
 .sidebar-fixed .sidebar {
   min-height: calc(100vh - 55px);
 }
+
+.app-header.navbar .navbar-brand {
+  position: initial;
+  left: 0;
+  margin-left: 0;
+}

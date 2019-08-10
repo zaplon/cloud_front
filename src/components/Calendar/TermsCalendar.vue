@@ -75,7 +75,8 @@
                 <backend-form v-show="term.patientEdition" ref="patientForm" klass="PatientForm" module="user_profile.forms" :pk="term.patientId"></backend-form>
             </template>
             <div slot="modal-footer" class="w-100">
-                <button v-show="!(term.edition || term.patientEdition)" @click="goToEdition" class="pull-left btn btn-sm btn-primary mr-2">Edytuj termin</button>
+                <button v-show="!(term.edition || term.patientEdition) && term.status != 'FINISHED'" @click="goToEdition"
+                        class="pull-left btn btn-sm btn-primary mr-2">Edytuj termin</button>
                 <button v-show="term.status == 'PENDING'" @click="cancelVisit(term)" class="pull-left btn btn-sm btn-danger">Anuluj wizytę</button>
                 <template v-if="!(term.edition || term.patientEdition) && config.editable && term.status != 'FREE'">
                     <b-btn size="sm" class="float-right" variant="default" @click="modalCancel">Nie</b-btn>
