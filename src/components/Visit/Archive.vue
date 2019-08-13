@@ -24,7 +24,28 @@
                 </div>
             </form>
         </li>
-        <li v-for="category in categories" :key="category.name" class="font-sm nav-item">
+        <li class="mt-2 ml-2 mb-2">
+            <div class="btn-group">
+                <button @click="changeMode(false)"
+                        v-bind:class="[{ active: !showAsList }, 'btn btn-sm btn-primary']">Drzewo</button>
+                <button @click="changeMode(true)"
+                        v-bind:class="[{ active: showAsList }, 'btn btn-sm btn-primary']">Lista</button>
+            </div>
+        </li>
+        <li v-if="showAsList" class="font-sm nav-item ml-2" :key="document.id" v-for="document in documents.results">
+            <a class="nav-item" href="#" @click.prevent="showDocument(document)">
+                {{ document.name }} {{ document.uploaded | formatDate }}
+            </a>
+        </li>
+        <li v-if="showAsList" class="nav-item category-nav ml-2">
+            <a v-if="documents.previous" href="#" @click.prevent="changeDocumentsPage(documents.previous)">
+                <i class="mr-1 fa fa-angle-double-left" aria-hidden="true"></i>cofnij
+            </a>
+            <a v-if="documents.next" href="#" @click.prevent="changeDocumentsPage(documents.next)">
+                dalej<i class="ml-1 fa fa-angle-double-right" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li v-if="!showAsList" v-for="category in categories" :key="category.name" class="font-sm nav-item">
             <a class="nav-link" href="#" @click.prevent="openCategory(category)">
                 {{ category.name }} <span>
                 <i class="fa fa-minus text-secondary" v-if="category.open"></i>
@@ -66,7 +87,9 @@ export default {
   data () {
     return {
       generatingPdf: false,
+      showAsList: false,
       categories: [{}],
+      documents: {results: [], previous: '', next: ''},
       downloadFrom: new Date().toISOString().slice(0, 10),
       downloadPeriod: 'all',
       document: {file: '', title: ''}
@@ -75,9 +98,13 @@ export default {
   watch: {
     patient () {
       this.loadCategories()
+      this.loadDocuments()
     }
   },
   methods: {
+    changeMode (showAsList) {
+      this.showAsList = showAsList
+    },
     generatePdf () {
       // let startDate = this.$moment(this.downloadFrom).format('YYYY-mm-dd')
       axios.get('rest/results/generate_pdf/', {params: {period: this.downloadPeriod, patient_id: this.patient.id}}).then(
@@ -121,6 +148,12 @@ export default {
           this.categories = response.data
         })
     },
+    loadDocuments () {
+      axios.get('rest/results/', {params: {pesel: this.patient.pesel}}).then(
+        response => {
+          this.documents = response.data
+        })
+    },
     navigate (link, category) {
       if (location.protocol === 'https:') { link = link.replace('http://', 'https://') }
       axios.get(link).then(
@@ -128,6 +161,15 @@ export default {
           this.$set(category, 'documents', response.data.results)
           this.$set(category, 'next', response.data.next)
           this.$set(category, 'previous', response.data.previous)
+        })
+    },
+    changeDocumentsPage (link) {
+      if (location.protocol === 'https:') { link = link.replace('http://', 'https://') }
+      axios.get(link).then(
+        response => {
+          this.documents.results = response.data.results
+          this.documents.previous = response.data.previous
+          this.documents.next = response.data.next
         })
     },
     addDocument () {
