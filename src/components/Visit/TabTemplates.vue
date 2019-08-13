@@ -2,7 +2,7 @@
     <div class="mt-4">
         <div class="btn-group mb-4">
             <button class="btn btn-success" @click="showModal">Zapisz jako szablon</button>
-            <button class="ml-2 btn btn-default" @click="printTab">Drukuj</button>
+            <button :disabled="!content" class="ml-2 btn btn-default" @click="printTab">Drukuj</button>
         </div>
         <div class="row">
             <div v-for="template in templates" :key="template.id" class="col-md-6 col-sm-12">
