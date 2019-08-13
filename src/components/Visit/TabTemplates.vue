@@ -26,7 +26,11 @@ export default {
   methods: {
     printTab () {
       console.log(this.name)
-      axios.post('pdf/', {text: this.content, patient: this.patient, name: this.name, template_name: 'visit_notes'}).then(response => {
+      axios.post('pdf/', {text: this.content,
+        patient: this.patient,
+        name: this.name,
+        template_name: 'visit_notes',
+        skip_saving: true}).then(response => {
         let url = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data
         EventBus.$emit('show-document', url, 'Notatka dla pacjenta')
       })

@@ -11945,7 +11945,7 @@ div.app {
 #visit-sidebar .nav {
   overflow-x: hidden;
   overflow-y: auto;
-  flex-direction: row; }
+  flex-direction: column; }
 
 #visit-sidebar .nav .nav-item {
   max-width: 200px; }
