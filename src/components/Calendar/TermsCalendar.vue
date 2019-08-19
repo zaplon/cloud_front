@@ -281,8 +281,24 @@ export default {
     saveTerm () {
       this.$refs.form.handleSubmit(() => { this.$refs.modal.hide(); this.$refs.calendar.$emit('refetch-events') })
     },
-    reloadCalendar () {
-      this.$refs.calendar.$emit('refresh')
+    getHiddenDays (workingHours) {
+      var hiddenDays = []
+      console.log(workingHours)
+      workingHours.forEach((el, i) => {
+        if (!el.on) {
+          if (i === 6) {
+            hiddenDays.push(0)
+          } else {
+            hiddenDays.push(i + 1)
+          }
+        }
+      })
+      console.log(hiddenDays)
+      return hiddenDays
+    },
+    reloadCalendar (options) {
+      this.$refs.calendar.fireMethod('option', options)
+      this.$refs.calendar.fireMethod('render')
     },
     resetTermForm () {
       let date = this.$moment()
@@ -324,11 +340,12 @@ export default {
         minTime: doctor ? doctor.terms_start : '09:00:00',
         maxTime: doctor ? doctor.terms_end : '17:00:00',
         locale: 'pl',
+        hiddenDays: this.getHiddenDays(doctor.working_hours),
         editable: user.can_edit_terms,
         slotDuration: '00:15:00',
         displayEventTime: false,
         defaultView: 'agendaWeek',
-        weekends: doctor ? doctor.show_weekends : false,
+        // weekends: doctor ? doctor.show_weekends : false,
         header: {
           left: 'prev,next today',
           center: 'title',
@@ -338,8 +355,13 @@ export default {
     }
   },
   mounted () {
-    EventBus.$on('settings-changed', () => {
-      this.reloadCalendar()
+    EventBus.$on('reload-calendar', (options) => {
+      options = options || {}
+      if ('working_hours' in options) {
+        options.hiddenDays = this.getHiddenDays(options.working_hours)
+      }
+      console.log(options)
+      this.reloadCalendar(options)
     })
     axios.get('rest/services/').then(response => {
       if (response.data.count > 1) {

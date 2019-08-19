@@ -11,6 +11,7 @@
 import axios from 'axios'
 import vueSlider from 'vue-slider-component'
 import store from '@/store'
+import EventBus from '@/eventBus'
 export default {
   name: 'working-hours',
   props: {
@@ -53,9 +54,12 @@ export default {
       this.days = data
     },
     save () {
-      return axios.patch('rest/doctors/' + this.id + '/', {days: this.days, only_hours: true}).then((response) =>
+      return axios.patch('rest/doctors/' + this.id + '/', {days: this.days, only_hours: true}).then((response) => {
         store.commit('setDoctorTerms', response.data.terms_start, response.data.terms_end)
-      )
+        EventBus.$emit('reload-calendar', {minTime: response.data.terms_start,
+          maxTime: response.data.terms_end,
+          working_hours: response.data.working_hours})
+      })
     },
     makeSliderData () {
       var data = []
