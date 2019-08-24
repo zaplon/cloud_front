@@ -149,7 +149,7 @@ export default {
         })
     },
     loadDocuments () {
-      axios.get('rest/results/', {params: {pesel: this.patient.pesel}}).then(
+      axios.get('rest/results/?limit=15', {params: {pesel: this.patient.pesel}}).then(
         response => {
           this.documents = response.data
         })
