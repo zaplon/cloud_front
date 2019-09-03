@@ -155,7 +155,11 @@ export default {
         })
     },
     navigate (link, category) {
-      if (location.protocol === 'https:') { link = link.replace('http://', 'https://') }
+      if (location.protocol === 'https:') {
+        link = link.replace('http://', 'https://')
+        link = link.replace('/rest/', '/backend/rest/')
+      }
+      link = link.replace('/rest/', '/backend/rest/')
       axios.get(link).then(
         response => {
           this.$set(category, 'documents', response.data.results)
@@ -164,7 +168,10 @@ export default {
         })
     },
     changeDocumentsPage (link) {
-      if (location.protocol === 'https:') { link = link.replace('http://', 'https://') }
+      if (location.protocol === 'https:') {
+        link = link.replace('http://', 'https://')
+        link = link.replace('/rest/', '/backend/rest/')
+      }
       axios.get(link).then(
         response => {
           this.documents.results = response.data.results
