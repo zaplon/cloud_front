@@ -114,6 +114,9 @@ export default {
           var me = this
           window.setTimeout(function () {
             window.clearInterval(interval)
+            if (!me.generatingPdf) {
+              return
+            }
             me.generatingPdf = false
             me.$notify({
               group: 'nots',
