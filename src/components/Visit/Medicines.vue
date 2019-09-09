@@ -137,8 +137,10 @@ export default {
       data.size = data.medicine.id
       data.dose = data.medicine.parent.dose
       data.children = [{id: data.medicine.id, size: data.medicine.size}]
+      data.child = {id: data.medicine.id}
       data.loadChildren = true
       data.form = data.medicine.parent.form
+      data.id = data.medicine.parent.id
       return data
     },
     loadPrescription () {
