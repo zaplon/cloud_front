@@ -22,8 +22,8 @@
         <form @submit.prevent="printRecipe" class="mb-2">
             <div class="form-row align-items-center">
                 <div class="col-auto">
-                    <input class="form-control" type="number" id="nfz-number" v-model="prescription.nfz"
-                           placeholder="Oddział NFZ">
+                    <input class="form-control" type="text" id="nfz-number" v-model="prescription.nfz"
+                           placeholder="Oddział NFZ" maxlength="2">
                 </div>
                 <div class="col-auto">
                     <input class="form-control" type="text" id="permissions" v-model="prescription.permissions"
@@ -113,9 +113,9 @@ export default {
       excludes: [],
       inputValue: [],
       prescription: {
-        nfz: '',
+        nfz: this.$store.state.user.system_settings.nfz_department,
         realisationDate: new Date(),
-        number: '7',
+        number: false,
         permissions: 'X',
         url: ''
       },

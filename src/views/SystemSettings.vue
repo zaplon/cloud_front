@@ -40,6 +40,7 @@ export default {
       formFields: [
         {name: 'nip', label: 'Numer NIP'},
         {name: 'regon', label: 'Numer REGON'},
+        {name: 'nfz_department', label: 'Oddział NFZ'},
         {name: 'documents_header_left', label: 'Nagłówek dokumentów (strona lewa)', type: 'textarea'},
         {name: 'documents_header_right', label: 'Nagłówek dokumentów (strona prawa)', type: 'textarea'}
       ]
