@@ -11958,4 +11958,8 @@ div.app {
   left: 0;
   margin-left: 0; }
 
+.card-body .tab-content, .card-block .tab-content {
+  border: none;
+  border-top: 1px solid #dee2e6; }
+
 /*# sourceMappingURL=style.css.map */

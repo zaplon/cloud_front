@@ -4,6 +4,21 @@
                  @ok="addMedicine" ref="addMedicineModal">
             <medicine ref="medicineForm"></medicine>
         </b-modal>
+        <div class="row mb-2">
+            <div class="col-auto">
+                <select class="form-control" v-model="lastPrescriptionSelected">
+                    <option value="0">Ostatnie recepty</option>
+                    <option v-for="prescription in patientPrescriptions" :key="prescription.id"
+                            :value="prescription.id">
+                        {{ prescription.date | formatDate }}
+                    </option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <button @click="loadPrescription" class="btn btn-primary"
+                        :disabled="parseInt(lastPrescriptionSelected) == 0">Wczytaj</button>
+            </div>
+        </div>
         <form @submit.prevent="printRecipe" class="mb-2">
             <div class="form-row align-items-center">
                 <div class="col-auto">
@@ -103,7 +118,9 @@ export default {
         number: '7',
         permissions: 'X',
         url: ''
-      }
+      },
+      patientPrescriptions: [],
+      lastPrescriptionSelected: 0
     }
   },
   created () {
@@ -115,6 +132,33 @@ export default {
     }
   },
   methods: {
+    serializeMedicine (data) {
+      data.name = data.medicine.parent.name
+      data.size = data.medicine.id
+      data.dose = data.medicine.parent.dose
+      data.children = [{id: data.medicine.id, size: data.medicine.size}]
+      data.loadChildren = true
+      data.form = data.medicine.parent.form
+      return data
+    },
+    loadPrescription () {
+      axios.get('rest/prescriptions/' + this.lastPrescriptionSelected + '/').then((response) => {
+        let serializedMedicines = []
+        response.data.medicines.forEach((medicine) => {
+          serializedMedicines.push(this.serializeMedicine(medicine))
+          var matchedIndex = this.suggestions.findIndex((sugg) => sugg.id === medicine.medicine.parent.id)
+          if (matchedIndex) {
+            this.suggestions.splice(matchedIndex, 1)
+          }
+        })
+        this.selections = serializedMedicines
+      })
+    },
+    getPatientPrescriptions () {
+      axios.get('rest/prescriptions/', {params: {patient_id: this.patient.id, only_filled: 1}}).then((response) => {
+        this.patientPrescriptions = response.data.results
+      })
+    },
     showAddMedicineModal () {
       this.$refs.addMedicineModal.show()
     },
@@ -133,6 +177,7 @@ export default {
         doctor: this.$store.state.user.doctor.id,
         medicines: medicines,
         nfz: this.prescription.nfz,
+        realisation_date: this.prescription.realisationDate,
         permissions: this.prescription.permissions,
         date: this.prescription.realisationDate})
     },
@@ -204,6 +249,7 @@ export default {
   mounted () {
     if (this.data) { this.loadData(this.data) }
     this.getSuggestions()
+    this.getPatientPrescriptions()
     // if (this.instance) {
     //   axios.get('rest/prescriptions/' + this.instance + '/').then(response => {
     //     this.loadData(response.data)

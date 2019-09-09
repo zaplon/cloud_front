@@ -58,6 +58,7 @@ export default {
         child: this.medicine.child,
         dose: this.medicine.dose,
         dosage: this.medicine.dosage,
+        amount: this.medicine.amount,
         size: this.medicine.size,
         separate: this.medicine.separate,
         notes: this.medicine.notes,

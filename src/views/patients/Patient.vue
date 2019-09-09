@@ -3,11 +3,26 @@
         <div class="card-header">{{ label }}
             <div class="card-toolbar">
                 <router-link to="edycja"><i class="fa fa-pencil" title="edytuj" aria-hidden="true"></i></router-link>
-                <router-link :to="archiveLink"><i class="fa fa-archive" title="archiwum" aria-hidden="true"></i></router-link>
             </div>
         </div>
         <div class="card-body">
-            <backend-form :autoload="false" :readonly="true" ref="patientForm" klass="PatientModelForm" module="user_profile.forms"></backend-form>
+            <b-tabs pills fill>
+                <b-tab title="Informacje ogólne" active>
+                        <backend-form :autoload="false" :readonly="true" ref="patientForm"
+                                      klass="PatientModelForm" module="user_profile.forms"></backend-form>
+                </b-tab>
+                <b-tab title="Archiwum">
+                        <v-server-table ref="table" url="rest/results/" :columns="columns" :options="options">
+                            <span slot="uploaded" slot-scope="props">
+                                {{props.row.uploaded | formatDate('Y-MM-DD HH:mm')}}
+                            </span>
+                            <button class="btn btn-link" slot="file"
+                                    @click="showDocument(props.row)" slot-scope="props">
+                                <i class="fa fa-file-pdf-o"></i>
+                            </button>
+                        </v-server-table>
+                </b-tab>
+            </b-tabs>
         </div>
         <div class="card-footer">
             <router-link to="edycja" class="btn btn-primary pull-right">Edytuj</router-link>
@@ -23,7 +38,13 @@ export default {
       patientId: 0,
       patient: {},
       label: this.patientId,
-      archiveLink: ''
+      archiveLink: '',
+      columns: ['name', 'file', 'uploaded'],
+      options: {
+        headings: {'name': 'Nazwa', 'file': 'Plik', 'uploaded': 'Data utworzenia'},
+        params: {patient: this.$route.params.id},
+        sortable: ['name', 'uploaded']
+      }
     }
   },
   watch: {
