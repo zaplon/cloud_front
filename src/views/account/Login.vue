@@ -92,6 +92,7 @@ export default {
   methods: {
     getInfo: () => {
       axios.get('https://gabinet.online/__internal/info.txt').then(response => {
+        console.log(response)
         this.info = response.data
       })
     },
