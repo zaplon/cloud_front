@@ -37,6 +37,9 @@
                     </div>
                     <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
                         <div class="card-body text-center">
+                            <div>
+                                <span>{{ info }}</span>
+                            </div>
                             <div style="opacity: 0">
                                 <h2>Rejestracja</h2>
                                 <p>Utworzenie konta w systemie zajmie ci jedynie kilka minut i wymaga podania jedynie podstawowych danych. 60 dni za darmo.</p>
@@ -79,10 +82,19 @@ export default {
     return {
       username: '',
       password: '',
-      error: ''
+      error: '',
+      info: ''
     }
   },
+  mounted () {
+    this.getInfo()
+  },
   methods: {
+    getInfo: () => {
+      axios.get('https://gabinet.online/__internal/info.txt').then(response => {
+        this.info = response.data
+      })
+    },
     login: function () {
       if (!this.password || !this.username) {
         this.error = 'Wpisz login i hasło'

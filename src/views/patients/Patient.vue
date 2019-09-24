@@ -31,6 +31,7 @@
 </template>
 <script>
 import axios from 'axios'
+import EventBus from '@/eventBus'
 export default {
   name: 'patient',
   data () {
@@ -64,6 +65,9 @@ export default {
         this.label = response.data.name_with_pesel
       })
       this.$refs.patientForm.loadHtml(this.patientId)
+    },
+    showDocument (document) {
+      EventBus.$emit('show-document', document.file, document.name)
     }
   },
   mounted () {

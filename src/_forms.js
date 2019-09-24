@@ -9,7 +9,8 @@ export default {
     karty: [{name: 'karta_badania_profilaktycznego', title: 'Karta badania profilaktycznego'},
       {name: 'karta_badania_lekarskiego', title: 'Karta badania lekarskiego', modalClass: 'landscape-form'},
       {name: 'karta_konsultacyjna_diabetologiczna', title: 'Karta konsultacyjna diabetologiczna', modalClass: 'landscape-form'},
-      {name: 'karta_konsultacyjna_neurologiczna', title: 'Karta konsultacyjna neurologiczna', modalClass: 'landscape-form'}],
+      {name: 'karta_konsultacyjna_neurologiczna', title: 'Karta konsultacyjna neurologiczna', modalClass: 'landscape-form'},
+      {name: 'karta_badania_laryngologicznego', title: 'Karta badania laryngologicznego'}],
     oswiadczenia: [{name: 'oswiadczenie_dotyczace_stanu_zdrowia', title: 'Oświadczenie dotyczące stanu zdrowia'}]
   }
 }
