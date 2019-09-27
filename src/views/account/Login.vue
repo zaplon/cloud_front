@@ -83,7 +83,7 @@ export default {
       username: '',
       password: '',
       error: '',
-      info: ''
+      info: 'test'
     }
   },
   mounted () {
@@ -91,9 +91,10 @@ export default {
   },
   methods: {
     getInfo: () => {
+      var me = this
       axios.get('https://gabinet.online/__internal/info.txt').then(response => {
         console.log(response)
-        this.info = response.data
+        me.info = response.data
       })
     },
     login: function () {
