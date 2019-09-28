@@ -37,7 +37,7 @@
                     </div>
                     <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
                         <div class="card-body text-center">
-                            <div>
+                            <div class="text-left">
                                 <span>{{ info }}</span>
                             </div>
                             <div style="opacity: 0">
@@ -94,6 +94,7 @@ export default {
       var me = this
       axios.get('https://gabinet.online/__internal/info.txt').then(response => {
         console.log(response)
+        console.log('123')
         me.info = response.data
       })
     },
