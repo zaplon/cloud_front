@@ -93,7 +93,9 @@ export default {
     getInfo: () => {
       var me = this
       axios.get('https://gabinet.online/__internal/info.txt').then(response => {
-        console.log(response)
+        console.log('test')
+        me.info = 'test123'
+        console.log(response, response.data)
         console.log('123')
         me.info = response.data
       })
