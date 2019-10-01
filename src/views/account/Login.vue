@@ -40,7 +40,7 @@
                             <div class="text-left">
                                 <span>{{ info }}</span>
                             </div>
-                            <div style="opacity: 0">
+                            <div style="opacity: 0; display: none;">
                                 <h2>Rejestracja</h2>
                                 <p>Utworzenie konta w systemie zajmie ci jedynie kilka minut i wymaga podania jedynie podstawowych danych. 60 dni za darmo.</p>
                                 <router-link :to="'Register'" class="btn btn-primary active mt-3">Zarejestruj się teraz!</router-link>
