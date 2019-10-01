@@ -38,7 +38,7 @@
                     <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
                         <div class="card-body text-center">
                             <div class="text-left">
-                                <span>{{ info }}</span>
+                                <span v-html="info"></span>
                             </div>
                             <div style="opacity: 0; display: none;">
                                 <h2>Rejestracja</h2>
