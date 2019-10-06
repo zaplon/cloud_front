@@ -198,3 +198,12 @@ div.app {
   border: none;
   border-top: 1px solid $border-color;
 }
+
+#login-brand {
+  background-image: url(/static/img/logo.png);
+  background-size: contain;
+  height: 102px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}

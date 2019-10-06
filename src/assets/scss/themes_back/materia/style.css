@@ -9297,7 +9297,7 @@ base-chart.chart {
     padding: 0.5rem 1rem;
     margin-right: 0;
     background-color: #fff;
-    background-image: url("/static/img/logo.jpg");
+    background-image: url("/static/img/logo.png");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 70px auto;
@@ -9386,7 +9386,7 @@ base-chart.chart {
   .brand-minimized .app-header.navbar .navbar-brand {
     width: 50px;
     background-color: #fff;
-    background-image: url("/static/img/logo-symbol.png");
+    background-image: url("/static/img/logo.png");
     background-size: 24px;
     border-bottom: 1px solid #dee2e6; } }
 .progress-xs {
@@ -11961,5 +11961,13 @@ div.app {
 .card-body .tab-content, .card-block .tab-content {
   border: none;
   border-top: 1px solid #dee2e6; }
+
+#login-brand {
+  background-image: url(/static/img/logo.png);
+  background-size: contain;
+  height: 102px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center; }
 
 /*# sourceMappingURL=style.css.map */

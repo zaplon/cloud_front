@@ -2,6 +2,7 @@
     <div>
         <div class="row justify-content-center">
             <div class="col-md-8">
+                <div id="login-brand"></div>
                 <div class="card-group">
                     <div class="card p-4">
                         <div class="card-body">
