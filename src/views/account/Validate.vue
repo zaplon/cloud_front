@@ -9,7 +9,7 @@
                                 <h1>Weryfikacja kodu SMS</h1>
                                 <p class="text-muted">Wpisz kod wpisany w wiadomości przesłanej na telefon</p>
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-8">
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                         <span class="input-group-text">
