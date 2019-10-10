@@ -21,13 +21,13 @@ export default {
   name: 'setup',
   methods: {
     logOut () {
-      Account.logout()
+      Account.logOut()
     }
   }
 }
 </script>
 <style>
     header.setup-header {
-        flex-direction: row-reverse!important;
+        flex-direction: row!important;
     }
 </style>
