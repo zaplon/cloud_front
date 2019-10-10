@@ -21,18 +21,18 @@
             </div>
             <div v-show="instanceId">
                 <b-tabs>
-                    <b-tab title="Dane podstawowe" active :title-link-class=" 'user' in errors ? 'text-danger' : ''">
+                    <b-tab title="Dane podstawowe" active :title-link-class="errors.includes('user') in errors ? 'text-danger' : ''">
                         <generic-form :readonly="readonly" :fields="userFields" ref="userForm"></generic-form>
                     </b-tab>
-                    <b-tab :title-link-class=" 'user_permissions' in errors ? 'text-danger' : ''" title="Uprawnienia">
+                    <b-tab :title-link-class="errors.includes('user_permissions') in errors ? 'text-danger' : ''" title="Uprawnienia">
                         <generic-form :readonly="readonly" :fields="permissionsFields" ref="permissionsForm"></generic-form>
                     </b-tab>
-                    <b-tab :disabled="role!='doctor'" title="Informacje lekarskie"
-                           :title-link-class=" 'doctor' in errors ? 'text-danger' : ''">
+                    <b-tab :disabled="role!='doctor'" title="Informacje lekarskie*"
+                           :title-link-class="errors.includes('doctor') ? 'text-danger' : ''">
                         <generic-form :readonly="readonly" :fields="doctorFields" ref="doctorForm"></generic-form>
                     </b-tab>
                     <b-tab :disabled="role!='doctor'" title="Godziny pracy"
-                           :title-link-class=" 'working_hours' in errors ? 'text-danger' : ''">
+                           :title-link-class="errors.includes('working_hours') in errors ? 'text-danger' : ''">
                         <div class="mt-4"></div>
                         <working-hours ref="workingHours" :readonly="readonly" :blank="!instanceId"></working-hours>
                     </b-tab>
@@ -101,7 +101,18 @@ export default {
       axios.patch('rest/users/' + this.instanceId + '/', data).then((result) => {
         this.$router.push(this.backUrl + '/')
       }).catch((error) => {
-        console.log(error)
+        if (error.response.status === 400) {
+          for (const [key, errors] of Object.entries(error.response.data)) {
+            this.errors.push(key)
+            if (key === 'doctor') {
+              this.$refs.doctorForm.errors = errors
+            }
+            if (key === 'user_permissions') {
+              this.$refs.permissionsForm.errors = errors
+            }
+          }
+        }
+        this.$refs.errors = error.response.data
       })
     },
     cancel () {
@@ -153,7 +164,7 @@ export default {
         {name: 'username', label: 'Nazwa użytkownika', required: true}
       ],
       doctorFields: [
-        {name: 'pwz', label: 'Numer PWZ'},
+        {name: 'pwz', label: 'Numer PWZ', required: true},
         {name: 'mobile', label: 'Numer telefonu', required: true},
         {name: 'title', label: 'Tytuł'},
         { name: 'visit_duration',
