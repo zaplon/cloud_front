@@ -7,7 +7,7 @@
                     <div class="card p-4">
                         <div class="card-body">
                             <form>
-                                <h1>Logowanie</h1>
+                                <h1>Witaj</h1>
                                 <p class="text-muted">Zaloguj się na swoje konto</p>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">

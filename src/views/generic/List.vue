@@ -6,7 +6,7 @@
         <b-modal ok-title="Tak" cancel-title="Anuluj" size="md" id="confirmManyModal" title="Potwierdzenie operacji" @ok="deleteSelected" ref="confirmManyModal">
             Czy na pewno chcesz usunąć te rekordy?
         </b-modal>
-        <router-link to="dodaj" :v-permission="addPermission" class="btn bottom-right button-add font-lg">
+        <router-link v-if="editable" to="dodaj" :v-permission="addPermission" class="btn bottom-right button-add font-lg">
             <i class="fa fa-plus"></i>
         </router-link>
         <div class="card-header">
@@ -17,7 +17,7 @@
             <v-server-table :url="apiUrl" :columns="columns" :options="options" ref="table" @loaded="onTableLoaded">
                 <input type="checkbox" :value="props.row.id" v-model="selectedRows" slot="select" slot-scope="props" :v-permission="deletePermission">
                 <div slot="actions" slot-scope="props">
-                    <button @click="showConfirmModal(props.row)" class="btn btn-danger btn-sm" :v-permission="deletePermission">usuń</button>
+                    <button v-if="editable" @click="showConfirmModal(props.row)" class="btn btn-danger btn-sm" :v-permission="deletePermission">usuń</button>
                     <router-link v-for="extraAction in extraActions" :key="extraAction.url"
                                  :to=extraAction.url(props.row) :class="extraAction.cls">
                         {{ extraAction.text }}

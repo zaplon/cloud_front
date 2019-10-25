@@ -194,7 +194,7 @@ export default {
     modalOk (startVisit) {
       if (this.term.edition) {
         this.termForm.errors = []
-        if (!this.termForm.patient && this.termForm.service) {
+        if (!this.termForm.patient && (this.termForm.service || !this.term.id)) {
           this.termForm.errors.push('Proszę wybrać pacjenta')
         }
         if (!this.termForm.duration) {
