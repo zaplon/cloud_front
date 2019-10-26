@@ -50,6 +50,11 @@
                                 :cls="{ 'is-invalid form-control': errors[field.name],
                                 'form-control': !errors[field.name]}" />
                 </template>
+                <template v-else-if="field.type=='color'">
+                    <input type="color" v-model="values[field.name]" disabled="disabled" v-if="readonly || field.readonly">
+                    <input type="color" v-model="values[field.name]" :name="field.name" v-else
+                           v-bind="fieldAttributes(field)">
+                </template>
                 <template v-else>
                     <input :type="field.type ? field.type : 'text'" v-model="values[field.name]" :name="field.name"
                            :readonly="readonly || field.readonly"
@@ -111,6 +116,7 @@ export default {
     },
     getData () {
       this.fields.forEach((f) => { if (f.type === 'editor') { this.values[f.name] = this.$refs[f.name + '_editor'][0].getHTML() } })
+      console.log(this.values)
       return this.values
     },
     reset () {
@@ -121,7 +127,7 @@ export default {
         if (field.type === 'select' || field.type === 'multiselect') {
           this.$set(this.values, field.name, [])
         } else {
-          this.$set(this.values, field.name, '')
+          this.$set(this.values, field.name, field.default ? field.default : '')
         }
         if ('choicesUrl' in field) {
           axios.get(field.choicesUrl, {params: {no_pagination: 1}}).then((response) => {

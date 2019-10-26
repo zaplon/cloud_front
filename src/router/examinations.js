@@ -17,7 +17,7 @@ var examinationRoutes = {
       path: 'lista',
       name: 'examinations',
       component: List,
-      meta: {label: 'Lista badań dotatkowych'},
+      meta: {label: 'Lista badań dodatkowych'},
       props: {
         columns: ['select', 'name', 'category_name', 'actions'],
         headings: {'name': 'Nazwa', 'category_name': 'Kategoria', 'select': '', 'actions': ''},

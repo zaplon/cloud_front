@@ -27,6 +27,9 @@
                     <router-link v-if="showEditLink" :to="props.row.id + '/'">{{ props.row[linkColumn] }}</router-link>
                     <span v-else>{{ props.row[linkColumn] }}</span>
                 </div>
+                <div slot="color" slot-scope="props">
+                    <input type="color" name="color" disabled="disabled" :value="props.row.color">
+                </div>
             </v-server-table>
             <div v-if="editable">
                 <form class="form-inline">

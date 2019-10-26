@@ -6,6 +6,7 @@ var formFields = [
   {name: 'name', label: 'Nazwa'},
   {name: 'code', label: 'Kod'},
   {name: 'price', label: 'Cena'},
+  {name: 'color', type: 'color', label: 'Kolor', default: '#5bc0de'},
   {name: 'doctors', label: 'Lekarze', type: 'multiselect', choicesUrl: 'rest/doctors/'}
 ]
 
@@ -21,8 +22,8 @@ var serviceRoutes = {
       component: List,
       meta: {label: 'Lista usług'},
       props: {
-        columns: ['select', 'name', 'actions'],
-        headings: {'name': 'Nazwa', 'select': '', 'actions': ''},
+        columns: ['select', 'name', 'color', 'actions'],
+        headings: {'name': 'Nazwa', 'color': 'Kolor', 'select': '', 'actions': ''},
         resource: 'service'
       }
     },

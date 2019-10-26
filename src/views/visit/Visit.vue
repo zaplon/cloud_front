@@ -221,6 +221,7 @@ export default {
     showForm (form) {
       let data = this.visit.term.patient
       data['doctor_name'] = this.$store.state.user.doctor.name
+      data['doctor_pwz'] = this.$store.state.user.doctor.pwz
       data['icd_text'] = []
       data['icd'] = []
       this.icds.forEach((icd) => {
