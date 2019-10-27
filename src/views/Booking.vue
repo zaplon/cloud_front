@@ -17,7 +17,7 @@
                         <div class="row">
                             <div v-for="term in terms" :key="term.id" class="col-md-auto mt-2 col-sm-12">
                                 <button style="white-space: normal" class="btn btn-primary col-sm-12" @click="showForm(term)">
-                                    {{ term.datetime| formatDate('DD-MM HH:mm') }} {{ term.doctor }} {{ term.localization }}
+                                    {{ term.datetime| formatDate('DD-MM HH:mm') }} {{ term.display }}
                                 </button>
                             </div>
                         </div>

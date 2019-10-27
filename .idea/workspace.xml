@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1e358543-dfc6-4151-aa34-953a37b7aa1b" name="Default" comment="archive">
+    <list default="true" id="1e358543-dfc6-4151-aa34-953a37b7aa1b" name="Default" comment="favicon">
+      <change afterPath="$PROJECT_DIR$/src/router/prescriptions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Visit/Icd.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Visit/Icd.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/visit/Visit.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/visit/Visit.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Calendar/Filters.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Calendar/Filters.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Visit/Medicines.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Visit/Medicines.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Booking.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Booking.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -18,29 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="vue.d.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/vue/types/vue.d.ts">
+      <file leaf-file-name="Visit.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/visit/Visit.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="812">
-              <caret line="28" column="20" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Footer.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Footer.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TermsCalendar.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Calendar/TermsCalendar.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2465">
-              <caret line="85" column="102" selection-start-line="85" selection-start-column="102" selection-end-line="85" selection-end-column="102" />
+            <state relative-caret-position="5858">
+              <caret line="213" column="6" selection-start-line="213" selection-start-column="6" selection-end-line="213" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -48,17 +33,17 @@
       <file leaf-file-name="Medicines.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Visit/Medicines.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4408">
-              <caret line="156" column="89" selection-start-line="156" selection-start-column="89" selection-end-line="156" selection-end-column="89" />
+            <state relative-caret-position="6235">
+              <caret line="215" column="85" selection-start-line="215" selection-start-column="85" selection-end-line="215" selection-end-column="85" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Result.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Forms/Result.vue">
+      <file leaf-file-name="TermsCalendar.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Calendar/TermsCalendar.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2813">
-              <caret line="98" column="5" lean-forward="true" selection-start-line="98" selection-start-column="5" selection-end-line="98" selection-end-column="5" />
+            <state relative-caret-position="377">
+              <caret line="13" column="34" selection-start-line="13" selection-start-column="34" selection-end-line="13" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -66,44 +51,61 @@
       <file leaf-file-name="Calendar.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/views/Calendar.vue">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="609">
+              <caret line="57" column="44" selection-start-line="57" selection-start-column="44" selection-end-line="57" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Booking.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/views/Booking.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="290">
+              <caret line="19" column="101" selection-start-line="19" selection-start-column="101" selection-end-line="19" selection-end-column="101" />
+              <folding>
+                <element signature="e#2817#2868#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Filters.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Calendar/Filters.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="249">
+              <caret line="67" column="32" selection-start-line="67" selection-start-column="20" selection-end-line="67" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/router/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="249">
+              <caret line="62" column="7" selection-start-line="62" selection-start-column="7" selection-end-line="62" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_nav.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/_nav.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="406">
+              <caret line="14" column="19" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Sidebar.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Sidebar/Sidebar.vue">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="Footer.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Footer.vue">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="232">
-              <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Archive.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/views/Archive.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="16" selection-start-line="15" selection-end-line="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Archive.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Visit/Archive.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="508">
-              <caret line="97" column="7" lean-forward="true" selection-start-line="97" selection-start-column="7" selection-end-line="97" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Icd.vue" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/Visit/Icd.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="74" column="32" selection-start-line="74" selection-start-column="32" selection-end-line="74" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Visit.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/views/visit/Visit.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="207" column="22" selection-start-line="207" selection-start-column="22" selection-end-line="207" selection-end-column="22" />
+              <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -112,36 +114,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>skierowanie rtg</find>
-      <find>Usługi</find>
+      <find>favicon</find>
+      <find>doctor</find>
+      <find>Logowanie</find>
+      <find>number</find>
+      <find>recepta</find>
+      <find>moment</find>
+      <find>system</find>
+      <find>format</find>
+      <find>lokali</find>
+      <find>modalOk</find>
+      <find>Drukuj skierowanie</find>
       <find>print</find>
-      <find>showForm(</find>
-      <find>showForm</find>
+      <find>then</find>
+      <find>notify</find>
+      <find>noti</find>
       <find>show-document</find>
-      <find>pdfForm</find>
-      <find>16.04</find>
-      <find>default_service</find>
-      <find>singleService</find>
-      <find>Zapisz i ro</find>
-      <find>.2019</find>
-      <find>refresh</find>
-      <find>resetTermForm</find>
-      <find>goToEdition(</find>
-      <find>10.05</find>
-      <find>zapisz i rozp</find>
-      <find>realisationDate</find>
-      <find>newResultModal</find>
-      <find>reset</find>
-      <find>patient</find>
-      <find>fixed</find>
-      <find>newResultForm</find>
-      <find>fixedPatient</find>
-      <find>icd</find>
-      <find>selection</find>
-      <find>exc</find>
-      <find>exclude</find>
-      <find>excludes</find>
-      <find>icd-changed</find>
+      <find>showDo</find>
+      <find>name_with_pesel</find>
+      <find>icd_text</find>
+      <find>$store.</find>
+      <find>$store</find>
+      <find>className</find>
+      <find>skierowanie R</find>
+      <find>doctor_na</find>
+      <find>24.</find>
+      <find>hasPerm</find>
+      <find>Permissions</find>
+      <find>calendar</find>
+      <find>booking</find>
+      <find>localization</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -163,13 +165,15 @@
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/build</dir>
-      <dir>$PROJECT_DIR$/src/components/Visit</dir>
       <dir>$PROJECT_DIR$/src/components/Sidebar</dir>
       <dir>$PROJECT_DIR$/src/views</dir>
       <dir>$PROJECT_DIR$/src/router</dir>
+      <dir>$PROJECT_DIR$/src/components/Visit</dir>
+      <dir>$PROJECT_DIR$/src/assets</dir>
+      <dir>$PROJECT_DIR$/static</dir>
       <dir>$PROJECT_DIR$/src/components</dir>
-      <dir>$PROJECT_DIR$/src</dir>
       <dir>$PROJECT_DIR$</dir>
+      <dir>$PROJECT_DIR$/src</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -178,57 +182,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/views/generic/Form.vue" />
-        <option value="$PROJECT_DIR$/src/views/medicines/Form.vue" />
-        <option value="$PROJECT_DIR$/src/router/examinations.js" />
-        <option value="$PROJECT_DIR$/src/views/medicines/Edit.vue" />
-        <option value="$PROJECT_DIR$/src/views/medicines/Medicines.vue" />
-        <option value="$PROJECT_DIR$/src/views/medicines/MedicineEdit.vue" />
-        <option value="$PROJECT_DIR$/src/views/medicines/Medicine.vue" />
-        <option value="$PROJECT_DIR$/src/components/PdfForm.vue" />
-        <option value="$PROJECT_DIR$/src/components/Forms/Booking.vue" />
-        <option value="$PROJECT_DIR$/src/components/Forms/Medicine.vue" />
-        <option value="$PROJECT_DIR$/src/views/Booking.vue" />
-        <option value="$PROJECT_DIR$/src/components/Calendar/Filters.vue" />
-        <option value="$PROJECT_DIR$/src/assets/scss/_bootstrap-variables.scss" />
-        <option value="$PROJECT_DIR$/src/components/Settings.vue" />
-        <option value="$PROJECT_DIR$/src/assets/scss/themes/style.cscc/minty.scss" />
-        <option value="$PROJECT_DIR$/src/assets/scss/themes/minty.scss" />
-        <option value="$PROJECT_DIR$/src/assets/scss/themes/materia/style.scss" />
-        <option value="$PROJECT_DIR$/src/assets/scss/themes/minty/style.scss" />
-        <option value="$PROJECT_DIR$/src/assets/scss/style.scss" />
-        <option value="$PROJECT_DIR$/src/store/index.js" />
-        <option value="$PROJECT_DIR$/src/containers/Account.vue" />
-        <option value="$PROJECT_DIR$/src/views/generic/AddEdit.vue" />
-        <option value="$PROJECT_DIR$/src/assets/scss/_custom.scss" />
-        <option value="$PROJECT_DIR$/src/views/Visits.vue" />
-        <option value="$PROJECT_DIR$/src/_nav.js" />
-        <option value="$PROJECT_DIR$/src/App.vue" />
-        <option value="$PROJECT_DIR$/src/views/account/Login.vue" />
-        <option value="$PROJECT_DIR$/src/views/generic/FormView.vue" />
-        <option value="$PROJECT_DIR$/src/components/Forms/fields/Icon.vue" />
-        <option value="$PROJECT_DIR$/src/components/Forms/fields/Editor.vue" />
-        <option value="$PROJECT_DIR$/src/components/Agreement.vue" />
         <option value="$PROJECT_DIR$/src/components/Forms/fields/RichField.vue" />
         <option value="$PROJECT_DIR$/src/router/agreements.js" />
         <option value="$PROJECT_DIR$/src/api/Account.js" />
-        <option value="$PROJECT_DIR$/src/components/Visit/MedicineRow.vue" />
-        <option value="$PROJECT_DIR$/src/components/Visit/VisitTab.vue" />
         <option value="$PROJECT_DIR$/src/components/Visit/Notes.vue" />
         <option value="$PROJECT_DIR$/src/views/Archive.vue" />
-        <option value="$PROJECT_DIR$/src/main.js" />
-        <option value="$PROJECT_DIR$/src/router/services.js" />
-        <option value="$PROJECT_DIR$/src/components/Forms/GenericForm.vue" />
-        <option value="$PROJECT_DIR$/src/router/index.js" />
+        <option value="$PROJECT_DIR$/src/components/Forms/Result.vue" />
+        <option value="$PROJECT_DIR$/src/components/Visit/Icd.vue" />
         <option value="$PROJECT_DIR$/src/components/Visit/Referrals.vue" />
-        <option value="$PROJECT_DIR$/src/views/generic/List.vue" />
-        <option value="$PROJECT_DIR$/src/components/Footer.vue" />
+        <option value="$PROJECT_DIR$/src/assets/scss/core/_sidebar.scss" />
+        <option value="$PROJECT_DIR$/src/App.vue" />
+        <option value="$PROJECT_DIR$/src/router/mobile.js" />
+        <option value="$PROJECT_DIR$/src/views/account/Verification.vue" />
+        <option value="$PROJECT_DIR$/src/views/account/PhoneSet.vue" />
+        <option value="$PROJECT_DIR$/src/views/account/Verify.vue" />
+        <option value="$PROJECT_DIR$/src/views/account/MobileSet.vue" />
+        <option value="$PROJECT_DIR$/src/containers/Mobile.vue" />
+        <option value="$PROJECT_DIR$/src/main.js" />
+        <option value="$PROJECT_DIR$/src/views/mobile/Images.vue" />
+        <option value="$PROJECT_DIR$/src/components/Visit/VisitTab.vue" />
+        <option value="$PROJECT_DIR$/src/components/Visit/TabTemplates.vue" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/src/components/Settings.vue" />
+        <option value="$PROJECT_DIR$/src/components/WorkingHours.vue" />
+        <option value="$PROJECT_DIR$/src/components/Visit/MedicineRow.vue" />
+        <option value="$PROJECT_DIR$/src/components/Visit/Archive.vue" />
+        <option value="$PROJECT_DIR$/src/views/SystemSettings.vue" />
+        <option value="$PROJECT_DIR$/src/views/patients/Patient.vue" />
+        <option value="$PROJECT_DIR$/src/containers/Account.vue" />
+        <option value="$PROJECT_DIR$/src/assets/scss/_custom.scss" />
+        <option value="$PROJECT_DIR$/src/assets/scss/core/_variables.scss" />
+        <option value="$PROJECT_DIR$/src/views/account/Validate.vue" />
+        <option value="$PROJECT_DIR$/src/views/users/User.vue" />
+        <option value="$PROJECT_DIR$/src/containers/Setup.vue" />
+        <option value="$PROJECT_DIR$/src/views/account/Login.vue" />
+        <option value="$PROJECT_DIR$/src/router/index.js" />
+        <option value="$PROJECT_DIR$/src/_nav.js" />
+        <option value="$PROJECT_DIR$/src/router/examinations.js" />
+        <option value="$PROJECT_DIR$/src/router/prescriptions.js" />
         <option value="$PROJECT_DIR$/src/components/Calendar/TermsCalendar.vue" />
         <option value="$PROJECT_DIR$/src/components/Visit/Medicines.vue" />
-        <option value="$PROJECT_DIR$/src/components/Forms/Result.vue" />
-        <option value="$PROJECT_DIR$/src/components/Visit/Archive.vue" />
+        <option value="$PROJECT_DIR$/src/components/PdfDocument.vue" />
+        <option value="$PROJECT_DIR$/src/components/Forms/GenericForm.vue" />
+        <option value="$PROJECT_DIR$/src/router/services.js" />
+        <option value="$PROJECT_DIR$/src/views/generic/FormView.vue" />
+        <option value="$PROJECT_DIR$/src/views/generic/List.vue" />
+        <option value="$PROJECT_DIR$/src/_forms.js" />
         <option value="$PROJECT_DIR$/src/views/visit/Visit.vue" />
-        <option value="$PROJECT_DIR$/src/components/Visit/Icd.vue" />
+        <option value="$PROJECT_DIR$/src/components/Footer.vue" />
+        <option value="$PROJECT_DIR$/src/views/Calendar.vue" />
+        <option value="$PROJECT_DIR$/src/components/Calendar/Filters.vue" />
+        <option value="$PROJECT_DIR$/src/views/Booking.vue" />
       </list>
     </option>
   </component>
@@ -260,6 +264,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -276,26 +281,31 @@
               <item name="cloud_front" type="b2602c69:ProjectViewProjectNode" />
               <item name="cloud_front" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cloud_front" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cloud_front" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="Calendar" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="cloud_front" type="b2602c69:ProjectViewProjectNode" />
               <item name="cloud_front" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="visit" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="NewWatcherDialog.advanced.open" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../adveva-microsite" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../m/strona/project" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.stylelint" value="true" />
@@ -310,19 +320,19 @@
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/router" />
+      <recent name="$PROJECT_DIR$/static/img" />
+      <recent name="$PROJECT_DIR$/src/views/account" />
+      <recent name="$PROJECT_DIR$/src/containers" />
+      <recent name="$PROJECT_DIR$/src/views/mobile" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/static" />
+      <recent name="$PROJECT_DIR$/static/img" />
       <recent name="$PROJECT_DIR$/src/assets/scss/themes/style.cscc" />
       <recent name="$PROJECT_DIR$/src/assets/scss/themes/materia" />
       <recent name="$PROJECT_DIR$/src/assets/scss/themes/minty" />
-      <recent name="$PROJECT_DIR$/src/assets/scss/themes" />
-      <recent name="$PROJECT_DIR$/src/views/patients" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/router" />
-      <recent name="$PROJECT_DIR$/src/assets/scss/themes/minty" />
-      <recent name="$PROJECT_DIR$/src/assets/scss/themes/materia" />
-      <recent name="$PROJECT_DIR$/src/assets/scss/themes" />
-      <recent name="$PROJECT_DIR$/src/assets/scss" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -633,287 +643,98 @@
       <workItem from="1558354760614" duration="624000" />
       <workItem from="1558607358645" duration="655000" />
       <workItem from="1558786305575" duration="1867000" />
-      <workItem from="1558808638135" duration="2259000" />
-    </task>
-    <task id="LOCAL-00048" summary="dev">
-      <created>1543274545944</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1543274545944</updated>
-    </task>
-    <task id="LOCAL-00049" summary="dev">
-      <created>1543323701924</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1543323701924</updated>
-    </task>
-    <task id="LOCAL-00050" summary="dev">
-      <created>1543345895164</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1543345895164</updated>
-    </task>
-    <task id="LOCAL-00051" summary="dev">
-      <created>1543598605774</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1543598605774</updated>
-    </task>
-    <task id="LOCAL-00052" summary="dev">
-      <created>1543760355359</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1543760355359</updated>
-    </task>
-    <task id="LOCAL-00053" summary="dev">
-      <created>1543763596985</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1543763596985</updated>
-    </task>
-    <task id="LOCAL-00054" summary="dev">
-      <created>1544802672060</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1544802672060</updated>
-    </task>
-    <task id="LOCAL-00055" summary="dev">
-      <created>1545924075895</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1545924075896</updated>
-    </task>
-    <task id="LOCAL-00056" summary="dev">
-      <created>1549052112723</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1549052112724</updated>
-    </task>
-    <task id="LOCAL-00057" summary="small fixes">
-      <created>1549211390176</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1549211390176</updated>
-    </task>
-    <task id="LOCAL-00058" summary="small fixes">
-      <created>1549472277421</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1549472277421</updated>
-    </task>
-    <task id="LOCAL-00059" summary="small fixes">
-      <created>1549622128599</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1549622128599</updated>
-    </task>
-    <task id="LOCAL-00060" summary="small fixes">
-      <created>1550496754214</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1550496754215</updated>
-    </task>
-    <task id="LOCAL-00061" summary="small fixes">
-      <created>1550928320042</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1550928320042</updated>
-    </task>
-    <task id="LOCAL-00062" summary="small fixes">
-      <created>1551028082329</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1551028082330</updated>
-    </task>
-    <task id="LOCAL-00063" summary="small fixes">
-      <created>1551032399212</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1551032399212</updated>
-    </task>
-    <task id="LOCAL-00064" summary="small fixes">
-      <created>1551040532610</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1551040532610</updated>
-    </task>
-    <task id="LOCAL-00065" summary="small fixes">
-      <created>1551043249182</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1551043249182</updated>
-    </task>
-    <task id="LOCAL-00066" summary="small fixes">
-      <created>1551122890121</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1551122890121</updated>
-    </task>
-    <task id="LOCAL-00067" summary="small fixes">
-      <created>1551130798147</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1551130798147</updated>
-    </task>
-    <task id="LOCAL-00068" summary="easy way to edit pesel and address">
-      <created>1551471079064</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1551471079065</updated>
-    </task>
-    <task id="LOCAL-00069" summary="packages updated">
-      <created>1551471530032</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1551471530032</updated>
-    </task>
-    <task id="LOCAL-00070" summary="small fixes">
-      <created>1551612768297</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1551612768297</updated>
-    </task>
-    <task id="LOCAL-00071" summary="small fixes">
-      <created>1551615388756</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1551615388756</updated>
-    </task>
-    <task id="LOCAL-00072" summary="small fixes">
-      <created>1551619926254</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1551619926255</updated>
-    </task>
-    <task id="LOCAL-00073" summary="small fixes">
-      <created>1551622833110</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1551622833110</updated>
-    </task>
-    <task id="LOCAL-00074" summary="small fixes">
-      <created>1551913831921</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1551913831921</updated>
-    </task>
-    <task id="LOCAL-00075" summary="small fixes">
-      <created>1552933498013</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1552933498013</updated>
-    </task>
-    <task id="LOCAL-00076" summary="agreements views">
-      <created>1554666160537</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1554666160538</updated>
-    </task>
-    <task id="LOCAL-00077" summary="small fixes">
-      <created>1555361636447</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1555361636448</updated>
-    </task>
-    <task id="LOCAL-00078" summary="version">
-      <created>1555441979239</created>
-      <option name="number" value="00078" />
-      <option name="presentableId" value="LOCAL-00078" />
-      <option name="project" value="LOCAL" />
-      <updated>1555441979241</updated>
-    </task>
-    <task id="LOCAL-00079" summary="small fixes">
-      <created>1555442794469</created>
-      <option name="number" value="00079" />
-      <option name="presentableId" value="LOCAL-00079" />
-      <option name="project" value="LOCAL" />
-      <updated>1555442794469</updated>
-    </task>
-    <task id="LOCAL-00080" summary="small fixes">
-      <created>1555969652074</created>
-      <option name="number" value="00080" />
-      <option name="presentableId" value="LOCAL-00080" />
-      <option name="project" value="LOCAL" />
-      <updated>1555969652074</updated>
-    </task>
-    <task id="LOCAL-00081" summary="small fixes">
-      <created>1556224419105</created>
-      <option name="number" value="00081" />
-      <option name="presentableId" value="LOCAL-00081" />
-      <option name="project" value="LOCAL" />
-      <updated>1556224419106</updated>
-    </task>
-    <task id="LOCAL-00082" summary="enable sentry support">
-      <created>1556628151439</created>
-      <option name="number" value="00082" />
-      <option name="presentableId" value="LOCAL-00082" />
-      <option name="project" value="LOCAL" />
-      <updated>1556628151439</updated>
-    </task>
-    <task id="LOCAL-00083" summary="enable sentry support">
-      <created>1556652326190</created>
-      <option name="number" value="00083" />
-      <option name="presentableId" value="LOCAL-00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1556652326191</updated>
-    </task>
-    <task id="LOCAL-00084" summary="auto saving visit">
-      <created>1556711253505</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1556711253505</updated>
-    </task>
-    <task id="LOCAL-00085" summary="print services on small page">
-      <created>1556727328938</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1556727328938</updated>
-    </task>
-    <task id="LOCAL-00086" summary="version altered">
-      <created>1557251251467</created>
-      <option name="number" value="00086" />
-      <option name="presentableId" value="LOCAL-00086" />
-      <option name="project" value="LOCAL" />
-      <updated>1557251251467</updated>
-    </task>
-    <task id="LOCAL-00087" summary="fixes">
-      <created>1557518676565</created>
-      <option name="number" value="00087" />
-      <option name="presentableId" value="LOCAL-00087" />
-      <option name="project" value="LOCAL" />
-      <updated>1557518676566</updated>
+      <workItem from="1558808638135" duration="2939000" />
+      <workItem from="1558980558716" duration="1426000" />
+      <workItem from="1559074005432" duration="726000" />
+      <workItem from="1559153147514" duration="308000" />
+      <workItem from="1559311129511" duration="1753000" />
+      <workItem from="1559676550359" duration="1300000" />
+      <workItem from="1559995329751" duration="3048000" />
+      <workItem from="1561892198654" duration="2813000" />
+      <workItem from="1562000781130" duration="794000" />
+      <workItem from="1562078026120" duration="2411000" />
+      <workItem from="1562087995458" duration="1451000" />
+      <workItem from="1562251604358" duration="75000" />
+      <workItem from="1562358805843" duration="690000" />
+      <workItem from="1562402735975" duration="387000" />
+      <workItem from="1562953127630" duration="736000" />
+      <workItem from="1562957784062" duration="716000" />
+      <workItem from="1562960136468" duration="645000" />
+      <workItem from="1562960853904" duration="544000" />
+      <workItem from="1562966320600" duration="1849000" />
+      <workItem from="1563034767532" duration="9252000" />
+      <workItem from="1563090430081" duration="2461000" />
+      <workItem from="1563117474364" duration="296000" />
+      <workItem from="1563122547599" duration="2473000" />
+      <workItem from="1563348361677" duration="1134000" />
+      <workItem from="1563459590208" duration="2127000" />
+      <workItem from="1563567394777" duration="9780000" />
+      <workItem from="1563613074613" duration="5903000" />
+      <workItem from="1563641038445" duration="4138000" />
+      <workItem from="1563707486195" duration="1534000" />
+      <workItem from="1563734079145" duration="8575000" />
+      <workItem from="1563811112967" duration="562000" />
+      <workItem from="1563814891640" duration="3933000" />
+      <workItem from="1563871334282" duration="631000" />
+      <workItem from="1564425221876" duration="1037000" />
+      <workItem from="1564494191495" duration="87000" />
+      <workItem from="1564510028497" duration="2250000" />
+      <workItem from="1564751114081" duration="1693000" />
+      <workItem from="1564859238275" duration="1988000" />
+      <workItem from="1564867769205" duration="706000" />
+      <workItem from="1565118360912" duration="933000" />
+      <workItem from="1565124484866" duration="2427000" />
+      <workItem from="1565439207451" duration="4566000" />
+      <workItem from="1565696229608" duration="3998000" />
+      <workItem from="1565705692593" duration="1296000" />
+      <workItem from="1565717261880" duration="3454000" />
+      <workItem from="1565723561752" duration="1400000" />
+      <workItem from="1565788724284" duration="842000" />
+      <workItem from="1566134388002" duration="4979000" />
+      <workItem from="1566205933630" duration="626000" />
+      <workItem from="1566247646555" duration="3329000" />
+      <workItem from="1566675479046" duration="1768000" />
+      <workItem from="1566741200279" duration="8052000" />
+      <workItem from="1566761534421" duration="5636000" />
+      <workItem from="1567510659564" duration="1286000" />
+      <workItem from="1567536074317" duration="770000" />
+      <workItem from="1567869515051" duration="1594000" />
+      <workItem from="1568050866080" duration="8517000" />
+      <workItem from="1568379505792" duration="912000" />
+      <workItem from="1568476202826" duration="608000" />
+      <workItem from="1569326837899" duration="1325000" />
+      <workItem from="1569356253719" duration="741000" />
+      <workItem from="1569587800568" duration="1362000" />
+      <workItem from="1569671615311" duration="217000" />
+      <workItem from="1569675596342" duration="598000" />
+      <workItem from="1569755074829" duration="117000" />
+      <workItem from="1569950728235" duration="2242000" />
+      <workItem from="1570032796206" duration="496000" />
+      <workItem from="1570275339774" duration="83000" />
+      <workItem from="1570362078894" duration="3201000" />
+      <workItem from="1570563638189" duration="680000" />
+      <workItem from="1570718826993" duration="975000" />
+      <workItem from="1570730084590" duration="5609000" />
+      <workItem from="1570739169420" duration="2761000" />
+      <workItem from="1570782181168" duration="1357000" />
+      <workItem from="1570873218240" duration="3045000" />
+      <workItem from="1570901116047" duration="620000" />
+      <workItem from="1570901767012" duration="599000" />
+      <workItem from="1570963181183" duration="550000" />
+      <workItem from="1571510672013" duration="1284000" />
+      <workItem from="1571574151016" duration="284000" />
+      <workItem from="1571597836904" duration="7578000" />
+      <workItem from="1571688232897" duration="2215000" />
+      <workItem from="1571747937575" duration="4227000" />
+      <workItem from="1571771962359" duration="3802000" />
+      <workItem from="1571818060712" duration="1198000" />
+      <workItem from="1572001263951" duration="1257000" />
+      <workItem from="1572023687038" duration="4753000" />
+      <workItem from="1572081785424" duration="6353000" />
+      <workItem from="1572102060602" duration="2382000" />
+      <workItem from="1572109565051" duration="31000" />
+      <workItem from="1572181334387" duration="3685000" />
+      <workItem from="1572191065754" duration="1959000" />
     </task>
     <task id="LOCAL-00088" summary="fixes">
       <created>1557521028711</created>
@@ -978,25 +799,305 @@
       <option name="project" value="LOCAL" />
       <updated>1557955786515</updated>
     </task>
-    <option name="localTasksCounter" value="97" />
+    <task id="LOCAL-00097" summary="ability to add own text to icd">
+      <created>1558811357884</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1558811357884</updated>
+    </task>
+    <task id="LOCAL-00098" summary="ability to add own text to icd">
+      <created>1558980580666</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1558980580666</updated>
+    </task>
+    <task id="LOCAL-00099" summary="ability to add own text to icd">
+      <created>1559311676917</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1559311676918</updated>
+    </task>
+    <task id="LOCAL-00100" summary="UI">
+      <created>1559676638877</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1559676638877</updated>
+    </task>
+    <task id="LOCAL-00101" summary="dev">
+      <created>1563126094741</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1563126094742</updated>
+    </task>
+    <task id="LOCAL-00102" summary="przesyłanie zdjęć">
+      <created>1563620049785</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1563620049786</updated>
+    </task>
+    <task id="LOCAL-00103" summary="dev">
+      <created>1563641631940</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1563641631940</updated>
+    </task>
+    <task id="LOCAL-00104" summary="zdjęcia">
+      <created>1563642092376</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1563642092376</updated>
+    </task>
+    <task id="LOCAL-00105" summary="dev">
+      <created>1563652551148</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1563652551148</updated>
+    </task>
+    <task id="LOCAL-00106" summary="sms">
+      <created>1563818609986</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1563818609987</updated>
+    </task>
+    <task id="LOCAL-00107" summary="dev">
+      <created>1564425655610</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1564425655611</updated>
+    </task>
+    <task id="LOCAL-00108" summary="dev">
+      <created>1564511036372</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1564511036373</updated>
+    </task>
+    <task id="LOCAL-00109" summary="dev">
+      <created>1564513835147</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1564513835147</updated>
+    </task>
+    <task id="LOCAL-00110" summary="dev">
+      <created>1565452776713</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1565452776714</updated>
+    </task>
+    <task id="LOCAL-00111" summary="dev">
+      <created>1565698280246</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1565698280246</updated>
+    </task>
+    <task id="LOCAL-00112" summary="archive">
+      <created>1565719695782</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1565719695782</updated>
+    </task>
+    <task id="LOCAL-00113" summary="button disabled when no text specified">
+      <created>1565723663904</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1565723663905</updated>
+    </task>
+    <task id="LOCAL-00114" summary="archive">
+      <created>1566680181557</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1566680181558</updated>
+    </task>
+    <task id="LOCAL-00115" summary="fix">
+      <created>1567525976422</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1567525976422</updated>
+    </task>
+    <task id="LOCAL-00116" summary="detect mobile">
+      <created>1567536217879</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1567536217880</updated>
+    </task>
+    <task id="LOCAL-00117" summary="improvements">
+      <created>1568055067679</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1568055067680</updated>
+    </task>
+    <task id="LOCAL-00118" summary="medicines">
+      <created>1568057562935</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1568057562935</updated>
+    </task>
+    <task id="LOCAL-00119" summary="medicine">
+      <created>1568061324715</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1568061324715</updated>
+    </task>
+    <task id="LOCAL-00120" summary="mobile">
+      <created>1569327450436</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1569327450437</updated>
+    </task>
+    <task id="LOCAL-00121" summary="messages">
+      <created>1569356392419</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1569356392420</updated>
+    </task>
+    <task id="LOCAL-00122" summary="test">
+      <created>1569587957658</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1569587957658</updated>
+    </task>
+    <task id="LOCAL-00123" summary="text">
+      <created>1569951110105</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1569951110105</updated>
+    </task>
+    <task id="LOCAL-00124" summary="login">
+      <created>1569955908925</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1569955908925</updated>
+    </task>
+    <task id="LOCAL-00125" summary="detect mobile">
+      <created>1569957114458</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1569957114459</updated>
+    </task>
+    <task id="LOCAL-00126" summary="favicon">
+      <created>1570033282675</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1570033282676</updated>
+    </task>
+    <task id="LOCAL-00127" summary="favicon">
+      <created>1570364903557</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
+      <option name="project" value="LOCAL" />
+      <updated>1570364903557</updated>
+    </task>
+    <task id="LOCAL-00128" summary="sms validation">
+      <created>1570563714756</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1570563714756</updated>
+    </task>
+    <task id="LOCAL-00129" summary="some fixes">
+      <created>1570733590966</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1570733590966</updated>
+    </task>
+    <task id="LOCAL-00130" summary="favicon">
+      <created>1570734206107</created>
+      <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
+      <option name="project" value="LOCAL" />
+      <updated>1570734206107</updated>
+    </task>
+    <task id="LOCAL-00131" summary="fixes">
+      <created>1570735874040</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1570735874040</updated>
+    </task>
+    <task id="LOCAL-00132" summary="small improvements">
+      <created>1572025488274</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1572025488274</updated>
+    </task>
+    <task id="LOCAL-00133" summary="dev">
+      <created>1572028016089</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1572028016089</updated>
+    </task>
+    <task id="LOCAL-00134" summary="dev">
+      <created>1572109261540</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1572109261541</updated>
+    </task>
+    <task id="LOCAL-00135" summary="ukrywanie kalendarza">
+      <created>1572183840868</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1572183840869</updated>
+    </task>
+    <task id="LOCAL-00136" summary="version date">
+      <created>1572184024320</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1572184024320</updated>
+    </task>
+    <option name="localTasksCounter" value="137" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1199510000" />
+    <option name="totallyTimeSpent" value="1407001000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="110" y="35" width="2450" height="1405" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4978261" visible="true" weight="0.15632653" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49659863" visible="true" weight="0.1477551" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info id="npm" order="2" sideWeight="0.5021739" side_tool="true" weight="0.2054054" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.23350695" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.5954861" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2" />
+      <window_info id="npm" order="2" sideWeight="0.50340134" side_tool="true" weight="0.13020408" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.33854166" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.29913792" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="TypeScript" order="7" />
@@ -1007,7 +1108,7 @@
       <window_info anchor="bottom" id="Messages" order="7" weight="0.13541667" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3298611" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32931036" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -1015,18 +1116,18 @@
       <window_info id="npm" order="2" sideWeight="0.5021739" side_tool="true" weight="0.2054054" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4978261" visible="true" weight="0.15714286" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4978261" visible="true" weight="0.15469387" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="TypeScript" order="8" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.30381945" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.31163195" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3298611" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.23784722" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.33854166" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="11" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.5954861" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.13541667" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -1039,382 +1140,394 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="dev" />
-    <MESSAGE value="easy way to edit pesel and address" />
-    <MESSAGE value="packages updated" />
-    <MESSAGE value="agreements views" />
-    <MESSAGE value="version" />
-    <MESSAGE value="small fixes" />
-    <MESSAGE value="enable sentry support" />
-    <MESSAGE value="auto saving visit" />
-    <MESSAGE value="version altered" />
-    <MESSAGE value="fixes" />
-    <MESSAGE value="print services on small page" />
-    <MESSAGE value="start visit directly" />
-    <MESSAGE value="start visit instantly" />
-    <MESSAGE value="format daty" />
-    <MESSAGE value="fix" />
+    <MESSAGE value="ability to add own text to icd" />
+    <MESSAGE value="UI" />
+    <MESSAGE value="przesyłanie zdjęć" />
+    <MESSAGE value="zdjęcia" />
+    <MESSAGE value="sms" />
+    <MESSAGE value="button disabled when no text specified" />
     <MESSAGE value="archive" />
-    <option name="LAST_COMMIT_MESSAGE" value="archive" />
+    <MESSAGE value="fix" />
+    <MESSAGE value="improvements" />
+    <MESSAGE value="medicines" />
+    <MESSAGE value="medicine" />
+    <MESSAGE value="mobile" />
+    <MESSAGE value="messages" />
+    <MESSAGE value="test" />
+    <MESSAGE value="text" />
+    <MESSAGE value="login" />
+    <MESSAGE value="detect mobile" />
+    <MESSAGE value="sms validation" />
+    <MESSAGE value="some fixes" />
+    <MESSAGE value="favicon" />
+    <MESSAGE value="fixes" />
+    <MESSAGE value="small improvements" />
+    <MESSAGE value="dev" />
+    <MESSAGE value="ukrywanie kalendarza" />
+    <MESSAGE value="version date" />
+    <option name="LAST_COMMIT_MESSAGE" value="version date" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/assets/scss/themes_back/materia/_variables.scss">
+    <entry file="file://$PROJECT_DIR$/src/components/Visit/MedicineRow.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="12" column="25" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+        <state relative-caret-position="1595">
+          <caret line="55" column="16" lean-forward="true" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/scss/themes_back/materia/style.scss">
+    <entry file="file://$PROJECT_DIR$/src/views/visit/Visit.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="6960">
+          <caret line="251" column="8" selection-start-line="251" selection-start-column="4" selection-end-line="251" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/scss/themes_back/minty/style.scss">
+    <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        <state relative-caret-position="1160">
+          <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/store/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+    <entry file="file://$PROJECT_DIR$/node_modules/fullcalendar/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/scss/style.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="609">
-          <caret line="21" column="9" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/generic/AddEdit.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2523">
-          <caret line="87" column="41" selection-start-line="87" selection-start-column="41" selection-end-line="87" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/_nav.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2697">
-          <caret line="93" column="20" selection-start-line="93" selection-start-column="20" selection-end-line="93" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/PdfDocument.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="58">
-          <caret line="2" column="8" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/BackendForm.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1943">
-          <caret line="67" column="45" selection-start-line="67" selection-start-column="45" selection-end-line="67" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/users/User.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1914">
-          <caret line="68" column="4" lean-forward="true" selection-start-line="68" selection-start-column="4" selection-end-line="68" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/account/Login.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2726">
-          <caret line="95" column="43" selection-start-line="95" selection-start-column="43" selection-end-line="95" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/generic/Detail.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1026" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/patients/Patients.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/vue-tables-2/compiled/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="14" column="16" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/vue-tables-2/dist/vue-tables.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="4313" column="6" selection-start-line="4313" selection-start-column="6" selection-end-line="4313" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/vue-tables-2/compiled/v-server-table.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2407">
-          <caret line="83" selection-start-line="83" selection-end-line="83" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Forms/fields/Icon.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
-          <caret line="34" column="27" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/tiptap-extensions/dist/extensions.common.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="1944" column="22" selection-start-line="1944" selection-start-column="22" selection-end-line="1944" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/generic/FormView.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1537">
-          <caret line="54" column="5" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Agreement.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="3" column="35" selection-start-line="3" selection-start-column="35" selection-end-line="3" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Forms/fields/RichField.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3770">
-          <caret line="150" column="7" selection-start-line="150" selection-start-column="7" selection-end-line="150" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/Account.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="4" column="43" lean-forward="true" selection-start-line="4" selection-start-column="43" selection-end-line="4" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/Full.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="18" column="7" lean-forward="true" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="659">
-          <caret line="40" column="24" lean-forward="true" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/scss/_custom.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5104">
-          <caret line="176" column="14" selection-start-line="176" selection-start-column="14" selection-end-line="176" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/scss/_bootstrap-variables.scss">
+    <entry file="file://$PROJECT_DIR$/src/components/Settings.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1392">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
+          <caret line="52" column="24" lean-forward="true" selection-start-line="52" selection-start-column="24" selection-end-line="52" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/WorkingHours.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1653">
+          <caret line="60" column="23" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Visit/Medicines.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4292">
+          <caret line="148" column="51" selection-start-line="148" selection-start-column="51" selection-end-line="148" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/fullcalendar/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Settings.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1392">
+          <caret line="52" column="24" lean-forward="true" selection-start-line="52" selection-start-column="24" selection-end-line="52" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/WorkingHours.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1653">
+          <caret line="60" column="23" selection-start-line="60" selection-start-column="23" selection-end-line="60" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Visit/Archive.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4321">
+          <caret line="151" column="10" selection-start-line="151" selection-start-column="10" selection-end-line="151" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/SystemSettings.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1189">
+          <caret line="42" column="52" selection-start-line="42" selection-start-column="52" selection-end-line="42" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/patients/Patient.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="928">
+          <caret line="33" column="33" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/patients/Edit.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1479">
+          <caret line="51" column="14" lean-forward="true" selection-start-line="51" selection-start-column="14" selection-end-line="51" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Visit/MedicineRow.vue">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2146">
+          <caret line="74" column="51" selection-start-line="74" selection-start-column="47" selection-end-line="74" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/Archive.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1218">
+          <caret line="42" selection-start-line="42" selection-end-line="42" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/Account.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/scss/_custom.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6032">
+          <caret line="208" column="1" selection-start-line="208" selection-start-column="1" selection-end-line="208" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/assets/scss/core/_variables.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1624">
+          <caret line="56" column="39" selection-start-line="56" selection-start-column="39" selection-end-line="56" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/account/Validate.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="11" column="56" selection-start-line="11" selection-start-column="56" selection-end-line="11" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/users/User.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="986">
+          <caret line="34" column="89" selection-start-line="34" selection-start-column="89" selection-end-line="34" selection-end-column="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/setup/Step1.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="609">
+          <caret line="21" column="11" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/Setup.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="754">
+          <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="783">
+          <caret line="27" column="30" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="667">
-          <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
+          <caret line="23" column="19" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Visit/VisitTab.vue">
+    <entry file="file://$PROJECT_DIR$/src/views/patients/Patients.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="928">
-          <caret line="32" column="20" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Visit/Notes.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="6" column="50" selection-start-line="6" selection-start-column="50" selection-end-line="6" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/Visits.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="791">
-          <caret line="57" column="20" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="20" />
+        <state>
+          <caret column="10" selection-start-column="10" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/router/agreements.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="78" column="6" selection-start-line="78" selection-start-column="6" selection-end-line="78" selection-end-column="83" />
+        <state relative-caret-position="1160">
+          <caret line="43" selection-start-line="43" selection-end-line="49" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2552">
+          <caret line="109" column="18" selection-start-line="109" selection-start-column="12" selection-end-line="109" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/router/prescriptions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="609">
+          <caret line="23" column="47" selection-start-line="23" selection-start-column="47" selection-end-line="23" selection-end-column="47" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/router/examinations.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="49" column="32" lean-forward="true" selection-end-line="50" />
+        <state relative-caret-position="493">
+          <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/router/services.js">
+    <entry file="file://$PROJECT_DIR$/src/views/prescriptions/Prescriptions.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="47" column="79" lean-forward="true" selection-start-line="47" selection-start-column="79" selection-end-line="47" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Forms/GenericForm.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/Account.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="609">
-          <caret line="23" column="2" selection-start-line="23" selection-start-column="2" selection-end-line="23" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/router/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12180">
-          <caret line="420" column="13" selection-start-line="420" selection-start-column="13" selection-end-line="420" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/_forms.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="6" column="121" selection-start-line="6" selection-start-column="121" selection-end-line="6" selection-end-column="121" />
+        <state relative-caret-position="493">
+          <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Visit/Referrals.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2697">
-          <caret line="96" column="58" lean-forward="true" selection-start-line="96" selection-start-column="58" selection-end-line="96" selection-end-column="58" />
+          <caret line="96" column="24" selection-start-line="96" selection-start-column="24" selection-end-line="96" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/App.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
-          <caret line="34" column="22" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
+        <state relative-caret-position="1015">
+          <caret line="35" column="21" selection-start-line="35" selection-start-column="21" selection-end-line="35" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.js">
+    <entry file="file://$PROJECT_DIR$/src/components/PdfDocument.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4031">
-          <caret line="139" column="19" selection-start-line="139" selection-start-column="19" selection-end-line="139" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/generic/List.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1247">
-          <caret line="43" column="15" lean-forward="true" selection-start-line="43" selection-start-column="15" selection-end-line="43" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/Calendar.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Footer.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Calendar/TermsCalendar.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2465">
-          <caret line="85" column="102" selection-start-line="85" selection-start-column="102" selection-end-line="85" selection-end-column="102" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Visit/Medicines.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4408">
-          <caret line="156" column="89" selection-start-line="156" selection-start-column="89" selection-end-line="156" selection-end-column="89" />
+        <state relative-caret-position="725">
+          <caret line="25" column="4" lean-forward="true" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/vue/types/vue.d.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="812">
+        <state relative-caret-position="377">
           <caret line="28" column="20" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/Archive.vue">
+    <entry file="file://$PROJECT_DIR$/src/components/PdfForm.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="16" selection-start-line="15" selection-end-line="16" />
+        <state relative-caret-position="435">
+          <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="121" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Forms/Result.vue">
+    <entry file="file://$PROJECT_DIR$/src/router/services.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2813">
-          <caret line="98" column="5" lean-forward="true" selection-start-line="98" selection-start-column="5" selection-end-line="98" selection-end-column="5" />
+        <state relative-caret-position="638">
+          <caret line="24" column="44" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Visit/Archive.vue">
+    <entry file="file://$PROJECT_DIR$/src/components/Forms/GenericForm.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="508">
-          <caret line="97" column="7" lean-forward="true" selection-start-line="97" selection-start-column="7" selection-end-line="97" selection-end-column="7" />
+        <state relative-caret-position="3335">
+          <caret line="116" column="16" selection-start-line="116" selection-start-column="16" selection-end-line="116" selection-end-column="16" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/generic/FormView.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2900">
+          <caret line="100" column="42" selection-start-line="100" selection-start-column="42" selection-end-line="100" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/generic/List.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="841">
+          <caret line="29" column="53" lean-forward="true" selection-start-line="29" selection-start-column="53" selection-end-line="29" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/_forms.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Footer.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Visit/Medicines.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6235">
+          <caret line="215" column="85" selection-start-line="215" selection-start-column="85" selection-end-line="215" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Calendar/TermsCalendar.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="13" column="34" selection-start-line="13" selection-start-column="34" selection-end-line="13" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/_nav.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="14" column="19" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Sidebar/Sidebar.vue">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/visit/Visit.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="207" column="22" selection-start-line="207" selection-start-column="22" selection-end-line="207" selection-end-column="22" />
+        <state relative-caret-position="5858">
+          <caret line="213" column="6" selection-start-line="213" selection-start-column="6" selection-end-line="213" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Visit/Icd.vue">
+    <entry file="file://$PROJECT_DIR$/src/views/Calendar.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="74" column="32" selection-start-line="74" selection-start-column="32" selection-end-line="74" selection-end-column="32" />
+        <state relative-caret-position="609">
+          <caret line="57" column="44" selection-start-line="57" selection-start-column="44" selection-end-line="57" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/router/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="62" column="7" selection-start-line="62" selection-start-column="7" selection-end-line="62" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Calendar/Filters.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="67" column="32" selection-start-line="67" selection-start-column="20" selection-end-line="67" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/Booking.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="19" column="101" selection-start-line="19" selection-start-column="101" selection-end-line="19" selection-end-column="101" />
+          <folding>
+            <element signature="e#2817#2868#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

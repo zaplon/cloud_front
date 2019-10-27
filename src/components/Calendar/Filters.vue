@@ -66,7 +66,7 @@ export default {
   },
   mounted () {
     axios.get('rest/localizations/?no_pagination=1').then(response => { this.localizations = response.data })
-    axios.get(this.servicesUrl).then(response => {
+    axios.get(this.servicesUrl, {params: {only_assigned: true}}).then(response => {
       this.services = response.data
       if (this.services.length === 1) { this.service = this.services[0] }
     })
