@@ -47,12 +47,12 @@ export default {
       url: '/leki',
       icon: 'fa fa-medkit'
     },
-    // {
-    //   id: 'prescriptions',
-    //   name: 'Recepty',
-    //   url: '/recepty',
-    //   icon: 'fa fa-file-text'
-    // },
+    {
+      id: 'prescriptions',
+      name: 'Recepty',
+      url: '/recepty',
+      icon: 'fa fa-file-text'
+    },
     {
       id: 'templates',
       name: 'Szablony',
