@@ -55,7 +55,9 @@ export default {
       this.$refs.terms.$refs.calendar.fireMethod('gotoDate', payload.date)
     },
     addNewVisit () {
-      this.$refs.terms.addNewVisit()
+      if (this.$hasPermissions('change_visit')) {
+        this.$refs.terms.addNewVisit()
+      }
     }
   },
   data: () => {
