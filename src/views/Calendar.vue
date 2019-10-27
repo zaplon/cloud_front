@@ -1,13 +1,20 @@
 <template>
     <div>
         <div class="card">
-            <div class="card-body" v-if="this.$store.state.user.type == 'doctor'">
+            <div class="card-body" v-if="this.$store.state.user.type == 'doctor'"
+                 v-bind:class="{ toggled: sidebarToggled }">
                 <div id="calendar-container">
                         <terms-calendar ref="terms"></terms-calendar>
                 </div>
                 <div id="calendar-sidebar">
                     <v-calendar :attributes='attrs' v-on:dayclick="setCalendarDate"></v-calendar>
                     <next-visits></next-visits>
+                </div>
+                <div class="sidebar-toggle text-muted">
+                    <i @click="sidebarToggle" v-if="!sidebarToggled" class="fa fa-chevron-right" aria-hidden="true"
+                    title="Schowaj panel"></i>
+                    <i @click="sidebarToggle" v-if="sidebarToggled" class="fa fa-chevron-left" aria-hidden="true"
+                    title="Pokaż panel"></i>
                 </div>
             </div>
             <div class="card-body" v-else>
@@ -33,6 +40,9 @@ import DoctorsList from '../components/Calendar/DoctorsList'
 export default {
   name: 'calendar',
   methods: {
+    sidebarToggle () {
+      this.sidebarToggled = !this.sidebarToggled
+    },
     loadDoctorCalendar (doctor) {
       this.doctor = doctor.id
       this.$refs.terms.loadDoctorCalendar(doctor)
@@ -51,6 +61,7 @@ export default {
   data: () => {
     return {
       doctor: 0,
+      sidebarToggled: false,
       attrs: [
         {
           key: 'today',
@@ -75,6 +86,12 @@ export default {
 }
 </script>
 <style>
+    .toggled #calendar-container {
+        width: 100%;
+    }
+    .toggled #calendar-sidebar div:not(.sidebar-toggle) {
+        display: none;
+    }
     #calendar-with-table {
         display: flex;
     }
@@ -93,5 +110,12 @@ export default {
     }
     .c-day-content {
         cursor: pointer!important;
+    }
+    .sidebar-toggle {
+        display: inline-block;
+        float: right;
+    }
+    .sidebar-toggle i {
+        cursor: pointer;
     }
 </style>
