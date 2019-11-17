@@ -126,7 +126,7 @@ export default {
   },
   computed: {
     linkColumn () {
-      return this.columns[1]
+      return this.columns.filter(value => value !== 'actions' && value !== 'select')[0]
     },
     addPermission () {
       return 'can_add_' + this.resource

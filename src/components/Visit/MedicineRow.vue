@@ -2,7 +2,7 @@
     <tr :class="this.klass">
         <td>{{ medicine.name }}</td>
         <td>
-            <select class="form-control" v-model="medicine.size" @mousedown="getChildren(medicine)" @change="sizeSelected(medicine)">
+            <select class="form-control form-control-sm" v-model="medicine.size" @mousedown="getChildren(medicine)" @change="sizeSelected(medicine)">
                 <option v-if="!medicine.children">Wybierz...</option>
                 <option v-for="option in medicine.children" v-bind:value="option.id" :key="option.id">
                     {{ option.size }} (nfz)
@@ -10,11 +10,11 @@
             </select>
         </td>
         <td>
-            <select v-if="medicine.user_id" class="form-control" v-model="medicine.refundation">
+            <select v-if="medicine.user_id" class="form-control form-control-sm" v-model="medicine.refundation">
                 <option value="0">-</option>
                 <option value="30%">30%</option>
             </select>
-            <select v-else class="form-control" v-model="medicine.refundation">
+            <select v-else class="form-control form-control-sm" v-model="medicine.refundation">
                 <option v-if="!medicine.refundation" value="0">-</option>
                 <option v-for="option in medicine.refundations" v-bind:value="option.id" :key="option.id">
                     {{ option.to_pay }}
@@ -22,9 +22,9 @@
             </select>
         </td>
         <td>{{ medicine.form }}</td><td>{{ medicine.dose }}</td>
-        <td><input type="text" :class="[errors.amount ? 'is-invalid' : '', 'form-control']" v-model="medicine.amount"></td>
-        <td><input type="text" :class="[errors.dosage ? 'is-invalid' : '', 'form-control']" v-model="medicine.dosage"></td>
-        <td><input type="text" class="form-control" v-model="medicine.notes"></td>
+        <td><input type="text" :class="[errors.amount ? 'is-invalid' : '', 'form-control form-control-sm']" v-model="medicine.amount"></td>
+        <td><input type="text" :class="[errors.dosage ? 'is-invalid' : '', 'form-control form-control-sm']" v-model="medicine.dosage"></td>
+        <td><input type="text" class="form-control form-control-sm" v-model="medicine.notes"></td>
         <td class="text-center"><input type="checkbox" v-model="medicine.separate" class="form-check-input"></td>
         <td>
             <button v-if="toAdd" @click="add(medicine)" class="btn btn-sm btn-success">Dodaj</button>

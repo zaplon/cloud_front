@@ -4,9 +4,21 @@
                  @ok="addMedicine" ref="addMedicineModal">
             <medicine ref="medicineForm"></medicine>
         </b-modal>
-        <div class="row mb-2">
+        <b-modal ref="signPrescriptionModal">
+            <form class="form">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="user-cert">Certyfikat użytkownika</label>
+                    </div>
+                    <div class="col-md-10">
+                        <input id="user-cert" type="file" class="form-control">
+                    </div>
+                </div>
+            </form>
+        </b-modal>
+        <div class="row mb-2 form-row">
             <div class="col-auto">
-                <select class="form-control" v-model="lastPrescriptionSelected">
+                <select style="width: 160px;" class="form-control" v-model="lastPrescriptionSelected">
                     <option value="0">Ostatnie recepty</option>
                     <option v-for="prescription in patientPrescriptions" :key="prescription.id"
                             :value="prescription.id">
@@ -19,22 +31,22 @@
                         :disabled="parseInt(lastPrescriptionSelected) == 0">Wczytaj</button>
             </div>
         </div>
-        <form @submit.prevent="printRecipe" class="mb-2">
+        <div>
             <div class="form-row align-items-center">
-                <div class="col-auto">
-                    <input class="form-control" type="text" id="nfz-number" v-model="prescription.nfz"
+                <div class="col-auto mt-1">
+                    <input style="width:160px;" class="form-control" type="text" id="nfz-number" v-model="prescription.nfz"
                            placeholder="Oddział NFZ" maxlength="2">
                 </div>
-                <div class="col-auto">
-                    <input class="form-control" type="text" id="permissions" v-model="prescription.permissions"
+                <div class="col-auto mt-1">
+                    <input style="width:200px;" class="form-control" type="text" id="permissions" v-model="prescription.permissions"
                            placeholder="Uprawnienia dodatkowe">
                 </div>
-                <div class="col-auto">
+                <div class="col-auto mt-1">
                     <v-date-picker mode='single' v-model='prescription.realisationDate'>
-                        <input placeholder="Data realizacji" :value='props.inputValue' type="text" class="form-control" slot-scope="props">
+                        <input style="width:150px;" placeholder="Data realizacji" :value='props.inputValue' type="text" class="form-control" slot-scope="props">
                     </v-date-picker>
                 </div>
-                <div class="col-auto">
+                <div class="col-auto mt-1">
                     <div class="form-check">
                         <label class="form-check-label">
                             <input title="Zamieść numer recepty na wydruku" class="form-check-input"
@@ -44,14 +56,19 @@
                         </label>
                     </div>
                 </div>
-                <div class="col-auto">
-                    <button :disabled="!this.patient.id || !this.prescription.realisationDate || !this.prescription.permissions || !this.prescription.nfz" class="btn btn-info">Drukuj</button>
+                <div class="col-auto mt-1">
+                    <button :disabled="!this.patient.id || !this.prescription.realisationDate || !this.prescription.permissions || !this.prescription.nfz" class="btn btn-info" @click="printRecipe">Drukuj</button>
+                </div>
+                <div class="col-auto mt-1">
+                    <button @click="saveExternal" :disabled="!this.patient.id || !this.prescription.realisationDate || !this.prescription.permissions || !this.prescription.nfz" class="btn btn-info">Wygeneruj e-receptę</button>
                 </div>
             </div>
-        </form>
-        <div class="row mb-4">
-            <div class="col-6">
-                <input class="form-control" type="text" v-model="inputValue" placeholder="nazwa lub substancja czynna"/>
+        </div>
+        <div class="row mb-2 mt-1 form-row">
+        </div>
+        <div class="row mb-4 form-row">
+            <div class="col-auto">
+                <input style="width: 370px;" class="form-control" type="text" v-model="inputValue" placeholder="nazwa lub substancja czynna"/>
             </div>
             <div class="col-auto" v-permission="'add_medicine'">
                 <button class="btn btn-success" @click="showAddMedicineModal"><i class="fa fa-plus"></i></button>
@@ -83,18 +100,27 @@
             </tr>
             </tbody>
         </table>
+        <PdfDocument ref="prescriptionModal">
+            <div slot="actions" class="float-right mr-2">
+                <b-btn v-if="prescription.number" size="sm" variant="success" @click="saveExternal">
+                    Wygeneruj e-receptę
+                </b-btn>
+                <b-btn v-else size="sm" variant="success" disabled="disabled"
+                title="Wysyłka recepty jest możliwa tylko przy wykorzystaniu numeru recepty">Wygeneruj e-receptę</b-btn>
+            </div>
+        </PdfDocument>
     </div>
 </template>
 <script>
 import axios from 'axios'
 import _ from 'lodash'
-import EventBus from '@/eventBus'
 import MedicineRow from './MedicineRow'
 import Medicine from '@/components/Forms/Medicine'
+import PdfDocument from '@/components/PdfDocument'
 
 export default {
   name: 'medicines',
-  components: {Medicine, MedicineRow},
+  components: {PdfDocument, Medicine, MedicineRow},
   props: {
     patient: Object,
     instance: {
@@ -117,7 +143,8 @@ export default {
         realisationDate: new Date(),
         number: false,
         permissions: 'X',
-        url: ''
+        url: '',
+        external_id: null
       },
       patientPrescriptions: [],
       lastPrescriptionSelected: 0
@@ -168,20 +195,30 @@ export default {
       evt.preventDefault()
       this.$refs.medicineForm.save(() => { this.$refs.addMedicineModal.hide() })
     },
-    save2 () {
+    serializePrescription () {
       let medicines = []
       this.selections.forEach((s) => {
-        medicines.push({medicine: s.child.id,
+        medicines.push({medicine_id: s.child.id,
           dosage: s.dosage,
+          amount: s.amount,
+          notes: s.notes,
           refundation: parseInt(s.refundation) ? parseInt(s.refundation) : null})
       })
-      axios.post('rest/prescriptions/', { patient: this.patient.id,
+      console.log(this.prescription.realisationDate)
+      return {
+        patient: this.patient.id,
         doctor: this.$store.state.user.doctor.id,
         medicines: medicines,
         nfz: this.prescription.nfz,
-        realisation_date: this.prescription.realisationDate,
+        realisation_date: this.$moment(this.prescription.realisationDate).format('YYYY-MM-DD'),
         permissions: this.prescription.permissions,
-        date: this.prescription.realisationDate})
+        external_id: this.external_id,
+        date: this.prescription.realisationDate,
+        number: this.prescription.number
+      }
+    },
+    savePrescription () {
+      return axios.post('rest/prescriptions/', this.serializePrescription())
     },
     validatePrescription () {
       this.selections.forEach((s, index) => {
@@ -190,6 +227,10 @@ export default {
       })
     },
     printRecipe () {
+      // axios.post('rest/prescriptions/print/', this.serializePrescription()).then(response => {
+      //   let prescriptionUrl = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data.url
+      //   this.$refs.prescriptionModal.showDocument(prescriptionUrl, 'Recepta', this.patient.id)
+      // })
       let medicines = []
       console.log(this.$refs)
       this.validatePrescription()
@@ -204,7 +245,7 @@ export default {
         realisationDate: this.$moment(this.prescription.realisationDate).format('DD.MM.YYYY')
       }).then(response => {
         let prescriptionUrl = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data.url
-        EventBus.$emit('show-document', prescriptionUrl, 'Recepta')
+        this.$refs.prescriptionModal.showDocument(prescriptionUrl, 'Recepta', this.patient.id)
       })
     },
     add (record) {
@@ -228,6 +269,9 @@ export default {
     },
     loadData (data) {
       this.prescription = data.prescription
+      if (this.prescription.realisationDate) {
+        this.prescription.realisationDate = this.$moment(this.prescription.realisationDate).toDate()
+      }
       this.selections = data.selections
     },
     loadData2 (data) {
@@ -245,6 +289,26 @@ export default {
         row.child = {id: s.medicine.id}
         row.loadChildren = true
         this.add(row)
+      })
+    },
+    saveExternal () {
+      axios.post('rest/prescriptions/save_in_p1/', this.serializePrescription()).then(response => {
+        this.prescription.external_id = response.data.external_id
+        this.$refs.prescriptionModal.cancel()
+        this.$notify({
+          group: 'nots',
+          title: 'Recepta została przesłana',
+          text: '',
+          type: 'success'
+        })
+      }).catch(error => {
+        console.log(error.response.data)
+        this.$notify({
+          group: 'nots',
+          title: 'Wystąpił problem podczas przesyłania recepty',
+          text: error.response ? error.response.data : '',
+          type: 'error'
+        })
       })
     }
   },

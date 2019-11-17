@@ -33,6 +33,7 @@ import Forms from '@/views/Forms'
 import Visits from '@/views/visit/Visits'
 import Visit from '@/views/visit/Visit'
 import SystemSettings from '@/views/SystemSettings'
+import NFZSettings from '@/views/NFZSettings'
 
 import {default as MedicinesIndex} from '@/views/medicines/Index'
 import Medicines from '@/views/medicines/Medicines'
@@ -45,6 +46,7 @@ import examinationRoutes from '@/router/examinations'
 import agreementsRoutes from '@/router/agreements'
 import servicesRoutes from '@/router/services'
 import mobileRoutes from '@/router/mobile'
+import prescriptionRoutes from '@/router/prescriptions'
 
 // import {default as PrescriptionsIndex} from '@/views/prescriptions/Index'
 // import Prescriptions from '@/views/prescriptions/Prescriptions'
@@ -107,6 +109,19 @@ var dashboardRoutes = [
     name: 'systemSettingsEdit',
     component: SystemSettings,
     meta: {label: 'Edycja ustawień systemowych'}
+  },
+  {
+    path: 'ustawienia_nfz',
+    name: 'NFZSettings',
+    component: NFZSettings,
+    meta: {label: 'Ustawienia systemowe'},
+    props: {readonly: true}
+  },
+  {
+    path: 'edycja_ustawien_nfz',
+    name: 'NFZSettingsEdit',
+    component: NFZSettings,
+    meta: {label: 'Edycja ustawień NFZ'}
   },
   {
     path: 'lokalizacje',
@@ -334,6 +349,7 @@ var dashboardRoutes = [
 dashboardRoutes.push(examinationRoutes)
 dashboardRoutes.push(agreementsRoutes)
 dashboardRoutes.push(servicesRoutes)
+dashboardRoutes.push(prescriptionRoutes)
 
 var routes = [
   {

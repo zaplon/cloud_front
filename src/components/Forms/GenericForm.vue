@@ -24,7 +24,7 @@
                 <template v-else-if="field.type=='select'">
                     <template v-if="field.name in choices">
                         <ul class="list-unstyled" v-if="readonly">
-                            <li v-for="value in values[field.name]" :key="value">{{ getChoiceFromId(value, choices[field.name]) }}</li>
+                            <li>{{ getChoiceFromId(values[field.name], choices[field.name]) }}</li>
                         </ul>
                         <select class="form-control" v-model="values[field.name]" v-else>
                             <option :value="choice.id" v-for="choice in choices[field.name]" :key="choice.id">
@@ -54,6 +54,14 @@
                     <input type="color" v-model="values[field.name]" disabled="disabled" v-if="readonly || field.readonly">
                     <input type="color" v-model="values[field.name]" :name="field.name" v-else
                            v-bind="fieldAttributes(field)">
+                </template>
+                <template v-else-if="field.type=='file'">
+                    <span v-if="readonly">{{ values[field.name] }}</span>
+                    <input v-else type="file" :name="field.name"
+                           v-bind="fieldAttributes(field)" @change="processFile($event, field.name)"
+                           :class="{ 'is-invalid form-control': errors[field.name],
+                            'form-control': !errors[field.name] && !readonly,
+                            'form-control-plaintext': readonly }">
                 </template>
                 <template v-else>
                     <input :type="field.type ? field.type : 'text'" v-model="values[field.name]" :name="field.name"
@@ -103,6 +111,10 @@ export default {
     }
   },
   methods: {
+    processFile (event, name) {
+      console.log(event, name)
+      this.values[name] = event.target.files[0]
+    },
     fieldAttributes (field) {
       if (!('attributes' in field)) { field.attributes = {} }
       return field.attributes
@@ -115,7 +127,9 @@ export default {
       }
     },
     getData () {
-      this.fields.forEach((f) => { if (f.type === 'editor') { this.values[f.name] = this.$refs[f.name + '_editor'][0].getHTML() } })
+      this.fields.forEach((f) => {
+        if (f.type === 'editor') { this.values[f.name] = this.$refs[f.name + '_editor'][0].getHTML() }
+      })
       console.log(this.values)
       return this.values
     },
@@ -137,6 +151,8 @@ export default {
               this.$set(this.choices, field.name, response.data)
             }
           })
+        } else if ('choices' in field) {
+          this.$set(this.choices, field.name, field.choices)
         }
       })
       this.loaded = true

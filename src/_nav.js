@@ -104,8 +104,19 @@ export default {
     {
       id: 'settings',
       name: 'Ustawienia',
-      url: '/ustawienia_systemowe',
-      icon: 'fa fa-gear'
+      icon: 'fa fa-gear',
+      children: [
+        {
+          id: 'generalSettings',
+          name: 'Systemowe',
+          url: '/ustawienia_systemowe'
+        },
+        {
+          id: 'NFZSettings',
+          name: 'NFZ',
+          url: '/ustawienia_nfz'
+        }
+      ]
     },
     {
       id: 'links',
