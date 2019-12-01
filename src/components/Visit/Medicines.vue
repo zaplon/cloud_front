@@ -117,6 +117,7 @@ import _ from 'lodash'
 import MedicineRow from './MedicineRow'
 import Medicine from '@/components/Forms/Medicine'
 import PdfDocument from '@/components/PdfDocument'
+import EventBus from '@/eventBus'
 
 export default {
   name: 'medicines',
@@ -143,8 +144,7 @@ export default {
         realisationDate: new Date(),
         number: false,
         permissions: 'X',
-        url: '',
-        external_id: null
+        url: ''
       },
       patientPrescriptions: [],
       lastPrescriptionSelected: 0
@@ -204,7 +204,6 @@ export default {
           notes: s.notes,
           refundation: parseInt(s.refundation) ? parseInt(s.refundation) : null})
       })
-      console.log(this.prescription.realisationDate)
       return {
         patient: this.patient.id,
         doctor: this.$store.state.user.doctor.id,
@@ -213,6 +212,7 @@ export default {
         realisation_date: this.$moment(this.prescription.realisationDate).format('YYYY-MM-DD'),
         permissions: this.prescription.permissions,
         external_id: this.external_id,
+        external_code: this.external_code,
         date: this.prescription.realisationDate,
         number: this.prescription.number
       }
@@ -227,26 +227,27 @@ export default {
       })
     },
     printRecipe () {
-      // axios.post('rest/prescriptions/print/', this.serializePrescription()).then(response => {
+      axios.post('rest/prescriptions/print/', this.serializePrescription()).then(response => {
+        let prescriptions = response.data.files
+        let prescriptionUrl = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + prescriptions[0]
+        this.$refs.prescriptionModal.showDocument(prescriptionUrl, 'Recepta', this.patient.id)
+      })
+      // let medicines = []
+      // console.log(this.$refs)
+      // this.validatePrescription()
+      // this.selections.forEach((s) => { medicines.push(this.$refs[s.id][0].getData()) })
+      // axios.post('visit/recipe/', {
+      //   medicines: this.selections,
+      //   system_settings: this.$store.state.user.system_settings,
+      //   nfz: this.prescription.nfz,
+      //   permissions: this.prescription.permissions,
+      //   number: this.prescription.number,
+      //   patient: this.patient.id,
+      //   realisationDate: this.$moment(this.prescription.realisationDate).format('DD.MM.YYYY')
+      // }).then(response => {
       //   let prescriptionUrl = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data.url
       //   this.$refs.prescriptionModal.showDocument(prescriptionUrl, 'Recepta', this.patient.id)
       // })
-      let medicines = []
-      console.log(this.$refs)
-      this.validatePrescription()
-      this.selections.forEach((s) => { medicines.push(this.$refs[s.id][0].getData()) })
-      axios.post('visit/recipe/', {
-        medicines: this.selections,
-        system_settings: this.$store.state.user.system_settings,
-        nfz: this.prescription.nfz,
-        permissions: this.prescription.permissions,
-        number: this.prescription.number,
-        patient: this.patient.id,
-        realisationDate: this.$moment(this.prescription.realisationDate).format('DD.MM.YYYY')
-      }).then(response => {
-        let prescriptionUrl = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data.url
-        this.$refs.prescriptionModal.showDocument(prescriptionUrl, 'Recepta', this.patient.id)
-      })
     },
     add (record) {
       this.selections.push(record)
@@ -293,13 +294,18 @@ export default {
     },
     saveExternal () {
       axios.post('rest/prescriptions/save_in_p1/', this.serializePrescription()).then(response => {
-        this.prescription.external_id = response.data.external_id
+        // this.prescription.external_id = response.data.external_id
+        // this.prescription.external_code = response.data.external_code
         this.$refs.prescriptionModal.cancel()
         this.$notify({
           group: 'nots',
           title: 'Recepta została przesłana',
           text: '',
           type: 'success'
+        })
+        axios.get('rest/prescriptions/' + response.data.id + '/print_one/').then(response => {
+          let url = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data.file
+          EventBus.$emit('show-document', url, 'Recepta')
         })
       }).catch(error => {
         console.log(error.response.data)

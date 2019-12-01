@@ -18,10 +18,14 @@
                 <input type="checkbox" :value="props.row.id" v-model="selectedRows" slot="select" slot-scope="props" :v-permission="deletePermission">
                 <div slot="actions" slot-scope="props">
                     <button v-if="editable" @click="showConfirmModal(props.row)" class="btn btn-danger btn-sm" :v-permission="deletePermission">usuń</button>
-                    <router-link v-for="extraAction in extraActions" :key="extraAction.url"
-                                 :to=extraAction.url(props.row) :class="extraAction.cls">
-                        {{ extraAction.text }}
-                    </router-link>
+                    <template v-for="extraAction in extraActions">
+                        <router-link :key="extraAction.text" v-if="extraAction.url" :to=extraAction.url(props.row) :class="extraAction.cls">
+                            {{ extraAction.text }}
+                        </router-link>
+                        <button :key="extraAction.text" @click="extraAction.clb(props.row)" class="btn btn-primary btn-sm" v-if="extraAction.clb">
+                            {{ extraAction.text }}
+                        </button>
+                    </template>
                 </div>
                 <div :slot="linkColumn" slot-scope="props">
                     <router-link v-if="showEditLink" :to="props.row.id + '/'">{{ props.row[linkColumn] }}</router-link>

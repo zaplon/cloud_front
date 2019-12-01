@@ -1,6 +1,7 @@
 <template>
     <b-modal size="lg" id="pdfDocumentModal" style="min-width: 900px;" :title="title" ref="pdfDocumentModal">
-        <embed style="width:100%; height:70vh;" :src="src"/>
+        <embed style="width:100%; height:70vh;" :src="src" v-if="!asHTML" />
+        <iframe style="width:100%; height:70vh;" :src="src" v-else />
         <div slot="modal-footer" class="w-100">
             <div class="pull-left">
                 <b-btn size="sm" class="mr-2" variant="primary" @click="print">Drukuj</b-btn>
@@ -21,11 +22,13 @@ export default {
     return {
       src: '',
       title: '',
-      patientId: null
+      patientId: null,
+      asHTML: false
     }
   },
   methods: {
-    showDocument (src, title, patientId) {
+    showDocument (src, title, patientId, asHTML) {
+      if (asHTML) { this.asHTML = asHTML } else { this.asHTML = false }
       console.log(patientId)
       if (location.protocol === 'https:') { src = src.replace('http://', 'https://') }
       this.src = src

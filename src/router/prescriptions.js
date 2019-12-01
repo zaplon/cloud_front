@@ -2,6 +2,8 @@ import List from '@/views/generic/List'
 import Index from '@/views/generic/Index'
 import FormView from '@/views/generic/FormView'
 import moment from 'moment/moment'
+import axios from 'axios'
+import EventBus from '@/eventBus'
 
 var formFields = [
   {name: 'date', label: 'Data utworzenia', type: 'date'},
@@ -20,19 +22,30 @@ var prescriptionsRoutes = {
       component: List,
       meta: {label: 'Lista recept'},
       props: {
-        columns: ['patient', 'date', 'number', 'external_id', 'actions'],
+        columns: ['patient', 'date', 'external_code', 'external_id', 'actions'],
         headings: {'patient': 'Pacjent',
           'date': 'Data',
-          'number': 'Numer',
-          'external_id': 'Id e-recepty',
+          'external_code': 'Kod e-recepty',
+          'external_id': 'Klucz e-recepty',
           'status': 'Status',
-          'actions': ''},
+          'actions': ''
+        },
+        extraActions: [{
+          text: 'Wydrukuj',
+          clb: (record) => {
+            axios.get('rest/prescriptions/' + record.id + '/print_one/').then(response => {
+              let url = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data.file
+              EventBus.$emit('show-document', url, 'Recepta')
+            })
+          }
+        }],
         resource: 'prescription',
         editable: false,
         showEditLink: false,
         responseFormatter: (data) => {
           data.results.forEach((r) => {
-            r.date = moment(r.creation_date).format('YYYY-MM-DD HH:mm')
+            let date = new Date(r.date)
+            r.date = moment(date).format('YYYY-MM-DD HH:mm')
             r.number = r.number ? r.number : '-'
           })
           return data

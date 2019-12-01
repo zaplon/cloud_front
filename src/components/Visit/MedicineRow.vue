@@ -5,16 +5,18 @@
             <select class="form-control form-control-sm" v-model="medicine.size" @mousedown="getChildren(medicine)" @change="sizeSelected(medicine)">
                 <option v-if="!medicine.children">Wybierz...</option>
                 <option v-for="option in medicine.children" v-bind:value="option.id" :key="option.id">
-                    {{ option.size }} (nfz)
+                    <span>{{ option.size }}</span><span v-if="option.refundation">(nfz)</span>
                 </option>
             </select>
         </td>
         <td>
-            <select v-if="medicine.user_id" class="form-control form-control-sm" v-model="medicine.refundation">
+            <select :disabled="!medicine.refundations" v-if="medicine.user_id" class="form-control form-control-sm"
+                    v-model="medicine.refundation">
                 <option value="0">-</option>
                 <option value="30%">30%</option>
             </select>
-            <select v-else class="form-control form-control-sm" v-model="medicine.refundation">
+            <select :disabled="!medicine.refundations" v-else class="form-control form-control-sm"
+                    v-model="medicine.refundation">
                 <option v-if="!medicine.refundation" value="0">-</option>
                 <option v-for="option in medicine.refundations" v-bind:value="option.id" :key="option.id">
                     {{ option.to_pay }}
