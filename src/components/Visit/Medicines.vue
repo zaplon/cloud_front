@@ -66,40 +66,24 @@
         </div>
         <div class="row mb-2 mt-1 form-row">
         </div>
-        <div class="row mb-4 form-row">
+        <div class="row mb-2 form-row">
             <div class="col-auto">
-                <input style="width: 370px;" class="form-control" type="text" v-model="inputValue" placeholder="nazwa lub substancja czynna"/>
+                <autocomplete style="width:370px;" id="medicineAutocomplete" input-class="form-control" @selected="selectMedicine"
+                              :source="medicinesUrl" placeholder="Nazwa lub substancja czynna..."
+                              :request-headers="authHeaders"
+                              ref="medicinesAutocomplete"
+                              results-property="results"
+                              results-display="name">
+                </autocomplete>
             </div>
             <div class="col-auto" v-permission="'add_medicine'">
                 <button class="btn btn-success" @click="showAddMedicineModal"><i class="fa fa-plus"></i></button>
             </div>
         </div>
-
-        <table class="table table-striped table-sm">
-            <thead>
-            <tr>
-                <th>Nazwa</th>
-                <th>Opakowanie</th>
-                <th>Refundacja</th>
-                <th>Postać</th>
-                <th>Dawka</th>
-                <th>Ilość</th>
-                <th>Dawkowanie</th>
-                <th>Uwagi</th>
-                <th>Osobna recepta</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <medicine-row :ref="selection.id" v-on:remove-record="remove" :medicine="selection" klass="table-info"
-                          v-for="selection in selections" :key="selection.id"></medicine-row>
-            <medicine-row v-on:add-record="add" :medicine="suggestion" v-for="suggestion in suggestions" to-add
-                          :key="suggestion.id" v-if="!suggestion.selected"></medicine-row>
-            <tr v-if="suggestions.length == 0">
-                <td colspan="8" class="text-center"><span class="text-muted">Brak wyników</span></td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="row mb-4">
+        </div>
+        <medicine-row :ref="selection.id" v-on:remove-record="remove" :medicine="selection" klass="table-info"
+                      v-for="selection in selections" :key="selection.id"></medicine-row>
         <PdfDocument ref="prescriptionModal">
             <div slot="actions" class="float-right mr-2">
                 <b-btn v-if="prescription.number" size="sm" variant="success" @click="saveExternal">
@@ -118,10 +102,11 @@ import MedicineRow from './MedicineRow'
 import Medicine from '@/components/Forms/Medicine'
 import PdfDocument from '@/components/PdfDocument'
 import EventBus from '@/eventBus'
+import Autocomplete from 'vuejs-auto-complete'
 
 export default {
   name: 'medicines',
-  components: {PdfDocument, Medicine, MedicineRow},
+  components: {PdfDocument, Medicine, MedicineRow, Autocomplete},
   props: {
     patient: Object,
     instance: {
@@ -135,6 +120,7 @@ export default {
   },
   data () {
     return {
+      medicinesUrl: axios.defaults.baseURL + 'rest/medicine_parents/?search=',
       selections: [],
       suggestions: [],
       excludes: [],
@@ -159,6 +145,11 @@ export default {
     }
   },
   methods: {
+    selectMedicine (obj) {
+      this.selections.push(obj.selectedObject)
+      console.log(this)
+      this.$refs.medicinesAutocomplete.clear()
+    },
     serializeMedicine (data) {
       data.name = data.medicine.parent.name
       data.size = data.medicine.id
@@ -221,12 +212,19 @@ export default {
       return axios.post('rest/prescriptions/', this.serializePrescription())
     },
     validatePrescription () {
+      var errors = false
       this.selections.forEach((s, index) => {
-        console.log(s)
-        if (!s.dosage) { this.$refs[s.id][0].errors['dosage'] = 1 } else { delete this.$refs[s.id][0].errors['dosage'] }
+        if (!this.$refs[s.id][0].validate()) {
+          this.errors = true
+        }
       })
+      console.log(errors)
+      return !errors
     },
     printRecipe () {
+      if (!this.validatePrescription()) {
+        return
+      }
       axios.post('rest/prescriptions/print/', this.serializePrescription()).then(response => {
         let prescriptions = response.data.files
         let prescriptionUrl = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + prescriptions[0]
@@ -316,6 +314,14 @@ export default {
           type: 'error'
         })
       })
+    }
+  },
+  computed: {
+    authHeaders () {
+      console.log('Token ' + localStorage.token)
+      return {
+        'Authorization': 'Token ' + localStorage.token
+      }
     }
   },
   mounted () {

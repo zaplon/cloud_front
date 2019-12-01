@@ -1,38 +1,58 @@
 <template>
-    <tr :class="this.klass">
-        <td>{{ medicine.name }}</td>
-        <td>
-            <select class="form-control form-control-sm" v-model="medicine.size" @mousedown="getChildren(medicine)" @change="sizeSelected(medicine)">
-                <option v-if="!medicine.children">Wybierz...</option>
-                <option v-for="option in medicine.children" v-bind:value="option.id" :key="option.id">
-                    <span>{{ option.size }}</span><span v-if="option.refundation">(nfz)</span>
-                </option>
-            </select>
-        </td>
-        <td>
-            <select :disabled="!medicine.refundations" v-if="medicine.user_id" class="form-control form-control-sm"
-                    v-model="medicine.refundation">
-                <option value="0">-</option>
-                <option value="30%">30%</option>
-            </select>
-            <select :disabled="!medicine.refundations" v-else class="form-control form-control-sm"
-                    v-model="medicine.refundation">
-                <option v-if="!medicine.refundation" value="0">-</option>
-                <option v-for="option in medicine.refundations" v-bind:value="option.id" :key="option.id">
-                    {{ option.to_pay }}
-                </option>
-            </select>
-        </td>
-        <td>{{ medicine.form }}</td><td>{{ medicine.dose }}</td>
-        <td><input type="text" :class="[errors.amount ? 'is-invalid' : '', 'form-control form-control-sm']" v-model="medicine.amount"></td>
-        <td><input type="text" :class="[errors.dosage ? 'is-invalid' : '', 'form-control form-control-sm']" v-model="medicine.dosage"></td>
-        <td><input type="text" class="form-control form-control-sm" v-model="medicine.notes"></td>
-        <td class="text-center"><input type="checkbox" v-model="medicine.separate" class="form-check-input"></td>
-        <td>
-            <button v-if="toAdd" @click="add(medicine)" class="btn btn-sm btn-success">Dodaj</button>
-            <button v-else @click="remove(medicine)" class="btn btn-sm btn-danger">Usuń</button>
-        </td>
-    </tr>
+    <div class="row">
+        <div class="col-md-12">
+            <span><strong>{{ medicine.name }} {{medicine.form}} {{ medicine.dose }}</strong></span>
+            <button title="Usuń lek" class="ml-1 btn btn-sm btn-danger" @click="remove(medicine)">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Opakowanie</th>
+                        <th>Refundacja</th>
+                        <th>Ilość</th>
+                        <th>Dawkowanie</th>
+                        <th>Osobna recepta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <select class="form-control" v-model="medicine.size" @mousedown="getChildren(medicine)" @change="sizeSelected(medicine)">
+                                <option v-if="!medicine.children">Wybierz...</option>
+                                <option v-for="option in medicine.children" v-bind:value="option.id" :key="option.id">
+                                    <span>{{ option.size }}</span><span v-if="option.refundation">(nfz)</span>
+                                </option>
+                            </select>
+                        </td>
+                        <td>
+                            <select :disabled="!medicine.refundations" v-if="medicine.user_id" class="form-control"
+                                    v-model="medicine.refundation">
+                                <option value="0">-</option>
+                                <option value="30%">30%</option>
+                            </select>
+                            <select :disabled="!medicine.refundations" v-else class="form-control"
+                                    v-model="medicine.refundation">
+                                <option v-if="!medicine.refundation" value="0">-</option>
+                                <option v-for="option in medicine.refundations" v-bind:value="option.id" :key="option.id">
+                                    {{ option.to_pay }}
+                                </option>
+                            </select>
+                        </td>
+                        <td><input type="text" :class="[errors.amount ? 'is-invalid' : '', 'form-control']" v-model="medicine.amount"></td>
+                        <td><input type="text" :class="[errors.dosage ? 'is-invalid' : '', 'form-control']" v-model="medicine.dosage"></td>
+                        <td class="text-center"><input type="checkbox" v-model="medicine.separate" class="form-check-input"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5"><input placeholder="Uwagi" type="text"
+                                               class="form-control" v-model="medicine.notes"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </template>
 <script>
 import axios from 'axios'
@@ -40,7 +60,10 @@ export default {
   name: 'medicine-row',
   data () {
     return {
-      errors: {}
+      errors: {
+        amount: false,
+        dosage: false
+      }
     }
   },
   props: {
@@ -55,6 +78,19 @@ export default {
     }
   },
   methods: {
+    validate () {
+      var hasErrors = false
+      for (var k in this.errors) {
+        let v = this.medicine[k]
+        if (!v) {
+          this.errors[k] = true
+          hasErrors = true
+        } else {
+          this.errors[k] = false
+        }
+      }
+      return !hasErrors
+    },
     getData () {
       return {name: this.medicine.name,
         child: this.medicine.child,
