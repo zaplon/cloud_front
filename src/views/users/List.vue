@@ -15,7 +15,7 @@
                 <div slot="actions" slot-scope="props">
                     <button @click="showConfirmModal(props.row)" class="btn btn-danger btn-sm" :v-permission="deletePermission">usuń</button>
                 </div>
-                <router-link :to="props.row.id + '/'" slot="last_name" slot-scope="props">{{ props.row.last_name }}</router-link>
+                <router-link :to="props.row.id + '/'" slot="username" slot-scope="props">{{ props.row.username }}</router-link>
             </v-server-table>
             <div>
                 <form class="form-inline">

@@ -193,7 +193,7 @@ export default {
           dosage: s.dosage,
           amount: s.amount,
           notes: s.notes,
-          refundation: parseInt(s.refundation) ? parseInt(s.refundation) : null})
+          refundation: s.refundation ? s.refundation : null})
       })
       return {
         patient: this.patient.id,
@@ -301,9 +301,11 @@ export default {
           text: '',
           type: 'success'
         })
-        axios.get('rest/prescriptions/' + response.data.id + '/print_one/').then(response => {
-          let url = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data.file
-          EventBus.$emit('show-document', url, 'Recepta')
+        response.data.forEach(p => {
+          axios.get('rest/prescriptions/' + p.id + '/print_one/').then(response => {
+            let url = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data.file
+            EventBus.$emit('show-document', url, 'Recepta')
+          })
         })
       }).catch(error => {
         console.log(error.response.data)

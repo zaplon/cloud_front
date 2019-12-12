@@ -38,6 +38,15 @@ var prescriptionsRoutes = {
               EventBus.$emit('show-document', url, 'Recepta')
             })
           }
+        },
+        {
+          text: 'Anuluj',
+          cls: 'btn-danger',
+          clb: (record) => {
+            axios.get('rest/prescriptions/' + record.id + '/cancel/').then(response => {
+
+            })
+          }
         }],
         resource: 'prescription',
         editable: false,

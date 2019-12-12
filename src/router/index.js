@@ -174,7 +174,7 @@ var dashboardRoutes = [
         component: UsersList,
         meta: {label: 'Lista użytkowników'},
         props: {
-          columns: ['select', 'last_name', 'first_name', 'type', 'actions'],
+          columns: ['select', 'username', 'last_name', 'first_name', 'type', 'actions'],
           headings: {
             'last_name': 'nazwisko',
             'first_name': 'imię',
@@ -416,7 +416,7 @@ var routes = [
   },
   {
     path: '/',
-    redirect: '/kalendarz',
+    // redirect: 'calendar' in store.state.user.modules ? '/kalendarz' : '/statystyki',
     name: 'Home',
     component: Full,
     meta: { requiresAuth: true, label: '' },
@@ -445,6 +445,21 @@ var router = new Router({
 })
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
+    console.log(to, store.state.user)
+    if (to.path === '/' && store.state.user.modules) {
+      if ('calendar' in store.state.user.modules) {
+        next({
+          path: '/kalendarz',
+          query: { redirect: to.fullPath }
+        })
+      } else {
+        next({
+          path: '/statystyki',
+          query: { redirect: to.fullPath }
+        })
+      }
+    }
+
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     if (window.$cookies.get('secret')) {

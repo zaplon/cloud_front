@@ -22,7 +22,8 @@
                         <router-link :key="extraAction.text" v-if="extraAction.url" :to=extraAction.url(props.row) :class="extraAction.cls">
                             {{ extraAction.text }}
                         </router-link>
-                        <button :key="extraAction.text" @click="extraAction.clb(props.row)" class="btn btn-primary btn-sm" v-if="extraAction.clb">
+                        <button :key="extraAction.text" @click="extraAction.clb(props.row)"
+                                :class="[extraAction.cls ? extraAction.cls : 'btn-primary', 'btn btn-sm']" v-if="extraAction.clb">
                             {{ extraAction.text }}
                         </button>
                     </template>

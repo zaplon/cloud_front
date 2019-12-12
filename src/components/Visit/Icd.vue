@@ -9,7 +9,14 @@
                 </button>
             </div>
         </div>
-        <input class="form-control mb-4" type="text" v-model="inputValue" placeholder="kod lub opis rozpoznania" />
+        <div class="input-group mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="fa fa-search"></i>
+                </span>
+            </div>
+            <input class="form-control" type="text" v-model="inputValue" placeholder="kod lub opis rozpoznania" />
+        </div>
         <table class="table table-striped">
             <thead>
                 <tr><th>Kod</th><th>Opis</th><th></th></tr>
@@ -28,8 +35,11 @@
                     <td>{{ suggestion.code }}</td><td>{{ suggestion.desc }}</td>
                     <td><button @click="add(suggestion)" class="btn btn-sm btn-success">Dodaj</button></td>
                 </tr>
-                <tr v-if="suggestions.length == 0">
+                <tr v-if="suggestions.length == 0 && inputValue">
                     <td colspan="3" class="text-center"><span class="text-muted">Brak wyników</span></td>
+                </tr>
+                <tr v-if="suggestions.length == 0 && !inputValue && selections.length == 0">
+                    <td colspan="3" class="text-center"><span class="text-muted">Wyszukaj rozpoznania, by zobaczyć wyniki</span></td>
                 </tr>
             </tbody>
         </table>
@@ -52,7 +62,7 @@ export default {
       suggestions: [],
       excludes: [],
       popular: [],
-      inputValue: []
+      inputValue: ''
     }
   },
   created () {
@@ -60,7 +70,11 @@ export default {
   },
   watch: {
     inputValue (value) {
-      this.debouncedGetSuggestions()
+      if (value.length > 0) {
+        this.debouncedGetSuggestions()
+      } else {
+        this.suggestions = []
+      }
     },
     selections (value) {
       this.disablePopular()
@@ -73,7 +87,7 @@ export default {
       this.$emit('icd-changed', this.selections)
       this.excludes.push(record.id)
       console.log(this.excludes)
-      this.inputValue = ''
+      // this.inputValue = ''
       // this.suggestions.splice(this.suggestions.indexOf(record), 1)
     },
     remove (record) {
@@ -103,7 +117,7 @@ export default {
     getData () { return this.selections }
   },
   mounted () {
-    this.getSuggestions()
+    // this.getSuggestions()
     this.getPopular()
   }
 }

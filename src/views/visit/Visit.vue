@@ -44,79 +44,85 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-2"><label class="col-form-label">Pesel</label></div>
-                                <div class="col-auto">
-                                    <template v-if="!editingPesel">
-                                        <div class="form-group row">
-                                            <div class="col-auto pr-0">
-                                                <label class="col-form-label">
-                                                    <strong>{{ visit.term.patient.pesel }}</strong>
-                                                </label>
-                                            </div>
-                                            <div class="col-auto pl-0" v-permission="'change_patient'">
-                                                <button class="btn btn-link">
-                                                    <i @click="editingPesel=true" class="pointer fa fa-pencil"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </template>
-                                    <template v-if="editingPesel">
-                                        <div class="form-group row">
-                                            <div class="col-auto pr-0">
-                                                <input type="text" class="form-inline form-control"
-                                                       v-model="visit.term.patient.pesel">
-                                            </div>
-                                            <div class="col-auto pl-0">
-                                                <div class="btn-group">
-                                                    <button class="btn btn-link">
-                                                        <i @click="savePesel(visit.term.patient.pesel)"
-                                                           class="pointer fa fa-check"></i>
-                                                    </button>
-                                                    <button class="btn btn-link pl-0">
-                                                        <i @click="editingPesel=false"
-                                                           class="pointer fa fa-times"></i>
-                                                    </button>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-4"><label class="col-form-label">Pesel</label></div>
+                                        <div class="col-auto">
+                                            <template v-if="!editingPesel">
+                                                <div class="form-group row">
+                                                    <div class="col-auto pr-0">
+                                                        <label class="col-form-label">
+                                                            <strong>{{ visit.term.patient.pesel }}</strong>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-auto pl-0" v-permission="'change_patient'">
+                                                        <button class="btn btn-link">
+                                                            <i @click="editingPesel=true" class="pointer fa fa-pencil"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </template>
+                                            <template v-if="editingPesel">
+                                                <div class="form-group row">
+                                                    <div class="col-auto pr-0">
+                                                        <input type="text" class="form-inline form-control"
+                                                               v-model="visit.term.patient.pesel">
+                                                    </div>
+                                                    <div class="col-auto pl-0">
+                                                        <div class="btn-group">
+                                                            <button class="btn btn-link">
+                                                                <i @click="savePesel(visit.term.patient.pesel)"
+                                                                   class="pointer fa fa-check"></i>
+                                                            </button>
+                                                            <button class="btn btn-link pl-0">
+                                                                <i @click="editingPesel=false"
+                                                                   class="pointer fa fa-times"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
                                         </div>
-                                    </template>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-2"><label class="col-form-label">Adres</label></div>
-                                <div class="col-auto">
-                                    <template v-if="!editingAddress">
-                                        <div class="form-group row">
-                                            <div class="col-auto pr-0">
-                                                <label class="col-form-label"><strong>{{ visit.term.patient.address }}</strong></label>
-                                            </div>
-                                            <div class="col-auto pl-0">
-                                                <button class="btn btn-link" v-permission="'change_patient'">
-                                                    <i @click="editingAddress=true" class="pointer fa fa-pencil"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </template>
-                                    <template v-if="editingAddress">
-                                        <div class="form-group row">
-                                            <div class="col-auto pr-0">
-                                                <input type="text" class="form-inline form-control"
-                                                       v-model="visit.term.patient.address">
-                                            </div>
-                                            <div class="col-auto pl-0">
-                                                <div class="btn-group">
-                                                    <button class="btn btn-link">
-                                                        <i @click="saveAddress(visit.term.patient.address)"
-                                                           class="pointer fa fa-check"></i>
-                                                    </button>
-                                                    <button class="btn btn-link pl-0">
-                                                        <i @click="editingAddress=false"
-                                                           class="pointer fa fa-times"></i>
-                                                    </button>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-4"><label class="col-form-label">Adres</label></div>
+                                        <div class="col-auto">
+                                            <template v-if="!editingAddress">
+                                                <div class="form-group row">
+                                                    <div class="col-auto pr-0">
+                                                        <label class="col-form-label"><strong>{{ visit.term.patient.address }}</strong></label>
+                                                    </div>
+                                                    <div class="col-auto pl-0">
+                                                        <button class="btn btn-link" v-permission="'change_patient'">
+                                                            <i @click="editingAddress=true" class="pointer fa fa-pencil"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </template>
+                                            <template v-if="editingAddress">
+                                                <div class="form-group row">
+                                                    <div class="col-auto pr-0">
+                                                        <input type="text" class="form-inline form-control"
+                                                               v-model="visit.term.patient.address">
+                                                    </div>
+                                                    <div class="col-auto pl-0">
+                                                        <div class="btn-group">
+                                                            <button class="btn btn-link">
+                                                                <i @click="saveAddress(visit.term.patient.address)"
+                                                                   class="pointer fa fa-check"></i>
+                                                            </button>
+                                                            <button class="btn btn-link pl-0">
+                                                                <i @click="editingAddress=false"
+                                                                   class="pointer fa fa-times"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
                                         </div>
-                                    </template>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row mt-2" v-show="visit.term.patient.info">
