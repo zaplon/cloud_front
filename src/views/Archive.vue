@@ -62,7 +62,6 @@ export default {
     deleteResults () {
       this.selectedResults().forEach((r) => {
         axios.delete('rest/results/' + r.id + '/').then((response) => {
-
         })
       })
     },

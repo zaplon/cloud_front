@@ -34,7 +34,8 @@
                     <b-tab :disabled="role!='doctor'" title="Godziny pracy"
                            :title-link-class="errors.includes('working_hours') in errors ? 'text-danger' : ''">
                         <div class="mt-4"></div>
-                        <working-hours ref="workingHours" :readonly="readonly" :blank="!instanceId"></working-hours>
+                        <working-hours ref="workingHours" :readonly="readonly" :blank="!instanceId"
+                                       loadDataFromAPI="false"></working-hours>
                     </b-tab>
                 </b-tabs>
             </div>

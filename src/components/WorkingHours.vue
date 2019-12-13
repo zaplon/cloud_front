@@ -37,6 +37,11 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    loadDataFromAPI: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   data () {
@@ -59,7 +64,10 @@ export default {
     },
     setData (data) {
       console.log(data)
-      this.days = data
+      if (data) {
+        this.days = data
+      } else {}
+      this.days = this.baseDays
     },
     save () {
       return axios.patch('rest/doctors/' + this.id + '/', {days: this.days, only_hours: true}).then((response) => {
@@ -79,6 +87,9 @@ export default {
   mounted () {
     if (this.blank) {
       this.days = this.baseDays
+      return
+    }
+    if (!this.loadDataFromAPI) {
       return
     }
     let url = 'rest/doctors/'
