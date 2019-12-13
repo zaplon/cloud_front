@@ -79,9 +79,9 @@ export default {
     },
     {
       id: 'localizations',
-      name: 'Lokalizacje',
-      url: '/lokalizacje',
-      icon: 'fa fa-building-o'
+      name: 'Gabinety',
+      url: '/gabinety',
+      icon: 'fa fa-hospital-o'
     },
     {
       id: 'users',

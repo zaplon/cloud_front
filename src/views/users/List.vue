@@ -16,6 +16,10 @@
                     <button @click="showConfirmModal(props.row)" class="btn btn-danger btn-sm" :v-permission="deletePermission">usuń</button>
                 </div>
                 <router-link :to="props.row.id + '/'" slot="username" slot-scope="props">{{ props.row.username }}</router-link>
+                <p slot="role" slot-scope="props">
+                   <span v-if="props.row.role =='admin'" >Administrator</span>
+                   <span v-else>Lekarz</span>
+                </p>
             </v-server-table>
             <div>
                 <form class="form-inline">
@@ -41,7 +45,7 @@ export default {
         listColumns: {
           type: [
             { id: 'doctor', text: 'Lekarz' },
-            { id: 'administration', text: 'Administracja' }
+            { id: 'admin', text: 'Administrator' }
           ]
         }
       }

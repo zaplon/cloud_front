@@ -11,10 +11,10 @@
         <div class="card-body">
             <div v-show="!instanceId">
                 <div class="form-inline mb-4">
-                    <label class="mr-2">Typ użytkownika</label>
+                    <label class="mr-2">Rola użytkownika</label>
                     <select class="form-control" v-model="role">
                         <option value="doctor">Lekarz</option>
-                        <option value="worker">Pracownik</option>
+                        <option value="admin">Administrator</option>
                     </select>
                 </div>
                 <generic-form :fields="userInitialFields" ref="userInitialForm"></generic-form>
@@ -24,9 +24,9 @@
                     <b-tab title="Dane podstawowe" active :title-link-class="errors.includes('user') in errors ? 'text-danger' : ''">
                         <generic-form :readonly="readonly" :fields="userFields" ref="userForm"></generic-form>
                     </b-tab>
-                    <b-tab :title-link-class="errors.includes('user_permissions') in errors ? 'text-danger' : ''" title="Uprawnienia">
-                        <generic-form :readonly="readonly" :fields="permissionsFields" ref="permissionsForm"></generic-form>
-                    </b-tab>
+                    <!--<b-tab :title-link-class="errors.includes('user_permissions') in errors ? 'text-danger' : ''" title="Uprawnienia">-->
+                        <!--<generic-form :readonly="readonly" :fields="permissionsFields" ref="permissionsForm"></generic-form>-->
+                    <!--</b-tab>-->
                     <b-tab :disabled="role!='doctor'" title="Informacje lekarskie*"
                            :title-link-class="errors.includes('doctor') ? 'text-danger' : ''">
                         <generic-form :readonly="readonly" :fields="doctorFields" ref="doctorForm"></generic-form>
@@ -93,9 +93,9 @@ export default {
       }
       let data = this.$refs['userForm'].getData()
       data['doctor'] = this.$refs['doctorForm'].getData()
-      let permissions = this.$refs['permissionsForm'].getData()
-      data['user_permissions'] = permissions['user_permissions']
-      data['groups'] = permissions['groups']
+      // let permissions = this.$refs['permissionsForm'].getData()
+      // data['user_permissions'] = permissions['user_permissions']
+      // data['groups'] = permissions['groups']
       data['doctor']['working_hours'] = this.$refs['workingHours'].getData()
       console.log(data)
       axios.patch('rest/users/' + this.instanceId + '/', data).then((result) => {
@@ -130,7 +130,7 @@ export default {
     setData () {
       this.$refs.userForm.setData(this.instance)
       this.$refs.doctorForm.setData(this.instance.doctor)
-      this.$refs.permissionsForm.setData(this.instance)
+      // this.$refs.permissionsForm.setData(this.instance)
       this.$refs.workingHours.setData(this.instance.doctor.working_hours)
     },
     loadData () {

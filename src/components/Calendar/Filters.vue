@@ -17,7 +17,7 @@
                     <input placeholder="Data od" type="text" class="form-control" slot-scope="props" v-model="props.inputValue">
                 </v-date-picker>
             </div>
-            <div v-if="localizations.length > 0" class="col-md-auto col-sm-12"><label>Lokalizacja</label></div>
+            <div v-if="localizations.length > 0" class="col-md-auto col-sm-12"><label>Gabinet</label></div>
             <div v-if="localizations.length > 0" class="col-md-auto col-sm-12">
                 <select class="form-control" v-model="localization">
                     <option :key="localization.id" v-for="localization in localizations" v-bind:value="localization.id">

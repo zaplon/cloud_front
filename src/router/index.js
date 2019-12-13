@@ -124,16 +124,16 @@ var dashboardRoutes = [
     meta: {label: 'Edycja ustawień NFZ'}
   },
   {
-    path: 'lokalizacje',
-    name: 'Lokalizacje',
+    path: 'gabinety',
+    name: 'Gabinety',
     component: Index,
-    redirect: 'lokalizacje/lista',
+    redirect: 'gabinety/lista',
     children: [
       {
         path: 'lista',
-        name: 'ListaLokalizacji',
+        name: 'Listagabinetów',
         component: List,
-        meta: {label: 'Lista lokalizacji'},
+        meta: {label: 'Lista gabinetów'},
         props: {
           columns: ['select', 'name', 'code', 'actions'],
           headings: {'name': 'Nazwa', 'code': 'Kod', 'select': '', 'actions': ''},
@@ -144,22 +144,22 @@ var dashboardRoutes = [
         path: 'dodaj',
         name: 'NewLocation',
         component: AddEdit,
-        meta: {label: 'Nowa lokalizacja'},
-        props: {backUrl: '/lokalizacje', resource: 'localization', klass: 'LocalizationForm', module: 'timetable.forms'}
+        meta: {label: 'Nowa gabinet'},
+        props: {backUrl: '/gabinety', resource: 'localization', klass: 'LocalizationForm', module: 'timetable.forms'}
       },
       {
         path: ':id',
         name: 'Location',
         component: Detail,
-        meta: {label: 'Lokalizacja'},
-        props: {resource: 'localization', klass: 'LocalizationForm', module: 'timetable.forms', backUrl: '/lokalizacje'}
+        meta: {label: 'Gabinet'},
+        props: {resource: 'localization', klass: 'LocalizationForm', module: 'timetable.forms', backUrl: '/gabinety'}
       },
       {
         path: ':id/edycja',
-        name: 'Edycja lokalizacji',
+        name: 'Edycja gabinetów',
         component: AddEdit,
         meta: {label: 'Edycja'},
-        props: {backUrl: '/lokalizacje', resource: 'localization', klass: 'LocalizationForm', module: 'timetable.forms'}
+        props: {backUrl: '/gabinety', resource: 'localization', klass: 'LocalizationForm', module: 'timetable.forms'}
       }]
   },
   {
@@ -174,11 +174,11 @@ var dashboardRoutes = [
         component: UsersList,
         meta: {label: 'Lista użytkowników'},
         props: {
-          columns: ['select', 'username', 'last_name', 'first_name', 'type', 'actions'],
+          columns: ['select', 'username', 'last_name', 'first_name', 'role', 'actions'],
           headings: {
             'last_name': 'nazwisko',
             'first_name': 'imię',
-            'type': 'rola',
+            'role': 'rola',
             'select': '',
             'actions': ''
           },
@@ -443,23 +443,30 @@ var router = new Router({
   scrollBehavior: () => ({ y: 0 }),
   routes: routes
 })
+
+var redirectToHome = (to, from, next) => {
+  console.log(to, store.state.user)
+  if (to.path === '/' && store.state.user.modules) {
+    if ('calendar' in store.state.user.modules) {
+      next({
+        path: '/kalendarz',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next({
+        path: '/statystyki',
+        query: { redirect: to.fullPath }
+      })
+    }
+    return true
+  }
+}
+
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    console.log(to, store.state.user)
-    if (to.path === '/' && store.state.user.modules) {
-      if ('calendar' in store.state.user.modules) {
-        next({
-          path: '/kalendarz',
-          query: { redirect: to.fullPath }
-        })
-      } else {
-        next({
-          path: '/statystyki',
-          query: { redirect: to.fullPath }
-        })
-      }
+    if (redirectToHome(to, from, next)) {
+      return
     }
-
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     if (window.$cookies.get('secret')) {
@@ -474,7 +481,10 @@ router.beforeEach((to, from, next) => {
       })
     } else {
       if (!store.state.user.id) {
-        AccountApi.getUserData().then(response => { next() }).catch((err) => {
+        AccountApi.getUserData().then(response => {
+          redirectToHome(to, from, next)
+          next()
+        }).catch((err) => {
           if (err.response && err.response.status === 401) {
             next({
               path: '/konto/logowanie/',

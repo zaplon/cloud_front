@@ -16,8 +16,8 @@ export default {
   name: 'prescription-numbers',
   data: function () {
     return {
-      available: this.$store.state.user.doctor.available_prescriptions,
-      total: this.$store.state.user.doctor.total_prescriptions,
+      available: 0,
+      total: 0,
       show: false
     }
   },
