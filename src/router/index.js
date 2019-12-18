@@ -174,11 +174,12 @@ var dashboardRoutes = [
         component: UsersList,
         meta: {label: 'Lista użytkowników'},
         props: {
-          columns: ['select', 'username', 'last_name', 'first_name', 'role', 'actions'],
+          columns: ['select', 'username', 'last_name', 'first_name', 'role_display', 'actions'],
           headings: {
+            'username': 'nazwa użytkownika',
             'last_name': 'nazwisko',
             'first_name': 'imię',
-            'role': 'rola',
+            'role_display': 'rola',
             'select': '',
             'actions': ''
           },

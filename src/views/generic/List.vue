@@ -17,12 +17,13 @@
             <v-server-table :url="apiUrl" :columns="columns" :options="options" ref="table" @loaded="onTableLoaded">
                 <input type="checkbox" :value="props.row.id" v-model="selectedRows" slot="select" slot-scope="props" :v-permission="deletePermission">
                 <div slot="actions" slot-scope="props">
-                    <button v-if="editable" @click="showConfirmModal(props.row)" class="btn btn-danger btn-sm" :v-permission="deletePermission">usuń</button>
-                    <template v-for="extraAction in extraActions">
+                    <button v-if="editable && !props.row.deleted" @click="showConfirmModal(props.row)" class="btn btn-danger btn-sm" :v-permission="deletePermission">usuń</button>
+                    <span v-if="props.row.deleted">usunięto {{ props.row.deleted | formatDate('Y-MM-DD HH:mm') }}</span>
+                    <template v-for="extraAction in extraActions.filter(a => (a.forDeleted ? true : false) === (props.row.deleted ? true : false))">
                         <router-link :key="extraAction.text" v-if="extraAction.url" :to=extraAction.url(props.row) :class="extraAction.cls">
                             {{ extraAction.text }}
                         </router-link>
-                        <button :key="extraAction.text" @click="extraAction.clb(props.row)"
+                        <button :key="extraAction.text" @click="extraAction.clb(props.row, $refs.table)"
                                 :class="[extraAction.cls ? extraAction.cls : 'btn-primary', 'btn btn-sm']" v-if="extraAction.clb">
                             {{ extraAction.text }}
                         </button>
@@ -39,7 +40,7 @@
             <div v-if="editable">
                 <form class="form-inline">
                     <label class="mr-2">Zaznaczone rekordy</label>
-                    <button type="button" :v-permission="deletePermission" @click="deleteSelected"
+                    <button type="button" :v-permission="deletePermission" @click="showConfirmManyModal"
                             class="btn btn-sm btn-danger" :disabled="selectedRows.length==0">Usuń</button>
                 </form>
             </div>
@@ -55,14 +56,22 @@ export default {
       this.selectedRows = []
     },
     deleteSelected () {
+      var counter = this.selectedRows.length
       this.selectedRows.forEach((id) => {
-        axios.delete(this.apiUrl + id + '/')
+        axios.delete(this.apiUrl + id + '/').then(r => {
+          counter -= 1
+          if (counter === 0) {
+            this.$refs.table.refresh()
+          }
+        })
       })
-      this.$refs.table.refresh()
     },
     showConfirmModal (instance) {
       this.selectedInstance = instance
       this.$refs.confirmModal.show()
+    },
+    showConfirmManyModal () {
+      this.$refs.confirmManyModal.show()
     },
     deleteInstance () {
       axios.delete(this.apiUrl + this.selectedInstance.id + '/').then((response) => this.$refs.table.refresh())
@@ -86,7 +95,8 @@ export default {
     },
     extraActions: {
       type: Array,
-      required: false
+      required: false,
+      default: () => []
     },
     showEditLink: {
       type: Boolean,

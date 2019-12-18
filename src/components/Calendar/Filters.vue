@@ -85,6 +85,7 @@ export default {
       this.$emit('search-doctors', {calendar: 1,
         dateFrom: this.$moment(this.dateFrom).format('YYYY-MM-DD'),
         service: this.service.id,
+        forCalendar: true,
         serviceName: this.service.name})
     }
   }

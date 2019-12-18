@@ -1,6 +1,6 @@
 import axios from 'axios'
-import store from '@/store'
 import EventBus from '@/eventBus'
+import store from '@/store'
 
 var account = {
   goToStart (vue, message) {
@@ -11,7 +11,7 @@ var account = {
   logOut (vue, message) {
     axios.post('rest-auth/logout/').then(request => {
       this.goToStart(vue, message)
-      this.$forms = {}
+      vue.$forms = {}
     }).catch(error => {
       console.log(error)
       this.goToStart(vue)

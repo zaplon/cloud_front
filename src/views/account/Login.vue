@@ -116,6 +116,8 @@ export default {
           return
         }
         localStorage.token = response.data.key
+        // reset forms cache
+        this.$forms = {}
         axios.defaults.headers.common['Authorization'] = 'Token ' + localStorage.token
         Account.getUserData().then(response => {
           this.$store.state.loading = false

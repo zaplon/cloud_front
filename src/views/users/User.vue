@@ -34,8 +34,8 @@
                     <b-tab :disabled="role!='doctor'" title="Godziny pracy"
                            :title-link-class="errors.includes('working_hours') in errors ? 'text-danger' : ''">
                         <div class="mt-4"></div>
-                        <working-hours ref="workingHours" :readonly="readonly" :blank="!instanceId"
-                                       loadDataFromAPI="false"></working-hours>
+                        <working-hours style="width:100%;" ref="workingHours" :readonly="readonly"
+                                       :for-current-user="false"></working-hours>
                     </b-tab>
                 </b-tabs>
             </div>
@@ -129,10 +129,11 @@ export default {
       })
     },
     setData () {
+      console.log(this.instance)
       this.$refs.userForm.setData(this.instance)
       this.$refs.doctorForm.setData(this.instance.doctor)
       // this.$refs.permissionsForm.setData(this.instance)
-      this.$refs.workingHours.setData(this.instance.doctor.working_hours)
+      this.$refs.workingHours.setData({days: this.instance.doctor.working_hours, id: this.instance.doctor.id})
     },
     loadData () {
       this.instanceId = this.$route.params.id ? parseInt(this.$route.params.id) : 0
@@ -160,6 +161,7 @@ export default {
         {name: 'password2', label: 'Powtórz hasło', required: true, type: 'password'}
       ],
       userFields: [
+        {name: 'role_display', label: 'Rola', readonly: true},
         {name: 'first_name', label: 'Imię'},
         {name: 'last_name', label: 'Nazwisko'},
         {name: 'username', label: 'Nazwa użytkownika', required: true}

@@ -36,7 +36,7 @@
                         <tr>
                             <th>Opakowanie</th>
                             <th>Kategoria</th>
-                            <th>Refundacja</th>
+                            <th>Opłatność</th>
                             <th>Ilość</th>
                             <th>Dawkowanie</th>
                             <th>Osobna recepta</th>
@@ -58,12 +58,12 @@
                             <td>
                                 <select :disabled="!medicine.refundations" v-if="medicine.user_id" class="form-control"
                                         v-model="medicine.refundation">
-                                    <option value="0">-</option>
+                                    <option value="100%">100%</option>
                                     <option value="30%">30%</option>
                                 </select>
                                 <select :disabled="!medicine.refundations" v-else class="form-control"
                                         v-model="medicine.refundation">
-                                    <option v-if="!medicine.refundation" value="0">-</option>
+                                    <option value="100%">100%</option>
                                     <option v-for="option in medicine.refundations" v-bind:value="option.to_pay" :key="option.id">
                                         {{ option.to_pay }}
                                     </option>
@@ -167,7 +167,8 @@ export default {
       parent.child = child
       if (child.refundation && !child.refundations) {
         axios.get('rest/refundations/', {params: {medicine: child.id}}).then((response) => {
-          this.$set(parent, 'refundations', response.data)
+          var refundations = response.data
+          this.$set(parent, 'refundations', refundations)
         })
       }
     }

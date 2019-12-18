@@ -42,9 +42,10 @@ var prescriptionsRoutes = {
         {
           text: 'Anuluj',
           cls: 'btn-danger',
-          clb: (record) => {
-            axios.get('rest/prescriptions/' + record.id + '/cancel/').then(response => {
-
+          clb: (record, table) => {
+            console.log(table)
+            axios.post('rest/prescriptions/' + record.id + '/cancel/').then(response => {
+              table.refresh()
             })
           }
         }],

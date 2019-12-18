@@ -15,6 +15,7 @@
                             <label for="termPatient" class="col-md-2">Pacjent</label>
                             <div class="input-group col-md-10">
                                 <autocomplete id="termPatient" input-class="form-control" @selected="selectPatient"
+                                              @clear="termForm.patient = null"
                                               :source="patientsUrl" style="display: flex; width: calc(100% - 30px)"
                                               :request-headers="authHeaders"
                                               results-property="results" placeholder="Wyszukaj..." :initialDisplay="autocompletes.patient"
@@ -85,7 +86,8 @@
                 <template v-if="term.edition || term.patientEdition">
                     <b-btn size="sm" class="float-right" variant="default" @click="modalCancel">Anuluj</b-btn>
                     <b-btn size="sm" class="float-right mr-2" variant="primary" @click="modalOk(false)">Zapisz</b-btn>
-                    <b-btn v-if="!term.patientEdition" size="sm" class="float-right mr-2" variant="primary" @click="modalOk(true)">
+                    <b-btn v-if="!term.patientEdition" size="sm" class="float-right mr-2" variant="primary"
+                           @click="modalOk(true)" :disabled="!term.patientId && !termForm.patient">
                         Zapisz i rozpocznij
                     </b-btn>
                 </template>
