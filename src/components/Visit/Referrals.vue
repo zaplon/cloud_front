@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-modal ok-title="Zapisz" cancel-title="Anuluj" size="md" id="newExaminationModal" title="Dodaj badanie" @ok="createExamination" ref="newExaminationModal">
+        <b-modal :static="true" ok-title="Zapisz" cancel-title="Anuluj" size="md" id="newExaminationModal" title="Dodaj badanie" @ok="createExamination" ref="newExaminationModal">
             <generic-form :fields="formFields" ref="form"></generic-form>
         </b-modal>
         <form>

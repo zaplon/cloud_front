@@ -12,7 +12,7 @@
                             <ul class="list-unstyled" v-if="readonly">
                                 <li v-for="value in values[field.name]" :key="value">{{ getChoiceFromId(value, choices[field.name], field.choiceDisplay) }}</li>
                             </ul>
-                            <select v-else class="form-control" v-model="values[field.name]" multiple>
+                            <select v-else :class="[{formSize: 'form-control' + formSize}, 'form-control']" v-model="values[field.name]" multiple>
                                 <option :value="choice.id" v-for="choice in choices[field.name]" :key="choice.id">
                                     <template v-if="field.choiceDisplay">{{ field.choiceDisplay(choice) }}</template>
                                     <template v-else>{{ choice.name }}</template>
@@ -26,7 +26,7 @@
                         <ul class="list-unstyled" v-if="readonly">
                             <li>{{ getChoiceFromId(values[field.name], choices[field.name]) }}</li>
                         </ul>
-                        <select class="form-control" v-model="values[field.name]" v-else>
+                        <select :class="[{formSize: 'form-control' + formSize}, 'form-control']" v-model="values[field.name]" v-else>
                             <option :value="choice.id" v-for="choice in choices[field.name]" :key="choice.id">
                                 <template v-if="field.choiceDisplay">{{ field.choiceDisplay(choice) }}</template>
                                 <template v-else>{{ choice.name }}</template>
@@ -39,6 +39,7 @@
                               v-bind="fieldAttributes(field)" rows="5"
                               :class="{ 'is-invalid form-control': errors[field.name],
                             'form-control': !errors[field.name] && !readonly,
+                            'form-control': formSize == 'md', 'form-control': formSize == 'lg',
                             'form-control-plaintext': readonly }"></textarea>
                 </template>
                 <template v-else-if="field.type=='editor'">
@@ -48,6 +49,7 @@
                                 :content="values[field.name]"
                                 :ref="field.name + '_editor'"
                                 :cls="{ 'is-invalid form-control': errors[field.name],
+                                'form-control-sm': formSize == 'sm', 'form-control-lg': formSize == 'lg',
                                 'form-control': !errors[field.name]}" />
                 </template>
                 <template v-else-if="field.type=='color'">
@@ -61,7 +63,31 @@
                            v-bind="fieldAttributes(field)" @change="processFile($event, field.name)"
                            :class="{ 'is-invalid form-control': errors[field.name],
                             'form-control': !errors[field.name] && !readonly,
+                            'form-control-sm': formSize == 'sm', 'form-control-lg': formSize == 'lg',
                             'form-control-plaintext': readonly }">
+                </template>
+                <template v-else-if="field.type=='postal_code'">
+                    <div class="form-row">
+                        <div class="col-5">
+                            <input type="text" maxlength="2" v-model="values[field.name + '_1']" :name="field.name"
+                                   :readonly="readonly || field.readonly"
+                                   v-bind="fieldAttributes(field)" pattern="[0-9.]+"
+                                   :class="{ 'is-invalid form-control': errors[field.name],
+                                    'form-control': !errors[field.name] && !readonly,
+                                    'form-control-sm': formSize == 'sm', 'form-control-lg': formSize == 'lg',
+                                    'form-control-plaintext': readonly }">
+                        </div>
+                        <div class="col-2 text-center"><span>-</span></div>
+                        <div class="col-5">
+                            <input type="text" maxlength="3" v-model="values[field.name + '_2']" :name="field.name"
+                                   :readonly="readonly || field.readonly"
+                                   v-bind="fieldAttributes(field)" pattern="[0-9.]+"
+                                   :class="{ 'is-invalid form-control': errors[field.name],
+                                    'form-control': !errors[field.name] && !readonly,
+                                    'form-control-sm': formSize == 'sm', 'form-control-lg': formSize == 'lg',
+                                    'form-control-plaintext': readonly }">
+                        </div>
+                    </div>
                 </template>
                 <template v-else>
                     <input :type="field.type ? field.type : 'text'" v-model="values[field.name]" :name="field.name"
@@ -69,6 +95,7 @@
                            v-bind="fieldAttributes(field)"
                            :class="{ 'is-invalid form-control': errors[field.name],
                             'form-control': !errors[field.name] && !readonly,
+                            'form-control-sm': formSize == 'sm', 'form-control-lg': formSize == 'lg',
                             'form-control-plaintext': readonly }">
                 </template>
                 <div v-show="errors[field.name]" class="invalid-feedback">
@@ -88,6 +115,11 @@ export default {
   },
   props: {
     fields: Array,
+    formSize: {
+      type: String,
+      default: '',
+      required: false
+    },
     readonly: {
       type: Boolean,
       default: false,
@@ -128,7 +160,7 @@ export default {
     },
     getData () {
       this.fields.forEach((f) => {
-        if (f.type === 'editor') { this.values[f.name] = this.$refs[f.name + '_editor'][0].getHTML() }
+        if (f.type === 'editor') { this.values[f.name] = this.$refs[f.name + '_editor'][0].getHTML() } else if (f.type === 'postal_code') { this.values[f.name] = this.values[f.name + '_1'] + '-' + this.values[f.name + '_2'] }
       })
       console.log(this.values)
       return this.values
@@ -160,7 +192,15 @@ export default {
     setData (data) {
       this.fields.forEach((field) => {
         if (field.name in data) {
-          this.values[field.name] = data[field.name]
+          if (field.type === 'postal_code') {
+            if (data[field.name].split('-').length === 2) {
+              let parts = data[field.name].split('-')
+              this.values[field.name + '_1'] = parts[0]
+              this.values[field.name + '_2'] = parts[1]
+            }
+          } else {
+            this.values[field.name] = data[field.name]
+          }
         } else if (this.readonly) {
           if (field.type === 'text') {
             this.values[field.name] = '-'

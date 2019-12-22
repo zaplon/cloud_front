@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-modal ok-title="Prześlij" title="Prześlij pliki" ref="uploadModal" @ok="uploadImages" @cancel="modalCancel"
+        <b-modal :static="true" ok-title="Prześlij" title="Prześlij pliki" ref="uploadModal" @ok="uploadImages" @cancel="modalCancel"
                  size="md" cancel-title="Zamknij">
             <div class="row">
                 <div class="col-md-3">Pacjent</div>

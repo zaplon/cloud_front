@@ -31,7 +31,7 @@
                         </div>
                     </div>
                 </div>
-                <b-modal v-if="service" ok-title="Zapisz" cancel-title="Anuluj" size="md" id="booking-form" title="Nowa rezerwacja" ref="bookingModal">
+                <b-modal :static="true" v-if="service" ok-title="Zapisz" cancel-title="Anuluj" size="md" id="booking-form" title="Nowa rezerwacja" ref="bookingModal">
                     <form-booking v-if="!reservationMade" ref="bookingForm" :term="term"></form-booking>
                     <div v-else>
                         <h4>Dziękujemy,</h4>

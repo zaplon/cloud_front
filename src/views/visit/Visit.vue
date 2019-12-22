@@ -1,6 +1,16 @@
 <template>
     <div class="align-items-center">
         <AppHeader/>
+            <b-modal :static="true" size="md" id="editPatientModal" title="Edycja danych pacjenta"
+                     ref="editPatientModal">
+                <generic-form :fields="patientFormFields" ref="patientForm"></generic-form>
+                <div slot="modal-footer" class="w-100">
+                    <b-btn size="sm" class="float-right" variant="default" @click="$refs.editPatientModal.hide()">
+                        Zamknij
+                    </b-btn>
+                    <b-btn size="sm" class="float-right mr-2" variant="success" @click="savePatient">Zapisz</b-btn>
+                </div>
+            </b-modal>
             <div class="app-body" id="visit-body">
                 <div class="sidebar" id="visit-sidebar">
                     <archive :patient="visit.term.patient"></archive>
@@ -40,7 +50,10 @@
 
                     <div class="card" v-if="visit.term">
                         <div class="card-header">
-                            {{ visit.term.patient.first_name }} {{ visit.term.patient.last_name }}
+                            <span>{{ visit.term.patient.first_name }} {{ visit.term.patient.last_name }}</span>
+                            <button class="btn btn-link">
+                                <i class="pointer fa fa-pencil" @click="editPatient"></i>
+                            </button>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -76,45 +89,6 @@
                                                             </button>
                                                             <button class="btn btn-link pl-0">
                                                                 <i @click="editingPesel=false"
-                                                                   class="pointer fa fa-times"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </template>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-4"><label class="col-form-label">Adres</label></div>
-                                        <div class="col-auto">
-                                            <template v-if="!editingAddress">
-                                                <div class="form-group row">
-                                                    <div class="col-auto pr-0">
-                                                        <label class="col-form-label"><strong>{{ visit.term.patient.address }}</strong></label>
-                                                    </div>
-                                                    <div class="col-auto pl-0">
-                                                        <button class="btn btn-link" v-permission="'change_patient'">
-                                                            <i @click="editingAddress=true" class="pointer fa fa-pencil"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </template>
-                                            <template v-if="editingAddress">
-                                                <div class="form-group row">
-                                                    <div class="col-auto pr-0">
-                                                        <input type="text" class="form-inline form-control"
-                                                               v-model="visit.term.patient.address">
-                                                    </div>
-                                                    <div class="col-auto pl-0">
-                                                        <div class="btn-group">
-                                                            <button class="btn btn-link">
-                                                                <i @click="saveAddress(visit.term.patient.address)"
-                                                                   class="pointer fa fa-check"></i>
-                                                            </button>
-                                                            <button class="btn btn-link pl-0">
-                                                                <i @click="editingAddress=false"
                                                                    class="pointer fa fa-times"></i>
                                                             </button>
                                                         </div>
@@ -174,6 +148,7 @@ import Oculist from '@/components/Visit/Oculist'
 import Referrals from '@/components/Visit/Referrals'
 import forms from '@/_forms.js'
 import EventBus from '@/eventBus'
+import GenericForm from '@/components/Forms/GenericForm'
 export default {
   name: 'visit',
   data () {
@@ -188,6 +163,17 @@ export default {
       formTitle: '',
       tabIndex: 0,
       icds: [],
+      patientFormFields: [
+        {name: 'first_name', label: 'Imię'},
+        {name: 'last_name', label: 'Nazwisko'},
+        {name: 'pesel', label: 'Numer PESEL'},
+        {name: 'email', label: 'Adres e-mail'},
+        {name: 'mobile', label: 'Numer telefonu'},
+        {name: 'street', label: 'Ulica'},
+        {name: 'street_number', label: 'Numer ulicy'},
+        {name: 'postal_code', label: 'Kod pocztowy', type: 'postal_code'},
+        {name: 'city', label: 'Miejscowość'}
+      ],
       forms: {
         show: false,
         items: [],
@@ -199,16 +185,22 @@ export default {
     saveVisitTmp: { time: 60000, autostart: true, repeat: true }
   },
   methods: {
-    saveAddress (address) {
-      axios.patch('rest/patients/' + this.visit.term.patient.id + '/',
-        {'address': address}).then(response => {
-        this.editingAddress = false
-      })
-    },
     savePesel (pesel) {
       axios.patch('rest/patients/' + this.visit.term.patient.id + '/',
         {'pesel': pesel}).then(response => {
         this.editingPesel = false
+      })
+    },
+    editPatient () {
+      console.log(this)
+      this.$refs.editPatientModal.show()
+      this.$refs.patientForm.setData(this.visit.term.patient)
+    },
+    savePatient () {
+      let data = this.$refs.patientForm.getData()
+      axios.patch('rest/patients/' + this.visit.term.patient.id + '/', data).then(response => {
+        this.$refs.editPatientModal.hide()
+        this.visit.term.patient = response.data
       })
     },
     getICD (icds) {
@@ -329,7 +321,8 @@ export default {
     Archive,
     Medicines,
     Oculist,
-    Referrals
+    Referrals,
+    GenericForm
   }
 }
 </script>

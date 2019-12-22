@@ -14,7 +14,7 @@
                 </div>
             </v-server-table>
         </div>
-        <b-modal size="md" id="visitModal" :title="visit.title" @ok="modalOk" @cancel="modalCancel" ref="visitModal">
+        <b-modal :static="true" size="md" id="visitModal" :title="visit.title" @ok="modalOk" @cancel="modalCancel" ref="visitModal">
             <backend-form ref="visitForm" klass="VisitForm" module="visit.forms" :pk="visit.id" />
             <div slot="modal-footer" class="w-100">
                 <b-btn size="sm" class="float-right" variant="primary" @click="modalCancel">Anuluj</b-btn>

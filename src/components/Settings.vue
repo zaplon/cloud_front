@@ -8,10 +8,10 @@
         <b-dropdown-divider></b-dropdown-divider>
         <b-dropdown-item-button @click="logOut">Wyloguj</b-dropdown-item-button>
     </b-dropdown>
-    <b-modal id="profileModal" size="lg" title="Profil" @ok="handleOk" ref="profileModal" cancel-title="Zamknij">
+    <b-modal :static="true" id="profileModal" size="lg" title="Profil" @ok="handleOk" ref="profileModal" cancel-title="Zamknij">
         <backend-form ref="form" :klass="formClass" module="user_profile.forms"></backend-form>
     </b-modal>
-    <b-modal @shown="adjustSliders" id="hoursModal" title="Godziny pracy" @ok="saveHours" ref="hoursModal" cancel-title="Zamknij">
+    <b-modal :static="true" @shown="adjustSliders" id="hoursModal" title="Godziny pracy" @ok="saveHours" ref="hoursModal" cancel-title="Zamknij">
         <working-hours style="width:100%; height:100%;" ref="workingHours"></working-hours>
     </b-modal>
     <b-modal id="changePasswordModal" size="lg" title="Zmiana hasła" @ok="changePassword" ref="changePasswordModal" cancel-title="Zamknij">

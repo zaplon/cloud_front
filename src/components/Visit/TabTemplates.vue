@@ -9,7 +9,7 @@
                 <button @shortkey="putTemplate(template)" v-shortkey="getShortcut(template.key)" type="button" class="btn btn-link" @click="putTemplate(template)">({{ template.key }}) {{ template.text | truncate(100) }}</button>
             </div>
         </div>
-        <b-modal size="lg" id="templateModal" title="Nowy szablon" @ok="modalOk" @cancel="modalCancel" ref="templateModal">
+        <b-modal :static="true" size="lg" id="templateModal" title="Nowy szablon" @ok="modalOk" @cancel="modalCancel" ref="templateModal">
             <backend-form ref="templateForm" klass="TemplateForm" module="visit.forms" />
             <div slot="modal-footer" class="w-100">
                 <b-btn size="sm" class="float-right" variant="primary" @click="modalCancel">Anuluj</b-btn>

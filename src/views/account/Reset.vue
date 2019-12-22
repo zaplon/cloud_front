@@ -45,7 +45,7 @@ export default {
     }
   },
   methods: {
-    sendLink: () => {
+    sendLink () {
       if (!this.email) {
         this.error = 'Proszę wpisać adres email'
         return

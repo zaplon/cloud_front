@@ -1,5 +1,5 @@
 <template>
-    <b-modal :class="klass" size="lg" id="pdfFormModal" :title="title" ref="pdfFormModal">
+    <b-modal :static="true" :class="klass" size="lg" id="pdfFormModal" :title="title" ref="pdfFormModal">
         <iframe id="form-frame" :src="src"></iframe>
         <div slot="modal-footer" class="w-100">
             <b-btn size="sm" class="float-right" variant="default" @click="cancel">Zamknij</b-btn>

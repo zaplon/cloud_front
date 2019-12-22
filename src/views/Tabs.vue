@@ -23,7 +23,7 @@
                 </tbody>
             </table>
         </div>
-        <b-modal size="sm" id="tabModal" :title="tab.title" @ok="modalOk" @cancel="modalCancel" ref="tabModal">
+        <b-modal :static="true" size="sm" id="tabModal" :title="tab.title" @ok="modalOk" @cancel="modalCancel" ref="tabModal">
             <backend-form ref="tabForm" klass="TabForm" module="visit.forms" :pk="tab.id" />
             <div slot="modal-footer" class="w-100">
                 <b-btn size="sm" class="float-right" variant="primary" @click="modalCancel">Anuluj</b-btn>

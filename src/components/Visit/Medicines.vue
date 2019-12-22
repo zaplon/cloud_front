@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-modal ok-title="Zapisz" cancel-title="Anuluj" size="md" id="addMedicineModal" title="Nowy lek"
+        <b-modal :static="true" ok-title="Zapisz" cancel-title="Anuluj" size="md" id="addMedicineModal" title="Nowy lek"
                  @ok="addMedicine" ref="addMedicineModal">
             <medicine ref="medicineForm"></medicine>
         </b-modal>
