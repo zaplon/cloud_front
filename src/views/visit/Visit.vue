@@ -111,7 +111,9 @@
                                 <b-tab :key="tab.name" :title="tab.title" :active="index == 0">
                                     <icd v-on:icd-changed="getICD" :data="visit.icdtovisit_set" v-if="tab.type=='ICD10'" :ref="tab.id" />
                                     <notes v-else-if="tab.type=='NOTES'" :ref="tab.id" />
-                                    <medicines :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='MEDICINES'" :ref="tab.id" />
+                                    <prescriptions :data="tab.data" :patient="visit.term.patient"
+                                                   :visit-id="visit.id"
+                                                   v-else-if="tab.type=='MEDICINES'" :ref="tab.id" />
                                     <oculist :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='OCULIST'" :ref="tab.id"></oculist>
                                     <referrals :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='EXAMINATIONS'" :ref="tab.id"></referrals>
                                     <visit-tab :name="tab.title" :templates="templates.filter((t) => t.tab_title == tab.title)"
@@ -149,6 +151,7 @@ import Referrals from '@/components/Visit/Referrals'
 import forms from '@/_forms.js'
 import EventBus from '@/eventBus'
 import GenericForm from '@/components/Forms/GenericForm'
+import Prescriptions from '@/components/Visit/Prescriptions'
 export default {
   name: 'visit',
   data () {
@@ -254,7 +257,7 @@ export default {
       var me = this
       this.visit.tabs.forEach((tab, i) => {
         var component = me.$refs[tab.id][0]
-        if (component.save) { component.save() }
+        if (component.save) { component.save(tmp) }
         if (component.getData) {
           var tabData = component.getData()
           if (tabData) {
@@ -312,6 +315,7 @@ export default {
     axios.get('rest/templates/').then(response => { this.templates = response.data.results })
   },
   components: {
+    Prescriptions,
     PdfForm,
     Icd,
     AppHeader,

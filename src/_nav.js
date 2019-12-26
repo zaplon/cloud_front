@@ -107,12 +107,12 @@ export default {
       icon: 'fa fa-gear',
       children: [
         {
-          id: 'generalSettings',
+          id: 'settings',
           name: 'Systemowe',
           url: '/ustawienia_systemowe'
         },
         {
-          id: 'NFZSettings',
+          id: 'nfz_settings',
           name: 'NFZ',
           url: '/ustawienia_nfz'
         }

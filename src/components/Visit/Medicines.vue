@@ -50,7 +50,7 @@
                     <div class="form-check">
                         <label class="form-check-label">
                             <input title="Zamieść numer recepty na wydruku" class="form-check-input"
-                                   type="checkbox" v-model="prescription.number"
+                                   type="checkbox" v-model="useNumber"
                                    :disabled="this.$store.state.user.doctor.available_prescriptions == 0">
                             Z numerem
                         </label>
@@ -60,13 +60,13 @@
                     <button :disabled="!this.patient.id || !this.prescription.realisationDate || !this.prescription.permissions || !this.prescription.nfz" class="btn btn-info" @click="printRecipe">Drukuj</button>
                 </div>
                 <div class="col-auto mt-1">
-                    <button @click="saveExternal" :disabled="!this.patient.id || !this.prescription.realisationDate || !this.prescription.permissions || !this.prescription.nfz" class="btn btn-info">Wygeneruj e-receptę</button>
+                    <button @click="saveExternal" :disabled="!this.patient.id || !this.prescription.realisationDate || !this.prescription.permissions || !this.prescription.nfz" class="btn btn-info">Wyślij e-receptę</button>
                 </div>
             </div>
         </div>
         <div class="row mb-2 mt-1 form-row">
         </div>
-        <div class="row mb-2 form-row">
+        <div class="row mb-2 form-row" v-if="medicinesCount < 5">
             <div class="col-auto">
                 <autocomplete style="width:370px;" id="medicineAutocomplete" input-class="form-control" @selected="selectMedicine"
                               :source="medicinesUrl" placeholder="Nazwa lub substancja czynna..."
@@ -80,17 +80,20 @@
                 <button class="btn btn-success" @click="showAddMedicineModal"><i class="fa fa-plus"></i></button>
             </div>
         </div>
+        <div class="row mb-2" v-else>
+            <div class="col-md-12">
+                <span class="text-muted">Na recepcie znajduje się maksymalna ilość 5 leków. Proszę dodać kolejną receptę.</span>
+            </div>
+        </div>
         <div class="row mb-4">
         </div>
         <medicine-row :ref="selection.id" v-on:remove-record="remove" :medicine="selection" klass="table-info"
                       v-for="selection in selections" :key="selection.id"></medicine-row>
         <PdfDocument ref="prescriptionModal">
             <div slot="actions" class="float-right mr-2">
-                <b-btn v-if="prescription.number" size="sm" variant="success" @click="saveExternal">
+                <b-btn size="sm" variant="success" @click="saveExternal">
                     Wygeneruj e-receptę
                 </b-btn>
-                <b-btn v-else size="sm" variant="success" disabled="disabled"
-                title="Wysyłka recepty jest możliwa tylko przy wykorzystaniu numeru recepty">Wygeneruj e-receptę</b-btn>
             </div>
         </PdfDocument>
     </div>
@@ -109,9 +112,17 @@ export default {
   components: {PdfDocument, Medicine, MedicineRow, Autocomplete},
   props: {
     patient: Object,
+    visitId: {
+      type: Number,
+      required: true
+    },
     instance: {
       type: Number,
       default: 0
+    },
+    patientPrescriptions: {
+      type: Array,
+      default: () => []
     },
     data: {
       type: Object,
@@ -125,14 +136,15 @@ export default {
       suggestions: [],
       excludes: [],
       inputValue: [],
+      useNumber: false,
       prescription: {
+        id: null,
         nfz: this.$store.state.user.system_settings.nfz_department,
         realisationDate: new Date(),
-        number: false,
         permissions: 'X',
-        url: ''
+        url: '',
+        external_id: null
       },
-      patientPrescriptions: [],
       lastPrescriptionSelected: 0
     }
   },
@@ -147,36 +159,28 @@ export default {
   methods: {
     selectMedicine (obj) {
       this.selections.push(obj.selectedObject)
-      console.log(this)
       this.$refs.medicinesAutocomplete.clear()
     },
-    serializeMedicine (data) {
+    deserializeMedicine (data) {
       data.name = data.medicine.parent.name
       data.size = data.medicine.id
       data.dose = data.medicine.parent.dose
-      data.children = [{id: data.medicine.id, size: data.medicine.size}]
-      data.child = {id: data.medicine.id}
+      this.$set(data, 'children', [{id: data.medicine.id, size: data.medicine.size}])
+      data.child = {id: data.medicine.id, availability_cat: data.medicine.availability_cat}
       data.loadChildren = true
+      data.loadRefundations = true
       data.form = data.medicine.parent.form
       data.id = data.medicine.parent.id
+      if (data.refundation) {
+        if (data.refundation !== '100%') {
+          this.$set(data, 'refundations', [{id: 0, to_pay: data.refundation}])
+        }
+      }
       return data
     },
     loadPrescription () {
       axios.get('rest/prescriptions/' + this.lastPrescriptionSelected + '/').then((response) => {
-        let serializedMedicines = []
-        response.data.medicines.forEach((medicine) => {
-          serializedMedicines.push(this.serializeMedicine(medicine))
-          var matchedIndex = this.suggestions.findIndex((sugg) => sugg.id === medicine.medicine.parent.id)
-          if (matchedIndex) {
-            this.suggestions.splice(matchedIndex, 1)
-          }
-        })
-        this.selections = serializedMedicines
-      })
-    },
-    getPatientPrescriptions () {
-      axios.get('rest/prescriptions/', {params: {patient_id: this.patient.id, only_filled: 1}}).then((response) => {
-        this.patientPrescriptions = response.data.results
+        this.deserializePrescription(response.data)
       })
     },
     showAddMedicineModal () {
@@ -185,6 +189,17 @@ export default {
     addMedicine (evt) {
       evt.preventDefault()
       this.$refs.medicineForm.save(() => { this.$refs.addMedicineModal.hide() })
+    },
+    deserializePrescription (data) {
+      let deserializedMedicines = []
+      data.medicines.forEach((medicine) => {
+        deserializedMedicines.push(this.deserializeMedicine(medicine))
+        var matchedIndex = this.suggestions.findIndex((sugg) => sugg.id === medicine.medicine.parent.id)
+        if (matchedIndex) {
+          this.suggestions.splice(matchedIndex, 1)
+        }
+      })
+      this.selections = deserializedMedicines
     },
     serializePrescription () {
       let medicines = []
@@ -196,6 +211,7 @@ export default {
           refundation: s.refundation ? s.refundation : null})
       })
       return {
+        id: this.prescription.id,
         patient: this.patient.id,
         doctor: this.$store.state.user.doctor.id,
         medicines: medicines,
@@ -205,11 +221,24 @@ export default {
         external_id: this.external_id,
         external_code: this.external_code,
         date: this.prescription.realisationDate,
-        number: this.prescription.number
+        visit: this.visitId,
+        number: isNaN(this.prescription.number) ? this.prescription.number : null
       }
     },
-    savePrescription () {
-      return axios.post('rest/prescriptions/', this.serializePrescription())
+    savePrescription (tmp) {
+      var data = this.serializePrescription()
+      if (tmp) {
+        data.tmp = true
+      } else {
+        data.tmp = false
+      }
+      if (this.prescription.id) {
+        return axios.put('rest/prescriptions/' + this.prescription.id + '/', data)
+      } else {
+        return axios.post('rest/prescriptions/', data).then(response => {
+          this.prescription.id = response.data.id
+        })
+      }
     },
     validatePrescription () {
       var errors = false
@@ -218,34 +247,18 @@ export default {
           this.errors = true
         }
       })
-      console.log(errors)
       return !errors
     },
     printRecipe () {
       if (!this.validatePrescription()) {
         return
       }
-      axios.post('rest/prescriptions/print/', this.serializePrescription()).then(response => {
-        let prescriptions = response.data.files
-        let prescriptionUrl = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + prescriptions[0]
+      var data = this.serializePrescription()
+      data.use_number = this.useNumber
+      axios.post('rest/prescriptions/print_internal/', data).then(response => {
+        let prescriptionUrl = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data.url
         this.$refs.prescriptionModal.showDocument(prescriptionUrl, 'Recepta', this.patient.id)
       })
-      // let medicines = []
-      // console.log(this.$refs)
-      // this.validatePrescription()
-      // this.selections.forEach((s) => { medicines.push(this.$refs[s.id][0].getData()) })
-      // axios.post('visit/recipe/', {
-      //   medicines: this.selections,
-      //   system_settings: this.$store.state.user.system_settings,
-      //   nfz: this.prescription.nfz,
-      //   permissions: this.prescription.permissions,
-      //   number: this.prescription.number,
-      //   patient: this.patient.id,
-      //   realisationDate: this.$moment(this.prescription.realisationDate).format('DD.MM.YYYY')
-      // }).then(response => {
-      //   let prescriptionUrl = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data.url
-      //   this.$refs.prescriptionModal.showDocument(prescriptionUrl, 'Recepta', this.patient.id)
-      // })
     },
     add (record) {
       this.selections.push(record)
@@ -260,24 +273,28 @@ export default {
     getSuggestions () {
       axios.get('rest/medicine_parents/', {params: {search: this.inputValue}}).then(response => {
         this.suggestions = response.data.results
-        console.log(this.suggestions)
       })
     },
     getData () {
       return { prescription: this.prescription, selections: this.selections }
     },
     loadData (data) {
-      this.prescription = data.prescription
+      if (data.prescription) {
+        this.prescription = data.prescription
+      } else {
+        this.prescription = data
+        if (data.realisation_date) {
+          this.prescription.realisationDate = this.$moment(data.realisation_date).toDate()
+        }
+      }
       if (this.prescription.realisationDate) {
         this.prescription.realisationDate = this.$moment(this.prescription.realisationDate).toDate()
       }
-      this.selections = data.selections
-    },
-    loadData2 (data) {
-      this.buildSelections(data.medicines)
-      this.prescription.nfz = data.nfz
-      this.prescription.permissions = data.permissions
-      this.prescription.number = data.number
+      if (data.selections) {
+        this.selections = data.selections
+      } else {
+        this.deserializePrescription(data)
+      }
     },
     buildSelections (medicines) {
       medicines.forEach((s) => {
@@ -320,24 +337,19 @@ export default {
   },
   computed: {
     authHeaders () {
-      console.log('Token ' + localStorage.token)
       return {
         'Authorization': 'Token ' + localStorage.token
       }
+    },
+    medicinesCount: function () {
+      return this.selections.length
     }
   },
   mounted () {
-    if (this.data) { this.loadData(this.data) }
+    if (this.data && 'nfz' in this.data) {
+      this.loadData(this.data)
+    }
     this.getSuggestions()
-    this.getPatientPrescriptions()
-    // if (this.instance) {
-    //   axios.get('rest/prescriptions/' + this.instance + '/').then(response => {
-    //     this.loadData(response.data)
-    //     this.getSuggestions()
-    //   })
-    // } else {
-    //   this.getSuggestions()
-    // }
   }
 }
 </script>

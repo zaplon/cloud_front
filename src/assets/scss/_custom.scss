@@ -46,6 +46,11 @@ $box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
 
 .sidebar-nav {
   overflow-y: auto!important;
+  overflow-x: hidden!important;
+}
+
+.nav.nav-tabs {
+  overflow-y: hidden;
 }
 
 #visit-sidebar ul.nav {

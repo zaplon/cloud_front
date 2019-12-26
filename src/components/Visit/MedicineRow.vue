@@ -13,7 +13,7 @@
                     <tbody>
                         <tr>
                             <td><input type="text" class="form-control" v-model="medicine.name"></td>
-                            <td><input type="text" class="form-control" v-model="medicine.amount"></td>
+                            <td><input type="text" pattern="[0-9.]+" class="form-control" v-model="medicine.amount"></td>
                             <td><textarea class="form-control" v-model="medicine.composition"></textarea></td>
                         </tr>
                     </tbody>
@@ -36,7 +36,7 @@
                         <tr>
                             <th>Opakowanie</th>
                             <th>Kategoria</th>
-                            <th>Opłatność</th>
+                            <th>Odpłatność</th>
                             <th>Ilość</th>
                             <th>Dawkowanie</th>
                             <th>Osobna recepta</th>
@@ -62,6 +62,7 @@
                                     <option value="30%">30%</option>
                                 </select>
                                 <select :disabled="!medicine.refundations" v-else class="form-control"
+                                        @mousedown="getRefundations(medicine)"
                                         v-model="medicine.refundation">
                                     <option value="100%">100%</option>
                                     <option v-for="option in medicine.refundations" v-bind:value="option.to_pay" :key="option.id">
@@ -69,7 +70,7 @@
                                     </option>
                                 </select>
                             </td>
-                            <td><input type="text" :class="[errors.amount ? 'is-invalid' : '', 'form-control']" v-model="medicine.amount"></td>
+                            <td><input type="number" :class="[errors.amount ? 'is-invalid' : '', 'form-control']" v-model="medicine.amount"></td>
                             <td><input type="text" :class="[errors.dosage ? 'is-invalid' : '', 'form-control']" v-model="medicine.dosage"></td>
                             <td class="text-center" style="vertical-align: middle;">
                                 <div class="pretty p-default p-round p-smooth">
@@ -162,15 +163,25 @@ export default {
         })
       }
     },
+    getRefundations (medicine) {
+      console.log('getRefundations', medicine)
+      var child = medicine.child
+      if (child.refundation && (!child.refundations || medicine.loadRefundations)) {
+        axios.get('rest/refundations/', {params: {medicine: child.id}}).then((response) => {
+          var refundations = response.data
+          this.$set(medicine, 'refundations', refundations)
+          medicine.loadRefundations = false
+        })
+      }
+    },
     sizeSelected (parent) {
       let child = parent.children.filter((c) => c.id === parent.size)[0]
       parent.child = child
-      if (child.refundation && !child.refundations) {
-        axios.get('rest/refundations/', {params: {medicine: child.id}}).then((response) => {
-          var refundations = response.data
-          this.$set(parent, 'refundations', refundations)
-        })
+      if (!child.refundation) {
+        this.$set(parent, 'refundations', [])
+        parent.refundation = '100%'
       }
+      this.getRefundations(parent)
     }
   }
 }
