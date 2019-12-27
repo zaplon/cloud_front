@@ -143,7 +143,9 @@ export default {
         realisationDate: new Date(),
         permissions: 'X',
         url: '',
-        external_id: null
+        external_id: null,
+        external_code: null,
+        tmp: true
       },
       lastPrescriptionSelected: 0
     }
@@ -227,7 +229,7 @@ export default {
     },
     savePrescription (tmp) {
       var data = this.serializePrescription()
-      if (tmp) {
+      if (tmp && this.prescription.tmp) {
         data.tmp = true
       } else {
         data.tmp = false
@@ -309,7 +311,9 @@ export default {
       })
     },
     saveExternal () {
-      axios.post('rest/prescriptions/save_in_p1/', this.serializePrescription()).then(response => {
+      var data = this.serializePrescription()
+      data.tmp = false
+      axios.post('rest/prescriptions/save_in_p1/', data).then(response => {
         this.prescription.external_id = response.data.external_id
         this.prescription.external_code = response.data.external_code
         this.prescription.id = response.data.id
