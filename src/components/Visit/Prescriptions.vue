@@ -50,7 +50,7 @@ export default {
   },
   data () {
     return {
-      prescriptions: [{id: 0}],
+      prescriptions: [],
       patientPrescriptions: []
     }
   },
@@ -103,6 +103,8 @@ export default {
       axios.get('/rest/prescriptions/', {params: {visit_id: this.visitId, full: 1, with_tmp: 1}}).then(response => {
         if (response.data.results.length > 0) {
           this.prescriptions = response.data.results
+        } else {
+          this.prescriptions = [{id: 0}]
         }
       })
     }

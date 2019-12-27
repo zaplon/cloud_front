@@ -61,7 +61,8 @@
                                     <option value="100%">100%</option>
                                     <option value="30%">30%</option>
                                 </select>
-                                <select :disabled="!medicine.refundations" v-else class="form-control"
+                                <select :disabled="!medicine.refundations || medicine.refundations.length == 0" v-else
+                                        class="form-control"
                                         @mousedown="getRefundations(medicine)"
                                         v-model="medicine.refundation">
                                     <option value="100%">100%</option>
@@ -164,7 +165,6 @@ export default {
       }
     },
     getRefundations (medicine) {
-      console.log('getRefundations', medicine)
       var child = medicine.child
       if (child.refundation && (!child.refundations || medicine.loadRefundations)) {
         axios.get('rest/refundations/', {params: {medicine: child.id}}).then((response) => {

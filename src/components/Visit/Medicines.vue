@@ -92,7 +92,7 @@
         <PdfDocument ref="prescriptionModal">
             <div slot="actions" class="float-right mr-2">
                 <b-btn size="sm" variant="success" @click="saveExternal">
-                    Wygeneruj e-receptę
+                    Wyślij e-receptę
                 </b-btn>
             </div>
         </PdfDocument>
@@ -295,7 +295,7 @@ export default {
       }
       if (data.selections) {
         this.selections = data.selections
-      } else {
+      } else if (data.medicines) {
         this.deserializePrescription(data)
       }
     },
@@ -317,12 +317,10 @@ export default {
       var data = this.serializePrescription()
       data.tmp = false
       axios.post('rest/prescriptions/save_in_p1/', data).then(response => {
-        console.log('qweqweq')
         this.prescription.external_id = response.data.external_id
         this.prescription.external_code = response.data.external_code
         this.prescription.id = response.data.id
         this.prescription.tmp = false
-        console.log(this.prescription)
         this.$refs.prescriptionModal.cancel()
         this.$notify({
           group: 'nots',
@@ -356,7 +354,7 @@ export default {
     }
   },
   mounted () {
-    if (this.data && 'nfz' in this.data) {
+    if (this.data && (this.data.nfz || this.data.prescription)) {
       this.loadData(this.data)
     }
     this.getSuggestions()
