@@ -311,12 +311,18 @@ export default {
       })
     },
     saveExternal () {
+      if (!this.validatePrescription()) {
+        return
+      }
       var data = this.serializePrescription()
       data.tmp = false
       axios.post('rest/prescriptions/save_in_p1/', data).then(response => {
+        console.log('qweqweq')
         this.prescription.external_id = response.data.external_id
         this.prescription.external_code = response.data.external_code
         this.prescription.id = response.data.id
+        this.prescription.tmp = false
+        console.log(this.prescription)
         this.$refs.prescriptionModal.cancel()
         this.$notify({
           group: 'nots',
@@ -324,11 +330,9 @@ export default {
           text: '',
           type: 'success'
         })
-        response.data.forEach(p => {
-          axios.get('rest/prescriptions/' + p.id + '/print_one/').then(response => {
-            let url = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data.file
-            EventBus.$emit('show-document', url, 'Recepta')
-          })
+        axios.get('rest/prescriptions/' + response.data.id + '/print_one/').then(response => {
+          let url = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data.file
+          EventBus.$emit('show-document', url, 'Recepta')
         })
       }).catch(error => {
         console.log(error.response.data)
