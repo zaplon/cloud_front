@@ -58,6 +58,7 @@ import Step2 from '@/views/setup/Step2'
 import Login from '@/views/account/Login'
 import Register from '@/views/account/Register'
 import Reset from '@/views/account/Reset'
+import ResetConfirm from '@/views/account/ResetConfirm'
 import Validate from '@/views/account/Validate'
 import MobileSet from '@/views/account/MobileSet'
 
@@ -397,6 +398,11 @@ var routes = [
         path: 'rejestracja',
         name: 'Register',
         component: Register
+      },
+      {
+        path: 'reset_potwierdz',
+        name: 'ResetConfirm',
+        component: ResetConfirm
       },
       {
         path: 'reset',

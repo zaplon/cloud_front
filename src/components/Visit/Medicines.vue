@@ -257,7 +257,8 @@ export default {
       }
       var data = this.serializePrescription()
       data.use_number = this.useNumber
-      axios.post('rest/prescriptions/print_internal/', data).then(response => {
+      var promise = axios.post('rest/prescriptions/print_internal/', data)
+      promise.then(response => {
         let prescriptionUrl = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data.file
         this.$refs.prescriptionModal.showDocument(prescriptionUrl, 'Recepta', this.patient.id)
       })

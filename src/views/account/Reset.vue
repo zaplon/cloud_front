@@ -50,7 +50,7 @@ export default {
         this.error = 'Proszę wpisać adres email'
         return
       }
-      axios.post('rest-auth/password/reset/ ', {email: this.email}).then(response => {
+      axios.post('rest-auth/password/reset/', {email: this.email}).then(response => {
         this.message = 'Na podany adres email został przesłany mail z linkiem umożliwiającym ustawienie nowego hasła'
       }).catch(error => {
         this.error = error.response.data.non_field_errors[0]

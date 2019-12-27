@@ -27,6 +27,7 @@ var prescriptionsRoutes = {
           'date': 'Data',
           'external_code': 'Kod e-recepty',
           'external_id': 'Klucz e-recepty',
+          'number': 'Numer',
           'status': 'Status',
           'actions': ''
         },
