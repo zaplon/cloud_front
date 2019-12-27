@@ -256,7 +256,7 @@ export default {
       var data = this.serializePrescription()
       data.use_number = this.useNumber
       axios.post('rest/prescriptions/print_internal/', data).then(response => {
-        let prescriptionUrl = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data.url
+        let prescriptionUrl = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data.file
         this.$refs.prescriptionModal.showDocument(prescriptionUrl, 'Recepta', this.patient.id)
       })
     },
@@ -283,6 +283,7 @@ export default {
         this.prescription = data.prescription
       } else {
         this.prescription = data
+        this.prescription.realisationDate = new Date()
         if (data.realisation_date) {
           this.prescription.realisationDate = this.$moment(data.realisation_date).toDate()
         }
@@ -309,8 +310,9 @@ export default {
     },
     saveExternal () {
       axios.post('rest/prescriptions/save_in_p1/', this.serializePrescription()).then(response => {
-        // this.prescription.external_id = response.data.external_id
-        // this.prescription.external_code = response.data.external_code
+        this.prescription.external_id = response.data.external_id
+        this.prescription.external_code = response.data.external_code
+        this.prescription.id = response.data.id
         this.$refs.prescriptionModal.cancel()
         this.$notify({
           group: 'nots',

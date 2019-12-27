@@ -37,7 +37,7 @@
                             <th>Opakowanie</th>
                             <th>Kategoria</th>
                             <th>Odpłatność</th>
-                            <th>Ilość</th>
+                            <th>Ilość opakowań</th>
                             <th>Dawkowanie</th>
                             <th>Osobna recepta</th>
                         </tr>

@@ -33,20 +33,31 @@ var prescriptionsRoutes = {
         extraActions: [{
           text: 'Wydrukuj',
           clb: (record) => {
-            axios.get('rest/prescriptions/' + record.id + '/print_one/').then(response => {
+            var promise = false
+            if (record.external_id) {
+              promise = axios.get('rest/prescriptions/' + record.id + '/print_one/')
+            } else {
+              promise = promise = axios.get('rest/prescriptions/' + record.id + '/print_internal/')
+            }
+            promise.then(response => {
               let url = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data.file
               EventBus.$emit('show-document', url, 'Recepta')
             })
           }
         },
         {
-          text: 'Anuluj',
+          text: 'Usuń',
           cls: 'btn-danger',
           clb: (record, table) => {
-            console.log(table)
-            axios.post('rest/prescriptions/' + record.id + '/cancel/').then(response => {
-              table.refresh()
-            })
+            if (record.external_id) {
+              axios.post('rest/prescriptions/' + record.id + '/cancel/').then(response => {
+                table.refresh()
+              })
+            } else {
+              axios.delete('rest/prescriptions/' + record.id + '/').then(response => {
+                table.refresh()
+              })
+            }
           }
         }],
         resource: 'prescription',
