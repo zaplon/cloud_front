@@ -65,8 +65,7 @@ export default {
         },
         {name: 'id_podmiotu_oid_ext', label: 'Identyfikator biznesowy podmiotu'},
         {name: 'id_podmiotu_lokalne', label: 'Identyfikator podmiotu lokalny'},
-        {name: 'id_pracownika_oid_ext', label: 'Identyfikator pracownika (numer PWZ)', readOnly: true},
-        {name: 'id_miejsca_pracy_oid_ext', label: 'Identyfikator miejsca pracy'}
+        {name: 'id_pracownika_oid_ext', label: 'Identyfikator pracownika (numer PWZ)', readOnly: true}
       ]
     }
   },

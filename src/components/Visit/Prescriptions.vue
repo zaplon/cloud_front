@@ -76,10 +76,10 @@ export default {
     //   }
     //   return data
     // },
-    save () {
+    save (tmp) {
       for (let r in this.$refs) {
         if (r.startsWith('p-')) {
-          this.$refs[r][0].savePrescription(true)
+          this.$refs[r][0].savePrescription(tmp)
         }
       }
     },
@@ -93,7 +93,6 @@ export default {
   },
   mounted () {
     if (this.data) {
-      console.log('data', this.data)
       if (Array.isArray(this.data)) {
         this.prescriptions = this.data
       } else {

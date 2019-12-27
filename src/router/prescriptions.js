@@ -37,7 +37,7 @@ var prescriptionsRoutes = {
             if (record.external_id) {
               promise = axios.get('rest/prescriptions/' + record.id + '/print_one/')
             } else {
-              promise = promise = axios.get('rest/prescriptions/' + record.id + '/print_internal/')
+              promise = promise = axios.get('rest/prescriptions/' + record.id + '/print_one_internal/')
             }
             promise.then(response => {
               let url = axios.defaults.baseURL.substr(0, axios.defaults.baseURL.length - 1) + response.data.file
