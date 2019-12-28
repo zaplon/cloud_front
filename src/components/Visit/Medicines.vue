@@ -44,7 +44,7 @@
                            placeholder="Uprawnienia dodatkowe">
                 </div>
                 <div class="col-auto mt-1">
-                    <span>Data realizacji</span><br/>
+                    <span>Data realizacji od</span><br/>
                     <v-date-picker mode='single' v-model='prescription.realisationDate'>
                         <input style="width:150px;" placeholder="Data realizacji" :value='props.inputValue' type="text" class="form-control" slot-scope="props">
                     </v-date-picker>
