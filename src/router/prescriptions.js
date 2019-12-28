@@ -22,11 +22,10 @@ var prescriptionsRoutes = {
       component: List,
       meta: {label: 'Lista recept'},
       props: {
-        columns: ['patient', 'date', 'external_code', 'external_id', 'actions'],
+        columns: ['patient', 'date', 'external_code', 'number', 'actions'],
         headings: {'patient': 'Pacjent',
           'date': 'Data',
           'external_code': 'Kod e-recepty',
-          'external_id': 'Klucz e-recepty',
           'number': 'Numer',
           'status': 'Status',
           'actions': ''

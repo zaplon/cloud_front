@@ -91,6 +91,7 @@ export default {
       let values = this.$refs['form'].getData()
       for (let field in values) { formData.append(field, values[field]) }
       axios.patch('rest/nfz-settings/' + this.$store.state.user.id + '/', formData, config).then(response => {
+        this.$refs.form.setData(response.data)
         this.$router.push({name: 'NFZSettings'})
       }).catch(errors => {
         this.$refs.form.errors = errors.response.data

@@ -58,13 +58,15 @@
                            v-bind="fieldAttributes(field)">
                 </template>
                 <template v-else-if="field.type=='file'">
-                    <span v-if="readonly">{{ values[field.name] }}</span>
-                    <input v-else type="file" :name="field.name"
+                    <span v-if="readonly">{{ helpers[field.name] }}</span>
+                    <template v-else>
+                    <input type="file" :name="field.name"
                            v-bind="fieldAttributes(field)" @change="processFile($event, field.name)"
                            :class="{ 'is-invalid form-control': errors[field.name],
                             'form-control': !errors[field.name] && !readonly,
-                            'form-control-sm': formSize == 'sm', 'form-control-lg': formSize == 'lg',
-                            'form-control-plaintext': readonly }">
+                            'form-control-sm': formSize == 'sm', 'form-control-lg': formSize == 'lg'}">
+                        <small v-if="helpers[field.name]" class="form-text text-muted">Obecnie {{ helpers[field.name] }}</small>
+                    </template>
                 </template>
                 <template v-else-if="field.type=='postal_code'">
                     <div class="form-row">
@@ -131,6 +133,7 @@ export default {
       values: {},
       choices: {},
       errors: {},
+      helpers: {},
       loaded: false
     }
   },
@@ -160,7 +163,11 @@ export default {
     },
     getData () {
       this.fields.forEach((f) => {
-        if (f.type === 'editor') { this.values[f.name] = this.$refs[f.name + '_editor'][0].getHTML() } else if (f.type === 'postal_code') { this.values[f.name] = this.values[f.name + '_1'] + '-' + this.values[f.name + '_2'] }
+        if (f.type === 'editor') {
+          this.values[f.name] = this.$refs[f.name + '_editor'][0].getHTML()
+        } else if (f.type === 'postal_code') {
+          this.values[f.name] = this.values[f.name + '_1'] + '-' + this.values[f.name + '_2']
+        }
       })
       console.log(this.values)
       return this.values
@@ -173,7 +180,9 @@ export default {
         if (field.type === 'select' || field.type === 'multiselect') {
           this.$set(this.values, field.name, [])
         } else {
-          this.$set(this.values, field.name, field.default ? field.default : '')
+          if (field.type !== 'file') {
+            this.$set(this.values, field.name, field.default ? field.default : '')
+          }
         }
         if ('choicesUrl' in field) {
           axios.get(field.choicesUrl, {params: {no_pagination: 1}}).then((response) => {
@@ -198,6 +207,8 @@ export default {
               this.values[field.name + '_1'] = parts[0]
               this.values[field.name + '_2'] = parts[1]
             }
+          } else if (field.type === 'file') {
+            this.helpers[field.name] = data[field.name]
           } else {
             this.values[field.name] = data[field.name]
           }
