@@ -233,7 +233,7 @@ export default {
         external_code: this.external_code,
         date: this.prescription.realisationDate,
         visit: this.visitId,
-        number: isNaN(this.prescription.number) ? nulll : this.prescription.number
+        number: isNaN(this.prescription.number) ? null : this.prescription.number
       }
     },
     savePrescription (tmp) {
