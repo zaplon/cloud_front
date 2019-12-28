@@ -34,19 +34,23 @@
         <div>
             <div class="form-row align-items-center">
                 <div class="col-auto mt-1">
+                    <span>Oddział NFZ</span><br/>
                     <input style="width:160px;" class="form-control" type="text" id="nfz-number" v-model="prescription.nfz"
                            placeholder="Oddział NFZ" maxlength="2">
                 </div>
                 <div class="col-auto mt-1">
+                    <span>Uprawnienia dodatkowe</span><br/>
                     <input style="width:200px;" class="form-control" type="text" id="permissions" v-model="prescription.permissions"
                            placeholder="Uprawnienia dodatkowe">
                 </div>
                 <div class="col-auto mt-1">
+                    <span>Data realizacji</span><br/>
                     <v-date-picker mode='single' v-model='prescription.realisationDate'>
                         <input style="width:150px;" placeholder="Data realizacji" :value='props.inputValue' type="text" class="form-control" slot-scope="props">
                     </v-date-picker>
                 </div>
                 <div class="col-auto mt-1">
+                    <br/>
                     <div class="form-check">
                         <label class="form-check-label">
                             <input title="Zamieść numer recepty na wydruku" class="form-check-input"
@@ -57,9 +61,11 @@
                     </div>
                 </div>
                 <div class="col-auto mt-1">
+                    <br/>
                     <button :disabled="!this.patient.id || !this.prescription.realisationDate || !this.prescription.permissions || !this.prescription.nfz" class="btn btn-info" @click="printRecipe">Drukuj</button>
                 </div>
                 <div class="col-auto mt-1">
+                    <br/>
                     <button @click="saveExternal" :disabled="!this.patient.id || !this.prescription.realisationDate || !this.prescription.permissions || !this.prescription.nfz" class="btn btn-info">Wyślij e-receptę</button>
                 </div>
             </div>
