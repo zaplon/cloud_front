@@ -66,7 +66,10 @@
                 </div>
                 <div class="col-auto mt-1">
                     <br/>
-                    <button @click="saveExternal" :disabled="!this.patient.id || !this.prescription.realisationDate || !this.prescription.permissions || !this.prescription.nfz" class="btn btn-info">Wyślij e-receptę</button>
+                    <button @click="saveExternal" :disabled="this.sending || !this.patient.id || !this.prescription.realisationDate || !this.prescription.permissions || !this.prescription.nfz" class="btn btn-info">
+                        <span v-if="!sending">Wyślij e-receptę</span>
+                        <span v-else>Wysyłam...</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -148,6 +151,7 @@ export default {
       excludes: [],
       inputValue: [],
       useNumber: false,
+      sending: false,
       prescription: {
         id: null,
         nfz: this.$store.state.user.system_settings.nfz_department,
@@ -333,7 +337,9 @@ export default {
       var data = this.serializePrescription()
       data.tmp = false
       data.id = null
+      this.sending = true
       axios.post('rest/prescriptions/save_in_p1/', data).then(response => {
+        this.sending = false
         if (!this.prescription.external_code) {
           this.loadData(response.data)
         } else {
@@ -351,6 +357,7 @@ export default {
           EventBus.$emit('show-document', url, 'Recepta')
         })
       }).catch(error => {
+        this.sending = false
         console.log(error.response.data)
         this.$notify({
           group: 'nots',
