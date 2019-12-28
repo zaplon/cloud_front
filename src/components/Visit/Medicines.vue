@@ -73,14 +73,19 @@
                               :request-headers="authHeaders"
                               ref="medicinesAutocomplete"
                               results-property="results"
-                              results-display="name">
+                              :results-display="formattedDisplay">
                 </autocomplete>
             </div>
             <div class="col-auto" v-permission="'add_medicine'">
                 <button class="btn btn-success" @click="showAddMedicineModal"><i class="fa fa-plus"></i></button>
             </div>
         </div>
-        <div class="row mb-2" v-else>
+        <div class="row mb-2" v-if="prescription.external_code">
+            <div class="col-md-12">
+                <span class="mr-1">Kod e-recepty:</span><strong>{{ prescription.external_code }}</strong>
+            </div>
+        </div>
+        <div class="row mb-2" v-if="medicinesCount >= 5">
             <div class="col-md-12">
                 <span class="text-muted">Na recepcie znajduje się maksymalna ilość 5 leków. Proszę dodać kolejną receptę.</span>
             </div>
@@ -173,6 +178,8 @@ export default {
       data.loadRefundations = true
       data.form = data.medicine.parent.form
       data.id = data.medicine.parent.id
+      data.number = data.number
+      data.external_id = data.external_id
       if (data.refundation) {
         if (data.refundation !== '100%') {
           this.$set(data, 'refundations', [{id: 0, to_pay: data.refundation}])
@@ -209,6 +216,8 @@ export default {
         medicines.push({medicine_id: s.child.id,
           dosage: s.dosage,
           amount: s.amount,
+          number: s.number,
+          external_id: s.external_id,
           notes: s.notes,
           refundation: s.refundation ? s.refundation : null})
       })
@@ -224,7 +233,7 @@ export default {
         external_code: this.external_code,
         date: this.prescription.realisationDate,
         visit: this.visitId,
-        number: isNaN(this.prescription.number) ? this.prescription.number : null
+        number: this.prescription.number
       }
     },
     savePrescription (tmp) {
@@ -317,11 +326,13 @@ export default {
       }
       var data = this.serializePrescription()
       data.tmp = false
+      data.id = null
       axios.post('rest/prescriptions/save_in_p1/', data).then(response => {
-        this.prescription.external_id = response.data.external_id
-        this.prescription.external_code = response.data.external_code
-        this.prescription.id = response.data.id
-        this.prescription.tmp = false
+        if (!this.prescription.external_code) {
+          this.loadData(response.data)
+        } else {
+          this.$emit('addPrescription', response.data)
+        }
         this.$refs.prescriptionModal.cancel()
         this.$notify({
           group: 'nots',
@@ -342,6 +353,9 @@ export default {
           type: 'error'
         })
       })
+    },
+    formattedDisplay (result) {
+      return result.name + ' [' + result.dose + ']'
     }
   },
   computed: {

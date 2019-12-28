@@ -66,6 +66,7 @@
                             'form-control': !errors[field.name] && !readonly,
                             'form-control-sm': formSize == 'sm', 'form-control-lg': formSize == 'lg'}">
                         <small v-if="helpers[field.name]" class="form-text text-muted">Obecnie {{ helpers[field.name] }}</small>
+                        <!--<button role="button" @click="values[field.name]=null" class="btn btn-link"><small>wyczyść</small></button>-->
                     </template>
                 </template>
                 <template v-else-if="field.type=='postal_code'">

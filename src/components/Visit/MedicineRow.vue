@@ -183,6 +183,9 @@ export default {
       }
       this.getRefundations(parent)
     }
+  },
+  mounted () {
+    this.getChildren(this.medicine)
   }
 }
 </script>

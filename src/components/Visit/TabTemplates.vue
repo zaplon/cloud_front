@@ -36,7 +36,9 @@ export default {
       })
     },
     getShortcut (key) {
-      return key.toLowerCase().split('+')
+      if (key) {
+        return key.toLowerCase().split('+')
+      }
     },
     showModal () {
       this.$refs.templateForm.loadHtml(null, {text: this.content, tab: this.name}).then(() => this.$refs.templateModal.show())
