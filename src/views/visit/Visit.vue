@@ -231,6 +231,8 @@ export default {
       axios.patch('rest/patients/' + this.visit.term.patient.id + '/', data).then(response => {
         this.$refs.editPatientModal.hide()
         this.visit.term.patient = response.data
+      }).catch(error => {
+        this.$refs.patientForm.errors = error.response.data
       })
     },
     editPatientSmall () {
@@ -242,6 +244,8 @@ export default {
       axios.patch('rest/patients/' + this.visit.term.patient.id + '/', data).then(response => {
         this.$refs.editPatientSmallModal.hide()
         this.visit.term.patient = response.data
+      }).catch(error => {
+        this.$refs.patientSmallForm.errors = error.response.data
       })
     },
     getICD (icds) {

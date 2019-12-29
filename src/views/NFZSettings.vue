@@ -63,6 +63,14 @@ export default {
             {id: 'PIELEGNIARKA_POLOZNA', name: 'PIELEGNIARKA_POLOZNA'}
           ]
         },
+        {name: 'typ_podmiotu',
+          label: 'Typ podmiotu',
+          type: 'select',
+          choices: [
+            {id: 'PRAKTYKA_LEKARSKA', name: 'Praktyka lekarska'},
+            {id: 'PODMIOT_LECZNICZY', name: 'Podmiot leczniczy'}
+          ]
+        },
         {name: 'id_podmiotu_oid_ext', label: 'Identyfikator biznesowy podmiotu'},
         {name: 'id_podmiotu_lokalne', label: 'Identyfikator podmiotu lokalny'},
         {name: 'id_pracownika_oid_ext',
