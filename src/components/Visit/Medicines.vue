@@ -330,7 +330,15 @@ export default {
         this.add(row)
       })
     },
+    patientDataForPrescriptionFilled () {
+      var p = this.patient
+      return p.pesel && p.gender && p.first_name && p.last_name
+    },
     saveExternal () {
+      if (!this.patientDataForPrescriptionFilled()) {
+        this.$emit('editPatient')
+        return
+      }
       if (!this.validatePrescription()) {
         return
       }

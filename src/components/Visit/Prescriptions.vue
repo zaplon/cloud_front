@@ -2,7 +2,7 @@
     <div>
         <b-tabs content-class="mt-3">
             <b-tab v-for="(prescription, index) in prescriptions" :key="'p' + index" :active="index == 0">
-                <medicines
+                <medicines v-on:editPatient="$emit('editPatient')"
                         v-on:loadPrescriptions="loadPrescriptions" v-on:addPrescription="addPrescription"
                         :data="prescription" :patient="patient" :ref="'p-' + index"
                 :visit-id="visitId" :patient-prescriptions="patientPrescriptions"/>

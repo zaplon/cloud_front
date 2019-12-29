@@ -65,15 +65,17 @@ export default {
         },
         {name: 'id_podmiotu_oid_ext', label: 'Identyfikator biznesowy podmiotu'},
         {name: 'id_podmiotu_lokalne', label: 'Identyfikator podmiotu lokalny'},
-        {name: 'id_pracownika_oid_ext', label: 'Identyfikator pracownika (numer PWZ)', readOnly: true},
+        {name: 'id_pracownika_oid_ext',
+          label: 'Identyfikator pracownika (numer PWZ)',
+          readonly: true,
+          helpText: 'Możliwość edycji w profilu użytkownika'},
         {name: 'id_miejsca_pracy_oid_ext', label: 'Identyfikator miejsca pracy'}
       ]
     }
   },
   methods: {
     verify () {
-      let url = window.location.protocol + '//' + window.location.hostname + ':8082/api/test/'
-      axios.post(url, this.$refs['form'].getData()).then(response => {
+      axios.get('/profile/test_p1_settings/').then(response => {
         this.verificationMessage = 'Dane dostępowe zweryfikowano poprawnie.'
         this.verificationStatus = true
       }).catch(error => {

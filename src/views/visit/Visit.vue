@@ -11,6 +11,17 @@
                     <b-btn size="sm" class="float-right mr-2" variant="success" @click="savePatient">Zapisz</b-btn>
                 </div>
             </b-modal>
+            <b-modal :static="true" size="md" id="editPatientSmallModal" title="Edycja danych pacjenta"
+                     ref="editPatientSmallModal">
+                <p>Uzupełnij dane pacjenta wymagane na potrzeby e-recepty. Następnie prześlij receptę ponownie.</p>
+                <generic-form :fields="patientSmallFormFields" ref="patientSmallForm"></generic-form>
+                <div slot="modal-footer" class="w-100">
+                    <b-btn size="sm" class="float-right" variant="default" @click="$refs.editPatientSmallModal.hide()">
+                        Zamknij
+                    </b-btn>
+                    <b-btn size="sm" class="float-right mr-2" variant="success" @click="savePatientSmall">Zapisz</b-btn>
+                </div>
+            </b-modal>
             <div class="app-body" id="visit-body">
                 <div class="sidebar" id="visit-sidebar">
                     <archive :patient="visit.term.patient"></archive>
@@ -113,6 +124,7 @@
                                     <notes v-else-if="tab.type=='NOTES'" :ref="tab.id" />
                                     <prescriptions :data="tab.data" :patient="visit.term.patient"
                                                    :visit-id="visit.id"
+                                                   v-on:editPatient="editPatientSmall"
                                                    v-else-if="tab.type=='MEDICINES'" :ref="tab.id" />
                                     <oculist :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='OCULIST'" :ref="tab.id"></oculist>
                                     <referrals :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='EXAMINATIONS'" :ref="tab.id"></referrals>
@@ -166,9 +178,24 @@ export default {
       formTitle: '',
       tabIndex: 0,
       icds: [],
+      patientSmallFormFields: [
+        {name: 'first_name', label: 'Imię'},
+        {name: 'last_name', label: 'Nazwisko'},
+        {name: 'gender',
+          label: 'Płeć',
+          type: 'select',
+          choices: [{id: 'M', name: 'Mężczyzna'}, {id: 'F', name: 'Kobieta'}]
+        },
+        {name: 'pesel', label: 'Numer PESEL'}
+      ],
       patientFormFields: [
         {name: 'first_name', label: 'Imię'},
         {name: 'last_name', label: 'Nazwisko'},
+        {name: 'gender',
+          label: 'Płeć',
+          type: 'select',
+          choices: [{id: 'M', name: 'Mężczyzna'}, {id: 'F', name: 'Kobieta'}]
+        },
         {name: 'pesel', label: 'Numer PESEL'},
         {name: 'email', label: 'Adres e-mail'},
         {name: 'mobile', label: 'Numer telefonu'},
@@ -203,6 +230,17 @@ export default {
       let data = this.$refs.patientForm.getData()
       axios.patch('rest/patients/' + this.visit.term.patient.id + '/', data).then(response => {
         this.$refs.editPatientModal.hide()
+        this.visit.term.patient = response.data
+      })
+    },
+    editPatientSmall () {
+      this.$refs.editPatientSmallModal.show()
+      this.$refs.patientSmallForm.setData(this.visit.term.patient)
+    },
+    savePatientSmall () {
+      let data = this.$refs.patientSmallForm.getData()
+      axios.patch('rest/patients/' + this.visit.term.patient.id + '/', data).then(response => {
+        this.$refs.editPatientSmallModal.hide()
         this.visit.term.patient = response.data
       })
     },

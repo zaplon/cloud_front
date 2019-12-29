@@ -27,6 +27,7 @@
                             <li>{{ getChoiceFromId(values[field.name], choices[field.name]) }}</li>
                         </ul>
                         <select :class="[{formSize: 'form-control' + formSize}, 'form-control']" v-model="values[field.name]" v-else>
+                            <option :value="null">---</option>
                             <option :value="choice.id" v-for="choice in choices[field.name]" :key="choice.id">
                                 <template v-if="field.choiceDisplay">{{ field.choiceDisplay(choice) }}</template>
                                 <template v-else>{{ choice.name }}</template>
@@ -101,6 +102,7 @@
                             'form-control-sm': formSize == 'sm', 'form-control-lg': formSize == 'lg',
                             'form-control-plaintext': readonly }">
                 </template>
+                <small v-if="field.helpText" class="form-text text-muted">{{ field.helpText }}</small>
                 <div v-show="errors[field.name]" class="invalid-feedback">
                     <span v-for="(error, index) in errors[field.name]" :key="index">{{ error }}</span>
                 </div>
