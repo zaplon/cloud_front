@@ -71,7 +71,8 @@ export default {
             {id: 'PODMIOT_LECZNICZY', name: 'Podmiot leczniczy'}
           ]
         },
-        {name: 'id_podmiotu_oid_ext', label: 'Identyfikator biznesowy podmiotu'},
+        {name: 'id_podmiotu_oid_root', label: 'Identyfikator biznesowy root'},
+        {name: 'id_podmiotu_oid_ext', label: 'Identyfikator biznesowy extension'},
         {name: 'id_podmiotu_lokalne', label: 'Identyfikator podmiotu lokalny'},
         {name: 'id_pracownika_oid_ext',
           label: 'Identyfikator pracownika (numer PWZ)',
