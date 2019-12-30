@@ -21,7 +21,7 @@ export default {
   name: 'setup',
   methods: {
     logOut () {
-      Account.logOut()
+      Account.logOut(this)
     }
   }
 }
