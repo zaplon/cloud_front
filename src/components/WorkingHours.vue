@@ -53,7 +53,6 @@ export default {
     },
     setData (data) {
       if (data) {
-        console.log(data)
         if (data.days.length > 0) {
           this.days = data.days
         } else {
@@ -61,7 +60,6 @@ export default {
         }
         this.id = data.id
       }
-      console.log(this.days)
     },
     save () {
       return axios.patch('rest/doctors/' + this.id + '/', {days: this.days, only_hours: true}).then((response) => {
@@ -83,15 +81,22 @@ export default {
     }
   },
   mounted () {
+    console.log('mounted')
     if (!this.forCurrentUser) {
       return
     }
     let state = this.$store.state
     let doctor = state.user ? state.user.doctor ? state.user.doctor : {} : {}
     if (doctor) {
-      console.log(this.forCurrentUser, 'for')
       this.id = doctor.id
-      this.days = doctor.working_hours
+      if (doctor.working_hours.length === 0) {
+        console.log('baseDays')
+        this.days = this.baseDays
+      } else {
+        console.log(doctor.working_hours)
+        console.log('currentUser')
+        this.days = doctor.working_hours
+      }
     }
   }
 }

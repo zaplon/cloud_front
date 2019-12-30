@@ -452,7 +452,6 @@ var router = new Router({
 })
 
 var redirectToHome = (to, from, next) => {
-  console.log(to, store.state.user)
   if (to.path === '/' && store.state.user.modules) {
     if (store.state.user.modules.indexOf('calendar') > -1) {
       next({
