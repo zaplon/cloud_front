@@ -369,6 +369,7 @@ var routes = [
     name: 'Setup',
     redirect: 'setup/1',
     component: Setup,
+    meta: { requiresAuth: true },
     children: [
       {
         path: '1',

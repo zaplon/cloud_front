@@ -88,15 +88,15 @@ export default {
     let state = this.$store.state
     let doctor = state.user ? state.user.doctor ? state.user.doctor : {} : {}
     if (doctor) {
+      console.log(doctor)
       this.id = doctor.id
-      if (doctor.working_hours.length === 0) {
-        console.log('baseDays')
+      if (!doctor.working_hours || doctor.working_hours.length === 0) {
         this.days = this.baseDays
       } else {
-        console.log(doctor.working_hours)
-        console.log('currentUser')
         this.days = doctor.working_hours
       }
+    } else {
+      this.days = this.baseDays
     }
   }
 }
