@@ -376,7 +376,15 @@ export default {
       })
     },
     formattedDisplay (result) {
-      return result.name + ' [' + result.dose + ']'
+      if (result.dose && result.form) {
+        return result.name + ' [' + result.form + ', ' + result.dose + ']'
+      } else if (result.dose) {
+        return result.name + '[' + result.dose + ']'
+      } else if (result.form) {
+        return result.name + '[' + result.form + ']'
+      } else {
+        return result.name
+      }
     }
   },
   computed: {
