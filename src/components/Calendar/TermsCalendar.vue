@@ -133,6 +133,7 @@ export default {
     },
     addNewVisit () {
       this.term.id = null
+      this.term.status = ''
       this.modalTitle = 'Nowa wizyta'
       this.termForm = this.resetTermForm()
       if (this.$store.state.user.doctor) {
