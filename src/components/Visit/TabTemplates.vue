@@ -5,15 +5,17 @@
             <button :disabled="!content" class="ml-2 btn btn-default" @click="printTab">Drukuj</button>
         </div>
         <div class="row">
-            <div v-for="template in templates" :key="template.id" class="col-md-6 col-sm-12">
-                <button @shortkey="putTemplate(template)" v-shortkey="getShortcut(template.key)" type="button" class="btn btn-link" @click="putTemplate(template)">({{ template.key }}) {{ template.text | truncate(100) }}</button>
+            <div v-for="template in tabTemplates" :key="template.id" class="col-md-6 col-sm-12">
+                <button @shortkey="putTemplate(template)" v-shortkey="getShortcut(template.key)" type="button" class="btn btn-link" @click="putTemplate(template)">
+                    <span v-if="template.key.length > 2">({{ template.key }}) </span><span>{{ template.text | truncate(100) }}</span>
+                </button>
             </div>
         </div>
         <b-modal :static="true" size="lg" id="templateModal" title="Nowy szablon" @ok="modalOk" @cancel="modalCancel" ref="templateModal">
-            <backend-form ref="templateForm" klass="TemplateForm" module="visit.forms" />
+            <generic-form :fields="templateFormFields" ref="templateForm"></generic-form>
             <div slot="modal-footer" class="w-100">
                 <b-btn size="sm" class="float-right" variant="primary" @click="modalCancel">Anuluj</b-btn>
-                <b-btn size="sm" class="float-right mr-2" variant="default" @click="modalOk">{{ tab.ok }}</b-btn>
+                <b-btn size="sm" class="float-right mr-2" variant="default" @click="modalOk">Zapisz</b-btn>
             </div>
         </b-modal>
     </div>
@@ -21,6 +23,7 @@
 <script>
 import axios from 'axios'
 import EventBus from '@/eventBus'
+import GenericForm from '@/components/Forms/GenericForm'
 export default {
   name: 'tab-templates',
   methods: {
@@ -41,11 +44,16 @@ export default {
       }
     },
     showModal () {
-      this.$refs.templateForm.loadHtml(null, {text: this.content, tab: this.name}).then(() => this.$refs.templateModal.show())
+      this.$refs.templateForm.setData({tab_name: this.name, text: this.content})
+      this.$refs.templateModal.show()
     },
     modalOk () {
-      this.$refs.templateForm.handleSubmit((response) => {
+      var data = this.$refs.templateForm.getData()
+      axios.post('/rest/templates/', data).then(response => {
         this.$refs.templateModal.hide()
+        this.tabTemplates.push(response.data)
+      }).catch((error) => {
+        this.$refs.templateForm.errors = error.response.data
       })
     },
     modalCancel () {
@@ -55,9 +63,43 @@ export default {
       this.$emit('setData', template.text)
     }
   },
+  mounted () {
+    this.tabTemplates = this.templates
+  },
   data () {
     return {
-      tab: {ok: 'Dodaj'}
+      tab: {ok: 'Dodaj'},
+      tabTemplates: [],
+      templateFormFields: [
+        {name: 'name', label: 'Nazwa'},
+        {name: 'key',
+          label: 'Skrót',
+          type: 'select',
+          choices: [
+            {id: 'CTRL+F1', name: 'CTRL + F1'},
+            {id: 'CTRL+F2', name: 'CTRL + F2'},
+            {id: 'CTRL+F3', name: 'CTRL + F3'},
+            {id: 'CTRL+F4', name: 'CTRL + F4'},
+            {id: 'CTRL+F5', name: 'CTRL + F5'},
+            {id: 'CTRL+F6', name: 'CTRL + F6'},
+            {id: 'CTRL+F7', name: 'CTRL + F7'},
+            {id: 'CTRL+F8', name: 'CTRL + F8'},
+            {id: 'CTRL+F9', name: 'CTRL + F9'},
+            {id: 'CTRL+F10', name: 'CTRL + F10'},
+            {id: 'ALT+F1', name: 'ALT + F1'},
+            {id: 'ALT+F2', name: 'ALT + F2'},
+            {id: 'ALT+F3', name: 'ALT + F3'},
+            {id: 'ALT+F4', name: 'ALT + F4'},
+            {id: 'ALT+F5', name: 'ALT + F5'},
+            {id: 'ALT+F6', name: 'ALT + F6'},
+            {id: 'ALT+F7', name: 'ALT + F7'},
+            {id: 'ALT+F8', name: 'ALT + F8'},
+            {id: 'ALT+F9', name: 'ALT + F9'},
+            {id: 'ALT+F10', name: 'ALT + F10'}
+          ]},
+        {name: 'text', label: 'Treść', type: 'textarea'},
+        {name: 'tab_name', label: 'Zakładka', readonly: true}
+      ]
     }
   },
   props: {
@@ -65,6 +107,9 @@ export default {
     content: String,
     name: String,
     patient: Object
+  },
+  components: {
+    GenericForm
   }
 }
 </script>

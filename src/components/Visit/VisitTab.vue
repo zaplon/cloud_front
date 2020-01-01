@@ -1,7 +1,8 @@
 <template>
     <div>
         <textarea class="form-control visit-tab" v-model="content"></textarea>
-        <tab-templates :name="name" :patient="patient" :content="content" :templates="templates" @setData="setData"></tab-templates>
+        <tab-templates :name="name" :patient="patient" :content="content" :templates="templates"
+                       @setData="setData"></tab-templates>
     </div>
 </template>
 <script>
@@ -24,7 +25,7 @@ export default {
   methods: {
     getData () { return this.content },
     setData (content) {
-      this.content = this.content + ' ' + content
+      this.content = (this.content || '') + ' ' + content
     }
   }
 }

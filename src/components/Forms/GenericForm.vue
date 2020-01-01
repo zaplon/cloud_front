@@ -12,7 +12,10 @@
                             <ul class="list-unstyled" v-if="readonly">
                                 <li v-for="value in values[field.name]" :key="value">{{ getChoiceFromId(value, choices[field.name], field.choiceDisplay) }}</li>
                             </ul>
-                            <select v-else :class="[{formSize: 'form-control' + formSize}, 'form-control']" v-model="values[field.name]" multiple>
+                            <select v-else
+                                    :class="{'is-invalid form-control': errors[field.name], 'form-control': !errors[field.name],
+                                             'form-control-sm': formSize == 'sm', 'form-control-lg': formSize == 'lg'}"
+                                    v-model="values[field.name]" multiple>
                                 <option :value="choice.id" v-for="choice in choices[field.name]" :key="choice.id">
                                     <template v-if="field.choiceDisplay">{{ field.choiceDisplay(choice) }}</template>
                                     <template v-else>{{ choice.name }}</template>
@@ -26,7 +29,10 @@
                         <ul class="list-unstyled" v-if="readonly">
                             <li>{{ getChoiceFromId(values[field.name], choices[field.name]) }}</li>
                         </ul>
-                        <select :class="[{formSize: 'form-control' + formSize}, 'form-control']" v-model="values[field.name]" v-else>
+                        <select :class="{ 'is-invalid form-control': errors[field.name],
+                        'form-control': !errors[field.name] && !readonly,
+                        'form-control-sm': formSize == 'sm', 'form-control-lg': formSize == 'lg'}"
+                                v-model="values[field.name]" v-else>
                             <option :value="null">---</option>
                             <option :value="choice.id" v-for="choice in choices[field.name]" :key="choice.id">
                                 <template v-if="field.choiceDisplay">{{ field.choiceDisplay(choice) }}</template>
@@ -40,7 +46,7 @@
                               v-bind="fieldAttributes(field)" rows="5"
                               :class="{ 'is-invalid form-control': errors[field.name],
                             'form-control': !errors[field.name] && !readonly,
-                            'form-control': formSize == 'md', 'form-control': formSize == 'lg',
+                            'form-control-sm': formSize == 'sm', 'form-control-lg': formSize == 'lg',
                             'form-control-plaintext': readonly }"></textarea>
                 </template>
                 <template v-else-if="field.type=='editor'">
@@ -122,7 +128,7 @@ export default {
     fields: Array,
     formSize: {
       type: String,
-      default: '',
+      default: 'md',
       required: false
     },
     readonly: {
