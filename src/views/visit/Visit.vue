@@ -128,7 +128,7 @@
                                                    v-else-if="tab.type=='MEDICINES'" :ref="tab.id" />
                                     <oculist :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='OCULIST'" :ref="tab.id"></oculist>
                                     <referrals :data="tab.data" :patient="visit.term.patient" v-else-if="tab.type=='EXAMINATIONS'" :ref="tab.id"></referrals>
-                                    <visit-tab :name="tab.title" :templates="templates.filter((t) => t.tab_title == tab.title)"
+                                    <visit-tab :name="tab.title" :templates="templates"
                                                :initial="tab.data" :patient="visit.term.patient"
                                                :ref="tab.id" v-else>
                                     </visit-tab>

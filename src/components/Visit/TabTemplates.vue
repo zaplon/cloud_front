@@ -64,7 +64,7 @@ export default {
     }
   },
   mounted () {
-    this.tabTemplates = this.templates
+    this.tabTemplates = this.templates.filter((t) => t.tab_title === this.name)
   },
   data () {
     return {
