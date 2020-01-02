@@ -227,6 +227,7 @@ export default {
           }
         }
       })
+      this.errors = {}
     }
   }
 }
