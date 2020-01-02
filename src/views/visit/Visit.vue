@@ -355,7 +355,7 @@ export default {
         this.icds = this.visit.icdtovisit_set
       }
     })
-    axios.get('rest/templates/').then(response => { this.templates = response.data.results })
+    axios.get('rest/templates/?limit=100').then(response => { this.templates = response.data.results })
   },
   components: {
     Prescriptions,
