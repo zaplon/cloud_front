@@ -16,6 +16,11 @@
                 </div>
             </form>
         </b-modal>
+        <b-modal ok-title="Ok" size="md" title="Recepta została zaakceptowana"
+                 ref="medicineAddedToQueueModal" ok-only>
+            <p>Recepta została przesłana, jednak ze względu na obciążenie serwera e-recept, jej zapis został
+            zakolejkowany. Pacjent wkrótce otrzyma elektroniczną receptę na swoim internetowym koncie pacjenta.</p>
+        </b-modal>
         <div class="row mb-2 form-row">
             <div class="col-auto">
                 <select style="width: 160px;" class="form-control" v-model="lastPrescriptionSelected">
@@ -348,6 +353,10 @@ export default {
       this.sending = true
       axios.post('rest/prescriptions/save_in_p1/', data).then(response => {
         this.sending = false
+        if (response.data.idZadania) {
+          this.$refs.medicineAddedToQueueModal.show()
+          return
+        }
         if (!this.prescription.external_code) {
           this.loadData(response.data)
         } else {
