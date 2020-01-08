@@ -23,8 +23,8 @@
                     <div style="width: 250px; margin-right: 10px; margin-bottom: 6px;">
                         <doctors-list ref="doctorsList" @load-calendar="loadDoctorCalendar"></doctors-list>
                     </div>
-                    <div style="width: calc(100% - 260px);">
-                        <terms-calendar v-show="doctor" ref="terms" :single-user="singleUser"></terms-calendar>
+                    <div style="width: calc(100% - 260px); min-height: 200px;">
+                        <terms-calendar ref="terms" :single-user="singleUser"></terms-calendar>
                         <div v-show="!doctor">
                             <p class="font-lg text-muted text-center">
                                 Wybierz lekarz z listy po lewej, by zobaczyć jego kalendarz.

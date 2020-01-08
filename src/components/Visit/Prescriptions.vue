@@ -1,5 +1,10 @@
 <template>
     <div>
+        <b-modal ok-title="Ok" ok-only size="md" id="prescriptionErrorModal" title="Wystąpił błąd"
+                 ref="prescriptionErrorModal">
+            <p>Wystąpił problem podczas komunikacji z systemem e-recepty.</p>
+            <p>{{ p1Error }}</p>
+        </b-modal>
         <b-tabs content-class="mt-3">
             <b-tab v-for="(prescription, index) in prescriptions" :key="'p' + index" :active="index == 0">
                 <medicines v-on:editPatient="$emit('editPatient')"
@@ -55,6 +60,7 @@ export default {
   data () {
     return {
       prescriptions: [],
+      p1Error: '',
       patientPrescriptions: []
     }
   },
@@ -70,7 +76,11 @@ export default {
         } else {
           promise = axios.delete('/rest/prescriptions/' + p.id + '/')
         }
-        promise.then(response => this.prescriptions.splice(index, 1))
+        promise.then(response => this.prescriptions.splice(index, 1)).catch(error => {
+          console.log(error)
+          this.p1Error = error.response.data
+          this.prescriptionErrorModal.show()
+        })
       } else {
         this.prescriptions.splice(index, 1)
       }
@@ -88,7 +98,11 @@ export default {
       for (let r in this.$refs) {
         if (r.startsWith('p-')) {
           if (this.$refs[r][0]) {
-            this.$refs[r][0].savePrescription(tmp)
+            this.$refs[r][0].savePrescription(tmp).catch(error => {
+              console.log(error)
+              this.p1Error = error.response.data
+              this.prescriptionErrorModal.show()
+            })
           }
         }
       }
