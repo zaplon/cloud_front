@@ -86,7 +86,7 @@
                 <template v-if="term.edition || term.patientEdition">
                     <b-btn size="sm" class="float-right" variant="default" @click="modalCancel">Anuluj</b-btn>
                     <b-btn size="sm" class="float-right mr-2" variant="primary" @click="modalOk(false)">Zapisz</b-btn>
-                    <b-btn v-if="!term.patientEdition" size="sm" class="float-right mr-2" variant="primary"
+                    <b-btn v-if="!term.patientEdition && this.singleUser" size="sm" class="float-right mr-2" variant="primary"
                            @click="modalOk(true)" :disabled="!term.patientId && !termForm.patient">
                         Zapisz i rozpocznij
                     </b-btn>
@@ -109,6 +109,9 @@ import EventBus from '@/eventBus'
 export default {
   name: 'terms-calendar',
   components: {FullCalendar, Autocomplete, VueTimepicker},
+  props: {
+    singleUser: Boolean
+  },
   methods: {
     cancelVisit (term) {
       axios.post('timetable/cancel/', {id: term.id}).then(response => {
@@ -117,8 +120,7 @@ export default {
       })
     },
     loadDoctorCalendar (doctor) {
-      this.doctor = doctor.id
-      console.log(this.$moment(doctor.first_term, 'DD-MM-YYYY'))
+      this.doctor = doctor
       this.$refs.calendar.fireMethod('gotoDate', this.$moment(doctor.first_term, 'DD-MM-YYYY'))
       this.$refs.calendar.$emit('refetch-events')
     },
@@ -131,17 +133,17 @@ export default {
     selectDoctor (obj) {
       this.termForm.doctor = obj.selectedObject
     },
-    addNewVisit () {
+    addNewVisit (doctor) {
       this.term.id = null
       this.term.status = ''
       this.modalTitle = 'Nowa wizyta'
       this.termForm = this.resetTermForm()
-      if (this.$store.state.user.doctor) {
-        let doctor = this.$store.state.user.doctor
-        this.termForm.duration = this.$store.state.user.doctor.visit_duration
-        this.termForm.doctor = {id: doctor.id, name: doctor.name}
-        this.autocompletes.doctor = doctor.name
+      if (this.singleUser) {
+        doctor = this.$store.state.user.doctor
       }
+      this.termForm.duration = doctor.visit_duration
+      this.termForm.doctor = {id: doctor.id, name: doctor.name}
+      this.autocompletes.doctor = doctor.name
       this.term.edition = true
       this.$refs.modal.show()
     },
@@ -274,7 +276,7 @@ export default {
       this.term.status = event.status
       this.term.start = event.start.format('DD-MM HH:mm')
       this.term.edition = false
-      if (this.term.status === 'FREE') { this.goToEdition().then(res => this.$refs.modal.show()) } else {
+      if (this.term.status === 'FREE' || !this.singleUser) { this.goToEdition().then(res => this.$refs.modal.show()) } else {
         this.$refs.modal.show()
       }
     },
@@ -326,7 +328,7 @@ export default {
       }
     },
     hasManyServices () {
-      return this.$store.state.user.doctor.has_many_services
+      return this.singleUser ? this.$store.state.user.doctor.has_many_services : !!this.singleService
     },
     autocompletes () {
       return {
@@ -336,14 +338,14 @@ export default {
       }
     },
     config () {
-      var doctor = this.$store.state.user.doctor
+      var doctor = this.singleUser ? this.$store.state.user.doctor : this.doctor
       var user = this.$store.state.user
       return {
         themeSystem: 'bootstrap4',
         minTime: doctor ? doctor.terms_start : '09:00:00',
         maxTime: doctor ? doctor.terms_end : '17:00:00',
         locale: 'pl',
-        hiddenDays: this.getHiddenDays(doctor.working_hours),
+        hiddenDays: doctor ? this.getHiddenDays(doctor.working_hours) : [0, 6],
         editable: user.can_edit_terms,
         slotDuration: '00:15:00',
         displayEventTime: false,
@@ -357,7 +359,7 @@ export default {
       }
     }
   },
-  mounted () {
+  beforeMount () {
     EventBus.$on('reload-calendar', (options) => {
       options = options || {}
       if ('working_hours' in options) {
@@ -366,6 +368,10 @@ export default {
       console.log(options)
       this.reloadCalendar(options)
     })
+    if (this.singleUser) {
+      this.doctor = this.$store.state.user.doctor
+      return
+    }
     axios.get('rest/services/').then(response => {
       if (response.data.count > 1) {
         let service = response.data.results[0]
@@ -402,11 +408,15 @@ export default {
         [
           {
             events (start, end, timezone, callback) {
-              axios.get('rest/terms/', { params: {start: this.moment(start).format('YYYY-MM-DD'),
-                end: this.moment(end).format('YYYY-MM-DD'),
-                doctor: this.el[0].__vue__.$parent.doctor} }).then(response => {
-                callback(response.data)
-              })
+              if (!this.el[0].__vue__.$parent.doctor) {
+                return []
+              } else {
+                axios.get('rest/terms/', { params: {start: this.moment(start).format('YYYY-MM-DD'),
+                  end: this.moment(end).format('YYYY-MM-DD'),
+                  doctor: this.el[0].__vue__.$parent.doctor.id} }).then(response => {
+                  callback(response.data)
+                })
+              }
             }
           }
         ]

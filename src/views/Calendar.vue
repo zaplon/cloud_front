@@ -1,10 +1,10 @@
 <template>
     <div>
         <div class="card">
-            <div class="card-body" v-if="this.$store.state.user.type == 'doctor'"
+            <div class="card-body" v-if="singleUser"
                  v-bind:class="{ toggled: sidebarToggled }">
                 <div id="calendar-container">
-                        <terms-calendar ref="terms"></terms-calendar>
+                        <terms-calendar ref="terms" :single-user="singleUser"></terms-calendar>
                 </div>
                 <div id="calendar-sidebar">
                     <v-calendar :attributes='attrs' v-on:dayclick="setCalendarDate"></v-calendar>
@@ -24,12 +24,18 @@
                         <doctors-list ref="doctorsList" @load-calendar="loadDoctorCalendar"></doctors-list>
                     </div>
                     <div style="width: calc(100% - 260px);">
-                        <terms-calendar ref="terms"></terms-calendar>
+                        <terms-calendar v-show="doctor" ref="terms" :single-user="singleUser"></terms-calendar>
+                        <div v-show="!doctor">
+                            <p class="font-lg text-muted text-center">
+                                Wybierz lekarz z listy po lewej, by zobaczyć jego kalendarz.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <button v-permission="'add_visit'" class="btn bottom-right button-add font-lg" @click="addNewVisit"><i class="fa fa-plus"></i></button>
+        <button v-if="singleUser" v-permission="'add_term'" class="btn bottom-right button-add font-lg" @click="addNewVisit"><i class="fa fa-plus"></i></button>
+        <button v-if="!singleUser && doctor" v-permission="'add_term'" class="btn bottom-right button-add font-lg" @click="addNewVisit"><i class="fa fa-plus"></i></button>
     </div>
 </template>
 <script>
@@ -44,7 +50,7 @@ export default {
       this.sidebarToggled = !this.sidebarToggled
     },
     loadDoctorCalendar (doctor) {
-      this.doctor = doctor.id
+      this.doctor = doctor
       this.$refs.terms.loadDoctorCalendar(doctor)
     },
     searchDoctors (params) {
@@ -55,14 +61,19 @@ export default {
       this.$refs.terms.$refs.calendar.fireMethod('gotoDate', payload.date)
     },
     addNewVisit () {
-      if (this.$hasPermissions('change_visit')) {
-        this.$refs.terms.addNewVisit()
+      if (this.$hasPermissions('change_term')) {
+        this.$refs.terms.addNewVisit(this.doctor)
       }
     }
   },
+  mounted () {
+    this.singleUser = this.$store.state.user.type === 'doctor'
+    if (this.singleUser) this.doctor = this.$store.state.user.doctor
+  },
   data: () => {
     return {
-      doctor: 0,
+      doctor: null,
+      singleUser: true,
       sidebarToggled: false,
       attrs: [
         {

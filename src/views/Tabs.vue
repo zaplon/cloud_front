@@ -9,10 +9,10 @@
                 <thead>
                 <tr><th>Nazwa</th><th>Typ</th><th>Kolejność</th><th></th></tr>
                 </thead>
-                <tbody>
+                <draggable v-model="tabs" tag="tbody" @change="changeOrder">
                 <tr v-for="tab in tabs" :key="tab.id">
                     <td><button class="btn btn-link" @click="editTab(tab)">{{ tab.title }}</button></td>
-                    <td>{{ tab.type }}</td>
+                    <td>{{ tab.type_name }}</td>
                     <td>{{ tab.order }}</td>
                     <td>
                         <button v-if="!tab.enabled" @click="changeTabState(tab)" class="btn btn-default btn-sm">Włącz</button>
@@ -20,11 +20,11 @@
                         <button @click="showConfirmModal(tab)" class="btn btn-danger btn-sm">Usuń</button>
                     </td>
                 </tr>
-                </tbody>
+                </draggable>
             </table>
         </div>
         <b-modal :static="true" size="sm" id="tabModal" :title="tab.title" @ok="modalOk" @cancel="modalCancel" ref="tabModal">
-            <backend-form ref="tabForm" klass="TabForm" module="visit.forms" :pk="tab.id" />
+            <generic-form :fields="tabFormFields" ref="tabForm"></generic-form>
             <div slot="modal-footer" class="w-100">
                 <b-btn size="sm" class="float-right" variant="primary" @click="modalCancel">Anuluj</b-btn>
                 <b-btn size="sm" class="float-right mr-2" variant="default" @click="modalOk">{{ tab.ok }}</b-btn>
@@ -35,12 +35,31 @@
 </template>
 <script>
 import axios from 'axios'
+import draggable from 'vuedraggable'
+import GenericForm from '@/components/Forms/GenericForm'
 export default {
   name: 'tabs',
   data () {
     return {
       tabs: [],
-      tab: {title: 'Nowa zakładka', id: null, ok: 'Dodaj'}
+      oldIndex: null,
+      tabFormFields: [
+        {name: 'title', label: 'Nazwa'},
+        {name: 'order', label: 'Kolejność', type: 'number', attributes: {'min': 1}},
+        {name: 'enabled', label: 'Właczona', type: 'checkbox'},
+        {name: 'type',
+          type: 'select',
+          label: 'Typ',
+          choices: [
+            {id: 'DEFAULT', name: 'Pole tekstowe'},
+            {id: 'ICD10', name: 'Rozpoznanie'},
+            {id: 'MEDICINES', name: 'Recepty'},
+            {id: 'EXAMINATIONS', name: 'Badania dodatkowe'},
+            {id: 'OCULIST', name: 'Okulista'},
+            {id: 'NOTES', name: 'Notatki'}
+          ]}
+      ],
+      tab: {title: '', ok: ''}
     }
   },
   methods: {
@@ -49,24 +68,66 @@ export default {
         tab.enabled = !tab.enabled
       })
     },
+    changeOrder (ev) {
+      axios.patch('rest/tabs/' + ev.moved.element.id + '/', {order: ev.moved.newIndex + 1})
+      ev.moved.element.order = ev.moved.newIndex + 1
+      if (ev.moved.newIndex > ev.moved.oldIndex) {
+        this.reorderFields(ev.moved.oldIndex, ev.moved.newIndex - 1, -1)
+      } else {
+        this.reorderFields(ev.moved.newIndex + 1, ev.moved.oldIndex, 1)
+      }
+    },
+    reorderFields (startIndex, endIndex, direction) {
+      this.tabs.forEach((tab, index) => {
+        if (startIndex <= index && endIndex >= index) {
+          var newIndex = tab.order + direction
+          axios.patch('rest/tabs/' + tab.id + '/', {order: newIndex}).then((response) => {
+            tab.order = newIndex
+          })
+        }
+      })
+    },
     editTab (tab) {
+      this.oldIndex = tab.order - 1
+      this.tabFormFields[1].attributes.max = this.tabs.length
       this.tab.title = 'Edycja zakładki'
       this.tab.ok = 'Zapisz'
-      this.tab.id = tab.id
-      this.$refs.tabForm.loadHtml(tab.id).then(response => { this.$refs.tabModal.show() })
+      this.$refs.tabForm.setData(tab)
+      this.$refs.tabModal.show()
     },
     addTab () {
+      this.oldIndex = this.tabs.length
+      this.tabFormFields[1].attributes.max = this.tabs.length + 1
       this.tab.title = 'Nowa zakładka'
       this.tab.ok = 'Dodaj'
-      if (this.tab.id) {
-        this.tab.id = null
-        this.$refs.tabForm.loadHtml().then(response => { this.$refs.tabModal.show() })
-      } else { this.$refs.tabModal.show() }
+      this.$refs.tabModal.show()
+      this.$refs.tabForm.reset()
     },
     modalOk () {
-      this.$refs.tabForm.handleSubmit(() => {
+      var data = this.$refs.tabForm.getData()
+      data.doctor = this.$store.state.user.doctor.id
+      var promise = null
+      if (data.id) {
+        promise = axios.put('/rest/tabs/' + data.id + '/', data)
+      } else {
+        promise = axios.post('/rest/tabs/', data)
+      }
+      promise.then(response => {
         this.$refs.tabModal.hide()
-        this.loadTabs()
+        var insertAtIndex = response.data.order - 1
+        if (data.id) {
+          this.tabs.splice(this.oldIndex, 1)
+          this.tabs.splice(insertAtIndex, 0, response.data)
+        } else {
+          this.tabs.splice(insertAtIndex, 0, response.data)
+        }
+        if (insertAtIndex > this.oldIndex) {
+          this.reorderFields(this.oldIndex - 1, insertAtIndex + 1, 1)
+        } else if (insertAtIndex < this.oldIndex) {
+          this.reorderFields(insertAtIndex + 1, this.oldIndex + 1, 1)
+        }
+      }).catch(error => {
+        this.$refs.tabForm.errors = error.response.data
       })
     },
     showConfirmModal (tab) {
@@ -81,9 +142,6 @@ export default {
         this.tabs.splice(this.tabs.indexOf(this.selectedTab), 1)
       })
     },
-    reorder (tab, place) {
-
-    },
     loadTabs () {
       axios.get('rest/tabs/').then(response => {
         this.tabs = response.data
@@ -92,6 +150,10 @@ export default {
   },
   mounted () {
     this.loadTabs()
+  },
+  components: {
+    draggable,
+    GenericForm
   }
 }
 </script>

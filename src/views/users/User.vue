@@ -15,11 +15,12 @@
                     <select class="form-control" v-model="role">
                         <option value="doctor">Lekarz</option>
                         <option value="admin">Administrator</option>
+                        <option value="registration">Rejestracja</option>
                     </select>
                 </div>
                 <generic-form :fields="userInitialFields" ref="userInitialForm"></generic-form>
             </div>
-            <div v-show="instanceId">
+            <div v-show="instanceId" v-if="this.instance">
                 <b-tabs>
                     <b-tab title="Dane podstawowe" active :title-link-class="errors.includes('user') in errors ? 'text-danger' : ''">
                         <generic-form :readonly="readonly" :fields="userFields" ref="userForm"></generic-form>
@@ -29,13 +30,13 @@
                     <!--</b-tab>-->
                     <b-tab :disabled="role!='doctor'" title="Informacje lekarskie*"
                            :title-link-class="errors.includes('doctor') ? 'text-danger' : ''">
-                        <generic-form :readonly="readonly" :fields="doctorFields" ref="doctorForm"></generic-form>
+                        <generic-form :readonly="readonly" :fields="doctorFields" ref="doctorForm" v-if="role=='doctor'"></generic-form>
                     </b-tab>
                     <b-tab :disabled="role!='doctor'" title="Godziny pracy"
                            :title-link-class="errors.includes('working_hours') in errors ? 'text-danger' : ''">
                         <div class="mt-4"></div>
                         <working-hours style="width:100%;" ref="workingHours" :readonly="readonly"
-                                       :for-current-user="false"></working-hours>
+                                       :for-current-user="false" v-if="role=='doctor'"></working-hours>
                     </b-tab>
                 </b-tabs>
             </div>
@@ -141,6 +142,7 @@ export default {
         axios.get(this.apiUrl + this.instanceId + '/').then((response) => {
           this.instance = response.data
           this.label = response.data.id
+          this.role = response.data.role
           this.setData()
         })
       }

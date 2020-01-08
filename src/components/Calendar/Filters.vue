@@ -9,7 +9,7 @@
                               :source="services"
                               results-display="name">
                 </autocomplete>
-                <input v-else type="text" readonly v-model="service.name">
+                <input v-else type="text" class="form-control" readonly v-model="service.name">
             </div>
             <div class="col-md-auto col-sm-12"><label>Data od</label></div>
             <div class="col-md-auto col-sm-12">

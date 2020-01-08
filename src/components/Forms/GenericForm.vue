@@ -99,6 +99,14 @@
                         </div>
                     </div>
                 </template>
+                <template v-else-if="field.type=='checkbox'">
+                    <div style="vertical-align: bottom;" class="pretty p-bigger p-smooth p-default p-round p-thick">
+                        <input type="checkbox" v-model="values[field.name]" />
+                        <div class="state p-primary">
+                            <label></label>
+                        </div>
+                    </div>
+                </template>
                 <template v-else>
                     <input :type="field.type ? field.type : 'text'" v-model="values[field.name]" :name="field.name"
                            :readonly="readonly || field.readonly"
@@ -227,6 +235,9 @@ export default {
           }
         }
       })
+      if (data.id) {
+        this.values.id = data.id
+      }
       this.errors = {}
     }
   }

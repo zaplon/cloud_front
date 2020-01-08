@@ -13,7 +13,9 @@
                     <td>{{ doctor.name }}</td>
                     <td>{{ doctor.first_term }}</td>
                 </tr>
-                <tr><td colspan="2" class="text-center"><span class="text-muted" v-show="doctors.length==0">Brak wyników</span></td></tr>
+                <tr v-show="doctors.length==0">
+                    <td colspan="2" class="text-center"><span class="text-muted">Brak wyników</span></td>
+                </tr>
             </tbody>
         </table>
     </div>
