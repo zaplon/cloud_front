@@ -122,6 +122,7 @@ export default {
     loadDoctorCalendar (doctor) {
       this.doctor = doctor
       this.$refs.calendar.fireMethod('gotoDate', this.$moment(doctor.first_term, 'DD-MM-YYYY'))
+      this.reloadCalendar(this.config)
       this.$refs.calendar.$emit('refetch-events')
     },
     selectPatient (obj) {
