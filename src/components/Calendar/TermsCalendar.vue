@@ -318,7 +318,7 @@ export default {
       let data = {id: null, service: null, date: new Date(), time: time, doctor: null, duration: null, patient: null, errors: []}
       var doctor = this.doctor || this.$store.state.user.doctor
       if (doctor && doctor.default_service) {
-        data.service = this.$store.state.user.doctor.default_service
+        data.service = doctor.default_service
         this.autocompletes.service = data.service.name
       } else {
         this.autocompletes.service = null
