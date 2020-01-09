@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1e358543-dfc6-4151-aa34-953a37b7aa1b" name="Default" comment="improvements">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/users/User.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/users/User.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Calendar/TermsCalendar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Calendar/TermsCalendar.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -53,10 +53,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="User.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="User.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/views/users/User.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
+            <state relative-caret-position="2070">
               <caret line="99" column="37" selection-start-line="99" selection-start-column="37" selection-end-line="99" selection-end-column="37" />
             </state>
           </provider>
@@ -77,8 +77,17 @@
       <file leaf-file-name="Full.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/containers/Full.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="55" column="13" lean-forward="true" selection-start-line="55" selection-start-column="13" selection-end-line="55" selection-end-column="13" />
+            <state relative-caret-position="139">
+              <caret line="51" column="39" lean-forward="true" selection-start-line="51" selection-start-column="39" selection-end-line="51" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TermsCalendar.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/Calendar/TermsCalendar.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="690">
+              <caret line="325" column="23" selection-start-line="325" selection-start-column="23" selection-end-line="325" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -101,31 +110,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Calendar.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/views/Calendar.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
-              <caret line="20" column="67" lean-forward="true" selection-start-line="20" selection-start-column="67" selection-end-line="20" selection-end-column="67" />
-              <folding>
-                <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>singleService</find>
-      <find>Zapisz</find>
-      <find>addNewVisit</find>
-      <find>add</find>
-      <find>this.doctor =</find>
-      <find>loadDoctorCalne</find>
-      <find>getHiddenDays</find>
-      <find>terms</find>
-      <find>workign</find>
       <find>worki</find>
       <find>.id</find>
       <find>terms-calendar</find>
@@ -142,11 +130,20 @@
       <find>Wyszukaj ter</find>
       <find>search</find>
       <find>26.12</find>
-      <find>console</find>
       <find>trun</find>
       <find>trunv</find>
       <find>role</find>
       <find>doctorForm</find>
+      <find>reloadCalendar</find>
+      <find>singleService</find>
+      <find>service</find>
+      <find>hasManyServices</find>
+      <find>doctor:</find>
+      <find>Przejść</find>
+      <find>console</find>
+      <find>this.autocompletes.ser</find>
+      <find>var doctor</find>
+      <find>resetTerm</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -237,7 +234,6 @@
         <option value="$PROJECT_DIR$/src/views/Tabs.vue" />
         <option value="$PROJECT_DIR$/src/components/Settings.vue" />
         <option value="$PROJECT_DIR$/src/components/Calendar/DoctorsList.vue" />
-        <option value="$PROJECT_DIR$/src/components/Calendar/TermsCalendar.vue" />
         <option value="$PROJECT_DIR$/src/components/Visit/Prescriptions.vue" />
         <option value="$PROJECT_DIR$/src/views/Calendar.vue" />
         <option value="$PROJECT_DIR$/src/components/Visit/MedicineRow.vue" />
@@ -245,6 +241,7 @@
         <option value="$PROJECT_DIR$/src/components/Footer.vue" />
         <option value="$PROJECT_DIR$/src/components/Visit/Medicines.vue" />
         <option value="$PROJECT_DIR$/src/views/users/User.vue" />
+        <option value="$PROJECT_DIR$/src/components/Calendar/TermsCalendar.vue" />
       </list>
     </option>
   </component>
@@ -298,14 +295,14 @@
               <item name="cloud_front" type="b2602c69:ProjectViewProjectNode" />
               <item name="cloud_front" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="Calendar" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="cloud_front" type="b2602c69:ProjectViewProjectNode" />
               <item name="cloud_front" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="users" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -873,21 +870,7 @@
       <workItem from="1578511361227" duration="596000" />
       <workItem from="1578519951729" duration="2611000" />
       <workItem from="1578564678698" duration="1026000" />
-      <workItem from="1578593491327" duration="3494000" />
-    </task>
-    <task id="LOCAL-00121" summary="messages">
-      <created>1569356392419</created>
-      <option name="number" value="00121" />
-      <option name="presentableId" value="LOCAL-00121" />
-      <option name="project" value="LOCAL" />
-      <updated>1569356392420</updated>
-    </task>
-    <task id="LOCAL-00122" summary="test">
-      <created>1569587957658</created>
-      <option name="number" value="00122" />
-      <option name="presentableId" value="LOCAL-00122" />
-      <option name="project" value="LOCAL" />
-      <updated>1569587957658</updated>
+      <workItem from="1578593491327" duration="7891000" />
     </task>
     <task id="LOCAL-00123" summary="text">
       <created>1569951110105</created>
@@ -1218,11 +1201,25 @@
       <option name="project" value="LOCAL" />
       <updated>1578595494325</updated>
     </task>
-    <option name="localTasksCounter" value="170" />
+    <task id="LOCAL-00170" summary="improvements">
+      <created>1578598138559</created>
+      <option name="number" value="00170" />
+      <option name="presentableId" value="LOCAL-00170" />
+      <option name="project" value="LOCAL" />
+      <updated>1578598138559</updated>
+    </task>
+    <task id="LOCAL-00171" summary="reload calendar">
+      <created>1578600910205</created>
+      <option name="number" value="00171" />
+      <option name="presentableId" value="LOCAL-00171" />
+      <option name="project" value="LOCAL" />
+      <updated>1578600910205</updated>
+    </task>
+    <option name="localTasksCounter" value="172" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1819239000" />
+    <option name="totallyTimeSpent" value="1823636000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="110" y="35" width="2450" height="1405" extended-state="6" />
@@ -1234,7 +1231,7 @@
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32931036" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.18362069" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.22758621" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.20086206" />
       <window_info id="npm" order="2" sideWeight="0.50340134" side_tool="true" weight="0.13020408" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.19074263" />
@@ -1279,7 +1276,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="test" />
     <MESSAGE value="text" />
     <MESSAGE value="login" />
     <MESSAGE value="detect mobile" />
@@ -1304,7 +1300,8 @@
     <MESSAGE value="async save" />
     <MESSAGE value="registration" />
     <MESSAGE value="improvements" />
-    <option name="LAST_COMMIT_MESSAGE" value="improvements" />
+    <MESSAGE value="reload calendar" />
+    <option name="LAST_COMMIT_MESSAGE" value="reload calendar" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1585,13 +1582,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Calendar/TermsCalendar.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10208">
-          <caret line="357" column="9" selection-start-line="357" selection-start-column="9" selection-end-line="357" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Visit/Prescriptions.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="116">
@@ -1633,13 +1623,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/Full.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="55" column="13" lean-forward="true" selection-start-line="55" selection-start-column="13" selection-end-line="55" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Footer.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="116">
@@ -1670,8 +1653,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/users/User.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
+        <state relative-caret-position="2070">
           <caret line="99" column="37" selection-start-line="99" selection-start-column="37" selection-end-line="99" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/Full.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="51" column="39" lean-forward="true" selection-start-line="51" selection-start-column="39" selection-end-line="51" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Calendar/TermsCalendar.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="325" column="23" selection-start-line="325" selection-start-column="23" selection-end-line="325" selection-end-column="23" />
         </state>
       </provider>
     </entry>
