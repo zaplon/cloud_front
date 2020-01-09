@@ -150,6 +150,7 @@ export default {
     },
     goToEdition () {
       this.modalTitle = 'Edycja terminu'
+      var doctor = this.doctor || this.$store.state.user.doctor
       return axios.get('rest/terms/' + this.term.id + '/').then(response => {
         var data = response.data
         let datetime = this.$moment(data.datetime)
@@ -169,8 +170,8 @@ export default {
           this.termForm.service = {id: data.service.id, name: data.service.name}
           this.autocompletes.service = data.service.name
         } else {
-          if (this.$store.state.user.doctor && this.$store.state.user.doctor.default_service) {
-            this.termForm.service = this.$store.state.user.doctor.default_service
+          if (doctor && doctor.default_service) {
+            this.termForm.service = doctor.default_service
             this.autocompletes.service = this.termForm.service.name
           }
         }
@@ -315,10 +316,14 @@ export default {
       minutes = minutes < 10 ? '0' + minutes : '' + minutes
       let time = {HH: date.format('HH'), mm: minutes}
       let data = {id: null, service: null, date: new Date(), time: time, doctor: null, duration: null, patient: null, errors: []}
-      if (this.$store.state.user.doctor && this.$store.state.user.doctor.default_service) {
+      var doctor = this.doctor || this.$store.state.user.doctor
+      if (doctor && doctor.default_service) {
         data.service = this.$store.state.user.doctor.default_service
         this.autocompletes.service = data.service.name
+      } else {
+        this.autocompletes.service = null
       }
+      this.autocompletes.patient = null
       return data
     }
   },
@@ -329,7 +334,7 @@ export default {
       }
     },
     hasManyServices () {
-      return this.singleUser ? this.$store.state.user.doctor.has_many_services : !!this.singleService
+      return this.singleUser ? this.$store.state.user.doctor.has_many_services : this.doctor.has_many_services
     },
     autocompletes () {
       return {
