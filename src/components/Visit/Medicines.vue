@@ -96,7 +96,7 @@
         </div>
         <div class="row mb-2" v-if="prescription.external_code">
             <div class="col-md-12">
-                <span class="mr-1">Kod e-recepty:</span><strong>{{ prescription.external_code| truncate(4) }}</strong>
+                <span class="mr-1">Kod e-recepty:</span><strong>{{ prescriptionShortCode }}</strong>
             </div>
         </div>
         <div class="row mb-2" v-if="medicinesCount >= 5">
@@ -404,6 +404,9 @@ export default {
     },
     medicinesCount: function () {
       return this.selections.length
+    },
+    prescriptionShortCode () {
+      return this.prescription.external_code.substring(0, 4)
     }
   },
   mounted () {

@@ -39,7 +39,6 @@
                             <th>Odpłatność</th>
                             <th>Ilość opakowań</th>
                             <th>Dawkowanie</th>
-                            <th>Osobna recepta</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -73,14 +72,6 @@
                             </td>
                             <td><input type="number" :class="[errors.amount ? 'is-invalid' : '', 'form-control']" v-model="medicine.amount"></td>
                             <td><input type="text" :class="[errors.dosage ? 'is-invalid' : '', 'form-control']" v-model="medicine.dosage"></td>
-                            <td class="text-center" style="vertical-align: middle;">
-                                <div class="pretty p-default p-round p-smooth">
-                                    <input type="checkbox" v-model="medicine.separate" class="form-check-input">
-                                    <div class="state">
-                                        <label></label>
-                                    </div>
-                                </div>
-                            </td>
                         </tr>
                         <tr>
                             <td colspan="6"><input placeholder="Uwagi" type="text"
@@ -144,7 +135,6 @@ export default {
           dosage: this.medicine.dosage,
           amount: this.medicine.amount,
           size: this.medicine.size,
-          separate: this.medicine.separate,
           notes: this.medicine.notes,
           refundation: this.medicine.refundation
         }

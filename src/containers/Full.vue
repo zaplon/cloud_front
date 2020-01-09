@@ -44,7 +44,6 @@ export default {
       var items = []
       var me = this
       nav.items.forEach(function (item) {
-        console.log(item)
         if (item.children) {
           var allowedChildren = []
           item.children.forEach(function (c) {
@@ -60,7 +59,6 @@ export default {
         }
         if (me.$store.state.user.modules.includes(item.id) || (item.children && item.children.length > 0)) { items.push(item) }
       })
-      console.log(items)
       return items
     }
   }
