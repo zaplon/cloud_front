@@ -28,15 +28,15 @@
                     <!--<b-tab :title-link-class="errors.includes('user_permissions') in errors ? 'text-danger' : ''" title="Uprawnienia">-->
                         <!--<generic-form :readonly="readonly" :fields="permissionsFields" ref="permissionsForm"></generic-form>-->
                     <!--</b-tab>-->
-                    <b-tab :disabled="role!='doctor'" title="Informacje lekarskie*"
+                    <b-tab :disabled="instance.role_name!='doctor'" title="Informacje lekarskie*"
                            :title-link-class="errors.includes('doctor') ? 'text-danger' : ''">
                         <generic-form :readonly="readonly" :fields="doctorFields" ref="doctorForm" v-if="role=='doctor'"></generic-form>
                     </b-tab>
-                    <b-tab :disabled="role!='doctor'" title="Godziny pracy"
+                    <b-tab :disabled="instance.role_name!='doctor'" title="Godziny pracy"
                            :title-link-class="errors.includes('working_hours') in errors ? 'text-danger' : ''">
                         <div class="mt-4"></div>
                         <working-hours style="width:100%;" ref="workingHours" :readonly="readonly"
-                                       :for-current-user="false" v-if="role=='doctor'"></working-hours>
+                                       :for-current-user="false" v-if="instance.role_name=='doctor'"></working-hours>
                     </b-tab>
                 </b-tabs>
             </div>
@@ -94,12 +94,13 @@ export default {
         return
       }
       let data = this.$refs['userForm'].getData()
-      data['doctor'] = this.$refs['doctorForm'].getData()
       // let permissions = this.$refs['permissionsForm'].getData()
       // data['user_permissions'] = permissions['user_permissions']
       // data['groups'] = permissions['groups']
-      data['doctor']['working_hours'] = this.$refs['workingHours'].getData()
-      console.log(data)
+      if (this.instance.role_name === 'doctor') {
+        data['doctor'] = this.$refs['doctorForm'].getData()
+        data['doctor']['working_hours'] = this.$refs['workingHours'].getData()
+      }
       axios.patch('rest/users/' + this.instanceId + '/', data).then((result) => {
         this.$router.push(this.backUrl + '/')
       }).catch((error) => {
@@ -142,7 +143,7 @@ export default {
         axios.get(this.apiUrl + this.instanceId + '/').then((response) => {
           this.instance = response.data
           this.label = response.data.id
-          this.role = response.data.role
+          this.role = response.data.role_name
           this.setData()
         })
       }
