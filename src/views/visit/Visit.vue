@@ -187,7 +187,11 @@ export default {
           type: 'select',
           choices: [{id: 'M', name: 'Mężczyzna'}, {id: 'F', name: 'Kobieta'}]
         },
-        {name: 'pesel', label: 'Numer PESEL'}
+        {name: 'pesel', label: 'Numer PESEL'},
+        {name: 'birth_date',
+          label: 'Data urodzenia',
+          type: 'date',
+          helpText: 'Zostanie odczytana z numeru pesel, jeżeli pozostawiona pusta'}
       ],
       patientFormFields: [
         {name: 'first_name', label: 'Imię'},
@@ -198,6 +202,10 @@ export default {
           choices: [{id: 'M', name: 'Mężczyzna'}, {id: 'F', name: 'Kobieta'}]
         },
         {name: 'pesel', label: 'Numer PESEL'},
+        {name: 'birth_date',
+          label: 'Data urodzenia',
+          type: 'date',
+          helpText: 'Zostanie odczytana z numeru pesel, jeżeli pozostawiona pusta'},
         {name: 'email', label: 'Adres e-mail'},
         {name: 'mobile', label: 'Numer telefonu'},
         {name: 'street', label: 'Ulica'},

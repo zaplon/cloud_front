@@ -337,7 +337,7 @@ export default {
     },
     patientDataForPrescriptionFilled () {
       var p = this.patient
-      return p.pesel && p.gender && p.first_name && p.last_name
+      return p.pesel && p.gender && p.first_name && p.last_name && p.birth_date
     },
     saveExternal () {
       if (!this.patientDataForPrescriptionFilled()) {

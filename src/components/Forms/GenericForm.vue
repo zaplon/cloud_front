@@ -99,6 +99,11 @@
                         </div>
                     </div>
                 </template>
+                <template v-else-if="field.type=='date'">
+                    <v-date-picker mode='single' v-model='values[field.name]'>
+                        <input type="text" class="form-control" slot-scope="props" v-model="props.inputValue">
+                    </v-date-picker>
+                </template>
                 <template v-else-if="field.type=='checkbox'">
                     <div style="vertical-align: bottom;" class="pretty p-bigger p-smooth p-default p-round p-thick">
                         <input type="checkbox" v-model="values[field.name]" />
@@ -184,6 +189,8 @@ export default {
           this.values[f.name] = this.$refs[f.name + '_editor'][0].getHTML()
         } else if (f.type === 'postal_code') {
           this.values[f.name] = this.values[f.name + '_1'] + '-' + this.values[f.name + '_2']
+        } else if (f.type === 'date') {
+          this.values[f.name] = this.$moment(this.values[f.name]).format('YYYY-MM-DD')
         }
       })
       console.log(this.values)
@@ -226,6 +233,10 @@ export default {
             }
           } else if (field.type === 'file') {
             this.helpers[field.name] = data[field.name]
+          } else if (field.type === 'date') {
+            if (data[field.name]) {
+              this.values[field.name] = this.$moment(data[field.name]).toDate()
+            }
           } else {
             this.values[field.name] = data[field.name]
           }
