@@ -46,7 +46,7 @@ export default {
       tabFormFields: [
         {name: 'title', label: 'Nazwa'},
         {name: 'order', label: 'Kolejność', type: 'number', attributes: {'min': 1}},
-        {name: 'enabled', label: 'Właczona', type: 'checkbox'},
+        {name: 'enabled', label: 'Włączona', type: 'checkbox'},
         {name: 'type',
           type: 'select',
           label: 'Typ',
@@ -102,6 +102,7 @@ export default {
       this.tab.ok = 'Dodaj'
       this.$refs.tabModal.show()
       this.$refs.tabForm.reset()
+      this.$refs.tabForm.setData({'enabled': true})
     },
     modalOk () {
       var data = this.$refs.tabForm.getData()
@@ -139,7 +140,9 @@ export default {
     },
     deleteTab () {
       axios.delete('rest/tabs/' + this.selectedTab.id + '/').then(response => {
-        this.tabs.splice(this.tabs.indexOf(this.selectedTab), 1)
+        let indexToRemove = this.tabs.indexOf(this.selectedTab)
+        this.tabs.splice(indexToRemove, 1)
+        this.reorderFields(indexToRemove, this.tabs.length, -1)
       })
     },
     loadTabs () {

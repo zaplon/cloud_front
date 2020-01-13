@@ -93,6 +93,11 @@
             <div class="col-auto" v-permission="'add_medicine'">
                 <button class="btn btn-success" @click="showAddMedicineModal"><i class="fa fa-plus"></i></button>
             </div>
+            <div class="col-auto">
+                <button class="btn btn-success" @click="addHandMadeMedicine">
+                    <i class="fa fa-plus mr-1"></i><strong>Lek recepturowy</strong>
+                </button>
+            </div>
         </div>
         <div class="row mb-2" v-if="prescription.external_code">
             <div class="col-md-12">
@@ -106,8 +111,8 @@
         </div>
         <div class="row mb-4">
         </div>
-        <medicine-row :ref="selection.id" v-on:remove-record="remove" :medicine="selection" klass="table-info"
-                      v-for="selection in selections" :key="selection.id"></medicine-row>
+        <medicine-row :ref="'med' + index" v-on:remove-record="remove" :medicine="selection" klass="table-info"
+                      v-for="(selection, index) in selections" :key="index"></medicine-row>
         <PdfDocument ref="prescriptionModal">
             <div slot="actions" class="float-right mr-2">
                 <b-btn size="sm" variant="success" @click="saveExternal">
@@ -184,6 +189,10 @@ export default {
       this.$refs.medicinesAutocomplete.clear()
     },
     deserializeMedicine (data) {
+      if (data.composition) {
+        data.isHandMade = true
+        return data
+      }
       data.name = data.medicine.parent.name
       data.size = data.medicine.id
       data.dose = data.medicine.parent.dose
@@ -210,6 +219,9 @@ export default {
     showAddMedicineModal () {
       this.$refs.addMedicineModal.show()
     },
+    addHandMadeMedicine () {
+      this.selections.push({isHandMade: true, refundation: '100%'})
+    },
     addMedicine (evt) {
       evt.preventDefault()
       this.$refs.medicineForm.save(() => { this.$refs.addMedicineModal.hide() })
@@ -228,13 +240,23 @@ export default {
     serializePrescription () {
       let medicines = []
       this.selections.forEach((s) => {
-        medicines.push({medicine_id: s.child.id,
-          dosage: s.dosage,
-          amount: s.amount,
-          number: s.number,
-          external_id: s.external_id,
-          notes: s.notes,
-          refundation: s.refundation ? s.refundation : null})
+        if (s.isHandMade) {
+          medicines.push({dosage: s.dosage,
+            amount: s.amount,
+            composition: s.composition,
+            composition_name: s.composition_name,
+            is_hand_made: true})
+        } else {
+          medicines.push({
+            medicine_id: s.child.id,
+            dosage: s.dosage,
+            amount: s.amount,
+            number: s.number,
+            external_id: s.external_id,
+            notes: s.notes,
+            refundation: s.refundation ? s.refundation : null
+          })
+        }
       })
       return {
         id: this.prescription.id,
@@ -269,7 +291,7 @@ export default {
     validatePrescription () {
       var errors = false
       this.selections.forEach((s, index) => {
-        if (!this.$refs[s.id][0].validate()) {
+        if (!this.$refs['med' + index][0].validate()) {
           this.errors = true
         }
       })

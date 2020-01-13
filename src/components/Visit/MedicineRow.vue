@@ -7,14 +7,32 @@
                         <tr>
                             <th>Nazwa</th>
                             <th>Ilość</th>
-                            <th>Receptura</th>
+                            <th>Dawkowanie</th>
+                            <th>Odpłatność</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="text" class="form-control" v-model="medicine.name"></td>
+                            <td><input type="text" class="form-control" v-model="medicine.composition_name"/></td>
                             <td><input type="text" pattern="[0-9.]+" class="form-control" v-model="medicine.amount"></td>
-                            <td><textarea class="form-control" v-model="medicine.composition"></textarea></td>
+                            <td><input type="text" class="form-control" v-model="medicine.dosage"></td>
+                            <td>
+                                <select class="form-control" v-model="medicine.refundation">
+                                    <option value="100%">100%</option>
+                                    <option value="30%">30%</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button title="Usuń lek" class="ml-1 btn btn-sm btn-danger" @click="remove(medicine)">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <textarea placeholder="Receptura" class="form-control" v-model="medicine.composition"></textarea>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -125,6 +143,7 @@ export default {
         return {
           name: this.medicine.name,
           amount: this.medicine.amount,
+          dosage: this.medicine.dosage,
           composition: this.medicine.composition
         }
       } else {
@@ -147,8 +166,13 @@ export default {
       this.$emit('remove-record', medicine)
     },
     getChildren (medicine) {
+      console.log(medicine)
+      var parent = medicine.id
+      if (medicine.medicine) {
+        parent = medicine.medicine.parent.id
+      }
       if (!medicine.children || medicine.loadChildren) {
-        axios.get('rest/medicines/', {params: {parent: medicine.id}}).then(response => {
+        axios.get('rest/medicines/', {params: {parent: parent}}).then(response => {
           this.$set(medicine, 'children', response.data.results)
           medicine.loadChildren = false
         })

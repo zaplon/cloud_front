@@ -13,7 +13,7 @@
                 {{ patient.name_with_pesel }}
             </div>
             <v-server-table ref="table" url="rest/results/" :columns="columns" :options="options">
-                <a href="#" slot="patient" @click.prevent="editResult(props.row)" slot-scope="props">{{ props.row.patient }}</a>
+                <a href="#" slot="name" @click.prevent="editResult(props.row)" slot-scope="props">{{ props.row.name }}</a>
                 <div>
                     <button v-b-modal="'confirmDeleteModal'" class="btn btn-danger btn-sm">usuń</button>
                 </div>
@@ -100,8 +100,8 @@ export default {
       specializationLabel: '',
       patientId: this.$route.params.id ? parseInt(this.$route.params.id) : 0,
       resultId: null,
-      columns: this.$hasPermissions('delete_result') ? ['patient', 'pesel', 'name', 'file', 'uploaded', 'actions']
-        : ['patient', 'pesel', 'name', 'file', 'uploaded'],
+      columns: this.$hasPermissions('delete_result') ? ['name', 'patient', 'pesel', 'file', 'uploaded', 'actions']
+        : ['name', 'patient', 'pesel', 'file', 'uploaded'],
       options: {
         // headings: {'select': '', 'patient': 'Pacjent', 'pesel': 'Pesel', 'nazwa': 'Nazwa', 'file': 'Plik'}
         headings: {'patient': 'Pacjent', 'pesel': 'Pesel', 'name': 'Nazwa', 'file': 'Plik', 'uploaded': 'Data utworzenia', 'actions': ''},
