@@ -407,15 +407,20 @@ export default {
       })
     },
     formattedDisplay (result) {
+      var display = ''
       if (result.dose && result.form) {
-        return result.name + ' [' + result.form + ', ' + result.dose + ']'
+        display = result.name + ' [' + result.form + ', ' + result.dose + ']'
       } else if (result.dose) {
-        return result.name + '[' + result.dose + ']'
+        display = result.name + '[' + result.dose + ']'
       } else if (result.form) {
-        return result.name + '[' + result.form + ']'
+        display = result.name + '[' + result.form + ']'
       } else {
-        return result.name
+        display = result.name
       }
+      if (result.refundation) {
+        display += ' (nfz)'
+      }
+      return display
     }
   },
   computed: {
