@@ -92,7 +92,7 @@
                             <td><input type="text" :class="[errors.dosage ? 'is-invalid' : '', 'form-control']" v-model="medicine.dosage"></td>
                         </tr>
                         <tr>
-                            <td colspan="6"><input placeholder="Uwagi" type="text"
+                            <td colspan="6"><input placeholder="Uwagi" type="text" maxlength="128"
                                                    class="form-control" v-model="medicine.notes"></td>
                         </tr>
                     </tbody>
