@@ -17,7 +17,7 @@ var examinationRoutes = {
       path: 'lista',
       name: 'examinations',
       component: List,
-      meta: {label: 'Lista badań dodatkowych'},
+      meta: {label: 'Lista badań dodatkowych', permission: 'view_examination'},
       props: {
         columns: ['select', 'name', 'category_name', 'actions'],
         headings: {'name': 'Nazwa', 'category_name': 'Kategoria', 'select': '', 'actions': ''},
@@ -28,21 +28,21 @@ var examinationRoutes = {
       path: 'dodaj',
       name: 'newExamination',
       component: FormView,
-      meta: {label: 'Nowe badanie dodatkowe'},
+      meta: {label: 'Nowe badanie dodatkowe', permission: 'add_examination'},
       props: {backUrl: '/badania-dodatkowe', resource: 'examination', formFields: formFields}
     },
     {
       path: ':id',
       name: 'examination',
       component: FormView,
-      meta: {label: 'Badanie dodatkowe'},
+      meta: {label: 'Badanie dodatkowe', permission: 'view_examination'},
       props: {backUrl: '/badania-dodatkowe', resource: 'examination', readonly: true, formFields: formFields}
     },
     {
       path: ':id/edycja',
       name: 'editExamination',
       component: FormView,
-      meta: {label: 'Edycja'},
+      meta: {label: 'Edycja', permission: 'change_examination'},
       props: {backUrl: '/badania-dodatkowe', resource: 'examination', formFields: formFields}
     }]
 }

@@ -191,6 +191,9 @@ export default {
           this.values[f.name] = this.values[f.name + '_1'] + '-' + this.values[f.name + '_2']
         } else if (f.type === 'date') {
           this.values[f.name] = this.$moment(this.values[f.name]).format('YYYY-MM-DD')
+          if (this.values[f.name] === '') {
+            this.values[f.name] = null
+          }
         }
       })
       console.log(this.values)

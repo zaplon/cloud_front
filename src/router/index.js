@@ -91,7 +91,7 @@ var dashboardRoutes = [
     path: 'kalendarz',
     name: 'Calendar',
     component: Calendar,
-    meta: {label: 'Kalendarz'}
+    meta: {label: 'Kalendarz', permission: 'change_term'}
   },
   {
     path: 'icd10',
@@ -102,27 +102,27 @@ var dashboardRoutes = [
     path: 'ustawienia_systemowe',
     name: 'systemSettings',
     component: SystemSettings,
-    meta: {label: 'Ustawienia systemowe'},
+    meta: {label: 'Ustawienia systemowe', permission: 'view_systemsettings'},
     props: {readonly: true}
   },
   {
     path: 'edycja_ustawien_systemowych',
     name: 'systemSettingsEdit',
     component: SystemSettings,
-    meta: {label: 'Edycja ustawień systemowych'}
+    meta: {label: 'Edycja ustawień systemowych', permission: 'change_systemsettings'}
   },
   {
     path: 'ustawienia_nfz',
     name: 'NFZSettings',
     component: NFZSettings,
-    meta: {label: 'Ustawienia systemowe'},
+    meta: {label: 'Ustawienia NFZ', permission: 'view_nfzsettings'},
     props: {readonly: true}
   },
   {
     path: 'edycja_ustawien_nfz',
     name: 'NFZSettingsEdit',
     component: NFZSettings,
-    meta: {label: 'Edycja ustawień NFZ'}
+    meta: {label: 'Edycja ustawień NFZ', permission: 'change_nfzsettings'}
   },
   {
     path: 'gabinety',
@@ -134,7 +134,7 @@ var dashboardRoutes = [
         path: 'lista',
         name: 'Listagabinetów',
         component: List,
-        meta: {label: 'Lista gabinetów'},
+        meta: {label: 'Lista gabinetów', permission: 'view_localization'},
         props: {
           columns: ['select', 'name', 'code', 'actions'],
           headings: {'name': 'Nazwa', 'code': 'Kod', 'select': '', 'actions': ''},
@@ -145,21 +145,21 @@ var dashboardRoutes = [
         path: 'dodaj',
         name: 'NewLocation',
         component: AddEdit,
-        meta: {label: 'Nowa gabinet'},
+        meta: {label: 'Nowa gabinet', permission: 'add_localization'},
         props: {backUrl: '/gabinety', resource: 'localization', klass: 'LocalizationForm', module: 'timetable.forms'}
       },
       {
         path: ':id',
         name: 'Location',
         component: Detail,
-        meta: {label: 'Gabinet'},
+        meta: {label: 'Gabinet', permission: 'view_localization'},
         props: {resource: 'localization', klass: 'LocalizationForm', module: 'timetable.forms', backUrl: '/gabinety'}
       },
       {
         path: ':id/edycja',
         name: 'Edycja gabinetów',
         component: AddEdit,
-        meta: {label: 'Edycja'},
+        meta: {label: 'Edycja', permission: 'change_localization'},
         props: {backUrl: '/gabinety', resource: 'localization', klass: 'LocalizationForm', module: 'timetable.forms'}
       }]
   },
@@ -168,12 +168,13 @@ var dashboardRoutes = [
     name: 'Użytkownicy',
     component: Index,
     redirect: 'uzytkownicy/lista',
+    meta: {permission: 'view_user'},
     children: [
       {
         path: 'lista',
         name: 'Lista',
         component: UsersList,
-        meta: {label: 'Lista użytkowników'},
+        meta: {label: 'Lista użytkowników', permission: 'view_user'},
         props: {
           columns: ['select', 'username', 'last_name', 'first_name', 'role_display', 'actions'],
           headings: {
@@ -191,21 +192,21 @@ var dashboardRoutes = [
         path: 'dodaj',
         name: 'NewUser',
         component: User,
-        meta: {label: 'Nowy użytkownik'},
+        meta: {label: 'Nowy użytkownik', permission: 'add_user'},
         props: {backUrl: '/uzytkownicy', resource: 'user', klass: 'UserModelForm', module: 'user_profile.forms'}
       },
       {
         path: ':id',
         name: 'User',
         component: User,
-        meta: {label: 'Użytkownik'},
+        meta: {label: 'Użytkownik', permission: 'view_user'},
         props: {readonly: true}
       },
       {
         path: ':id/edycja',
         name: 'Edycja użytkownika',
         component: User,
-        meta: {label: 'Edycja'},
+        meta: {label: 'Edycja', permission: 'change_user'},
         props: {readonly: false}
       }]
   },
@@ -218,13 +219,14 @@ var dashboardRoutes = [
       {
         path: 'lista',
         name: 'ListaPacjentow',
-        component: Patients
+        component: Patients,
+        meta: {label: 'Lista pacjentów', permission: 'view_patient'}
       },
       {
         path: 'nowy',
         name: 'NewPatient',
         component: AddEdit,
-        meta: {label: 'Nowy pacjent'},
+        meta: {label: 'Nowy pacjent', permission: 'add_patient'},
         props: {
           backUrl: '/pacjenci',
           resource: 'patient',
@@ -236,32 +238,32 @@ var dashboardRoutes = [
         path: ':id',
         name: 'Pacjent',
         component: Patient,
-        meta: {label: 'Pacjent'}
+        meta: {label: 'Pacjent', permission: 'view_patient'}
       },
       {
         path: ':id/edycja',
         name: 'Edycja pacjenta',
         component: PatientEdit,
-        meta: {label: 'Edycja'}
+        meta: {label: 'Edycja', permission: 'change_patient'}
       }]
   },
   {
     path: 'wizyty',
     name: 'visits',
     component: Visits,
-    meta: {label: 'Wizyty'}
+    meta: {label: 'Wizyty', permission: 'view_visit'}
   },
   {
     path: 'archiwum',
     name: 'Archive',
     component: Archive,
-    meta: {label: 'Archiwum'},
+    meta: {label: 'Archiwum', permission: 'view_result'},
     children: [
       {
         path: ':id',
         name: 'PatientArchive',
         component: Archive,
-        meta: {label: 'Pacjent'}
+        meta: {label: 'Pacjent', permission: 'view_result'}
       }
     ]
   },
@@ -300,25 +302,26 @@ var dashboardRoutes = [
       {
         path: 'lista',
         name: 'medicinesList',
-        meta: {label: 'Lista leków'},
+        meta: {label: 'Lista leków', permission: 'view_medicine'},
         component: Medicines
       },
       {
         path: ':id/edycja',
         name: 'editMedicine',
-        meta: {label: 'Edycja leku'},
+        meta: {label: 'Edycja leku', permission: 'change_medicine'},
         component: MedicineEdit
       },
       {
         path: 'dodaj',
         name: 'addMedicine',
-        meta: {label: 'Nowy lek'},
+        meta: {label: 'Nowy lek', permission: 'add_medicine'},
         component: MedicineEdit
       },
       {
         path: ':id',
         name: 'Lek',
-        component: Medicine
+        component: Medicine,
+        meta: {permission: 'view_medicine'}
       }
     ]
   },
@@ -326,13 +329,13 @@ var dashboardRoutes = [
     path: 'zakladki',
     name: 'Tabs',
     component: Tabs,
-    meta: {label: 'Zakładki'}
+    meta: {label: 'Zakładki', permission: 'view_tab'}
   },
   {
     path: 'szablony',
     name: 'Templates',
     component: Templates,
-    meta: {label: 'Szablony'}
+    meta: {label: 'Szablony', permission: 'view_template'}
   },
   {
     path: 'formularze',
@@ -441,7 +444,7 @@ var routes = [
     path: '/visit/:id',
     name: 'visit',
     component: Visit,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true, permission: 'change_visit' }
   }
 ]
 
@@ -500,7 +503,7 @@ router.beforeEach((to, from, next) => {
           }
         })
       } else {
-        if (to.meta.permission && !(to.meta.permission in store.state.user.user_permissions)) {
+        if (to.meta.permission && store.state.user.user_permissions.filter(p => p.codename === to.meta.permission).length === 0) {
           next({
             path: '/brak-uprawnien/',
             query: { redirect: to.fullPath }

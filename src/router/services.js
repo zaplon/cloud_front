@@ -20,7 +20,7 @@ var serviceRoutes = {
       path: 'lista',
       name: 'servicesList',
       component: List,
-      meta: {label: 'Lista usług'},
+      meta: {label: 'Lista usług', permission: 'view_service'},
       props: {
         columns: ['select', 'name', 'color', 'actions'],
         headings: {'name': 'Nazwa', 'color': 'Kolor', 'select': '', 'actions': ''},
@@ -31,21 +31,21 @@ var serviceRoutes = {
       path: 'dodaj',
       name: 'newService',
       component: FormView,
-      meta: {label: 'Nowa usługa'},
+      meta: {label: 'Nowa usługa', permission: 'add_service'},
       props: {backUrl: '/uslugi/', resource: 'service', formFields: formFields}
     },
     {
       path: ':id',
       name: 'service',
       component: FormView,
-      meta: {label: 'Usługi'},
+      meta: {label: 'Usługi', permission: 'view_service'},
       props: {backUrl: '/uslugi/', resource: 'service', readonly: true, formFields: formFields}
     },
     {
       path: ':id/edycja',
       name: 'editService',
       component: FormView,
-      meta: {label: 'Edycja'},
+      meta: {label: 'Edycja', permission: 'change_service'},
       props: {backUrl: '/uslugi/', resource: 'service', formFields: formFields}
     }]
 }

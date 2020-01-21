@@ -34,6 +34,10 @@ if (process.env.NODE_ENV === 'production') {
 axios.defaults.baseURL = backendUrl
 
 axios.interceptors.response.use(null, function (err) {
+  if (err.status === 401) {
+    delete localStorage.token
+    this.$router.push('/')
+  }
   if (err.status === 500) {
     this.$notify({
       group: 'nots',

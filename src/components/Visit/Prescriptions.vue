@@ -3,7 +3,7 @@
         <b-modal ok-title="Ok" ok-only size="md" id="prescriptionErrorModal" title="Wystąpił błąd"
                  ref="prescriptionErrorModal">
             <p>Wystąpił problem podczas komunikacji z systemem e-recepty.</p>
-            <p>{{ p1Error }}</p>
+            <pre><code>{{ p1Error }}</code></pre>
         </b-modal>
         <b-tabs content-class="mt-3">
             <b-tab v-for="(prescription, index) in prescriptions" :key="'p' + index" :active="index == 0">
@@ -79,7 +79,7 @@ export default {
         promise.then(response => this.prescriptions.splice(index, 1)).catch(error => {
           console.log(error)
           this.p1Error = error.response.data
-          this.prescriptionErrorModal.show()
+          this.$refs.prescriptionErrorModal.show()
         })
       } else {
         this.prescriptions.splice(index, 1)

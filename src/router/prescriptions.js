@@ -20,7 +20,7 @@ var prescriptionsRoutes = {
       path: 'lista',
       name: 'prescriptionsList',
       component: List,
-      meta: {label: 'Lista recept'},
+      meta: {label: 'Lista recept', permission: 'view_prescription'},
       props: {
         columns: ['patient', 'date', 'external_code', 'actions'],
         headings: {'patient': 'Pacjent',
@@ -76,14 +76,14 @@ var prescriptionsRoutes = {
       path: ':id',
       name: 'prescription',
       component: FormView,
-      meta: {label: 'Recepta'},
+      meta: {label: 'Recepta', permission: 'view_prescription'},
       props: {backUrl: '/recepty/lista/', resource: 'prescription', readonly: true, formFields: formFields}
     },
     {
       path: ':id/edycja',
       name: 'editPrescription',
       component: FormView,
-      meta: {label: 'Edycja'},
+      meta: {label: 'Edycja', permission: 'change_prescription'},
       props: {backUrl: '/recepty/lista/', resource: 'prescription', formFields: formFields}
     }]
 }

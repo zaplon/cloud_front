@@ -101,7 +101,7 @@
         </div>
         <div class="row mb-2" v-if="prescription.external_code">
             <div class="col-md-12">
-                <span class="mr-1">Kod e-recepty:</span><strong>{{ prescriptionShortCode }}</strong>
+                <span class="mr-1" id="s-external-code">Kod e-recepty:</span><strong>{{ prescriptionShortCode }}</strong>
             </div>
         </div>
         <div class="row mb-2" v-if="medicinesCount >= 5">
