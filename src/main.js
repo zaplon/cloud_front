@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === 'production') {
 axios.defaults.baseURL = backendUrl
 
 axios.interceptors.response.use(null, function (err) {
-  if (err.response.status === 401) {
+  if (err.response && err.response.status === 401) {
     delete localStorage.token
     app.$router.push('/')
   }

@@ -107,7 +107,7 @@ export default {
       icon: 'fa fa-gear',
       children: [
         {
-          id: 'settings',
+          id: 'system_settings',
           name: 'Systemowe',
           url: '/ustawienia_systemowe'
         },
