@@ -34,18 +34,18 @@ if (process.env.NODE_ENV === 'production') {
 axios.defaults.baseURL = backendUrl
 
 axios.interceptors.response.use(null, function (err) {
-  if (err.status === 401) {
+  if (err.response.status === 401) {
     delete localStorage.token
-    this.$router.push('/')
+    app.$router.push('/')
   }
-  if (err.status === 500) {
-    this.$notify({
-      group: 'nots',
-      title: 'Wystąpił bład',
-      text: '',
-      type: 'danger'
-    })
-  }
+  // if (err.response.status === 500) {
+  //   app.$notify({
+  //     group: 'nots',
+  //     title: 'Wystąpił bład',
+  //     text: '',
+  //     type: 'danger'
+  //   })
+  // }
   return Promise.reject(err)
 })
 

@@ -100,8 +100,8 @@
                     </div>
                 </template>
                 <template v-else-if="field.type=='date'">
-                    <v-date-picker mode='single' v-model='values[field.name]'>
-                        <input type="text" class="form-control" slot-scope="props" v-model="props.inputValue">
+                    <v-date-picker mode='single' v-model='values[field.name]'
+                                   :input-props='{class: "form-control"}'>
                     </v-date-picker>
                 </template>
                 <template v-else-if="field.type=='checkbox'">
