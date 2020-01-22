@@ -100,8 +100,8 @@ export default {
           if (this.$refs[r][0]) {
             this.$refs[r][0].savePrescription(tmp).catch(error => {
               console.log(error)
-              this.p1Error = error.response.data
-              this.prescriptionErrorModal.show()
+              // this.p1Error = error.response.data
+              // this.$refs.prescriptionErrorModal.show()
             })
           }
         }

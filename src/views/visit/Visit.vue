@@ -192,7 +192,12 @@ export default {
         {name: 'birth_date',
           label: 'Data urodzenia',
           type: 'date',
-          helpText: 'Zostanie odczytana z numeru pesel, jeżeli pozostawiona pusta'}
+          helpText: 'Zostanie odczytana z numeru pesel, jeżeli pozostawiona pusta'},
+        {name: 'street', label: 'Ulica'},
+        {name: 'street_number', label: 'Numer ulicy'},
+        {name: 'apartment_number', label: 'Numer mieszkania', helpText: 'Opcjonalny'},
+        {name: 'postal_code', label: 'Kod pocztowy', type: 'postal_code'},
+        {name: 'city', label: 'Miejscowość'}
       ],
       patientFormFields: [
         {name: 'first_name', label: 'Imię'},
@@ -211,6 +216,7 @@ export default {
         {name: 'mobile', label: 'Numer telefonu'},
         {name: 'street', label: 'Ulica'},
         {name: 'street_number', label: 'Numer ulicy'},
+        {name: 'apartment_number', label: 'Numer mieszkania'},
         {name: 'postal_code', label: 'Kod pocztowy', type: 'postal_code'},
         {name: 'city', label: 'Miejscowość'}
       ],
