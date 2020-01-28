@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="card-body">
-            <backend-form :pk="patientId" :autoload="false" ref="patientForm" klass="PatientModelForm" module="user_profile.forms"></backend-form>
+            <generic-form ref="patientForm" :fields="patientFormFields"></generic-form>
         </div>
         <div class="card-footer">
             <button class="btn btn-danger pull-left" @click="showConfirmDeleteModal">Usuń</button>
@@ -22,22 +22,35 @@
 </template>
 <script>
 import axios from 'axios'
+import fields from '@/components/Forms/_forms_fields.js'
+import GenericForm from '@/components/Forms/GenericForm'
 export default {
   name: 'patientEdit',
+  components: {GenericForm},
   data () {
     return {
       patientId: this.$route.params.id ? parseInt(this.$route.params.id) : 0,
       patient: {},
-      label: this.patientId
+      label: this.patientId,
+      patientFormFields: fields.patientBig
     }
   },
   methods: {
     cancel () {
-      this.$router.push('/pacjenci/' + this.patientId)
+      this.$router.push('/pacjenci/' + this.patientId + '/')
     },
     savePatient () {
-      this.$refs.patientForm.handleSubmit(response => {
+      var data = this.$refs.patientForm.getData()
+      var promise = null
+      if (this.patientId) {
+        promise = axios.patch('/rest/patients/' + this.patientId + '/', data)
+      } else {
+        promise = axios.post('/rest/patients/', data)
+      }
+      promise.then(response => {
         this.$router.push('/pacjenci/')
+      }).catch(error => {
+        this.$refs.patientForm.errors = error.response.data
       })
     },
     showConfirmDeleteModal () {
@@ -56,8 +69,8 @@ export default {
     axios.get('rest/patients/' + this.patientId + '/').then(response => {
       this.patient = response.data
       this.label = response.data.name_with_pesel
+      this.$refs.patientForm.setData(this.patient)
     })
-    this.$refs.patientForm.loadHtml(this.patientId)
   }
 }
 </script>

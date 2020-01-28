@@ -73,7 +73,8 @@
                         <p class="text-danger" :key="error" v-for="error in termForm.errors">{{ error }}</p>
                     </div>
                 </div>
-                <backend-form v-show="term.patientEdition" ref="patientForm" klass="PatientForm" module="user_profile.forms" :pk="term.patientId"></backend-form>
+                <generic-form v-show="term.patientEdition" ref="patientForm" :fields="patientFormFields">
+                </generic-form>
             </template>
             <div slot="modal-footer" class="w-100">
                 <button v-show="!(term.edition || term.patientEdition) && term.status != 'FINISHED'" @click="goToEdition"
@@ -104,11 +105,13 @@ import { FullCalendar } from 'vue-full-calendar'
 import Autocomplete from 'vuejs-auto-complete'
 import 'fullcalendar/dist/locale/pl'
 import axios from 'axios'
+import fields from '@/components/Forms/_forms_fields.js'
 import VueTimepicker from 'vuejs-timepicker'
 import EventBus from '@/eventBus'
+import GenericForm from '@/components/Forms/GenericForm'
 export default {
   name: 'terms-calendar',
-  components: {FullCalendar, Autocomplete, VueTimepicker},
+  components: {GenericForm, FullCalendar, Autocomplete, VueTimepicker},
   props: {
     singleUser: Boolean
   },
@@ -244,12 +247,20 @@ export default {
         }
       } else
       if (this.term.patientEdition) {
-        this.$refs.patientForm.handleSubmit(res => {
-          this.termForm.patient = {id: res.id, label: res.label}
-          this.autocompletes.patient = res.label
+        let patientData = this.$refs.patientForm.getData()
+        var promise = null
+        if (this.term.patient) {
+          promise = axios.patch('/rest/patients/' + this.term.patient.id + '/', patientData)
+        } else {
+          promise = axios.post('/rest/patients/', patientData)
+        }
+        promise.then(response => {
           this.term.patientEdition = false
-          this.$refs.patientForm.loadHtml()
           this.term.edition = true
+          this.term.patient = response.data
+          this.autocompletes.patient = response.data.name_with_pesel
+        }).catch(errors => {
+          this.$refs.patientForm.errors = errors.response.data
         })
       } else { this.$router.push({name: 'visit', params: {id: this.term.id}}) }
     },
@@ -403,6 +414,7 @@ export default {
         edition: false,
         patientEdition: false
       },
+      patientFormFields: fields.patient,
       move: {
         event: {},
         revert: null,

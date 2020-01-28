@@ -8,8 +8,7 @@
         <div class="card-body">
             <b-tabs pills fill>
                 <b-tab title="Informacje ogólne" active>
-                        <backend-form :autoload="false" :readonly="true" ref="patientForm"
-                                      klass="PatientModelForm" module="user_profile.forms"></backend-form>
+                    <generic-form :readonly="true" ref="patientForm" :fields="patientFormFields"></generic-form>
                 </b-tab>
                 <b-tab title="Archiwum">
                         <v-server-table ref="table" url="rest/results/" :columns="columns" :options="options">
@@ -32,11 +31,15 @@
 <script>
 import axios from 'axios'
 import EventBus from '@/eventBus'
+import fields from '@/components/Forms/_forms_fields.js'
+import GenericForm from '@/components/Forms/GenericForm'
 export default {
   name: 'patient',
+  components: {GenericForm},
   data () {
     return {
       patientId: 0,
+      patientFormFields: fields.patientBig,
       patient: {},
       label: this.patientId,
       archiveLink: '',
@@ -63,8 +66,8 @@ export default {
       axios.get('rest/patients/' + this.patientId + '/').then(response => {
         this.patient = response.data
         this.label = response.data.name_with_pesel
+        this.$refs.patientForm.setData(this.patient)
       })
-      this.$refs.patientForm.loadHtml(this.patientId)
     },
     showDocument (document) {
       EventBus.$emit('show-document', document.file, document.name)

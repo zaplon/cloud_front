@@ -42,7 +42,7 @@ export default {
         {name: 'regon', label: 'Numer REGON'},
         {name: 'nfz_department', label: 'Oddział NFZ'},
         {name: 'street', label: 'Ulica'},
-        {name: 'street_number', label: 'Numer ulicy'},
+        {name: 'street_number', label: 'Numer domu'},
         {name: 'postal_code', label: 'Kod pocztowy'},
         {name: 'city', label: 'Miejscowość'},
         {name: 'documents_header_left', label: 'Nagłówek dokumentów (strona lewa)', type: 'textarea'},

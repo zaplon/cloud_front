@@ -109,6 +109,14 @@
                                             </template>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-4"><label class="col-form-label">Adres</label></div>
+                                        <div class="col-auto">
+                                            <div class="col-form-label">
+                                                <strong>{{ visit.term.patient.address_display }}</strong>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row mt-2" v-show="visit.term.patient.info">
@@ -163,6 +171,7 @@ import Medicines from '@/components/Visit/Medicines'
 import Oculist from '@/components/Visit/Oculist'
 import Referrals from '@/components/Visit/Referrals'
 import forms from '@/_forms.js'
+import fields from '@/components/Forms/_forms_fields.js'
 import EventBus from '@/eventBus'
 import GenericForm from '@/components/Forms/GenericForm'
 import Prescriptions from '@/components/Visit/Prescriptions'
@@ -194,32 +203,12 @@ export default {
           type: 'date',
           helpText: 'Zostanie odczytana z numeru pesel, jeżeli pozostawiona pusta'},
         {name: 'street', label: 'Ulica'},
-        {name: 'street_number', label: 'Numer ulicy'},
+        {name: 'street_number', label: 'Numer domu', helpText: 'Opcjonalny'},
         {name: 'apartment_number', label: 'Numer mieszkania', helpText: 'Opcjonalny'},
         {name: 'postal_code', label: 'Kod pocztowy', type: 'postal_code'},
         {name: 'city', label: 'Miejscowość'}
       ],
-      patientFormFields: [
-        {name: 'first_name', label: 'Imię'},
-        {name: 'last_name', label: 'Nazwisko'},
-        {name: 'gender',
-          label: 'Płeć',
-          type: 'select',
-          choices: [{id: 'M', name: 'Mężczyzna'}, {id: 'F', name: 'Kobieta'}]
-        },
-        {name: 'pesel', label: 'Numer PESEL'},
-        {name: 'birth_date',
-          label: 'Data urodzenia',
-          type: 'date',
-          helpText: 'Zostanie odczytana z numeru pesel, jeżeli pozostawiona pusta'},
-        {name: 'email', label: 'Adres e-mail'},
-        {name: 'mobile', label: 'Numer telefonu'},
-        {name: 'street', label: 'Ulica'},
-        {name: 'street_number', label: 'Numer ulicy'},
-        {name: 'apartment_number', label: 'Numer mieszkania'},
-        {name: 'postal_code', label: 'Kod pocztowy', type: 'postal_code'},
-        {name: 'city', label: 'Miejscowość'}
-      ],
+      patientFormFields: fields.patient,
       forms: {
         show: false,
         items: [],
@@ -283,6 +272,8 @@ export default {
       data['doctor_pwz'] = this.$store.state.user.doctor.pwz
       data['icd_text'] = []
       data['icd'] = []
+      data['address'] = data['address_display']
+      data['city'] = this.$store.state.user.system_settings.city
       this.icds.forEach((icd) => {
         data['icd_text'].push(icd.desc)
         data['icd'].push(icd.code)

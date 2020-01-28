@@ -60,7 +60,10 @@ export default {
     showForm (form) {
       if (this.patient) {
         axios.get('/rest/patients/' + this.patient.id + '/').then(response => {
-          this.$refs.pdfForm.show(form.name, form.title, response.data, form.modalClass)
+          let data = response.data
+          data['address'] = data['address_display']
+          data['city'] = data['city'] = this.$store.state.user.system_settings.city
+          this.$refs.pdfForm.show(form.name, form.title, data, form.modalClass)
         })
       } else {
         this.$refs.pdfForm.show(form.name, form.title, {}, form.modalClass)

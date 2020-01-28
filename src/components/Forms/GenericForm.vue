@@ -2,7 +2,7 @@
     <form @submit.prevent="save" v-if="loaded">
         <div class="form-group row" v-for="field in fields" v-bind:key="field.name">
             <div class="col-sm-3">
-                <label :for="field.name">{{ field.label }}<span v-if="field.required">*</span></label>
+                <label :for="field.name" class="col-form-label">{{ field.label }}<span v-if="field.required">*</span></label>
             </div>
             <div class="col-sm-9">
                 <template v-if="field.type=='multiselect'">
@@ -100,8 +100,11 @@
                     </div>
                 </template>
                 <template v-else-if="field.type=='date'">
-                    <v-date-picker mode='single' v-model='values[field.name]'
-                                   :input-props='{class: "form-control"}'>
+                    <v-date-picker mode='single' v-model='values[field.name]' v-if="readonly || field.readonly"
+                                   :input-props='{class: "form-control-plaintext", readonly: true}'>
+                    </v-date-picker>
+                    <v-date-picker mode='single' v-model='values[field.name]' v-else
+                                   :input-props='{class: "form-control" }'>
                     </v-date-picker>
                 </template>
                 <template v-else-if="field.type=='checkbox'">
@@ -177,21 +180,30 @@ export default {
       return field.attributes
     },
     getChoiceFromId (value, choices, choiceDisplay) {
+      var match = choices.find(x => x.id === value)
+      if (!match) {
+        return ''
+      }
       if (choiceDisplay) {
-        return choiceDisplay(choices.find(x => x.id === value))
+        return choiceDisplay(match)
       } else {
-        return choices.find(x => x.id === value).name
+        return match.name
       }
     },
     getData () {
       this.fields.forEach((f) => {
+        if (f.readonly) {
+          this.values[f.name] = null
+          return
+        }
         if (f.type === 'editor') {
           this.values[f.name] = this.$refs[f.name + '_editor'][0].getHTML()
         } else if (f.type === 'postal_code') {
           this.values[f.name] = this.values[f.name + '_1'] + '-' + this.values[f.name + '_2']
         } else if (f.type === 'date') {
-          this.values[f.name] = this.$moment(this.values[f.name]).format('YYYY-MM-DD')
-          if (this.values[f.name] === '') {
+          if (this.values[f.name]) {
+            this.values[f.name] = this.$moment(this.values[f.name]).format('YYYY-MM-DD')
+          } else {
             this.values[f.name] = null
           }
         }
