@@ -2,7 +2,7 @@
     <form @submit.prevent="save" v-if="loaded">
         <div class="form-group row" v-for="field in fields" v-bind:key="field.name">
             <div class="col-sm-3">
-                <label :for="field.name" class="col-form-label">{{ field.label }}<span v-if="field.required">*</span></label>
+                <label :for="field.name" class="">{{ field.label }}<span v-if="field.required">*</span></label>
             </div>
             <div class="col-sm-9">
                 <template v-if="field.type=='multiselect'">
