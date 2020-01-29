@@ -225,14 +225,8 @@ var dashboardRoutes = [
       {
         path: 'nowy',
         name: 'NewPatient',
-        component: AddEdit,
-        meta: {label: 'Nowy pacjent', permission: 'add_patient'},
-        props: {
-          backUrl: '/pacjenci',
-          resource: 'patient',
-          klass: 'PatientModelForm',
-          module: 'user_profile.forms'
-        }
+        component: PatientEdit,
+        meta: {label: 'Nowy pacjent', permission: 'add_patient'}
       },
       {
         path: ':id',

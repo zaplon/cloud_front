@@ -31,7 +31,7 @@ export default {
     return {
       patientId: this.$route.params.id ? parseInt(this.$route.params.id) : 0,
       patient: {},
-      label: this.patientId,
+      label: this.patientId || this.$route.meta.label,
       patientFormFields: fields.patientBig
     }
   },
