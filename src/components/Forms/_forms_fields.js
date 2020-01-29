@@ -5,7 +5,8 @@ var patientFields = [
     required: true,
     label: 'Płeć',
     type: 'select',
-    choices: [{id: 'M', name: 'Mężczyzna'}, {id: 'F', name: 'Kobieta'}]
+    choices: [{id: 'M', name: 'Mężczyzna'}, {id: 'F', name: 'Kobieta'}],
+    helpText: 'Zostanie odczytana z numeru pesel, jeżeli pozostawiona pusta'
   },
   {name: 'pesel', label: 'Numer PESEL'},
   {name: 'birth_date',
