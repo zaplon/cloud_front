@@ -199,7 +199,7 @@ export default {
         if (f.type === 'editor') {
           this.values[f.name] = this.$refs[f.name + '_editor'][0].getHTML()
         } else if (f.type === 'postal_code') {
-          this.values[f.name] = this.values[f.name + '_1'] + '-' + this.values[f.name + '_2']
+          this.values[f.name] = (this.values[f.name + '_1'] || '') + '-' + (this.values[f.name + '_2'] || '')
         } else if (f.type === 'date') {
           if (this.values[f.name]) {
             this.values[f.name] = this.$moment(this.values[f.name]).format('YYYY-MM-DD')

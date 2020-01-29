@@ -88,7 +88,7 @@
                     <b-btn size="sm" class="float-right" variant="default" @click="modalCancel">Anuluj</b-btn>
                     <b-btn size="sm" class="float-right mr-2" variant="primary" @click="modalOk(false)">Zapisz</b-btn>
                     <b-btn v-if="!term.patientEdition && this.singleUser" size="sm" class="float-right mr-2" variant="primary"
-                           @click="modalOk(true)" :disabled="!term.patientId && !termForm.patient">
+                           @click="modalOk(true)" :disabled="!termForm.patient">
                         Zapisz i rozpocznij
                     </b-btn>
                 </template>
@@ -258,6 +258,7 @@ export default {
           this.term.patientEdition = false
           this.term.edition = true
           this.term.patient = response.data
+          this.termForm.patient = response.data
           this.autocompletes.patient = response.data.name_with_pesel
         }).catch(errors => {
           this.$refs.patientForm.errors = errors.response.data
@@ -410,7 +411,6 @@ export default {
         status: '',
         id: null,
         start: null,
-        patientId: null,
         edition: false,
         patientEdition: false
       },
