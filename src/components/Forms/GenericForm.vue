@@ -193,7 +193,7 @@ export default {
     getData () {
       this.fields.forEach((f) => {
         if (f.readonly) {
-          this.values[f.name] = null
+          delete this.values[f.name]
           return
         }
         if (f.type === 'editor') {
