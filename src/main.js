@@ -36,6 +36,8 @@ axios.defaults.baseURL = backendUrl
 axios.interceptors.response.use(null, function (err) {
   if (err.response && err.response.status === 401) {
     delete localStorage.token
+    window.$cookies.remove('csrftoken')
+    window.$cookies.remove('sessionid')
     app.$router.push('/')
   }
   // if (err.response.status === 500) {

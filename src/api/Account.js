@@ -6,6 +6,8 @@ var account = {
   goToStart (vue, message) {
     delete localStorage.token
     delete axios.defaults.headers.common['Authorization']
+    window.$cookies.remove('csrftoken')
+    window.$cookies.remove('sessionid')
     vue.$router.push({name: 'Login', params: {message: message}})
   },
   logOut (vue, message) {
