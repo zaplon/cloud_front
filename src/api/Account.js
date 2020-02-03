@@ -13,6 +13,7 @@ var account = {
   logOut (vue, message) {
     axios.post('rest-auth/logout/').then(request => {
       this.goToStart(vue, message)
+      store.commit('setUserData', {modules: []})
       vue.$forms = {}
     }).catch(() => {
       this.goToStart(vue)

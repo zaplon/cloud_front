@@ -44,6 +44,7 @@ export default {
       var items = []
       var me = this
       nav.items.forEach(function (item) {
+        var newItem = JSON.parse(JSON.stringify(item))
         if (item.children) {
           var allowedChildren = []
           item.children.forEach(function (c) {
@@ -55,9 +56,9 @@ export default {
               allowedChildren.push(c)
             }
           })
-          item.children = allowedChildren
+          newItem.children = allowedChildren
         }
-        if (me.$store.state.user.modules.includes(item.id) || (item.children && item.children.length > 0)) { items.push(item) }
+        if (me.$store.state.user.modules.includes(item.id) || (item.children && allowedChildren.length > 0)) { items.push(newItem) }
       })
       return items
     }
