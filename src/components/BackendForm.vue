@@ -40,10 +40,10 @@ export default {
   },
   methods: {
     loadHtml (id, data) {
-      if (!id && this.klass in this.$forms) {
-        this.htmlData = this.$forms[this.klass]
-        return {then: callback => callback()}
-      }
+      // if (!id && this.klass in this.$forms) {
+      //   this.htmlData = this.$forms[this.klass]
+      //   return {then: callback => callback()}
+      // }
       let params = {klass: this.klass, module: this.module, id: id, data: data}
       if (this.blank) { params.blank = 1 }
       if (this.readonly) { params.read_only = 1 }
